@@ -1,0 +1,26 @@
+{
+  "name": "electron-mdc-quick-start",
+  "version": "1.0.0",
+  "description": "Template for new MDC-based project.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "electron . -c",
+    "test": "electron . -d",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruslang02/electron-mdc-quick-start.git"
+  },
+  "author": "ruslang02",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ruslang02/electron-mdc-quick-start/issues"
+  },
+  "homepage": "https://github.com/ruslang02/electron-mdc-quick-start#readme",
+  "dependencies": {
+    "material-components-web": "^0.35.2",
+    "material-design-icons-webfont": "^1.0.0",
+    "sass": "^1.6.2"
+  }
+}
