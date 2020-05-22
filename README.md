@@ -16,7 +16,7 @@
 4. Open Vapor Store, Go to Settings, Log into your My JDownloader account
 5. Create an account for the IGDB API
 6. Enter your IGDB API Key in the Vapor Store Settings
-7. Find your favorite games site page and head to the /all-games/ page (Preinstalled Games ONLY!)  
+7. Find your favorite games site page and head to the /all-games page (Preinstalled Games ONLY!)  
 8. Enter the full url in the Vapor Store generate games list settings
 9. Wait for the list to generate and enjoy!
 
