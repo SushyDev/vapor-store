@@ -1,7 +1,5 @@
 # Vapor Store
 
-Vapor Store. A repo based game store
-
 ### Requirements
 
 - [Vapor Store](http://localhost/)
