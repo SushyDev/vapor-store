@@ -1,0 +1,162 @@
+.scroll-box {
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+}
+
+.game-info {
+	display: flex;
+	flex-direction: row;
+	height: fit-content;
+    width: 100%;
+    text-transform: uppercase;
+    overflow: scroll;
+}
+
+.game-cover-download {
+	position: relative;
+	margin: 20px 10px 20px 20px;
+	width: 300px;
+	min-width: 300px;
+	height: fit-content;
+}
+
+.game-cover {
+	position: relative;
+	height: auto;
+	width: 100%;
+}
+
+.game-exe-list {
+	position: relative;
+	margin-top: 20px;
+	width: 100%;
+	height: 50px;
+	border: none;
+	background-color: rgba(0, 0, 0, .5);
+	font-size: 20px;
+	color: white;
+	font-family: vapor;
+	display: flex; 
+	justify-content: center;
+	align-items: center;
+}
+
+.game-remove {
+	position: relative;
+	margin-top: 20px;
+	width: 100%;
+	height: 50px;
+	border: none;
+	background-color: rgba(0, 0, 0, .5);
+	font-size: 20px;
+	color: white;
+	font-family: vapor;
+	display: flex; 
+	justify-content: center;
+	align-items: center;
+}
+
+
+.game-title-desc {
+	position: relative;
+	margin: 20px 20px 20px 10px;
+	min-width: 600px;
+	max-width: 1000px;
+	height: fit-content;
+	background-color: rgba(0, 0, 0, .5);
+	padding: 10px;
+}
+
+.game-title {
+	position: relative;
+	color: white;
+	margin-top: 0px;
+	font-size: 33px;
+}
+
+.game-desc {
+	position: relative;
+	color: white;
+	font-size: 23px;
+	margin: 0px;
+}
+
+.game-date-rating {
+	position: relative;
+	margin: 20px 20px 20px 10px;
+	padding: 10px;
+	min-width: 600px;
+	max-width: 1000px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+	height: fit-content;
+	font-size: 25px;
+	color: white;
+	font-family: vapor;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.game-date {
+	position: relative;
+}
+
+.game-rating {
+	position: relative;
+}
+
+.game-screenshot-menu {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	margin: 20px 20px 20px 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	min-width: 600px;
+	max-width: 1000px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+	height: fit-content;
+	font-size: 25px;
+	color: white;
+	font-family: vapor;
+}
+
+.scroll-button {
+	background-color: rgba(0, 0, 0, .5);
+	border: none;
+	color: white;
+	font-size: 30px;
+	font-family: vapor;
+	font-stretch: expanded;
+	position: relative;
+	height: 300px;
+}
+
+.scroll-button:nth-of-type(1) { 
+	left: -10px;
+}
+
+.scroll-button:nth-of-type(2) { 
+	left: 10px;
+}
+
+.game-screenshots {
+	height: fit-content;
+	overflow: auto;
+	white-space: nowrap;
+}
+
+.game-screenshot {
+	display: inline-block;
+	height: 300px;
+	padding-right: 20px;
+}
+
+div::-webkit-scrollbar {
+    display: none;
+  }

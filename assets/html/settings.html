@@ -1,0 +1,78 @@
+<head>
+  <title>Vapor Store - Settings</title>
+
+  <script src="../js/init.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/settings.js" defer></script>
+
+  <link rel="stylesheet" href="../css/settings.css">
+</head>
+
+<body>
+
+  <h1>SETTINGS</h1>
+
+  <h2>CUSTOM BACKGROUND</h2>
+
+  <div class="settings-div  custom-wallpaper">
+    <button onclick="setBackground()">Set</button>
+    <div class="holder">
+      <input type="text" id="background-url" autocomplete="off">
+    </div>
+  </div>
+
+
+  <h2>DOWNLOAD LOCATION</h2>
+
+  <div class="settings-div  custom-download-location">
+    <button onclick="getDirectory('download')">Choose</button>
+    <div class="holder">
+      <input id="current-download-directory" disabled></input>
+    </div>
+  </div>
+
+  <h2>JDOWNLOADER LOGIN</h2>
+
+  <div class="settings-div  downloader-login">
+
+    <div class="holder">
+      <input id="downloader-email" placeholder="Email"></input>
+      <input id="downloader-pass" placeholder="Password"></input>
+      <button onclick="downloaderLogin()">Login</button>
+      <input id="downloader-details" class="downloader-details" disabled></input>
+    </div>
+  </div>
+  
+  <h2>IGDB LOGIN</h2>
+
+  <div class="settings-div  igdb-login">
+
+    <div class="holder">
+      <input id="igdb-token" placeholder="Token"></input>
+      <button onclick="igdbLogin()">Login</button>
+      <input id="igdb-details" class="igdb-details" disabled></input>
+    </div>
+  </div>
+
+  <h2>GENERATE GAMES LIST</h2>
+
+  <div class="settings-div  generate-games">
+
+    <div class="holder">
+      <input id="games-site" placeholder="Website"></input>
+      <button onclick="makeList()">Generate</button>
+      <input id="generate-details" class="generate-details" disabled></input>
+    </div>
+  </div>
+
+  </div>
+
+  <h2>VERSION</h2>
+
+  <div class="settings-div app-version">
+    <div class="holder">
+      <input id="current-version" disabled></input>
+    </div>
+  </div>
+
+</body>
