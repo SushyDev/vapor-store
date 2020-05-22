@@ -2,7 +2,7 @@
 
 ### Requirements
 
-- [Vapor Store](http://localhost/)
+- [Vapor Store](https://codeload.github.com/CrypticShy/vapor-store/zip/v1.0)
 - [JDownloader](https://jdownloader.org/)
 - [My JDownloader Account](https://my.jdownloader.org/login.html)
 - [IGDB API Key](https://api.igdb.com/signup)
