@@ -44,3 +44,7 @@
 | Tray Icon  | Options |
 | ------------- | ------------- |
 | Start minimized  | True  |
+
+### Support my work
+
+ - [Donate](https://ko-fi.com/sushy)
