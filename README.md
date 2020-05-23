@@ -27,6 +27,12 @@
 | Remove finished downloads:  | never  | 
 | If the file already exists:  | Overwrite  | 
 
+| Miscellaneous  | Options |
+| ------------- | ------------- |
+| Delete Archive Files after successful extraction  | Delete files from Harddisk  |
+| Delete Archive download links after successful extraction  | False  |
+| If file exists...  | Overwrite the file  |
+
 | Bubble Notify  | Options |
 | ------------- | ------------- |
 | Show Bubbles if... | never  |
@@ -35,8 +41,6 @@
 | ------------- | ------------- |
 | Extract archives after download  | True  |
 
-| Miscellaneous  | Options |
+| Tray Icon  | Options |
 | ------------- | ------------- |
-| Delete Archive Files after successful extraction  | Delete files from Harddisk  |
-| Delete Archive download links after successful extraction  | False  |
-| If file exists...  | Overwrite the file  |
+| Start minimized  | True  |
