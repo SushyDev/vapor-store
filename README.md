@@ -1,4 +1,12 @@
 # Vapor Store
+- [Requirements](#requirements)
+- [How to use](#how-to-use)
+- [JDownloader settings](#jdownloader-settings)
+- [Roadmap](#roadmap)
+- [Issues](#issues)
+- [Support my work](#support-my-work)
+
+---
 
 ### Requirements
 
@@ -44,6 +52,27 @@
 | Tray Icon  | Options |
 | ------------- | ------------- |
 | Start minimized  | True  |
+
+### Roadmap
+
+- [x] Donate Button :D
+- [x] InApp Updater
+- [ ] Search function for games
+- [ ] Move to a built in Downloader/Installer
+- [x] Own Logo / Background
+- [ ] Cleanout and beautify the UI
+- [ ] Better Store front
+- [ ] Better game info page
+- [ ] Game updates
+- [ ] Add ROMs sites
+
+### Issues
+
+- Currently unable to install games to a Program Files directory
+- Unoptimized
+- Game covers may not load
+- JDownloader is slow
+- Generating games list can break so you'll have to re-do it
 
 ### Support my work
 
