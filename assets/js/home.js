@@ -1,6 +1,5 @@
 fetch('https://api.github.com/repos/CrypticShy/vapor-store/releases').then(function(response) {
 	response.json().then(function(data) {
-		console.log(data);
 
 		var latest = data[0].tag_name.substring(1);
 
@@ -9,8 +8,6 @@ fetch('https://api.github.com/repos/CrypticShy/vapor-store/releases').then(funct
 		var downloadurl = data[0].assets[0].browser_download_url;
 
 		if (latest > app.getVersion()) {
-			console.log('New version! ' + latest);
-			console.log('Changes:' + changes);
 
 			document.getElementById('update').style.display = 'block';
 
@@ -22,8 +19,6 @@ fetch('https://api.github.com/repos/CrypticShy/vapor-store/releases').then(funct
 		}
 	});
 });
-
-console.log('hi');
 
 function Update(url) {
 	var targetPath = app.getPath('userData') + '/Updates/';
@@ -77,7 +72,6 @@ function downloadUpdate(file_url) {
 
 	req.on('end', function() {
 		var downloadPath = app.getPath('userData') + path.sep + "Updates" + path.sep
-		console.log(downloadPath)
         openExplorer(downloadPath, err => {
             if(err) {
                 console.log(err);
@@ -102,8 +96,6 @@ function showProgress(received, total, time) {
 
 	var speed = received / 1000000 / time;
 	var mbps = Number(Math.round(speed + 'e0') + 'e-0');
-
-	console.log(mbps);
 
 	document.getElementById('download-progress').style.width = progress + '%';
 	document.getElementById('download-progress-counter').innerHTML = progress + '%';
