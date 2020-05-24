@@ -20,8 +20,11 @@
 
     <script>
 
+<<<<<<< HEAD
      const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
 
+=======
+>>>>>>> 47cc091b611512d50c156a1a175e5a23d32503c8
       const fs = require('fs');
       const path = require('path');
       const request = require('request');
@@ -33,11 +36,15 @@
       const jdownloaderAPI = require('jdownloader-api');
       const igdb = require('igdb-api-node').default;
       const puppeteer = require('puppeteer');
+<<<<<<< HEAD
       const rimraf = require("rimraf");
       const { Octokit } = require("@octokit/rest");
       const octokit = new Octokit();
       const opn = require('opn');
       const openExplorer = require('open-file-explorer');
+=======
+      var rimraf = require("rimraf");
+>>>>>>> 47cc091b611512d50c156a1a175e5a23d32503c8
 
       function getChromiumExecPath() {
         return path.join(puppeteer.executablePath(), '../../../').replace('app.asar', 'app.asar.unpacked');

@@ -10,10 +10,13 @@ body {
     outline: none !important;
 } 
 
+<<<<<<< HEAD
 button {
     user-select: none;
 }
 
+=======
+>>>>>>> 47cc091b611512d50c156a1a175e5a23d32503c8
 /*Custom background div (for extra properties)*/
 
 .background {
@@ -218,6 +221,16 @@ button {
     color: white;
 }
 
+<<<<<<< HEAD
+=======
+/*
+.progress-bar h1 {
+
+}
+
+*/
+
+>>>>>>> 47cc091b611512d50c156a1a175e5a23d32503c8
 /* Side pane (page contents) */
 
 .side-pane {
@@ -227,4 +240,25 @@ button {
     height: calc(100% - 75px);
     width:  calc(100% - 75px);
     z-index: 1;
+<<<<<<< HEAD
+=======
+}
+
+.side-pane h1 {
+    position: relative;
+    top: 0px;
+    left: 20px;
+    user-select: none;
+    color: var(--text-primary);
+    font-family: vapor;
+}
+
+.side-pane h2 {
+    position: relative;
+    left: 20px;
+    top: 0px;
+    user-select: none;
+    color: var(--text-primary);;
+    font-family: vapor;
+>>>>>>> 47cc091b611512d50c156a1a175e5a23d32503c8
 }

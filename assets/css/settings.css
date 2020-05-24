@@ -2,6 +2,7 @@
     width: 450px;
 }
 
+<<<<<<< HEAD
 h2 {
     position: relative;
     left: 20px;
@@ -11,6 +12,8 @@ h2 {
     font-family: vapor;
 }
 
+=======
+>>>>>>> 47cc091b611512d50c156a1a175e5a23d32503c8
 .settings-div {
     position: relative;
     left: 20px;
