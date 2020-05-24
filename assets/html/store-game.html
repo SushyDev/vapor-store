@@ -1,0 +1,57 @@
+<head>
+    <title>Vapor Store</title>
+  
+    <script src="../js/init.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/store-game.js" defer></script>
+    <script src="../js/download.js" defer></script>
+  
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/store-game.css">
+  </head>
+  
+  <body>
+      
+    <div class="scroll-box">
+
+        <div class="game-info">
+
+            <div class="game-cover-download">
+    
+                <img class="game-cover" id="game-cover" >
+    
+                <button class="game-download" id="game-download">DOWNLOAD!</button>
+    
+            </div>
+    
+            <div class="left-content">
+    
+                <div class="game-title-desc">
+        
+                    <p class="game-title" id="game-title" ></p>
+        
+                    <p class="game-desc" id="game-desc"></p>
+        
+            </div>
+
+            <div class="game-screenshot-menu">
+                <button class="scroll-button" onclick="screenshotsScroll('left')"><</button>
+                <div class="game-screenshots" id="game-screenshots">    </div>
+                <button class="scroll-button" onclick="screenshotsScroll('right')">></button>
+            </div>
+    
+            <div class="game-date-rating">
+    
+                <p class="game-date" id="game-date"></p>
+    
+                <p class="game-rating" id="game-rating"></p>
+    
+            </div>
+    
+            </div>
+    
+        </div>
+        
+    </div>
+  
+  </body>
