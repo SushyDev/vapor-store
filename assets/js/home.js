@@ -3,7 +3,7 @@ fetch('https://api.github.com/repos/CrypticShy/vapor-store/releases').then(funct
 
 		var latest = data[0].tag_name.substring(1);
 
-		var changes = data[0].body;
+		var changes = data[0].body.split(",").join("<br><br>")
 
 		var downloadurl = data[0].assets[0].browser_download_url;
 
