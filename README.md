@@ -11,7 +11,7 @@
 ### Requirements
 
 - [Vapor Store](https://github.com/CrypticShy/vapor-store/releases/tag/v1.0)
-- [JDownloader](https://jdownloader.org/)
+- [JDownloader](http://jdownloader.org/jdownloader2)
 - [My JDownloader Account](https://my.jdownloader.org/login.html)
 - [IGDB API Key](https://api.igdb.com/signup)
 - A Site for Games
