@@ -1,0 +1,59 @@
+<head>
+    <title>Vapor Store</title>
+  
+    <script src="../js/init.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/library-game.js" defer></script>
+    <script src="../js/start.js" defer></script>
+  
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/library-game.css">
+  </head>
+  
+  <body>
+      
+    <div class="scroll-box">
+  
+        <div class="game-info">
+  
+            <div class="game-cover-download" id="game-cover-download">
+    
+                <img class="game-cover" id="game-cover" >
+    
+                <button class="game-exe-list" id="game-exe-list">PLAY</button>
+
+                <button class="game-remove" id="game-remove" onclick="deleteGame()">REMOVE</button>
+    
+            </div>
+    
+            <div class="left-content">
+    
+                <div class="game-title-desc">
+        
+                    <p class="game-title" id="game-title" ></p>
+        
+                    <p class="game-desc" id="game-desc"></p>
+        
+            </div>
+
+            <div class="game-screenshot-menu">
+                <button class="scroll-button" onclick="screenshotsScroll('left')"><</button>
+                <div class="game-screenshots" id="game-screenshots">    </div>
+                <button class="scroll-button" onclick="screenshotsScroll('right')">></button>
+            </div>
+    
+            <div class="game-date-rating">
+    
+                <p class="game-date" id="game-date"></p>
+    
+                <p class="game-rating" id="game-rating"></p>
+    
+            </div>
+    
+            </div>
+    
+        </div>
+        
+    </div>
+  
+  </body>

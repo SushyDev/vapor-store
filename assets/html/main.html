@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+  
+  <head>
+    
+    <meta name="description" content="Free by Sushy"/>    <meta name="theme-color" content="#252525">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1 user-scalable=0"/>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/root.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+    <script>const socket = io.connect('http://localhost:3000');</script>
+
+    <script src="../js/init.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/download.js" defer></script>
+
+    <script>
+
+     const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+
+      const fs = require('fs');
+      const path = require('path');
+      const request = require('request');
+      const rp = require('request-promise');
+      const $ = require('cheerio');
+      const remote = require('electron').remote;
+      const dialog = require('electron');
+      const app = remote.app;
+      const jdownloaderAPI = require('jdownloader-api');
+      const igdb = require('igdb-api-node').default;
+      const puppeteer = require('puppeteer');
+      const rimraf = require("rimraf");
+      const { Octokit } = require("@octokit/rest");
+      const octokit = new Octokit();
+      const opn = require('opn');
+      const openExplorer = require('open-file-explorer');
+
+      function getChromiumExecPath() {
+        return path.join(puppeteer.executablePath(), '../../../').replace('app.asar', 'app.asar.unpacked');
+      }
+
+      const browserFetcher = puppeteer.createBrowserFetcher({ platform: 'win64', path: getChromiumExecPath() });
+      const revision = require('puppeteer/package').puppeteer.chromium_revision;
+
+      browserFetcher.download(revision)
+      .then(() => {})
+      .catch(error => console.log('Error', error))
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="background" id="background"></div>
+
+    <div class="main">
+
+      <div class="header">
+
+        <div class="header-icon">
+          <i class="material-icons">get_app</i>
+        </div>
+      
+        <div class="drag-bar" ondblclick="maxWindow()">
+            <h1 onclick="Open('home')">VAPOR STORE</h1>
+        </div>
+      
+          <button class="window-buttons" onclick="minWindow()">
+            <i class="material-icons">minimize</i>
+          </button>
+      
+          <button class="window-buttons" onclick="maxWindow()">
+            <i class="material-icons">aspect_ratio</i>
+          </button>
+      
+          <button class="window-buttons" onclick="closeWindow()">
+            <i class="material-icons">close</i>
+          </button>
+      
+      </div>
+  
+      <nav class="navbar" id="navbar">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a nohref  onclick="Open('home')" class="nav-link">
+              <div class='middle'>
+                <i class="material-icons">home</i>
+              <h1 class="link-text">HOME</h1>
+              </div>
+            </a>
+          </li>
+    
+          <li class="nav-item">
+            <a nohref  onclick="Open('library')" class="nav-link">
+              <div class='middle'>
+                <i class="material-icons">list</i>
+              <h1 class="link-text">LIBRARY</h1>
+              </div>
+            </a>
+          </li>
+    
+          <li class="nav-item">
+            <a nohref  onclick="Open('store')" class="nav-link">
+              <div class='middle'>
+                <i class="material-icons">shop</i>
+              <h1 class="link-text">STORE</h1>
+              </div>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <div class='middle'>
+              <div class="progress-bar">
+                <div class="download-progress" id="download-progress"></div>
+                <div class="progress-status">
+                  <h1 class="download-progress-counter" id="download-progress-counter"></h1>
+                  <h1 class="download-speed-counter" id="download-speed-counter"></h1>
+                </div>
+              </div>
+              </div>
+          </li>
+
+          <li class="nav-item">
+            <a nohref  onclick="Open('settings')" class="nav-link">
+              <div class='middle'>
+                <i class="material-icons">settings</i>
+              <h1 class="link-text">SETTINGS</h1>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+    <div class="side-pane" id="side-pane">
+  </div>
+
+    </div>
+
+  </body>
+
+    <script>window.$ = window.jQuery = require('jquery');</script>
+
+    <script>
+
+      jQuery(function($) {
+      $( "#side-pane" ).load("home.html")
+      sessionStorage.setItem("subPage", "home")
+      });
+
+      function Open(dir) {
+        
+        	var url = localStorage.getItem('backgroundUrl');
+          document.getElementById('background').style.backgroundImage = 'url(' + url + ')';
+  
+        if(sessionStorage.getItem("subPage") == dir) {
+        } else {
+          sessionStorage.setItem("subPage", dir)
+
+          jQuery(function($) {
+          $( "#side-pane" ).load(dir+".html")
+          })
+        }
+      }
+  </script>
