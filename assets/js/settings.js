@@ -27,26 +27,25 @@ function downloaderLogin() {
 	localStorage.setItem('JDPass', pass.value);
 	var err = '0';
 
-	jdownloaderAPI
-		.connect(email.value, pass.value)
-		.catch(function(reason) {
-			document.getElementById('downloader-details').value = 'Invalid Login';
-			err = '1';
-		})
-		.then(function() {
-			if (err == '1') return;
+	jdownloaderAPI.connect(email.value, pass.value).then(function() {
+		var downloader = jdownloaderAPI.listDevices();
 
-			var downloader = jdownloaderAPI.listDevices();
-
-			downloader.then((client) => {
+		downloader.then((client) => {
+			try {
+				document.getElementById('downloader-details').style.display = 'block';
 				document.getElementById('downloader-details').value = 'Logged into: ' + client[0].name;
-			});
+			} catch (e) {
+				document.getElementById('downloader-details').style.display = 'block';
+				document.getElementById('downloader-details').value = 'Invalid Login';
+			}
 		});
+	});
 }
 
 function igdbLogin() {
 	var token = document.getElementById('igdb-token');
 	localStorage.setItem('IGDBToken', token.value);
+	document.getElementById('igdb-details').style.display = "block";
 	document.getElementById('igdb-details').value = 'Using this token';
 }
 
@@ -95,7 +94,7 @@ function makeList() {
 			list: []
 		};
 
-		fs.writeFile(app.getPath('userData') +'/Json/store.json', JSON.stringify(list), 'utf-8', function(err) {
+		fs.writeFile(app.getPath('userData') + '/Json/store.json', JSON.stringify(list), 'utf-8', function(err) {
 			if (err) throw err;
 		});
 
@@ -122,10 +121,10 @@ function makeList() {
 				var gameCover = cover.data[0].url.replace('t_thumb', 't_1080p').replace('//', 'https://');
 				var gameID = response.data[0].id;
 
-				fs.readFile(app.getPath('userData') +'/Json/store.json', 'utf-8', function(err, data) {
+				fs.readFile(app.getPath('userData') + '/Json/store.json', 'utf-8', function(err, data) {
 					if (err) throw err;
 
-					var games = JSON.parse(data)
+					var games = JSON.parse(data);
 					games.list.push({
 						name: name,
 						cover: gameCover,
@@ -133,7 +132,9 @@ function makeList() {
 						link: url
 					});
 
-					fs.writeFile(app.getPath('userData') +'/Json/store.json', JSON.stringify(games), 'utf-8', function(err) {
+					fs.writeFile(app.getPath('userData') + '/Json/store.json', JSON.stringify(games), 'utf-8', function(
+						err
+					) {
 						if (err) throw err;
 					});
 				});

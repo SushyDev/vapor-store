@@ -33,25 +33,29 @@ async function loadPageContents() {
 		getArtworks();
 	}
 
-	screenshots.forEach((screenshot) => {
-		async function getScreenshots() {
-			const info = await client
-				.fields('url')
-				.where(`id = ` + screenshot) // Search game by id
-				.request('/screenshots');
+	try {
+		screenshots.forEach((screenshot) => {
+			async function getScreenshots() {
+				const info = await client
+					.fields('url')
+					.where(`id = ` + screenshot) // Search game by id
+					.request('/screenshots');
 
-			var screenshotImg = document.createElement('img');
-			screenshotImg.src = info.data[0].url.replace('//', 'https://').replace('t_thumb', 't_1080p');
-			screenshotImg.className = 'game-screenshot';
-			document.getElementById('game-screenshots').appendChild(screenshotImg);
-		}
-		getScreenshots();
-	});
+				var screenshotImg = document.createElement('img');
+				screenshotImg.src = info.data[0].url.replace('//', 'https://').replace('t_thumb', 't_1080p');
+				screenshotImg.className = 'game-screenshot';
+				document.getElementById('game-screenshots').appendChild(screenshotImg);
+			}
+			getScreenshots();
+		});
+	} catch (e) {
+		document.getElementById('game-screenshot-menu').style.display = 'none';
+	}
 
-    var time = year + ' ' + month + ' ' + date;
-    var rating = info.data[0].total_rating / 20
+	var time = year + ' ' + month + ' ' + date;
+	var rating = info.data[0].total_rating / 20;
 	var stars = Number(Math.round(rating + 'e0') + 'e-0');
-	
+
 	var dataArray = { name: name, cover: cover, id: id, link: url };
 	var data = JSON.stringify(dataArray);
 

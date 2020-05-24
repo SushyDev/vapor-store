@@ -1,6 +1,25 @@
 .list-container {
     position: relative;
-    height: calc(100vh - 75px);
+    height: calc(100vh - 150px);
+}
+
+.game-store-sort {
+  height: 75px;
+  width: 100%;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.game-store-sort p {
+  margin-left: 25px;
+}
+
+.game-search {
+  margin-left: auto;
+  margin-right: 15px;
 }
 
 .game-store-list {
@@ -11,11 +30,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-
-div::-webkit-scrollbar {
-  display: none;
 }
 
 .game-div {

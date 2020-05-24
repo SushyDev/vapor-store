@@ -1,203 +1,49 @@
 .side-pane {
-    width: 450px;
+    width: 500px;
 }
 
-h2 {
-    position: relative;
-    left: 20px;
-    top: 0px;
-    user-select: none;
-    color: var(--text-primary);;
-    font-family: vapor;
-}
-
-.settings-div {
-    position: relative;
-    left: 20px;
-    width: 100%;
+.setting-box {
+    margin-left: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    direction:ltr; 
 }
 
-.holder {
-    position: relative;
+input {
     width: 100%;
+    margin-bottom: 10px;
 }
+
+.settings {
+    height: 100%;
+    overflow-y: auto;
+    direction:rtl; 
+  }
+
+  .settings::webkit-scrollbar {
+  }
 
 /* Custom Wallpaper */
 
-.custom-wallpaper button {
-    border: none;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-    margin-right: 5px;
-}
-
-.custom-wallpaper input {
-    position: relative;
-    border: none;
-    width: 100%;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white;
-}
-
 /* Custom Download Location */
-
-.custom-download-location button {
-    border: none;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-    margin-right: 5px;
-}
-
-.custom-download-location input {
-    position: relative;
-    border: none;
-    width: 100%;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-}
 
 /* JDownloader Login */
 
-.downloader-login button {
-    position: relative;
-    border: none;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-    left: 0px;
-    margin-bottom: 5px;
-}
-
-.downloader-login input {
-    position: relative;
-    border: none;
-    width: 100%;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-
-    margin-bottom: 5px;
-}
-
-.downloader-login input::placeholder {
-    color: white;
-    opacity: 0.75;
-}
-
-.downloader-login input:after { 
-    content:"*"; 
-}
-
-.downloader-details {
-    position: relative;
-    border: none;
-    width: 80% !important;
-    background-color: transparent !important;
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
+#downloader-details {
+    display: none;
 }
 
 /* IGDB Login */
 
-.igdb-login button {
-    position: relative;
-    border: none;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-    left: 0px;
-    margin-bottom: 5px;
-}
-
-.igdb-login input {
-    position: relative;
-    border: none;
-    width: 100%;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-
-    margin-bottom: 5px;
-}
-
-.igdb-login input::placeholder {
-    color: white;
-    opacity: 0.75;
-}
-
-.igdb-details {
-    position: relative;
-    border: none;
-    width: 80% !important;
-    background-color: transparent !important;
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
+#igdb-details {
+    display: none;
 }
 
 /* Generate Games List */
 
-.generate-games button {
-    position: relative;
-    border: none;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-    left: 0px;
-    margin-bottom: 5px;
-}
-
-.generate-games input {
-    position: relative;
-    border: none;
-    width: 100%;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-
-    margin-bottom: 5px;
-}
-
-.generate-games input::placeholder {
-    color: white;
-    opacity: 0.75;
-}
-
-.generate-details {
-    position: relative;
-    border: none;
-    width: 70% !important;
-    background-color: transparent !important;
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
+#generate-details {
+    display: none;
 }
 
 /* App Version */
-
-  .app-version input {
-    position: relative;
-    border: none;
-    width: 100%;
-    background-color: rgba(0,0,0,.5);
-    padding: 10px;
-    font-size: 95%;
-    color: white; 
-}

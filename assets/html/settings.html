@@ -10,67 +10,54 @@
 
 <body>
 
-  <h2>CUSTOM BACKGROUND</h2>
+  <div class="settings">
 
-  <div class="settings-div  custom-wallpaper">
-    <button onclick="setBackground()">Set</button>
-    <div class="holder">
+    <div class="setting-box custom-wallpaper">
+      <h2>CUSTOM BACKGROUND</h2>
+  
       <input type="text" id="background-url" autocomplete="off">
+      <button onclick="setBackground()">Set</button>
     </div>
-  </div>
-
-
-  <h2>DOWNLOAD LOCATION</h2>
-
-  <div class="settings-div  custom-download-location">
-    <button onclick="getDirectory('download')">Choose</button>
-    <div class="holder">
+  
+    <div class="setting-box custom-download-location">
+      <h2>DOWNLOAD LOCATION</h2>
+  
       <input id="current-download-directory" disabled></input>
+      <button onclick="getDirectory('download')">Choose</button>
     </div>
-  </div>
-
-  <h2>JDOWNLOADER LOGIN</h2>
-
-  <div class="settings-div  downloader-login">
-
-    <div class="holder">
+  
+    <div class="setting-box downloader-login">
+      <h2>JDOWNLOADER LOGIN</h2>
+  
       <input id="downloader-email" placeholder="Email"></input>
       <input id="downloader-pass" placeholder="Password"></input>
+      <input id="downloader-details" disabled></input>
       <button onclick="downloaderLogin()">Login</button>
-      <input id="downloader-details" class="downloader-details" disabled></input>
-    </div>
-  </div>
   
-  <h2>IGDB LOGIN</h2>
-
-  <div class="settings-div  igdb-login">
-
-    <div class="holder">
+    </div>
+  
+    <div class="setting-box igdb-login">
+      <h2>IGDB LOGIN</h2>
+  
       <input id="igdb-token" placeholder="Token"></input>
-      <button onclick="igdbLogin()">Login</button>
       <input id="igdb-details" class="igdb-details" disabled></input>
+      <button onclick="igdbLogin()">Login</button>
     </div>
-  </div>
-
-  <h2>GENERATE GAMES LIST</h2>
-
-  <div class="settings-div  generate-games">
-
-    <div class="holder">
+  
+    <div class="setting-box generate-games">
+      <h2>GENERATE GAMES LIST</h2>
+  
       <input id="games-site" placeholder="Website"></input>
-      <button onclick="makeList()">Generate</button>
       <input id="generate-details" class="generate-details" disabled></input>
+      <button onclick="makeList()">Generate</button>
     </div>
-  </div>
 
-  </div>
-
-  <h2>VERSION</h2>
-
-  <div class="settings-div app-version">
-    <div class="holder">
+    <div class="setting-box app-version">
+      <h2>VERSION</h2>
+  
       <input id="current-version" disabled></input>
     </div>
+  
   </div>
 
 </body>

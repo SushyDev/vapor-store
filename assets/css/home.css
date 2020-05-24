@@ -42,11 +42,6 @@ div::-webkit-scrollbar {
 	width: calc(100% - 40px);
 	height: 50px;
 	margin-bottom: 20px;
-	border: none;
-	background-color: rgba(0, 0, 0, .5);
-	font-size: 20px;
-	color: white;
-	font-family: vapor;
 }
 
 .donate {
@@ -55,7 +50,6 @@ div::-webkit-scrollbar {
 	margin-top: 20px;
 	width: 350px;
 	height: fit-content;
-	text-transform: uppercase;
 	background-color: rgba(0, 0, 0, .5);
 	font-size: 20px;
 	color: white;
@@ -74,11 +68,6 @@ div::-webkit-scrollbar {
 	width: calc(100% - 40px);
 	height: 50px;
 	margin-bottom: 20px;
-	border: none;
-	background-color: rgba(0, 0, 0, .5);
-	font-size: 20px;
-	color: white;
-	font-family: vapor;
 }
 
 .info {
