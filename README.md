@@ -65,6 +65,7 @@
 - [ ] Better game info page
 - [ ] Game updates
 - [ ] Add ROMs sites
+- [ ] Add warnings when not all settings are configured 
 
 ### Issues
 
