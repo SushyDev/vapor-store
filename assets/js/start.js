@@ -91,11 +91,7 @@ function deleteGame() {
 	var url = sessionStorage.getItem('selectedGameLink');
 	var folder = sessionStorage.getItem('selectedGameFolder');
 
-	console.log(name, cover, id, url, folder);
-
 	const subFolder = localStorage.getItem('downloadDirectory') + folder;
-
-	console.log('Subfolder: ' + subFolder);
 
 	rimraf(subFolder, function() {
 		fs.readFile(app.getPath('userData') + '/Json/library.json', 'utf-8', function(err, data) {
@@ -111,8 +107,6 @@ function deleteGame() {
 					var removedList = JSON.stringify(games).replace("null,", "")
 
 					var parsedRemovedList = JSON.parse(removedList)
-
-					console.log(parsedRemovedList.list[0])
 
 					if(parsedRemovedList.list[0] == null) {
 
