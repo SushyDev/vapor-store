@@ -13,7 +13,7 @@
 - [IGDB API Key](https://api.igdb.com/signup)
 - A Site for Games
 
-### How to use
+### How to set up
 
 1. Download & Install Vapor Storet
 5. Create an account for the IGDB API
