@@ -1,6 +1,6 @@
 # Vapor Store
 - [Requirements](#requirements)
-- [How to use](#how-to-use)
+- [How to set up](#how-to-set-up)
 - [Roadmap](#roadmap)
 - [Issues](#issues)
 - [Support my work](#support-my-work)
