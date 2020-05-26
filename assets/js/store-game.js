@@ -34,6 +34,7 @@ async function loadPageContents() {
 	}
 
 	try {
+		if(id === "1") throw "No meta data found";
 		screenshots.forEach((screenshot) => {
 			async function getScreenshots() {
 				const info = await client
@@ -55,13 +56,20 @@ async function loadPageContents() {
 	var time = year + ' ' + month + ' ' + date;
 	var rating = info.data[0].total_rating / 20;
 	var stars = Number(Math.round(rating + 'e0') + 'e-0');
+	var desc = info.data[0].summary
 
 	var dataArray = { name: name, cover: cover, id: id, link: url };
 	var data = JSON.stringify(dataArray);
 
+	if(id === "1") {
+		desc = "No metadata found"
+		time = "unkown"
+		stars = "0"
+	}
+
 	document.getElementById('game-title').innerHTML = name;
 	document.getElementById('game-cover').src = cover;
-	document.getElementById('game-desc').innerHTML = info.data[0].summary;
+	document.getElementById('game-desc').innerHTML = desc;
 	document.getElementById('game-date').innerHTML = 'Released: ' + time;
 	document.getElementById('game-rating').innerHTML = stars + '/5 Stars';
 	document.getElementById('game-download').setAttribute('onclick', 'Download(' + "'" + data + "'" + ')');

@@ -1,49 +1,48 @@
 .side-pane {
-    width: 500px;
+	width: 500px;
 }
 
 .setting-box {
-    margin-left: 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    direction:ltr; 
+	margin-left: 20px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	direction: ltr;
 }
 
 input {
-    width: 100%;
-    margin-bottom: 10px;
+	width: 100%;
+	margin-bottom: 10px;
 }
 
 .settings {
-    height: 100%;
-    overflow-y: auto;
-    direction:rtl; 
-  }
-
-  .settings::webkit-scrollbar {
-  }
+	height: 100%;
+	overflow-y: auto;
+	direction: rtl;
+}
 
 /* Custom Wallpaper */
 
-/* Custom Download Location */
-
-/* JDownloader Login */
-
-#downloader-details {
-    display: none;
+.custom-wallpaper button {
+	margin-right: 10px;
 }
+
+/* Custom Download Location */
 
 /* IGDB Login */
 
 #igdb-details {
-    display: none;
+	display: none;
 }
 
 /* Generate Games List */
 
 #generate-details {
-    display: none;
+	display: block;
+}
+
+#generate-details:placeholder-shown {
+	display: none;
 }
 
 /* App Version */

@@ -6,55 +6,58 @@
 	--bg-primary: rgba(0, 0, 0, .25);
 	--bg-secondary: rgba(0, 0, 0, .5);
 	--transition-speed: 500ms;
+	--blur: blur(20px);
 }
 
 button {
 	border: none;
-  background-color: var(--bg-secondary);
-  text-transform: uppercase;
+	background-color: var(--bg-secondary);
+	text-transform: uppercase;
 	font-size: 20px;
 	color: white;
-  font-family: vapor;
-  padding: 10px;
+	font-family: vapor;
+	padding: 10px;
+	backdrop-filter: var(--blur);
 }
 
 *::-webkit-scrollbar {
-  left: 10px;
-  background-color: var(--bg-primary);
+	left: 10px;
+	background-color: var(--bg-primary);
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--bg-secondary);
+	background-color: var(--bg-secondary);
 }
 
 p {
 	color: white;
 	font-family: vapor;
 	font-size: 25px;
-  text-transform: uppercase;
-  user-select: none;
+	text-transform: uppercase;
+	user-select: none;
 }
 
 input {
-  border: none;
+	border: none;
   background-color: var(--bg-secondary);
-  padding: 10px;
-  font-size: 20px;
-  color: white;
+  backdrop-filter: var(--blur);
+	padding: 10px;
+	font-size: 20px;
+	color: white;
 }
 
 input::placeholder {
-  color: white;
-  opacity: 0.75;
-  user-select: none;
+	color: white;
+	opacity: 0.75;
+	user-select: none;
 }
 
 h1 {
-  user-select: none;
+	user-select: none;
 }
 
 h2 {
-  user-select: none;
-  color: var(--text-primary);;
-  font-family: vapor;
+	user-select: none;
+	color: var(--text-primary);
+	font-family: vapor;
 }

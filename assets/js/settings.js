@@ -9,6 +9,14 @@ function setBackground() {
 	document.getElementById('background-url').value = localStorage.getItem('backgroundUrl');
 }
 
+function clearBackground() {
+	localStorage.setItem(
+		'backgroundUrl',
+		'https://cdn.glitch.com/fb5beaf3-f18e-457d-9358-b09e28bf5522%2FVapor%20Store%20Wallpaper.png?v=1590248243315'
+	);
+	document.getElementById('background').style.backgroundImage = 'url(' + url + ')';
+}
+
 function getDirectory() {
 	socket.emit('selectDir');
 }
@@ -19,33 +27,10 @@ socket.on('getDirectory', (dir) => {
 	document.getElementById('current-download-directory').value = localStorage.getItem('downloadDirectory');
 });
 
-function downloaderLogin() {
-	var email = document.getElementById('downloader-email');
-	var pass = document.getElementById('downloader-pass');
-
-	localStorage.setItem('JDMail', email.value);
-	localStorage.setItem('JDPass', pass.value);
-	var err = '0';
-
-	jdownloaderAPI.connect(email.value, pass.value).then(function() {
-		var downloader = jdownloaderAPI.listDevices();
-
-		downloader.then((client) => {
-			try {
-				document.getElementById('downloader-details').style.display = 'block';
-				document.getElementById('downloader-details').value = 'Logged into: ' + client[0].name;
-			} catch (e) {
-				document.getElementById('downloader-details').style.display = 'block';
-				document.getElementById('downloader-details').value = 'Invalid Login';
-			}
-		});
-	});
-}
-
 function igdbLogin() {
 	var token = document.getElementById('igdb-token');
 	localStorage.setItem('IGDBToken', token.value);
-	document.getElementById('igdb-details').style.display = "block";
+	document.getElementById('igdb-details').style.display = 'block';
 	document.getElementById('igdb-details').value = 'Using this token';
 }
 
@@ -56,6 +41,8 @@ function makeList() {
 	alert(
 		'Dont close Vapor Store until finished! You may continue using the app whilst generating, pressing  generate again will restart this process!'
 	);
+
+	document.getElementById('generate-details').value = '0/0';
 
 	const scrapeGames = async () => {
 		function getChromiumExecPath() {
@@ -107,19 +94,31 @@ function makeList() {
 
 				const client = igdb(localStorage.getItem('IGDBToken'));
 
-				const response = await client
-					.fields('id,cover')
-					.search(name) // Search game by name
-					.limit(1)
-					.request('/games');
+				try {
+					const response = await client
+						.fields('id,cover')
+						.search(name) // Search game by name
+						.limit(1)
+						.request('/games');
 
-				const cover = await client
-					.fields('url') //
-					.where(`id = ` + response.data[0].cover)
-					.request('/covers');
+					const cover = await client
+						.fields('url') //
+						.where(`id = ` + response.data[0].cover)
+						.request('/covers');
 
-				var gameCover = cover.data[0].url.replace('t_thumb', 't_1080p').replace('//', 'https://');
-				var gameID = response.data[0].id;
+					var gameCover = cover.data[0].url.replace('t_thumb', 't_1080p').replace('//', 'https://');
+					var gameID = response.data[0].id;
+				} catch (e) {
+					gameCover =
+						'https://cdn.glitch.com/fb5beaf3-f18e-457d-9358-b09e28bf5522%2FGameNotFound.png?v=1590514540794';
+					gameID = '1';
+				}
+
+				if (typeof gameCover === 'undefined') {
+				}
+
+				if (typeof gameID === 'undefined') {
+				}
 
 				fs.readFile(app.getPath('userData') + '/Json/store.json', 'utf-8', function(err, data) {
 					if (err) throw err;
@@ -140,10 +139,7 @@ function makeList() {
 				});
 
 				done++;
-				var percentage = done * 100 / total;
-				var full = JSON.stringify(percentage);
-				var progress = Number(Math.round(full + 'e0') + 'e-0');
-				document.getElementById('generate-details').value = progress + '%';
+				document.getElementById('generate-details').value = done + '/' + total;
 			} catch (e) {}
 		});
 	};
@@ -156,10 +152,6 @@ document.getElementById('background-url').value = localStorage.getItem('backgrou
 
 //Set download location lable
 document.getElementById('current-download-directory').value = localStorage.getItem('downloadDirectory');
-
-//Set JDownloader login lables
-document.getElementById('downloader-email').value = localStorage.getItem('JDMail');
-document.getElementById('downloader-pass').value = localStorage.getItem('JDPass');
 
 //Set IGDB token lable
 document.getElementById('igdb-token').value = localStorage.getItem('IGDBToken');
