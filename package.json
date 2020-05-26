@@ -43,7 +43,6 @@
     "extract-zip": "^2.0.0",
     "fs": "0.0.1-security",
     "igdb-api-node": "^4.0.4",
-    "jdownloader-api": "^1.1.2",
     "jquery": "^3.5.1",
     "open-file-explorer": "^1.0.2",
     "opn": "^6.0.0",
