@@ -27,8 +27,6 @@ input {
 	margin-right: 10px;
 }
 
-/* Custom Download Location */
-
 /* IGDB Login */
 
 #igdb-details {
@@ -44,5 +42,3 @@ input {
 #generate-details:placeholder-shown {
 	display: none;
 }
-
-/* App Version */

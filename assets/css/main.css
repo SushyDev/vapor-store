@@ -57,13 +57,11 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 .header-icon i {
     font-size: 40px;
-    position: relative;
-    color: var(--text-primary);
-    user-select: none;
 }
 
 /* Window Buttons*/
@@ -71,6 +69,8 @@ button {
 .window-buttons {
     position: relative;
     background-color: var(--bg-secondary);
+    position: relative;
+    color: var(--text-secondary);
     border: none;
     height: 100%;
     min-width: 75px;
@@ -79,9 +79,6 @@ button {
 
 .window-buttons i {
     font-size: 40px;
-    position: relative;
-    color: var(--text-secondary);
-    user-select: none;
 }
 
 .window-buttons:hover i {
@@ -112,8 +109,8 @@ button {
 .navbar {
     position: relative;
     background-color: var(--bg-primary);
-    height: calc(100% - 75px);
-    top: 75px;
+    margin-top: 75px;
+    height:  calc(100% - 75px);
     min-width: 75px;
     max-width: 75px;
     user-select: none;
@@ -123,99 +120,89 @@ button {
     transition:min-width .25s;
 }
 
-.navbar:hover {
-    min-width: 300px;
-}
-
-.navbar:hover .link-text {
-    display: flex;
-}
-  
 .navbar-nav {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     height: 100%;
 }
-  
-.nav-item {
-    width: 100%;
-    height: 75px;
+
+.navbar:hover {
+    min-width: 300px;
 }
+
+.navbar:hover .link-text  {
+    display: block;
+}
+
+.navbar:hover .download-speed-counter{
+    display: block;
+}
+
+.nav-item {
+    position: relative;
+    min-width: 100%;
+    max-width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 
 .nav-item:nth-last-child(2) {
     margin-top: auto;
 }
 
-.nav-link h1 {
-    position: relative;
-    display: none;
-    margin-left: 15px;
-    transition: .5s;
-}
-
-.nav-link i {
-    position: relative;
-    font-size: 50px;
-    margin-left: 11px;
-}
-
-.middle {
-    display: flex;    
-    align-items: center;
-    height: 100%;
-}
-  
-.middle:hover {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-}
-
-  /* Progress bar */
-
-.progress-bar {
-    position: relative;
-    height: 75px;
-    width: 100%;
-}
-
-.download-progress {
-    position: absolute;
-    width: 0%;
-    height: 100%;
+.nav-item:hover {
     background-color: var(--bg-secondary);
 }
 
-.download-speed-counter {
-    display:none;
-}
-
-.navbar:hover .download-speed-counter {
-    display: block;
-}
-
-.navbar:hover .download-speed-counter:empty {
-    display: none;
-}
-
-.progress-status {
-    position: relative;
+.nav-icon {
+   min-width: 75px;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
-.progress-status h1 {
-    position: relative;
-    text-align: center;
-    line-height: 100%;
+
+.nav-icon i {
+    font-size: 65px;
+}
+
+.link-text {
     font-size: 30px;
-    color: white;
+    display: none;
+}
+
+
+
+  /* Progress bar */
+
+.download-progress {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: orange;
+}
+
+.progress-status {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 22.5px;
+}
+
+.download-speed-counter {
+    display: none;
 }
 
 /* Side pane (page contents) */
