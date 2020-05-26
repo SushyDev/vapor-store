@@ -89,7 +89,7 @@ function showProgress(received, total, time) {
 	var progress = Number(Math.round(full + 'e0') + 'e-0');
 
 	var speed = received / 1000000 / time;
-	var mbps = Number(Math.round(speed + 'e0') + 'e-0');
+	var mbps = Number(Math.round(speed + 'e2') + 'e-2');
 
 	document.getElementById('download-progress').style.width = progress + '%';
 	document.getElementById('download-progress-counter').innerHTML = progress + '%';

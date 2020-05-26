@@ -22,9 +22,3 @@ if (!fs.existsSync(dir)) {
 //Load background image
 var url = localStorage.getItem('backgroundUrl');
 document.getElementById('background').style.backgroundImage = 'url(' + url + ')';
-
-var email = localStorage.getItem('JDMail');
-var pass = localStorage.getItem('JDPass');
-jdownloaderAPI.connect(email, pass);
-
-sessionStorage.setItem('Downloading', 'false');
