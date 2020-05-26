@@ -82,7 +82,7 @@ function Download(data) {
 
 		document.getElementById('download-progress-counter').innerHTML = '10/10';
 
-		var targetFolder = app.getPath('userData') + path.sep + 'Games' + path.sep;
+		var targetFolder = localStorage.getItem('downloadDirectory')
 
 		if (!fs.existsSync(targetFolder)) {
 			fs.mkdirSync(targetFolder);
@@ -96,8 +96,8 @@ function Download(data) {
 function startDownload(file_url) {
 	var filename = file_url.split('=');
 	var file = filename.pop();
-	var targetPath = app.getPath('userData') + path.sep + 'Games' + path.sep + file;
-	var targetFolder = app.getPath('userData') + path.sep + 'Games' + path.sep;
+	var targetPath = localStorage.getItem('downloadDirectory') + file;
+	var targetFolder = localStorage.getItem('downloadDirectory')
 	var received_bytes = 0;
 	var total_bytes = 0;
 	var num = 0;
