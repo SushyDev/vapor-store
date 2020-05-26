@@ -42,6 +42,8 @@
 - Unoptimized
 - Generating games list can break so you'll have to re-do it
 
+If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support 
+
 ### Support my work
 
  - [Donate](https://ko-fi.com/sushy)
