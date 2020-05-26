@@ -106,7 +106,7 @@ function similarity(s1, s2) {
 var searchBox = document.getElementById('game-search');
 
 searchBox.addEventListener('input', function() {
-	search = searchBox.value;
+	search = searchBox.value.toLowerCase();
 	if (search == '') {
 		sessionStorage.setItem("Searching", false)
 		listGames()

@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Vapor Store",
   "homepage": "",
   "main": "assets/electron/app.js",
@@ -40,6 +40,7 @@
     "@octokit/rest": "^17.9.2",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "extract-zip": "^2.0.0",
     "fs": "0.0.1-security",
     "igdb-api-node": "^4.0.4",
     "jdownloader-api": "^1.1.2",

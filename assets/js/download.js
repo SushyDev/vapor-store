@@ -11,7 +11,7 @@ function Download(data) {
 	sessionStorage.setItem('Downloading', 'true');
 
 	document.getElementById('download-progress').style.width = '100%';
-	document.getElementById('download-progress-counter').innerHTML = '...';
+	document.getElementById('download-progress-counter').innerHTML = '0/10';
 	document.getElementById('download-speed-counter').innerHTML = '';
 
 	var data = JSON.parse(data);
@@ -23,152 +23,145 @@ function Download(data) {
 
 	alert('Starting download of ' + data.name);
 
-	const scrapeDownloads = async () => {
+	const getDownload = async () => {
 		function getChromiumExecPath() {
 			return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
 		}
 
 		const browser = await puppeteer.launch({
 			headless: true,
-			executablePath: getChromiumExecPath()
+			executablePath: getChromiumExecPath(),
+			args: [
+				'--no-sandbox',
+				'--disable-setuid-sandbox',
+				'--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3803.0 Safari/537.36',
+				'--lang=en-US,en;q=0.9'
+			]
 		});
+
+		document.getElementById('download-progress-counter').innerHTML = '1/10';
 
 		const page = await browser.newPage();
 
+		document.getElementById('download-progress-counter').innerHTML = '2/10';
+
 		await page.goto(url);
 
-		const downloadUrl = await page.evaluate(() => {
-			var blog = document.getElementsByClassName('btn-download')[0].getAttribute('href');
+		document.getElementById('download-progress-counter').innerHTML = '3/10';
 
-			return blog;
+		const downloadPage = await page.evaluate(() => {
+			return document.getElementsByClassName('btn-download')[0].getAttribute('href');
 		});
+
+		document.getElementById('download-progress-counter').innerHTML = '4/10';
+
+		await page.goto(downloadPage);
+
+		document.getElementById('download-progress-counter').innerHTML = '5/10';
+
+		await page.waitForSelector('#downloadNowBtn', { visible: true });
+
+		document.getElementById('download-progress-counter').innerHTML = '6/10';
+
+		await page.click('#downloadNowBtn');
+
+		document.getElementById('download-progress-counter').innerHTML = '7/10';
+
+		await page.waitForNavigation({ waitUntil: 'networkidle2' });
+
+		document.getElementById('download-progress-counter').innerHTML = '8/10';
+
+		const downloadUrl = await page.evaluate(() => {
+			var href = document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href;
+			return href;
+		});
+
+		document.getElementById('download-progress-counter').innerHTML = '9/10';
 
 		await browser.close();
 
-		var name = url.replace('https://steamunlocked.net/', '').replace('-free-download/', '').replace(/[-]/g, ' ');
+		document.getElementById('download-progress-counter').innerHTML = '10/10';
+
+		var targetFolder = app.getPath('userData') + path.sep + 'Games' + path.sep;
+
+		if (!fs.existsSync(targetFolder)) {
+			fs.mkdirSync(targetFolder);
+		}
 
 		startDownload(downloadUrl);
 	};
-	scrapeDownloads();
+	getDownload();
 }
 
-function startDownload(url) {
+function startDownload(file_url) {
+	var filename = file_url.split('=');
+	var file = filename.pop();
+	var targetPath = app.getPath('userData') + path.sep + 'Games' + path.sep + file;
+	var targetFolder = app.getPath('userData') + path.sep + 'Games' + path.sep;
+	var received_bytes = 0;
+	var total_bytes = 0;
+	var num = 0;
 
-	jdownloaderAPI.listDevices().then((client) => {
-		var name = client[0].name;
-		var id = client[0].id;
-		var status = client[0].status;
+	setInterval(function() {
+		num++;
+	}, 1000);
 
-		var dir = localStorage.getItem('downloadDirectory');
+	var req = request({
+		method: 'GET',
+		uri: file_url
+	});
 
-		if (!fs.existsSync(dir)) {
-			fs.mkdirSync(dir);
-		}
+	var out = fs.createWriteStream(targetPath);
+	req.pipe(out);
 
-		jdownloaderAPI.cleanUpFinishedLinks(id);
+	req.on('response', function(data) {
+		total_bytes = parseInt(data.headers['content-length']);
+	});
 
-		jdownloaderAPI.addLinks(url, id, dir).then(function() {
-			jdownloaderAPI.queryLinks(id).then((info) => {
-				getData();
+	req.on('data', function(chunk) {
+		received_bytes += chunk.length;
 
-				function getData() {
-					jdownloaderAPI.queryLinks(id).then((info) => {
-						var data = info.data[0];
+		showProgress(received_bytes, total_bytes, num);
+	});
 
-						if (typeof data !== 'undefined') {
-							checkProgress(id);
-						} else {
-							setTimeout(getData, 250);
-						}
-					});
-				}
-			});
-		});
+	req.on('end', function() {
+		extractDownload(targetPath, targetFolder, file);
+
+		sessionStorage.setItem('Downloading', 'false');
 	});
 }
 
-function checkProgress(id) {
-	downloadProgress();
-
-	function downloadProgress() {
-		jdownloaderAPI.queryLinks(id).then((json) => {
-			var data = json.data[0];
-			var total = data.bytesTotal;
-			var received = data.bytesLoaded;
-			var speed = data.speed;
-			var status = data.status;
-			var folder = data.name.replace('.zip', '');
-
-			var percentage = received * 100 / total;
-			var full = JSON.stringify(percentage);
-			var progress = Number(Math.round(full + 'e0') + 'e-0');
-			var calc = speed / 1000000;
-			var mbps = Number(Math.round(calc + 'e1') + 'e-1');
-
-			if (isNaN(mbps)) {
-				mbps = '< 1';
-			}
-
-			if (status == 'Finished') {
-				downloadComplete(folder);
-			} else if (status == 'Extraction OK') {
-				extractionComplete(folder);
-			} else if (status == 'Extracting') {
-				downloadExtraction(status);
-			} else {
-				updateCounter(mbps, progress);
-				setTimeout(downloadProgress, 500);
-			}
-		});
-	}
-}
-
-function updateCounter(mbps, progress) {
-	document.getElementById('download-progress').style.width = progress + '%';
-	document.getElementById('download-progress-counter').innerHTML = progress + '%';
-	document.getElementById('download-speed-counter').innerHTML = mbps + 'MB/s';
-}
-
-function downloadExtraction(status) {
+function extractDownload(targetPath, targetFolder, file) {
 	document.getElementById('download-progress').style.width = '100%';
 	document.getElementById('download-progress-counter').innerHTML = 'Ext';
-	document.getElementById('download-speed-counter').innerHTML = 'Zip';
-
-	jdownloaderAPI.listDevices().then((client) => {
-		var id = client[0].id;
-
-		async function waitForOk() {
-			const data = await jdownloaderAPI.queryLinks(id).then((info) => {
-				var data = info.data[0];
-				return data;
-			});
-
-			if (data.status == 'Extraction OK') {
-				var folder = data.name.replace('.zip', '');
-				extractionComplete(folder);
-			} else {
-				setTimeout(waitForOk(), 250);
-			}
-		}
-		waitForOk();
-	});
-}
-
-function extractionComplete(folderName) {
-	downloadComplete(folderName);
-}
-
-function downloadComplete(folderName) {
-	sessionStorage.setItem('Downloading', 'false');
-	document.getElementById('download-progress').style.width = '100%';
-	document.getElementById('download-progress-counter').innerHTML = 'Done';
 	document.getElementById('download-speed-counter').innerHTML = '';
 
-	addGameToLibrary(folderName);
+	async function start() {
+		try {
+			await extract(targetPath, { dir: targetFolder });
+
+			fs.unlink(targetPath, (err) => {
+				if (err) {
+					console.error(err);
+					return;
+				}
+			});
+
+			var folderName = file.replace('.zip', '');
+			addGameToLibrary(folderName);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+	start();
 }
 
 function addGameToLibrary(folderName) {
 	var folder = folderName;
+
+	document.getElementById('download-progress').style.width = '100%';
+	document.getElementById('download-progress-counter').innerHTML = 'Done';
+	document.getElementById('download-speed-counter').innerHTML = '';
 
 	try {
 		fs.readFile(app.getPath('userData') + '/Json/library.json', 'utf-8', function(err, data) {

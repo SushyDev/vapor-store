@@ -70,6 +70,32 @@ div::-webkit-scrollbar {
 	margin-bottom: 20px;
 }
 
+.discord {
+	position: relative;
+	margin-left: 20px;
+	margin-top: 20px;
+	width: 350px;
+	height: fit-content;
+	background-color: rgba(0, 0, 0, .5);
+	font-size: 20px;
+	color: white;
+	font-family: vapor;
+}
+
+.discord-title {
+	position: relative;
+	text-align: center;
+	font-size: 25px;
+}
+
+.discord-button {
+	position: relative;
+	margin-left: 20px;
+	width: calc(100% - 40px);
+	height: 50px;
+	margin-bottom: 20px;
+}
+
 .info {
 	position: relative;
 	margin-left: 20px;

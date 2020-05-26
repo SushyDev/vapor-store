@@ -31,7 +31,8 @@ p {
 	color: white;
 	font-family: vapor;
 	font-size: 25px;
-	text-transform: uppercase;
+  text-transform: uppercase;
+  user-select: none;
 }
 
 input {
@@ -45,6 +46,11 @@ input {
 input::placeholder {
   color: white;
   opacity: 0.75;
+  user-select: none;
+}
+
+h1 {
+  user-select: none;
 }
 
 h2 {

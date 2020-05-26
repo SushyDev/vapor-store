@@ -1,14 +1,12 @@
 fetch('https://api.github.com/repos/CrypticShy/vapor-store/releases').then(function(response) {
 	response.json().then(function(data) {
-
 		var latest = data[0].tag_name.substring(1);
 
-		var changes = data[0].body.split(",").join("<br><br>")
+		var changes = data[0].body.split(',').join('<br><br>');
 
 		var downloadurl = data[0].assets[0].browser_download_url;
 
 		if (latest > app.getVersion()) {
-
 			document.getElementById('update').style.display = 'block';
 
 			document.getElementById('update-changes').innerHTML = changes;
@@ -25,20 +23,19 @@ function Update(url) {
 
 	if (!fs.existsSync(targetPath)) {
 		fs.mkdirSync(targetPath);
-    }
-    
-    downloadUpdate(url);
+	}
+
+	downloadUpdate(url);
 }
 
 function downloadUpdate(file_url) {
-    if (sessionStorage.getItem('Downloading') == 'true') {
+	if (sessionStorage.getItem('Downloading') == 'true') {
 		alert('Already Downloading ');
 		return;
-    }
-    
-    sessionStorage.setItem('Downloading', 'true');
-    
-	// Save variable to know progress
+	}
+
+	sessionStorage.setItem('Downloading', 'true');
+
 	var filename = file_url.split('/');
 	var file = filename.pop();
 	var targetPath = app.getPath('userData') + '/Updates/' + file;
@@ -59,27 +56,24 @@ function downloadUpdate(file_url) {
 	req.pipe(out);
 
 	req.on('response', function(data) {
-		// Change the total bytes value to get progress later.
 		total_bytes = parseInt(data.headers['content-length']);
 	});
 
 	req.on('data', function(chunk) {
-		// Update the received bytes
 		received_bytes += chunk.length;
 
 		showProgress(received_bytes, total_bytes, num);
 	});
 
 	req.on('end', function() {
-		var downloadPath = app.getPath('userData') + path.sep + "Updates" + path.sep
-        openExplorer(downloadPath, err => {
-            if(err) {
-                console.log(err);
-            }
-            else {
-                //Do Something
-            }
-        });
+		var downloadPath = app.getPath('userData') + path.sep + 'Updates' + path.sep;
+		openExplorer(downloadPath, (err) => {
+			if (err) {
+				console.log(err);
+			} else {
+				//Do Something
+			}
+		});
 
 		sessionStorage.setItem('Downloading', 'false');
 		document.getElementById('download-progress').style.width = '100%';
@@ -104,4 +98,8 @@ function showProgress(received, total, time) {
 
 function Donate() {
 	opn('https://ko-fi.com/sushy');
+}
+
+function Discord() {
+	opn('https://discord.gg/ZjDTpmf')
 }
