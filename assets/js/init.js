@@ -22,3 +22,5 @@ if (!fs.existsSync(dir)) {
 //Load background image
 var url = localStorage.getItem('backgroundUrl');
 document.getElementById('background').style.backgroundImage = 'url(' + url + ')';
+
+sessionStorage.setItem('Downloading', 'false');
