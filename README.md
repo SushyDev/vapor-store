@@ -1,4 +1,12 @@
 # Vapor Store
+
+```diff
+- WARNING: Vapor Store is made to simplify downloading and installing games in a preinstalled format from the internet via a repository/source
+- I'm not responsible for the content of the sources our users may use
+
+```
+
+
 - [Requirements](#requirements)
 - [How to set up](#how-to-set-up)
 - [Roadmap](#roadmap)
@@ -18,7 +26,7 @@
 1. Download & Install Vapor Store
 5. Create an account for the IGDB API
 6. Enter your IGDB API Key in the Vapor Store Settings
-7. Find games site page that works on Vapor Store (there is only one ATM) and head to the /all-games page (Preinstalled Games ONLY!)  
+7. Find games site that works with Vapor Store 
 8. Enter the full url in the Vapor Store generate games list settings
 9. Wait for the list to generate and enjoy!
 
@@ -40,7 +48,6 @@
 - [ ] Game sorting by category
 - [ ] Better game info page
 - [ ] Game updates
-- [ ] Add ROMs sites
 - [ ] Add warnings when not all settings are configured 
 
 ### Issues
