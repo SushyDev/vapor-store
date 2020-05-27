@@ -32,6 +32,7 @@
 - [ ] Stop Downloads
 - [ ] Pause Downloads
 - [ ] Show Download Size
+- [ ] Download multiple games at the same time
 - [ ] Show popular games
 - [ ] Import existing games
 - [ ] Cleanout and beautify the UI
