@@ -37,6 +37,7 @@
 - [ ] Import existing games
 - [ ] Cleanout and beautify the UI
 - [ ] Better Store front
+- [ ] Game sorting by category
 - [ ] Better game info page
 - [ ] Game updates
 - [ ] Add ROMs sites
