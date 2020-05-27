@@ -15,7 +15,7 @@
 
 ### How to set up
 
-1. Download & Install Vapor Storet
+1. Download & Install Vapor Store
 5. Create an account for the IGDB API
 6. Enter your IGDB API Key in the Vapor Store Settings
 7. Find your favorite games site page and head to the /all-games page (Preinstalled Games ONLY!)  
