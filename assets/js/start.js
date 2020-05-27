@@ -128,10 +128,10 @@ function deleteGame() {
 								if (err) throw err;
 							}
 						);
-
 					}
 				}
 			});
 		});
 	});
+	Open("home")
 }

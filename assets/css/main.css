@@ -191,15 +191,19 @@ button {
 
 .progress-status {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
     font-size: 17.5px;
 }
 
+.download-progress-counter {
+}
+
 .download-speed-counter {
     display: none;
+    margin-left: 20px;
 }
 
 /* Side pane (page contents) */

@@ -30,12 +30,6 @@ function Download(data) {
 		const browser = await puppeteer.launch({
 			headless: true,
 			executablePath: getChromiumExecPath(),
-			args: [
-				'--no-sandbox',
-				'--disable-setuid-sandbox',
-				'--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3803.0 Safari/537.36',
-				'--lang=en-US,en;q=0.9'
-			]
 		});
 
 		document.getElementById('download-progress-counter').innerHTML = '1/10';
@@ -58,6 +52,7 @@ function Download(data) {
 
 		document.getElementById('download-progress-counter').innerHTML = '5/10';
 
+		await page.waitForSelector('#downloadNowBtn', { visible: true });
 		await page.waitForSelector('#downloadNowBtn', { visible: true });
 
 		document.getElementById('download-progress-counter').innerHTML = '6/10';
@@ -140,11 +135,9 @@ function extractDownload(targetPath, targetFolder, file) {
 	async function start() {
 		try {
 			await extract(targetPath, { dir: targetFolder });
-
 			fs.unlink(targetPath, (err) => {
 				if (err) {
 					console.error(err);
-					return;
 				}
 			});
 
