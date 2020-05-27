@@ -9,7 +9,7 @@
 
 ### Requirements
 
-- [Vapor Store](https://github.com/CrypticShy/vapor-store/releases/tag/v1.0)
+- [Vapor Store](https://github.com/CrypticShy/vapor-store/releases/)
 - [IGDB API Key](https://api.igdb.com/signup)
 - A Site for Games
 
