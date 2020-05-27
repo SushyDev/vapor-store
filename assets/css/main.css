@@ -48,7 +48,7 @@ button {
     line-height: 75px;
     backdrop-filter: var(--blur);
     display: flex;
-} 
+}
 
 .header-icon {
     position: relative;
