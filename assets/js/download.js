@@ -8,7 +8,6 @@ function Download(data) {
 		alert('Already Downloading ');
 		return;
 	}
-	sessionStorage.setItem('Downloading', 'true');
 
 	document.getElementById('download-progress').style.width = '100%';
 	document.getElementById('download-progress-counter').innerHTML = '0/10';
@@ -67,7 +66,7 @@ function Download(data) {
 
 		document.getElementById('download-progress-counter').innerHTML = '7/10';
 
-		await page.waitForNavigation({ waitUntil: 'networkidle2' });
+		await page.waitForNavigation();
 
 		document.getElementById('download-progress-counter').innerHTML = '8/10';
 
@@ -101,6 +100,8 @@ function startDownload(file_url) {
 	var received_bytes = 0;
 	var total_bytes = 0;
 	var num = 0;
+
+	sessionStorage.setItem('Downloading', 'true');
 
 	setInterval(function() {
 		num++;

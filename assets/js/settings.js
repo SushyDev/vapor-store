@@ -89,7 +89,8 @@ function makeList() {
 			try {
 				var name = url
 					.replace('https://steamunlocked.net/', '')
-					.replace('-free-download/', '')
+					.replace(/free.*download/, '')
+					.replace("/", " ")
 					.replace(/[-]/g, ' ');
 
 				const client = igdb(localStorage.getItem('IGDBToken'));
