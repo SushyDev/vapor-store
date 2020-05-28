@@ -27,7 +27,7 @@
 1. Download & Install Vapor Store
 5. Create an account for the IGDB API
 6. Enter your IGDB API Key in the Vapor Store Settings
-7. Find games site that works with Vapor Store 
+7. Find a game site that works with Vapor Store 
 8. Enter the full url in the Vapor Store generate games list settings
 9. Wait for the list to generate and enjoy!
 
