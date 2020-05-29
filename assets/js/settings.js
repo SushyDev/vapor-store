@@ -39,7 +39,7 @@ function makeList() {
 	localStorage.setItem('gamesSite', url);
 
 	alert(
-		'Dont close Vapor Store until finished! You may continue using the app whilst generating, pressing  generate again will restart this process!'
+		'Dont close Vapor Store, Also do not open the store while generating. This could break the generated list!'
 	);
 
 	document.getElementById('generate-details').value = '0/0';
@@ -88,7 +88,7 @@ function makeList() {
 		await asyncForEach(data, async (url) => {
 			try {
 				var name = url
-					.replace('https://steamunlocked.net/', '')
+					.replace(/https.*.net/, '')
 					.replace(/free.*download/, '')
 					.replace("/", " ")
 					.replace(/[-]/g, ' ');

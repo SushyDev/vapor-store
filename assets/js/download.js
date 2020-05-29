@@ -130,7 +130,7 @@ function startDownload(file_url) {
 function extractDownload(targetPath, targetFolder, file) {
 	document.getElementById('download-progress').style.width = '100%';
 	document.getElementById('download-progress-counter').innerHTML = 'Ext';
-	document.getElementById('download-speed-counter').innerHTML = '';
+	document.getElementById('download-speed-counter').innerHTML = 'Extracting';
 
 	async function start() {
 		try {
