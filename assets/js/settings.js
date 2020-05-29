@@ -62,14 +62,8 @@ function makeList() {
 
 		await page.goto(url);
 
-		const data = await page.evaluate(() => {
-			var blog = (document.getElementsByClassName('blog-post').id = 'blog');
-
-			const list = document.querySelectorAll('body > div > div > div > div > div > div > div > ul > li > a');
-
-			const urls = Array.from(list).map((v) => v.href);
-			return urls;
-		});
+		if(url.includes('steamunlocked')) await steamunlockedList(document, page)
+		else if (url.includes('fitgirl')) console.log('fitgirl!')
 
 		await browser.close();
 
@@ -80,8 +74,6 @@ function makeList() {
 		fs.writeFile(app.getPath('userData') + '/Json/store.json', JSON.stringify(list), 'utf-8', function(err) {
 			if (err) throw err;
 		});
-
-		if(url.includes('steamunlocked')) steamunlockedList(document, data)
 	};
 	scrapeGames();
 }

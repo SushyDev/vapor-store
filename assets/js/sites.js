@@ -1,4 +1,13 @@
-exports.steamunlockedList = async(document, data) => {
+exports.steamunlockedList = async(document, page) => {
+  const data = await page.evaluate(() => {
+    var blog = (document.getElementsByClassName('blog-post').id = 'blog');
+
+    const list = document.querySelectorAll('body > div > div > div > div > div > div > div > ul > li > a');
+
+    const urls = Array.from(list).map((v) => v.href);
+    return urls;
+  });
+
   var total = data.length;
   var done = 0;
   await asyncForEach(data, async (url) => {
