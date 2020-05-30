@@ -13,7 +13,12 @@ function getDownloadLink(data) {
 	name = data.name;
 	cover = data.cover;
 	id = data.id;
-	url = data.link;
+    url = data.link;
+    
+    sessionStorage.setItem('downloadName', data.name);
+	sessionStorage.setItem('downloadCover', data.cover);
+	sessionStorage.setItem('downloadID', data.id);
+	sessionStorage.setItem('downloadUrl', data.link);
 
 	alert('Starting download of ' + data.name);
 
@@ -48,15 +53,16 @@ function getDownloadLink(data) {
 		document.getElementById('download-progress-counter').innerHTML = '5/10';
 
 		await page.waitForSelector('#downloadNowBtn', { visible: true });
-		await page.waitForSelector('#downloadNowBtn', { visible: true });
 
 		document.getElementById('download-progress-counter').innerHTML = '6/10';
 
-		await page.click('#downloadNowBtn');
+		await page.evaluate(() => {
+			return document.getElementById("downloadNowBtn").click();
+		});
 
-		document.getElementById('download-progress-counter').innerHTML = '7/10';
-
-		await page.waitForNavigation();
+        document.getElementById('download-progress-counter').innerHTML = '7/10';
+        
+        await page.waitForNavigation( { timeout: 999999999, waitUntil: 'domcontentloaded' })
 
 		document.getElementById('download-progress-counter').innerHTML = '8/10';
 
@@ -70,12 +76,6 @@ function getDownloadLink(data) {
 		await browser.close();
 
 		document.getElementById('download-progress-counter').innerHTML = '10/10';
-
-		var targetFolder = localStorage.getItem('downloadDirectory')
-
-		if (!fs.existsSync(targetFolder)) {
-			fs.mkdirSync(targetFolder);
-		}
 
 		startDownload(downloadUrl);
 	};

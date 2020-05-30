@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Vapor Store",
   "homepage": "",
   "main": "assets/electron/app.js",
@@ -46,6 +46,7 @@
     "jquery": "^3.5.1",
     "open-file-explorer": "^1.0.2",
     "opn": "^6.0.0",
+    "progress-extract": "^1.0.2",
     "puppeteer": "^3.1.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",

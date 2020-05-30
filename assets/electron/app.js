@@ -9,8 +9,8 @@ function createWindow() {
 		frame: false,
 		width: 1920,
 		height: 1080,
-		minHeight: 525,
-		minWidth: 1455,
+		minHeight: 450,
+		minWidth: 575,
 		icon: root + '/assets/images/icons/png/icon.png',
 		webPreferences: {
 			nodeIntegration: true

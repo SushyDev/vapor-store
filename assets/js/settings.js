@@ -27,6 +27,13 @@ socket.on('getDirectory', (dir) => {
 	document.getElementById('current-download-directory').value = localStorage.getItem('downloadDirectory');
 });
 
+function clearDirectory() {
+	var dir = app.getPath('userData') + path.sep + 'Games' + path.sep;
+	var dir = dir.replace(/[\\]/g, '/');
+	localStorage.setItem('downloadDirectory', dir);
+	document.getElementById('current-download-directory').value = localStorage.getItem('downloadDirectory');
+}
+
 function igdbLogin() {
 	var token = document.getElementById('igdb-token');
 	localStorage.setItem('IGDBToken', token.value);

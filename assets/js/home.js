@@ -103,3 +103,5 @@ function Donate() {
 function Discord() {
 	opn('https://discord.gg/ZjDTpmf')
 }
+
+document.getElementById("info-button").innerHTML = app.getVersion();

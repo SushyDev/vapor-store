@@ -10,6 +10,11 @@
 	direction: ltr;
 }
 
+.setting-box h2 {
+	text-transform: uppercase;
+	width: 100%;
+}
+
 input {
 	width: 100%;
 	margin-bottom: 10px;
@@ -24,6 +29,12 @@ input {
 /* Custom Wallpaper */
 
 .custom-wallpaper button {
+	margin-right: 10px;
+}
+
+/* Custom Directory */
+
+.custom-download-location button {
 	margin-right: 10px;
 }
 

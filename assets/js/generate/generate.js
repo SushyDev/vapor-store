@@ -1,10 +1,8 @@
 function makeList() {
-	var url = document.getElementById('games-site').value;
+	var url = document.getElementById('source-url').value;
 	localStorage.setItem('gamesSite', url);
 
-	alert(
-		'Dont close Vapor Store, Also do not open the store while generating. This could break the generated list!'
-	);
+	alert('Dont close Vapor Store, Also do not open the store while generating. This could break the generated list!');
 
 	document.getElementById('generate-details').value = '0/0';
 
@@ -22,14 +20,18 @@ function makeList() {
 
 		await page.goto(url);
 
-		const data = await page.evaluate(() => {
-			var blog = (document.getElementsByClassName('blog-post').id = 'blog');
+		var query = document.getElementById('game-list-query').value;
 
-			const list = document.querySelectorAll('body > div > div > div > div > div > div > div > ul > li > a');
+
+		console.log(query)
+
+
+		const data = await page.evaluate((query) => {
+			const list = document.querySelectorAll(query);
 
 			const urls = Array.from(list).map((v) => v.href);
 			return urls;
-		});
+		}, query);
 
 		await browser.close();
 
@@ -38,6 +40,8 @@ function makeList() {
 		data.forEach(() => {
 			total++;
 		});
+
+		console.log(total)
 
 		var done = 0;
 
@@ -51,13 +55,15 @@ function makeList() {
 
 		await asyncForEach(data, async (url) => {
 			try {
-				var name = url
-					.replace(/https.*.net/, '')
-					.replace(/free.*download/, '')
-                    .replace("/", " ")
-                    .replace("/", "")
-					.replace(/[-]/g, ' ');
 
+				var inputRegex = document.getElementById("name-regex-replace").value
+				var replaceTo = document.getElementById("name-regex-replace-to").value
+				
+				var replace = new RegExp(inputRegex, "g");
+
+				var name = url.replace(replace, replaceTo)
+
+				
 				const client = igdb(localStorage.getItem('IGDBToken'));
 
 				try {
@@ -75,8 +81,16 @@ function makeList() {
 					var gameCover = cover.data[0].url.replace('t_thumb', 't_1080p').replace('//', 'https://');
 					var gameID = response.data[0].id;
 				} catch (e) {
-					gameCover =
-						'https://cdn.glitch.com/fb5beaf3-f18e-457d-9358-b09e28bf5522%2FGameNotFound.png?v=1590514540794';
+					var coverUrl;
+
+					if (document.getElementById('custom-cover').checked == true) {
+						coverUrl = document.getElementById('cover-url').value;
+					} else {
+						coverUrl =
+							'https://cdn.glitch.com/fb5beaf3-f18e-457d-9358-b09e28bf5522%2FGameNotFound.png?v=1590514540794';
+					}
+
+					gameCover = coverUrl;
 					gameID = '1';
 				}
 
@@ -111,7 +125,3 @@ function makeList() {
 	};
 	scrapeGames();
 }
-
-
-//Set games site lable
-document.getElementById('games-site').value = localStorage.getItem('gamesSite');

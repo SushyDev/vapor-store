@@ -1,8 +1,10 @@
 function addGameToLibrary(folderName) {
-	var name;
-	var cover;
-	var id;
-	var url;
+	
+	var name = sessionStorage.getItem('downloadName');
+	var cover = sessionStorage.getItem('downloadCover');
+	var id = sessionStorage.getItem('downloadID');
+	var url = sessionStorage.getItem('downloadUrl');
+
 	var folder = folderName;
 
 	document.getElementById('download-progress').style.width = '100%';

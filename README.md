@@ -25,11 +25,11 @@
 ### How to set up
 
 1. Download & Install Vapor Store
-5. Create an account for the IGDB API
-6. Enter your IGDB API Key in the Vapor Store Settings
-7. Find a game repo for Vapor Store 
-8. Enter the full url in the Vapor Store generate games list settings
-9. Wait for the list to generate and enjoy!
+2. Create an account for the IGDB API
+3. Enter your IGDB API Key in the Vapor Store Settings
+4. Find a game repo for Vapor Store 
+5. Configure the generator
+6. Generate the list
 
 ### Roadmap
 
@@ -38,20 +38,20 @@
 - [x] Search function for games
 - [x] Move to a built in Downloader/Installer
 - [x] Own Logo / Background
-- [ ] Overhaul the generator
-- [ ] Overhaul the download process
-- [ ] Stop Downloads
-- [ ] Pause Downloads
-- [ ] Show Download Size
-- [ ] Download multiple games at the same time
-- [ ] Show popular games
-- [ ] Import existing games
-- [ ] Cleanout and beautify the UI
-- [ ] Better Store front
-- [ ] Game sorting by category
-- [ ] Better game info page
-- [ ] Game updates
-- [ ] Add warnings when not all settings are configured 
+- [x] Overhaul the download process
+- [] Overhaul the generator
+- [] Stop Downloads
+- [] Pause Downloads
+- [] Show Download Size
+- [] Download multiple games at the same time
+- [] Show popular games
+- [] Import existing games
+- [] Cleanout and beautify the UI
+- [] Better Store front
+- [] Game sorting by category
+- [] Better game info page
+- [] Game updates
+- [] Add warnings when not all settings are configured
 
 ### Issues
 

@@ -1,11 +1,17 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 function startDownload(file_url) {
 	var filename = file_url.split('=');
 	var file = filename.pop();
 	var targetPath = localStorage.getItem('downloadDirectory') + file;
-	var targetFolder = localStorage.getItem('downloadDirectory')
+	var targetFolder = localStorage.getItem('downloadDirectory');
 	var received_bytes = 0;
 	var total_bytes = 0;
 	var num = 0;
+
+	if (!fs.existsSync(targetFolder)) {
+		fs.mkdirSync(targetFolder);
+	}
 
 	sessionStorage.setItem('Downloading', 'true');
 
@@ -32,6 +38,7 @@ function startDownload(file_url) {
 	});
 
 	req.on('end', function() {
+
 		extractDownload(targetPath, targetFolder, file);
 
 		sessionStorage.setItem('Downloading', 'false');
@@ -41,22 +48,16 @@ function startDownload(file_url) {
 function extractDownload(targetPath, targetFolder, file) {
 	document.getElementById('download-progress').style.width = '100%';
 	document.getElementById('download-progress-counter').innerHTML = 'Ext';
-	document.getElementById('download-speed-counter').innerHTML = 'Extracting';
+    document.getElementById('download-speed-counter').innerHTML = 'Extracting';
 
-	async function start() {
-		try {
-			await extract(targetPath, { dir: targetFolder });
-			fs.unlink(targetPath, (err) => {
-				if (err) {
-					console.error(err);
-				}
-			});
 
-			var folderName = file.replace('.zip', '');
+	extract(targetPath, targetFolder).then(
+		() => {
+            var folderName = file.replace('.zip', '');
 			addGameToLibrary(folderName);
-		} catch (err) {
-			console.log(err);
+		},
+		(err) => {
+			console.log('extract failed');
 		}
-	}
-	start();
+	);
 }

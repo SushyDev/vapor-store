@@ -1,5 +1,56 @@
-.side-pane {
-	width: 500px;
+.settings {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.settings-1 {
+	width: 400px;
+}
+
+.settings-2 {
+	width: 400px;
+}
+
+.settings-3 {
+	width: 400px;
+}
+
+.warning {
+	width: 100%;
+	height: fit-content;
+	background-color: var(--bg-secondary);
+	margin-left: 20px;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 10px;
+	margin-top: 20px;
+}
+
+.warning h2 {
+	margin-top: -5px;
+}
+
+.warning p {
+	font-size: 20px;
+}
+
+.info {
+	width: 100%;
+	height: fit-content;
+	background-color: var(--bg-secondary);
+	margin-left: 20px;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 10px;
+	margin-top: 20px;
+}
+
+.info h2 {
+	margin-top: -5px;
+}
+
+.info p {
+	font-size: 20px;
 }
 
 .setting-box {
@@ -7,7 +58,12 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	direction: ltr;
+	min-height: 125px;
+}
+
+.setting-box h2 {
+	text-transform: uppercase;
+	width: 100%;
 }
 
 input {
@@ -15,12 +71,39 @@ input {
 	margin-bottom: 10px;
 }
 
-/* Generate Games List */
-
-#generate-details {
-	display: block;
+.settings {
+	height: 100%;
+	overflow-y: auto;
 }
 
-#generate-details:placeholder-shown {
+.generate-details {
+	display: flex;
+}
+
+.generate-details:placeholder-shown {
+	display: none;
+}
+
+#name-regex-add {
+	margin-right: 10px;
+}
+
+.generate-button {
+	margin-bottom: 20px;
+}
+
+.download-button-class {
+	display: none;
+}
+
+.name-class-div {
+	display: none;
+}
+
+.name-id-div {
+	display: none;
+}
+
+.custom-cover-div {
 	display: none;
 }
