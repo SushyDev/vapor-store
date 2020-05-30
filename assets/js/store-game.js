@@ -72,7 +72,7 @@ async function loadPageContents() {
 	document.getElementById('game-desc').innerHTML = desc;
 	document.getElementById('game-date').innerHTML = 'Released: ' + time;
 	document.getElementById('game-rating').innerHTML = stars + '/5 Stars';
-	document.getElementById('game-download').setAttribute('onclick', 'Download(' + "'" + data + "'" + ')');
+	document.getElementById('game-download').setAttribute('onclick', 'getDownloadLink(' + "'" + data + "'" + ')');
 }
 
 loadPageContents();

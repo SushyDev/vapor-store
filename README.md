@@ -38,6 +38,8 @@
 - [x] Search function for games
 - [x] Move to a built in Downloader/Installer
 - [x] Own Logo / Background
+- [ ] Overhaul the generator
+- [ ] Overhaul the download process
 - [ ] Stop Downloads
 - [ ] Pause Downloads
 - [ ] Show Download Size
