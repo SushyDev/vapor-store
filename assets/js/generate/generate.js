@@ -22,9 +22,7 @@ function makeList() {
 
 		var query = document.getElementById('game-list-query').value;
 
-
-		console.log(query)
-
+		console.log(query);
 
 		const data = await page.evaluate((query) => {
 			const list = document.querySelectorAll(query);
@@ -33,37 +31,66 @@ function makeList() {
 			return urls;
 		}, query);
 
-		await browser.close();
-
 		var total = 0;
+		var done = 0;
 
 		data.forEach(() => {
 			total++;
 		});
 
-		console.log(total)
+		if (document.getElementById('overwrite-current-list').checked == true) {
+			var list = {
+				list: []
+			};
 
-		var done = 0;
-
-		var list = {
-			list: []
-		};
-
-		fs.writeFile(app.getPath('userData') + '/Json/store.json', JSON.stringify(list), 'utf-8', function(err) {
-			if (err) throw err;
-		});
+			fs.writeFile(app.getPath('userData') + '/Json/store.json', JSON.stringify(list), 'utf-8', function(err) {
+				if (err) throw err;
+			});
+		}
 
 		await asyncForEach(data, async (url) => {
 			try {
+				var inputRegex = document.getElementById('name-regex-replace').value;
+				var replaceTo = document.getElementById('name-regex-replace-to').value;
 
-				var inputRegex = document.getElementById("name-regex-replace").value
-				var replaceTo = document.getElementById("name-regex-replace-to").value
-				
-				var replace = new RegExp(inputRegex, "g");
+				var name;
 
-				var name = url.replace(replace, replaceTo)
+				var replace = new RegExp(inputRegex, 'g');
 
-				
+				if (document.getElementById('game-name-by-class').checked == true) {
+					var classname = document.getElementById('name-class').value;
+
+					await page.goto(url);
+
+					name = await page.evaluate(
+						(classname, replace, replaceTo) => {
+							var title = document.getElementById(classname).innerHTML;
+
+							return title.replace(replace, replaceTo);
+						},
+						classname,
+						replace,
+						replaceTo
+					);
+				} else if (document.getElementById('game-name-by-id').checked == true) {
+					var id = document.getElementById('name-id').value;
+
+					await page.goto(url);
+
+					name = await page.evaluate(
+						(id, replace, replaceTo) => {
+							var title = document.getElementById(id).innerHTML;
+
+							return title.replace(replace, replaceTo);
+						},
+						id,
+						replace,
+						replaceTo
+					);
+				} else {
+					name = url.replace(replace, replaceTo);
+				}
+
 				const client = igdb(localStorage.getItem('IGDBToken'));
 
 				try {
