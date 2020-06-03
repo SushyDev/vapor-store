@@ -18,14 +18,19 @@ function clearBackground() {
 }
 
 function getDirectory() {
-	socket.emit('selectDir');
-}
+	var options = {
+		title: 'Open a folder',
+		properties: [ 'openDirectory' ]
+	};
 
-socket.on('getDirectory', (dir) => {
-	var dir = dir.replace(/[\\]/g, '/');
-	localStorage.setItem('downloadDirectory', dir);
-	document.getElementById('current-download-directory').value = localStorage.getItem('downloadDirectory');
-});
+	dialog.showOpenDialog(null, options).then(async (folders) => {
+		var dir = folders.filePaths[0] + path.sep;
+		if (dir == 'undefined' + path.sep) return;
+		dir.replace(/[\\]/g, '/');
+		localStorage.setItem('downloadDirectory', dir);
+		document.getElementById('current-download-directory').value = localStorage.getItem('downloadDirectory');
+	});
+}
 
 function clearDirectory() {
 	var dir = app.getPath('userData') + path.sep + 'Games' + path.sep;

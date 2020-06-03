@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog } = require('electron');
+const { app, BrowserWindow } = require('electron');
 
 var root = app.getAppPath();
 
@@ -39,29 +39,6 @@ app.on('activate', () => {
 	}
 });
 
-//JS Stuff
-const fs = require('fs');
-const path = require('path');
-const request = require('request');
 var server = require('http').createServer();
-var io = require('socket.io')(server);
 
-server.listen(3000);
-
-io.on('connection', (socket) => {
-
-	socket.on('selectDir', () => {
-
-		var options = {
-			title: 'Open a folder',
-			properties: [ 'openDirectory' ]
-		};
-
-    const folders = dialog.showOpenDialog(null, options).then(async (folders) => {
-			var dir = folders.filePaths[0] + path.sep;
-			if (dir == "undefined" + path.sep) return;
-			console.log(dir)
-			io.emit('getDirectory', dir);
-		});
-	});
-});
+server.listen();

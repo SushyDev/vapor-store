@@ -1,3 +1,30 @@
+const waitFor = (ms) => new Promise((r) => setTimeout(r, ms));
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
+const rp = require('request-promise');
+const $ = require('cheerio');
+const remote = require('electron').remote;
+const { dialog } = require('electron').remote;
+const app = remote.app;
+const igdb = require('igdb-api-node').default;
+const puppeteer = require('puppeteer');
+const rimraf = require('rimraf');
+const { Octokit } = require('@octokit/rest');
+const octokit = new Octokit();
+const opn = require('opn');
+const openExplorer = require('open-file-explorer');
+const extract = require('progress-extract');
+
+function getChromiumExecPath() {
+	return path.join(puppeteer.executablePath(), '../../../').replace('app.asar', 'app.asar.unpacked');
+}
+
+const browserFetcher = puppeteer.createBrowserFetcher({ platform: 'win64', path: getChromiumExecPath() });
+const revision = require('puppeteer/package').puppeteer.chromium_revision;
+
+browserFetcher.download(revision).then(() => {}).catch((error) => console.log('Error', error));
+
 //If no background url is set then set default one
 if (localStorage.getItem('backgroundUrl') == undefined) {
 	localStorage.setItem(

@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "1.4.4",
+  "version": "1.5.1",
   "description": "Vapor Store",
   "homepage": "",
   "main": "assets/electron/app.js",
@@ -14,7 +14,7 @@
     "asar": true,
     "files": [
       "**/*",
-      "!node_modules/puppeteer/.local-chromium/linux-756035${/*}"
+      "!node_modules/puppeteer/.local-chromium${/*}"
     ],
     "nsis": {
       "oneClick": false,
@@ -39,8 +39,6 @@
   "dependencies": {
     "@octokit/rest": "^17.9.2",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1",
-    "extract-zip": "^2.0.0",
     "fs": "0.0.1-security",
     "igdb-api-node": "^4.0.4",
     "jquery": "^3.5.1",
@@ -50,7 +48,6 @@
     "puppeteer": "^3.1.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "rimraf": "^3.0.2",
-    "socket.io": "^2.3.0"
+    "rimraf": "^3.0.2"
   }
 }

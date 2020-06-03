@@ -38,7 +38,7 @@ function makeList() {
 			total++;
 		});
 
-		if (document.getElementById('overwrite-current-list').checked == true) {
+		if (document.getElementById('overwrite-current-list').checked == false) {
 			var list = {
 				list: []
 			};

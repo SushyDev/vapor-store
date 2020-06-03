@@ -39,7 +39,7 @@
 - [x] Move to a built in Downloader/Installer
 - [x] Own Logo / Background
 - [x] Overhaul the download process
-- [ ] Overhaul the generator
+- [x] Overhaul the generator
 - [ ] Stop Downloads
 - [ ] Pause Downloads
 - [ ] Show Download Size
