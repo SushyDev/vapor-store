@@ -20,7 +20,21 @@
   <script src="../js/download/addGameToLibrary.js" defer></script>
   <script src="../js/download/getDownloadLink.js" defer></script>
   <script src="../js/download/startDownload.js" defer></script>
-  
+
+  <script>
+
+    function getChromiumExecPath() {
+      return path.join(puppeteer.executablePath(), '../../../').replace('app.asar', 'app.asar.unpacked');
+    }
+
+    const browserFetcher = puppeteer.createBrowserFetcher({ platform: 'win64', path: getChromiumExecPath() });
+    const revision = require('puppeteer/package').puppeteer.chromium_revision;
+
+    browserFetcher.download(revision).then(() => { }).catch((error) => console.log('Error', error));
+
+
+  </script>
+
 </head>
 
 <body>
@@ -83,15 +97,15 @@
             <div class="progress-status">
               <h1 class="download-progress-counter" id="download-progress-counter"></h1>
               <h1 class="download-speed-counter" id="download-speed-counter"></h1>
-              </div>
+            </div>
           </div>
         </li>
 
         <li class="nav-item" onclick="Open('settings')">
-            <div class='nav-icon'>
-              <i class="material-icons">settings</i>
-            </div>
-              <h1 class="link-text">SETTINGS</h1>
+          <div class='nav-icon'>
+            <i class="material-icons">settings</i>
+          </div>
+          <h1 class="link-text">SETTINGS</h1>
         </li>
 
       </ul>

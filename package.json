@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Vapor Store",
   "homepage": "",
   "main": "assets/electron/app.js",

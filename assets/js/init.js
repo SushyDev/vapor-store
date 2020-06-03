@@ -16,15 +16,6 @@ const opn = require('opn');
 const openExplorer = require('open-file-explorer');
 const extract = require('progress-extract');
 
-function getChromiumExecPath() {
-	return path.join(puppeteer.executablePath(), '../../../').replace('app.asar', 'app.asar.unpacked');
-}
-
-const browserFetcher = puppeteer.createBrowserFetcher({ platform: 'win64', path: getChromiumExecPath() });
-const revision = require('puppeteer/package').puppeteer.chromium_revision;
-
-browserFetcher.download(revision).then(() => {}).catch((error) => console.log('Error', error));
-
 //If no background url is set then set default one
 if (localStorage.getItem('backgroundUrl') == undefined) {
 	localStorage.setItem(
