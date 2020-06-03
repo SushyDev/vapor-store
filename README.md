@@ -44,13 +44,12 @@
 - [ ] Pause Downloads
 - [ ] Show Download Size
 - [ ] Download multiple games at the same time
-- [ ] Show popular games
 - [ ] Import existing games
 - [ ] Cleanout and beautify the UI
 - [ ] Better Store front
 - [ ] Game sorting by category
 - [ ] Better game info page
-- [ ] Game updates
+- [ ] Updates
 - [ ] Add warnings when not all settings are configured
 
 ### Issues
