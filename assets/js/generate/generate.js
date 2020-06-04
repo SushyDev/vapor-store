@@ -38,7 +38,8 @@ function makeList() {
 			total++;
 		});
 
-		if (document.getElementById('overwrite-current-list').checked == false) {
+		if (document.getElementById('overwrite-current-list').checked == true) {
+			console.log("overwriting")
 			var list = {
 				list: []
 			};

@@ -80,7 +80,6 @@ function startGame(executable) {
 	var exec = require('child_process').execFile;
 	exec(executable, function(err, data) {
 		console.log(err);
-		console.log(data.toString());
 	});
 }
 
