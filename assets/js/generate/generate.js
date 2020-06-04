@@ -134,7 +134,6 @@ function makeList() {
 					games.list.push({
 						name: name,
 						cover: gameCover,
-						size: gameSize,
 						id: gameID,
 						link: url
 					});
