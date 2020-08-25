@@ -1,6 +1,10 @@
 # Vapor Store
 
 ```diff
+- Vapor Store currently does NOT work, join our Discord to follow up on its future and other development
+```
+
+```diff
 - WARNING: Vapor Store is made to simplify downloading and installing games in a preinstalled format from the internet via a repository/source
 - I'm not responsible for the content of the sources our users may use
 - I am also not responsible for any legal troubles or computer issues you may face
@@ -8,11 +12,12 @@
 ```
 
 
-- [Requirements](#requirements)
-- [How to set up](#how-to-set-up)
-- [Roadmap](#roadmap)
-- [Issues](#issues)
-- [Support my work](#support-my-work)
+- [Vapor Store](#vapor-store)
+    - [Requirements](#requirements)
+    - [How to set up](#how-to-set-up)
+    - [Roadmap](#roadmap)
+    - [Issues](#issues)
+    - [Support my work](#support-my-work)
 
 ---
 
