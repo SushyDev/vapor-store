@@ -1,0 +1,99 @@
+@import '@material/top-app-bar/mdc-top-app-bar';
+@import '@material/drawer';
+@import '@material/list';
+@import '@material/theme';
+@import '@material/button';
+@import '@material/floating-label/mdc-floating-label';
+@import '@material/line-ripple/mdc-line-ripple';
+@import '@material/notched-outline/mdc-notched-outline';
+@import '@material/textfield';
+@import '@material/dialog';
+
+:root {
+    --mdc-theme-primary: #03a9f4;
+    --mdc-theme-secondary: #8bc34a;
+    --mdc-theme-background: #ffffff;
+    --drawer-selected: rgba(255, 168, 253, 0.12);
+    --el1: #bdbdbd;
+    --el2: #eeeeee;
+    --drawer-bg: #ececec00;
+    --btn-color: #000000;
+    --color: #404040;
+    --light-color: #ffffff;
+    --dark-color: #ffffff;
+}
+
+[data-theme='dark'] {
+    --mdc-theme-primary: #0288d1;
+    --mdc-theme-secondary: #8bc34a;
+    --mdc-theme-background: #121212;
+    --el1: #bdbdbd;
+    --el2: #1d1d1d;
+    --drawer-bg: #ececec00;
+    --btn-color: #000000;
+    --color: #ffffff;
+    --light-color: #ffffff;
+    --dark-color: #000000;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
+    color: #757575;
+    overflow: hidden;
+    user-select: none;
+    font-family: sans-serif;
+
+    .mdc-top-app-bar {
+        z-index: 7;
+        /*@include mdc-top-app-bar-fill-color(var(--primary-color));*/
+        box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
+    }
+
+    .mdc-drawer {
+        @include surface-fill-color(var(--drawer-bg));
+        box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+
+        .mdc-list-item__graphic,
+        .mdc-list-item__text {
+            color: var(--light-color);
+        }
+
+        .mdc-list-item--activated {
+            .mdc-list-item__graphic,
+            .mdc-list-item__text {
+                color: var(--mdc-theme-primary);
+            }
+        }
+
+        .mdc-list {
+            height: calc(100% - 16px);
+            display: flex;
+            flex-direction: column;
+
+            * {
+                margin-top: 0px !important;
+            }
+
+            a:nth-last-child(1) {
+                margin-top: auto !important;
+            }
+        }
+    }
+
+    .mdc-drawer-app-content {
+        transition: all 0.2s ease-in-out;
+        background: var(--mdc-theme-background);
+        overflow: hidden;
+        color: #757575;
+        min-width: 0px !important;
+
+        .main-content {
+            .intro {
+                margin: 0 20px;
+            }
+        }
+    }
+}

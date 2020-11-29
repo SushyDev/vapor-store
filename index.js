@@ -1,55 +1,45 @@
-const {
-	BrowserWindow,
-	app
-} = require("electron");
-const path = require("path");
-const sass = require("sass");
-const fs = require("fs");
-
-const scssPath = path.join(__dirname, "front", "styles.scss");
-const cssPath = path.join(__dirname, "front", "styles.css");
-
-const needCompile = (process.argv[2] ? process.argv[2].trim().toLowerCase() == "-c" : false);
-const isCompiled = fs.existsSync(cssPath);
-const isDebug = (process.argv[2] ? process.argv[2].trim().toLowerCase() == "-d" : false);
 const StartOptions = {
-	title: "Material Design Components Electron-based App",
-	backgroundColor: "#FFF",
-	webPreferences: {
-		nodeIntegrationInWorker: true,
-		defaultFontFamily: {
-			standard: "Roboto",
-			serif: "Roboto Slab",
-			monospace: "Roboto Mono",
-			fantasy: "Google Sans"
-		},
-		defaultFontSize: 14,
-		minimumFontSize: 8,
-		defaultEncoding: "UTF-8"
-	}
+    transparent: true,
+    frame: false,
+    webPreferences: {
+        nodeIntegration: true,
+    },
+    minWidth: 764,
+    minHeight: 550,
 };
 
-if(needCompile || !isCompiled) compile(); else launch();
-
-function launch() {
-	if(app.isReady()) init(); else app.on("ready", init)
-}
-
-function compile() {
-	sass.render({
-		file: scssPath,
-		outFile: cssPath,
-		outputStyle: "compressed",
-		includePaths: ["node_modules"]
-	}, (e, res) => {
-		if(e) console.error(e); else 
-			fs.writeFile(cssPath, res.css, (e2) => {
-				if(e2) console.error(e2); else launch();
-			})
-	});
-}
-
 function init() {
-	let main = new BrowserWindow(StartOptions);
-	main.loadFile("./front/index.html");
+    setTimeout(
+        spawnWindow,
+        process.platform == 'linux' ? 1000 : 0
+        // Electron has a bug on linux where it
+        // won't initialize properly when using
+        // transparency. To work around that, it
+        // is necessary to delay the window
+        // spawn function.
+    );
+}
+init();
+
+const glasstron = require('glasstron');
+const electron = require('electron');
+electron.app.commandLine.appendSwitch('enable-transparent-visuals');
+
+const path = require('path');
+
+require('electron-reload')(__dirname, {
+    ignored: path.join(__dirname, 'src', 'scss'),
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+});
+
+function spawnWindow() {
+    win = new glasstron.BrowserWindow(StartOptions);
+    win.blurType = 'acrylic';
+    //              ^~~~~~~
+    // Windows 10 1803+; for older versions you
+    // might want to use 'blurbehind'
+    win.setBlur(true);
+    win.loadFile('./src/html/index.html');
+    // ...
+    return win;
 }
