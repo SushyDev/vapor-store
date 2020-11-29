@@ -1,3 +1,4 @@
 node_modules
 src/js/init.js
 .vscode
+src/json
