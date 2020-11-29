@@ -4,8 +4,6 @@ function makeList() {
 
 	alert('Dont close Vapor Store, Also do not open the store while generating. This could break the generated list!');
 
-	document.getElementById('generate-details').value = '0/0';
-
 	const scrapeGames = async () => {
 		function getChromiumExecPath() {
 			return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked');
@@ -92,50 +90,12 @@ function makeList() {
 					name = url.replace(replace, replaceTo);
 				}
 
-				const client = igdb(localStorage.getItem('IGDBToken'));
-
-				try {
-					const response = await client
-						.fields('id,cover')
-						.search(name) // Search game by name
-						.limit(1)
-						.request('/games');
-
-					const cover = await client
-						.fields('url') //
-						.where(`id = ` + response.data[0].cover)
-						.request('/covers');
-
-					var gameCover = cover.data[0].url.replace('t_thumb', 't_1080p').replace('//', 'https://');
-					var gameID = response.data[0].id;
-				} catch (e) {
-					var coverUrl;
-
-					if (document.getElementById('custom-cover').checked == true) {
-						coverUrl = document.getElementById('cover-url').value;
-					} else {
-						coverUrl =
-							'https://cdn.glitch.com/fb5beaf3-f18e-457d-9358-b09e28bf5522%2FGameNotFound.png?v=1590514540794';
-					}
-
-					gameCover = coverUrl;
-					gameID = '1';
-				}
-
-				if (typeof gameCover === 'undefined') {
-				}
-
-				if (typeof gameID === 'undefined') {
-				}
-
 				fs.readFile(app.getPath('userData') + '/Json/store.json', 'utf-8', function(err, data) {
 					if (err) throw err;
 
 					var games = JSON.parse(data);
 					games.list.push({
 						name: name,
-						cover: gameCover,
-						id: gameID,
 						link: url
 					});
 
@@ -147,7 +107,6 @@ function makeList() {
 				});
 
 				done++;
-				document.getElementById('generate-details').value = done + '/' + total;
 			} catch (e) {}
 		});
 	};

@@ -4,7 +4,6 @@ var root = app.getAppPath();
 
 function createWindow() {
 	const win = new BrowserWindow({
-		backgroundColor: '#0',
 		show: false,
 		frame: false,
 		width: 1920,
