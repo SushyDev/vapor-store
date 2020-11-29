@@ -11,7 +11,7 @@
 
 ```
 
-
+## Table of Contents  <!-- no toc -->
 - [Vapor Store 2](#vapor-store-2)
   - [Screenshots](#screenshots)
     - [Home](#home)
@@ -25,7 +25,6 @@
   - [Support my work](#support-my-work)
 
 ## Screenshots
-
 ### Home
 Welcome to Vapor Store :)
 ![Home](https://github.com/SushyDev/vapor-store/blob/master/assets/vs-2-home.png?raw=true)
