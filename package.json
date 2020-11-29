@@ -1,0 +1,38 @@
+{
+  "name": "electron-mdc-quick-start",
+  "version": "1.0.0",
+  "description": "Template for new MDC-based project.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "electron . -c",
+    "test": "electron . -d",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruslang02/electron-mdc-quick-start.git"
+  },
+  "author": "ruslang02",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ruslang02/electron-mdc-quick-start/issues"
+  },
+  "homepage": "https://github.com/ruslang02/electron-mdc-quick-start#readme",
+  "dependencies": {
+    "@material/feature-targeting": "^8.0.0",
+    "@material/linear-progress": "^8.0.0",
+    "@material/theme": "^8.0.0",
+    "fs": "0.0.1-security",
+    "glasstron": "git+https://github.com/AryToNeX/Glasstron.git",
+    "jquery": "^3.5.1",
+    "lozad": "^1.16.0",
+    "material-components-web": "^7.0.0",
+    "material-design-icons-webfont": "^1.0.0",
+    "sass": "^1.6.2",
+    "steamgriddb": "^1.4.0"
+  },
+  "devDependencies": {
+    "electron": "^4.0.5",
+    "electron-reload": "^1.5.0"
+  }
+}

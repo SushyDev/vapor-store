@@ -1,0 +1,87 @@
+<header>
+    <link rel="stylesheet" href="../css/backup_&_sync.css" />
+    <script src="../js/backup_&_sync.js"></script>
+
+    <link rel="stylesheet" href="../css/game-grid.css" />
+    <script src="../js/cards/card-builder.js"></script>
+    <script src="../js/cards/game-grid.js"></script>
+</header>
+
+<!--Progress bar-->
+<div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate progress-bar" id="MDCLinearProgress" data-mdc-auto-init="MDCLinearProgress">
+    <div class="mdc-linear-progress__buffering-dots"></div>
+    <div class="mdc-linear-progress__buffer"></div>
+    <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+        <span class="mdc-linear-progress__bar-inner"></span>
+    </div>
+    <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+        <span class="mdc-linear-progress__bar-inner"></span>
+    </div>
+</div>
+
+<!--Div with cards-->
+<div class="cards" id="cards"></div>
+
+<!--Add games FAB-->
+<button class="mdc-fab" aria-label="Favorite" onclick="openAddDialog()">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">add</span>
+</button>
+
+<!--Add game dialog-->
+<div class="mdc-dialog" id="add-game-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" id="mdc-dialog-surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+            <div class="mdc-dialog__content" id="my-dialog-content">
+                <!--Dialog Content-->
+
+                <h1 class="mdc-typography--headline5">Add game</h1>
+                <h1 class="mdc-typography--subtitle1">Game name</h1>
+
+                <!--Textfield-->
+                <label class="mdc-text-field mdc-text-field--filled" data-mdc-auto-init="MDCTextField">
+                    <span class="mdc-text-field__ripple"></span>
+                    <span class="mdc-floating-label" id="my-label-id">Game name</span>
+                    <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id" id="game-name" />
+                    <span class="mdc-line-ripple"></span>
+                </label>
+                <!--/Dialog Content-->
+            </div>
+            <div class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" data-mdc-auto-init="MDCRipple" onclick="closeAddDialog(this)">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" data-mdc-auto-init="MDCRipple" onclick="addCardToGrid(this)">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Add</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+
+<!--Game Dialog-->
+
+<div class="mdc-dialog game-dialog" id="game-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-content">
+            <h2 class="mdc-dialog__title" id="dialog-title"></h2>
+            <div class="mdc-dialog__content" id="dialog-content">
+                <img src="" alt="" class="dialog-image" id="dialog-image" />
+            </div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-icon-button material-icons" onclick="closeDialog(this)">close</button>
+                <button class="mdc-icon-button material-icons" onclick="selectGame('${gameName}')">sync</button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        mdc.autoInit();
+    });
+</script>
