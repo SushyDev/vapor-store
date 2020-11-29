@@ -1,1 +1,0 @@
-# electron-mdc-quick-start
