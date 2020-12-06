@@ -14,6 +14,7 @@
 ## Table of Contents  <!-- no toc -->
 - [Vapor Store 2](#vapor-store-2)
   - [Info](#info)
+    - [Download](#download)
     - [Requirements](#requirements)
     - [How to set up](#how-to-set-up)
     - [Roadmap](#roadmap)
