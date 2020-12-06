@@ -37,9 +37,13 @@ Here you can backup and sync your game files
 
 ## Info
 
+### Download
+
+- [Download here!](https://sushydev.github.io/vapor-store/)
+
 ### Requirements
 
-- [Vapor Store](https://github.com/CrypticShy/vapor-store/releases/)
+- [Vapor Store](https://sushydev.github.io/vapor-store/)
 - [SteamGrid Key](https://www.steamgriddb.com/profile/preferences)
 - [A repo file](https://discord.gg/ZjDTpmf)
 
