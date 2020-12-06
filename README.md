@@ -13,27 +13,12 @@
 
 ## Table of Contents  <!-- no toc -->
 - [Vapor Store 2](#vapor-store-2)
-  - [Screenshots](#screenshots)
-    - [Home](#home)
-    - [Store](#store)
-    - [Backup & Sync](#backup--sync)
   - [Info](#info)
     - [Requirements](#requirements)
     - [How to set up](#how-to-set-up)
     - [Roadmap](#roadmap)
     - [Issues](#issues)
   - [Support my work](#support-my-work)
-
-## Screenshots
-### Home
-Welcome to Vapor Store :)
-![Home](https://github.com/SushyDev/vapor-store/blob/master/assets/previews/vs-2-home.png?raw=true)
-### Store
-Download your games here!
-![Store](https://github.com/SushyDev/vapor-store/blob/master/assets/previews/vs-2-store.png?raw=true)
-### Backup & Sync
-Here you can backup and sync your game files
-![Backup & Sync](https://github.com/SushyDev/vapor-store/blob/master/assets/previews/vs-2-backup.png?raw=true)
 
 ## Info
 
