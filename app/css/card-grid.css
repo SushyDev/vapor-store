@@ -1,0 +1,69 @@
+.progress-bar {
+  display: none;
+}
+
+.cards {
+  width: 100% !important;
+  height: 100% !important;
+  overflow-y: auto;
+  margin: 0 auto;
+  background: var(--mdc-theme-background);
+}
+.cards .mdc-card {
+  color: var(--color);
+  height: fit-content;
+  margin: 20px;
+  width: 300px;
+}
+.cards .mdc-card:not(.mdc-text-field--disabled) {
+  background-color: var(--el2);
+}
+.cards .mdc-card .mdc-card__media--square img {
+  width: 100%;
+  background-image: url("../img/loading.svg");
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.cards .mdc-card .mdc-card__media--square img.unloaded {
+  height: 450px;
+}
+.cards .mdc-card .mdc-card__media--square img[src="../img/not_found.svg"] {
+  width: 50%;
+  margin: 0 25%;
+  padding: 150px 0;
+  filter: contrast(50%);
+  background: none;
+}
+.cards .mdc-card .mdc-card__media--square::before {
+  margin: 0;
+}
+.cards .mdc-card .card-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.cards .mdc-card .card-content p {
+  width: 90%;
+}
+.cards .mdc-card .mdc-card__actions {
+  height: fit-content;
+}
+.cards .mdc-card .mdc-card__actions .game-title {
+  margin-right: auto;
+}
+.cards .mdc-card .mdc-card__actions .mdc-card__action-icons:not(:disabled) {
+  color: var(--mdc-theme-secondary);
+}
+
+.cards::-webkit-scrollbar {
+  display: none !important;
+}
+
+.game-dialog .dialog-content--loading {
+  position: absolute;
+  width: 100%;
+}
+.game-dialog .dialog-image {
+  width: 100%;
+}

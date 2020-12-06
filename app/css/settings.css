@@ -1,0 +1,22 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  --mdc-theme-primary: var(--mdc-theme-secondary);
+}
+.settings .output {
+  display: flex;
+  align-items: center;
+}
+.settings .output .output__margin {
+  margin-left: 15px;
+}
+.settings button {
+  width: fit-content;
+}
+.settings label {
+  width: fit-content;
+}
+.settings h1 {
+  margin: 15px 0;
+}

@@ -1,0 +1,39 @@
+<head>
+    <link rel="stylesheet" href="../css/card-grid.css" />
+    <link rel="stylesheet" href="../css/installed.css" />
+    <script src="../js/components/card-grid/card-builder.js"></script>
+    <script src="../js/components/card-grid/card-grid.js"></script>
+    <script src="../js/installed.js"></script>
+</head>
+
+<!--Progress bar-->
+<div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate progress-bar" id="MDCLinearProgress" data-mdc-auto-init="MDCLinearProgress">
+    <div class="mdc-linear-progress__buffering-dots"></div>
+    <div class="mdc-linear-progress__buffer"></div>
+    <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+        <span class="mdc-linear-progress__bar-inner"></span>
+    </div>
+    <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+        <span class="mdc-linear-progress__bar-inner"></span>
+    </div>
+</div>
+
+<!--Div with cards-->
+<div class="cards" id="cards"></div>
+
+<!--Executable Dialog-->
+
+<div class="mdc-dialog exec-dialog" id="exec-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-content">
+            <h2 class="mdc-dialog__title" id="exec-dialog-title">Executables</h2>
+            <div class="mdc-dialog__content" id="exec-dialog-content">
+            </div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-icon-button material-icons" onclick="closeDialog(this)">close</button>
+                <button class="mdc-icon-button material-icons" id="download-button">download</button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>

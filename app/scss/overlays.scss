@@ -1,0 +1,43 @@
+@import '@material/button';
+.overlays {
+    .download-snackbar-container {
+        position: absolute;
+        bottom: 0;
+        height: fit-content;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+
+        .mdc-snackbar {
+            position: relative;
+            display: flex;
+
+            .snack-flex {
+                display: flex;
+                flex-direction: column;
+                padding-right: 0;
+
+                .mdc-linear-progress {
+                    border-radius: 4px 4px 0 0;
+                }
+
+                .snack-content {
+                    display: flex;
+                    padding-bottom: 4px;
+                    width: 100%;
+
+                    .mdc-snackbar__actions {
+                        margin-left: auto;
+                        .mdc-button {
+                            @include ink-color(var(--mdc-theme-secondary));
+                        }
+
+                        .mdc-icon-button {
+                            margin-right: 6px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

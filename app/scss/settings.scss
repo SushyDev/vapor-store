@@ -1,0 +1,27 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    --mdc-theme-primary: var(--mdc-theme-secondary);
+
+    .output {
+        display: flex;
+        align-items: center;
+
+        .output__margin {
+            margin-left: 15px;
+        }
+    }
+
+    button {
+        width: fit-content;
+    }
+
+    label {
+        width: fit-content;
+    }
+
+    h1 {
+        margin: 15px 0;
+    }
+}

@@ -1,0 +1,10 @@
+.exec-dialog {
+    #exec-dialog-content {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            margin: 10px;
+        }
+    }
+}

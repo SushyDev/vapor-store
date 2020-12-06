@@ -1,0 +1,165 @@
+@import '../../node_modules/material-components-web/dist/material-components-web';
+@import '@material/drawer';
+@import '@material/list';
+@import '@material/button';
+@import '@material/icon-button';
+@import '@material/textfield';
+
+:root {
+    --mdc-theme-primary: #03a9f4;
+    --mdc-theme-secondary: #8bc34a;
+    --mdc-theme-background: #ffffff;
+    --drawer-selected: rgba(255, 168, 253, 0.12);
+    --el1: #bdbdbd;
+    --el2: #eeeeee;
+    --drawer-bg: #eeeeee;
+    --btn-color: #cccccc;
+    --color: #404040;
+    --light-color: #ffffff;
+    --dark-color: #ffffff;
+}
+
+[data-theme='dark'] {
+    --mdc-theme-primary: #0288d1;
+    --mdc-theme-secondary: #8bc34a;
+    --mdc-theme-background: #121212;
+    --el1: #bdbdbd;
+    --el2: #1d1d1d;
+    --drawer-bg: #212121;
+    --btn-color: #ffffff;
+    --color: #ffffff;
+    --light-color: #ffffff;
+    --dark-color: #000000;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
+    color: #757575;
+    overflow: hidden;
+    user-select: none;
+    font-family: sans-serif;
+    background-color: var(--mdc-theme-background);
+
+    .mdc-top-app-bar {
+        z-index: 7;
+        box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
+        -webkit-app-region: drag;
+
+        button,
+        span,
+        .window-buttons {
+            -webkit-app-region: no-drag;
+        }
+
+        .window-buttons {
+            display: flex;
+            width: fit-content;
+            height: 38px;
+            background: #0072c6;
+            cursor: pointer;
+
+            .ui-titlecontrols {
+                max-width: 114px;
+                max-height: 32px;
+                flex-grow: 1;
+
+                .ui-btn {
+                    margin: 0;
+                    width: 38px;
+                    height: 38px;
+                    border: 0;
+                    outline: 0;
+                    background: transparent;
+
+                    svg {
+                        width: 10px;
+                        height: 10px;
+                    }
+
+                    * {
+                        fill: #fff;
+                    }
+                }
+
+                .ui-btn:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                }
+            }
+        }
+    }
+
+    .mdc-drawer {
+        --mdc-theme-primary: var(--mdc-theme-secondary);
+        @include surface-fill-color(var(--drawer-bg));
+        box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+
+        .mdc-list {
+            height: calc(100% - 16px);
+            display: flex;
+            flex-direction: column;
+
+            .mdc-list-item {
+                @include item-graphic-ink-color(var(--color));
+                @include item-primary-text-ink-color(var(--color));
+
+                &.mdc-list-item--activated {
+                    @include item-graphic-ink-color(var(--mdc-theme-secondary));
+                    @include item-primary-text-ink-color(var(--mdc-theme-secondary));
+                }
+            }
+
+            a {
+                margin-top: 0px !important;
+            }
+
+            a:nth-last-child(1) {
+                margin-top: auto !important;
+            }
+        }
+    }
+
+    .mdc-drawer-app-content {
+        transition: all 0.2s ease-in-out;
+        background: var(--mdc-theme-background);
+        overflow: hidden;
+        color: #757575;
+        min-width: 0px !important;
+
+        .main-content {
+            .intro {
+                padding-top: 22.78px;
+                margin: 0 20px;
+                .mdc-typography--headline4 {
+                    margin-block-start: 0 !important;
+                }
+            }
+        }
+    }
+
+    .mdc-text-field--label-floating {
+        @include label-color(var(--mdc-theme-secondary));
+    }
+
+    .mdc-text-field--outlined {
+        @include outline-color(var(--color));
+        @include hover-outline-color(var(--color));
+        @include ink-color(var(--color));
+    }
+
+    .mdc-text-field--outlined {
+        &:not(.mdc-text-field--label-floating) {
+            .mdc-floating-label {
+                @include disabled-placeholder-color(var(--color));
+                color: var(--color);
+            }
+        }
+    }
+}
+
+.mdc-button,
+.mdc-linear-progress {
+    --mdc-theme-primary: var(--mdc-theme-secondary);
+}

@@ -1,0 +1,86 @@
+@import '@material/card';
+@import '@material/linear-progress';
+@import '@material/textfield';
+@import '@material/button';
+
+.progress-bar {
+    display: none;
+}
+
+.cards {
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto;
+    margin: 0 auto;
+    background: var(--mdc-theme-background);
+
+    .mdc-card {
+        @include fill-color(var(--el2));
+        color: var(--color);
+        height: fit-content;
+        margin: 20px;
+        width: 300px;
+
+        .mdc-card__media--square {
+            img {
+                width: 100%;
+                background-image: url('../img/loading.svg');
+                background-size: 40%;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            img.unloaded {
+                height: 450px;
+            }
+
+            img[src='../img/not_found.svg'] {
+                width: 50%;
+                margin: 0 25%;
+                padding: 150px 0;
+                filter: contrast(50%);
+                background: none;
+            }
+        }
+
+        .mdc-card__media--square::before {
+            margin: 0;
+        }
+
+        .card-content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            p {
+                width: 90%;
+            }
+        }
+
+        .mdc-card__actions {
+            height: fit-content;
+
+            .game-title {
+                margin-right: auto;
+            }
+
+            .mdc-card__action-icons {
+                @include ink-color(var(--mdc-theme-secondary));
+            }
+        }
+    }
+}
+
+.cards::-webkit-scrollbar {
+    display: none !important;
+}
+
+.game-dialog {
+    .dialog-content--loading {
+        position: absolute;
+        width: 100%;
+    }
+    .dialog-image {
+        width: 100%;
+    }
+}

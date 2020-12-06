@@ -1,0 +1,71 @@
+<header>
+    <link rel="stylesheet" href="../css/settings.css" />
+    <script src="../js/settings.js"></script>
+</header>
+
+<div class="intro">
+    <h1 class="mdc-typography--headline4">Settings</h1>
+    <h1 class="mdc-typography--subtitle1">Configure some page settings here!</h1>
+</div>
+
+<div class="settings">
+    <h1 class="mdc-typography--subtitle2">Toggle the theme (Light/Dark)</h1>
+
+    <button class="mdc-button mdc-button--raised" onclick="switchTheme()" id="theme">
+        <div class="mdc-button__ripple"></div>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
+        <span class="mdc-button__label"></span>
+    </button>
+
+    <h1 class="mdc-typography--subtitle2">Select the games.json file</h1>
+
+    <div class="output">
+        <button class="mdc-button mdc-button--raised" onclick="selectListFile()" id="theme">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">attach_file</i>
+            <span class="mdc-button__label">Select File</span>
+        </button>
+
+        <p class="output__margin" id="gameFileDir">Current file:</p>
+    </div>
+
+    <h1 class="mdc-typography--subtitle2">Select a directory where the games will get installed</h1>
+
+    <div class="output">
+        <button class="mdc-button mdc-button--raised" onclick="selectDownloadDir()" id="theme">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">folder</i>
+            <span class="mdc-button__label">Select Folder</span>
+        </button>
+
+        <p class="output__margin" id="gameDownloadDir">Current folder:</p>
+    </div>
+
+    <h1 class="mdc-typography--subtitle2">Enter your SGDB Key</h1>
+
+    <div class="output">
+        <!--Textfield-->
+        <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField">
+            <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">Key</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id" id="sgdb-key" />
+        </label>
+
+        <button class="mdc-button mdc-button--raised output__margin" onclick="saveSGDBKey()" id="theme">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">checkmark</i>
+            <span class="mdc-button__label">Save</span>
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        mdc.autoInit();
+    });
+</script>
