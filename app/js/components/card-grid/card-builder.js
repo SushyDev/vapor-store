@@ -45,8 +45,8 @@ function selectCard(gameInfo, fetchName, type) {
     </div>
 </div>
 `;
-//No game settings yet, needs to be implemented when adding custom games
-//<button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameSettings('${gameInfo.name}', '${gameInfo.folder}', '${gameInfo.fileName}')" title="Settings">settings</button>
+        //No game settings yet, needs to be implemented when adding custom games
+        //<button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameSettings('${gameInfo.name}', '${gameInfo.folder}', '${gameInfo.fileName}')" title="Settings">settings</button>
     } else {
         //Card for store
         return `
