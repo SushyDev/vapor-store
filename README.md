@@ -17,6 +17,7 @@
     - [Download](#download)
     - [Requirements](#requirements)
     - [How to set up](#how-to-set-up)
+    - [How to build](#how-to-build-it-yourself)
     - [Roadmap](#roadmap)
     - [Issues](#issues)
   - [Support my work](#support-my-work)
@@ -42,6 +43,10 @@
 5. Get a repo file
 6. Load the repo file in the Vapor Store settings
 
+### How to build it yourself
+
+Building Vapor Store is very simple because its a Electron app, you simply need to download the code from git and run the build command
+
 ### Roadmap
 
 - [x] Donate Button :D
@@ -62,7 +67,9 @@
 
 ### Issues
 
-- Currently doesn't work
+- Current release doesn't work
+- Compile Vapor Store yourself for a working version
+- No way of generating a games list
 
 If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support 
 
