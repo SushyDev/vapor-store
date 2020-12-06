@@ -41,7 +41,7 @@ Here you can backup and sync your game files
 
 - [Vapor Store](https://github.com/CrypticShy/vapor-store/releases/)
 - [SteamGrid Key](https://www.steamgriddb.com/profile/preferences)
-- A repo file
+- [A repo file](https://discord.gg/ZjDTpmf)
 
 ### How to set up
 
@@ -67,7 +67,8 @@ Here you can backup and sync your game files
 - [ ] Game sorting by category
 - [ ] Updates
 - [ ] Make the Downloads snackbar a universally usable notification system
-- [ ] - Multiple store pages on large searches
+- [ ] Multiple store pages on large searches
+- [ ] Implement the Backup & Sync feature
 
 ### Issues
 

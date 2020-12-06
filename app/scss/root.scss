@@ -6,8 +6,8 @@
 @import '@material/textfield';
 
 :root {
-    --mdc-theme-primary: #03a9f4;
-    --mdc-theme-secondary: #8bc34a;
+    --mdc-theme-primary: #58c8eb;
+    --mdc-theme-secondary: #f192cd;
     --mdc-theme-background: #ffffff;
     --drawer-selected: rgba(255, 168, 253, 0.12);
     --el1: #bdbdbd;
@@ -20,8 +20,8 @@
 }
 
 [data-theme='dark'] {
-    --mdc-theme-primary: #0288d1;
-    --mdc-theme-secondary: #8bc34a;
+    --mdc-theme-primary: #58c8eb;
+    --mdc-theme-secondary: #f192cd;
     --mdc-theme-background: #121212;
     --el1: #bdbdbd;
     --el2: #1d1d1d;
@@ -58,7 +58,7 @@ body {
             display: flex;
             width: fit-content;
             height: 38px;
-            background: #0072c6;
+            background: rgba(0,0,0,.1);
             cursor: pointer;
 
             .ui-titlecontrols {

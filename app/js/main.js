@@ -86,3 +86,7 @@ function getChromiumExecPath() {
     }
     return puppeteer.executablePath();
 }
+
+function visit(url) {
+    shell.openExternal(url)
+}

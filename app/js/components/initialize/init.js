@@ -26,6 +26,9 @@ const path = require('path');
 //rimraf for deleting folders
 const rimraf = require('rimraf');
 
+//Shell for shell commands
+const shell = require('electron').shell;
+
 //Electron stuff
 const {ipcRenderer, remote} = require('electron');
 const app = require('electron').remote.app;
