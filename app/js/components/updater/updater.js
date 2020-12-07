@@ -43,7 +43,7 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases/latest', funct
         ],
     };
 
-    if (true) {
+    if (latest > app.getVersion()) {
         newNotif(snackbarData);
 
         ipcRenderer.on(`${data.assets[0].browser_download_url}-download-success`, (event, gameTitle) => {
