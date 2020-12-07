@@ -28,6 +28,19 @@ function goto(page = 'Home') {
         drawer.open = !drawer.open;
     }
 
+    //Remove previous highlight
+    try {
+        document.querySelector('.mdc-list-item--activated').classList.remove('mdc-list-item--activated');
+        document.querySelector('.list-item--activated').classList.remove('list-item--activated');
+    } catch (e) {
+        /*Can error*/
+    }
+
+    //Highlight active page
+    var newSelect = $(`.mdc-list > a > span:contains("${page}")`)[0].parentElement;
+    newSelect.classList.add('list-item--activated');
+    newSelect.classList.add('mdc-list-item--activated');
+
     sessionStorage.setItem('page', page);
 }
 goto();
@@ -88,5 +101,5 @@ function getChromiumExecPath() {
 }
 
 function visit(url) {
-    shell.openExternal(url)
+    shell.openExternal(url);
 }

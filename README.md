@@ -61,7 +61,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Show Download Size
 - [ ] Import existing games
 - [ ] Game sorting by category
-- [ ] Updates
+- [ ] Game updates
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 
@@ -71,7 +71,6 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - Compile Vapor Store yourself for a working version
 - No way of generating a games list
 
-- Fix goto function not highlighting the page when not executed by a user action
 - Make it so the download popup appears sooner for better user feedback
 
 If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support 
