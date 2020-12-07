@@ -7,8 +7,6 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
     var fileType = filename.substr(-3);
     //Dont pause on start
 
-    console.log(fileType);
-
     var snackbarData = {
         ['main']: [
             {
@@ -49,7 +47,6 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
     };
 
     newNotif(snackbarData);
-    console.log(name);
 
     sessionStorage.setItem(`${name}-pause`, 'false');
 
