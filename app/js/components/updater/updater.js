@@ -3,7 +3,6 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases/latest', funct
     var fileName = data.assets[0].name;
     var name = fileName.slice(0, -4);
     var latest = data.tag_name.slice(1);
-    console.log(fileName);
     var snackbarData = {
         ['main']: [
             {
