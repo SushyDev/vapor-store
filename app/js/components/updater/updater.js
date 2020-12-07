@@ -1,51 +1,55 @@
 
+$.get('https://api.github.com/repos/SushyDev/vapor-store/releases/latest', function (data) {
+    var downloadUrl = data.assets[0].browser_download_url;
+    var latest = data.tag_name.slice(1);
+    var snackbarData = {
+        ['main']: [
+            {
+                name: `${name}`,
+            },
+        ],
+        ['progress']: [
+            {
+                enabled: false,
+                id: `${name}-completed-progress`,
+            },
+        ],
+        ['label']: [
+            {
+                id: `${name}-snackbar-title`,
+                innerHTML: `Version ${latest} is available`,
+            },
+        ],
+        ['actions']: [
+            {
+                type: 'button',
+                innerHTML: 'Download',
+                labelid: `${name}-download-button__label`,
+                class: 'download-button',
+                id: 'download-button',
+                onclick: `downloadUpdate('${name}', '${downloadUrl}')`,
+            },
+        ],
+        ['close']: [
+            {
+                enabled: true,
+                onclick: `closeSnackbar('${name}', false)`,
+                title: 'Dismiss',
+                icon: 'close',
+                id: `${name}-close`,
+            },
+        ],
+    };
 
-var name = 'newUpdate';
-var version = '2.0.0'
-
-var snackbarData = {
-    ['main']: [
-        {
-            name: `${name}`,
-        },
-    ],
-    ['progress']: [
-        {
-            enabled: true,
-            id: `${name}-completed-progress`,
-        },
-    ],
-    ['label']: [
-        {
-            id: `${name}-snackbar-title`,
-            innerHTML: `Version ${version} is available`,
-        },
-    ],
-    ['actions']: [
-        {
-            type: 'button',
-            innerHTML: 'Download',
-            labelid: `${name}-pause-button__label`,
-            class: 'pause-button',
-            id: 'pause-button',
-            onclick: `pauseDownload('${name}')`,
-        },
-    ],
-    ['close']: [
-        {
-            enabled: true,
-            onclick: `closeSnackbar('${name}', 'Are you sure you want to cancel the download for ${name}?')`,
-            confirm: true,
-            title: 'Dismiss',
-            icon: 'close',
-            id: `${name}-close`,
-        },
-    ],
-};
-
-if ('1.3.4' > '1.3.3') {
-    console.log('yes');
-    $(document).ready(function () {
+    if (latest < app.getVersion()) {
         newNotif(snackbarData);
-    });
+    }
+
+    console.log(data.assets[0].browser_download_url);
+});
+
+
+function downloadUpdate(name, downloadUrl) {
+    closeSnackbar(name, false);
+    ipcRenderer.send('download-item', downloadUrl, localStorage.getItem('downloadDir'), 'Update');
 }

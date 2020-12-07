@@ -4,12 +4,56 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
     var fullPath = path.join(localStorage.getItem('downloadDir'), filename);
     var name = filename.slice(0, -4);
     var fileurl = item.getURL();
+    var fileType = filename.substr(-3);
     //Dont pause on start
+
+    console.log(fileType);
+
+    var snackbarData = {
+        ['main']: [
+            {
+                name: `${name}`,
+            },
+        ],
+        ['progress']: [
+            {
+                enabled: true,
+                id: `${name}-completed-progress`,
+            },
+        ],
+        ['label']: [
+            {
+                id: `${name}-snackbar-title`,
+                innerHTML: `${filename} 0%`,
+            },
+        ],
+        ['actions']: [
+            {
+                type: 'button',
+                innerHTML: 'Pause',
+                labelid: `${name}-pause-button__label`,
+                class: 'pause-button',
+                id: 'pause-button',
+                onclick: `pauseDownload('${name}')`,
+            },
+        ],
+        ['close']: [
+            {
+                enabled: true,
+                onclick: `closeSnackbar('${name}', true, 'Are you sure you want to cancel the download for ${filename}')`,
+                title: 'Cancel',
+                icon: 'close',
+                id: `${name}-close`,
+            },
+        ],
+    };
+
+    newNotif(snackbarData);
+    console.log(name);
+
     sessionStorage.setItem(`${name}-pause`, 'false');
 
     //Create snackbar
-    createSnackbar(name);
-    document.getElementById(`${name}-snack-actions`).style.display = 'flex';
 
     item.on('updated', (event, state) => {
         var name = filename.slice(0, -4);
@@ -63,7 +107,11 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
                 //Remove downloaded game from array
                 downloading.shift();
                 //Extract downloaded zip file
-                extractDownload(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+                if (fileType == 'zip') {
+                    extractDownload(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+                } else {
+                    downloadFinish(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+                }
             });
         } else {
             devLog(`Download failed: ${state}`);
@@ -118,4 +166,11 @@ function createSnackbar(name) {
 `;
     document.getElementById('download-snackbar-container').appendChild(card);
     window.mdc.autoInit();
+}
+
+function downloadFinish(targetPath, targetFolder, filename, gameTitle) {
+    var name = filename.slice(0, -4);
+    setTimeout(() => {
+        document.getElementById(`${name}-snackbar`).remove();
+    }, 2500);
 }

@@ -27,8 +27,11 @@
 
                 .snack-content {
                     display: flex;
-                    padding-bottom: 4px;
                     width: 100%;
+                    
+                    &.progress-true {
+                        padding-bottom: 4px;
+                    }
 
                     .mdc-snackbar__actions {
                         margin-left: auto;

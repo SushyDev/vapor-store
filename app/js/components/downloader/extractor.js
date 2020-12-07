@@ -15,9 +15,7 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
 
             document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} Extracted`;
             //Remove snackbar after 1 second
-            setTimeout(() => {
-                document.getElementById(`${name}-snackbar`).remove();
-            }, 2500);
+            downloadFinish(targetPath, targetFolder, filename, gameTitle);
             addGameToLibrary(targetPath, targetFolder, filename, gameTitle);
         } catch (err) {
             devLog(err);

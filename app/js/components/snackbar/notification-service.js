@@ -10,11 +10,9 @@ function newNotif(snackbarData) {
     snackbar.id = `${name}-snackbar`;
     snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
     snackbar.innerHTML = `
-                        <div class="mdc-snackbar__surface snack-flex">
-                            <div class="progress-container" id="${name}-progress-container">
-                            </div>
+                        <div class="mdc-snackbar__surface snack-flex" id="${name}-surface">
 
-                            <div class="snack-content">
+                            <div class="snack-content progress-${progress.enabled}">
                                 <div class="mdc-snackbar__label" role="status" aria-live="polite" id="${label.id}">${label.innerHTML}</div>
                                 <div class="mdc-snackbar__actions" id="${name}-snack-actions"></div>
                             </div>
@@ -33,7 +31,7 @@ function newNotif(snackbarData) {
                             <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar" id="${progress.id}"><span class="mdc-linear-progress__bar-inner"></span></div>
                             <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar"><span class="mdc-linear-progress__bar-inner"></span></div>
                             `;
-        document.getElementById(`${name}-progress-container`).appendChild(progressbar);
+        document.getElementById(`${name}-surface`).prepend(progressbar);
     }
 
     //Make buttons in action menu
@@ -56,7 +54,6 @@ function newNotif(snackbarData) {
         closeButton.className = 'mdc-icon-button mdc-snackbar__dismiss material-icons';
         closeButton.setAttribute('title', close.title);
         closeButton.setAttribute('onclick', close.onclick);
-        closeButton.setAttribute('confirm', close.confirm);
         closeButton.innerHTML = close.icon;
         document.getElementById(`${name}-snack-actions`).appendChild(closeButton);
     }
@@ -66,9 +63,9 @@ function newNotif(snackbarData) {
 }
 
 //Close snackbar / cancel download
-function closeSnackbar(name, message) {
+function closeSnackbar(name, alert, message) {
     //Ask for confirm if confirm = true
-    if (document.querySelector(`#${name}-close`).getAttribute('confirm') == 'true') if (!confirm(message)) return;
+    if (alert) if (!confirm(message)) return;
     //Remoive snackbar
     document.getElementById(`${name}-snackbar`).remove();
 }
