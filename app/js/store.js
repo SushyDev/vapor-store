@@ -145,8 +145,26 @@ function openStoreGame(name) {
             //Age rating
             document.querySelector('#age-rating').innerHTML = '<b>Age ratings</b>';
             var ageRating = document.createElement('p');
-            ageRating.innerHTML = output.esrb_rating.name;
+            try {
+                ageRating.innerHTML = output.esrb_rating.name;
+            } catch (e) {
+                ageRating.innerHTML = 'Unkown';
+            }
             document.querySelector('#age-rating').appendChild(ageRating);
+
+            //Screenshots
+            $.get(`https://api.rawg.io/api/games/${output.id}/screenshots`, (screenshots) => {
+                console.log(screenshots);
+
+                document.querySelector('#game-screenshots').innerHTML = ''
+                screenshots.results.forEach((screenshot) => {
+                    console.log(screenshot);
+                    var image = document.createElement('img')
+                    image.src = screenshot.image;
+                    document.querySelector('#game-screenshots').appendChild(image);
+
+                });
+            });
         });
     });
 

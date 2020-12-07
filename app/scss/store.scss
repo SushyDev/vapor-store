@@ -44,59 +44,86 @@
 .mdc-dialog {
     z-index: 10;
     .mdc-dialog__surface {
-        min-width: 90vw;
-        min-height: 90%;
+        min-width: 950px;
+        max-height: 625px !important;
 
         .mdc-dialog__content {
             display: flex;
+            flex-direction: column;
             overflow-y: auto;
 
-            .dialog-left {
-                width: fit-content;
-                height: fit-content;
+            .dialog-top {
+                display: flex;
+                width: 100%;
+                height: 515px !important;
+                align-items: center;
+
+                //Game description
+                #dialog-game-description {
+                    height: 515px;
+                    max-width: 500px;
+                    overflow-y: scroll;
+                    margin-left: 16px;
+                    display: flex;
+                    flex-direction: column;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                }
+
+                //Cover image
                 img {
                     width: 342px;
                     height: 482px;
                     border-radius: 10px;
                     box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
                 }
+            }
 
+            .dialog-bottom {
+                display: flex;
+                width: 100%;
+                height: 515px !important;
+
+                //Rating, devs, etc..
                 .details {
                     margin-top: 8px;
-                    width: fit-content;
-                    margin: 16px auto 0 auto;
+                    width: 342px;
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
-                    gap: 25px;
+                    margin-left: 18px;
 
                     div {
                         display: flex;
                         flex-direction: column;
 
-                        b {
-                            display: inline-block;
-                        }
-
                         p {
-                            display: inline-block;
                             margin: 2px 0;
                         }
                     }
                 }
-            }
 
-            .dialog-right {
-                width: 100%;
-                height: fit-content;
-                margin: 0;
-
-                :first-child {
+                .game-screenshots {
+                    width: 500px;
+                    height: 400px;
+                    display: flex;
+                    overflow-x: auto;
                     margin-top: 8px;
-                }
 
-                p {
-                    height: 45%;
-                    margin: 8px 20px;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    img {
+                        object-fit: cover;
+                        width: 500px;
+                        border-radius: 10px;
+
+                        &:not(:last-of-type) {
+                            margin-right: 12px;
+                        }
+                    }
                 }
             }
         }

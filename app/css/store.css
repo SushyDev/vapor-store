@@ -44,51 +44,71 @@
   z-index: 10;
 }
 .mdc-dialog .mdc-dialog__surface {
-  min-width: 90vw;
-  min-height: 90%;
+  min-width: 950px;
+  max-height: 625px !important;
 }
 .mdc-dialog .mdc-dialog__surface .mdc-dialog__content {
   display: flex;
+  flex-direction: column;
   overflow-y: auto;
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left {
-  width: fit-content;
-  height: fit-content;
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-top {
+  display: flex;
+  width: 100%;
+  height: 515px !important;
+  align-items: center;
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left img {
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-top #dialog-game-description {
+  height: 515px;
+  max-width: 500px;
+  overflow-y: scroll;
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-top #dialog-game-description::-webkit-scrollbar {
+  display: none;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-top img {
   width: 342px;
   height: 482px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details {
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom {
+  display: flex;
+  width: 100%;
+  height: 515px !important;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .details {
   margin-top: 8px;
-  width: fit-content;
-  margin: 16px auto 0 auto;
+  width: 342px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  margin-left: 18px;
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details div {
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .details div {
   display: flex;
   flex-direction: column;
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details div b {
-  display: inline-block;
-}
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details div p {
-  display: inline-block;
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .details div p {
   margin: 2px 0;
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-right {
-  width: 100%;
-  height: fit-content;
-  margin: 0;
-}
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-right :first-child {
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .game-screenshots {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  overflow-x: auto;
   margin-top: 8px;
 }
-.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-right p {
-  height: 45%;
-  margin: 8px 20px;
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .game-screenshots::-webkit-scrollbar {
+  display: none;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .game-screenshots img {
+  object-fit: cover;
+  width: 500px;
+  border-radius: 10px;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-bottom .game-screenshots img:not(:last-of-type) {
+  margin-right: 12px;
 }
