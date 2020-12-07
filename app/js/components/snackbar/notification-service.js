@@ -58,6 +58,8 @@ function newNotif(snackbarData) {
         document.getElementById(`${name}-snack-actions`).appendChild(closeButton);
     }
 
+    window.mdc.autoInit();
+
     //Show snackbar
     document.getElementById(`${name}-snackbar`).classList.remove('snackbar--invis');
 }
