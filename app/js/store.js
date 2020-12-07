@@ -3,11 +3,11 @@ var fab = document.querySelector('.mdc-fab');
 
 //If no file or key alert
 if (!localStorage.getItem('SGDB_Key')) {
-    alert('No Steam Grid Key')
-    goto('Settings')
-} else if (!localStorage.getItem('listFile')) { 
-    alert('No game file selected')
-    goto('Settings')
+    alert('No Steam Grid Key');
+    goto('Settings');
+} else if (!localStorage.getItem('listFile')) {
+    alert('No game file selected');
+    goto('Settings');
 }
 
 //Function for searching
@@ -87,9 +87,68 @@ function openStoreGame(name) {
     var dialog = document.querySelector('#game-dialog');
     var title = dialog.querySelector('#dialog-title');
     var image = dialog.querySelector('#dialog-image');
+    var image = dialog.querySelector('#dialog-image');
     var download = dialog.querySelector('#download-button');
 
     showProgressBar();
+
+    console.log(name);
+
+    //Get id by name
+    $.get(`https://api.rawg.io/api/games?search=${name}`, (output) => {
+        //Detailed info by id
+        $.get(`https://api.rawg.io/api/games/${output.results[0].id}`, (output) => {
+            console.log(output);
+            //Set description
+            document.querySelector('#dialog-game-description').innerHTML = '<h3>Description</h3>' + output.description;
+
+            //Add platforms / Release date
+            document.querySelector('#platforms').innerHTML = '<b>Platforms</b>';
+            document.querySelector('#release-date').innerHTML = '<b>Release dates</b>';
+            output.platforms.forEach((platforms) => {
+                var platformName = document.createElement('p');
+                platformName.innerHTML = platforms.platform.name;
+                document.querySelector('#platforms').appendChild(platformName);
+
+                //Release date
+                if (platforms.platform.name == 'PC') {
+                    var releaseDate = document.createElement('p');
+                    releaseDate.innerHTML = platforms.released_at;
+                    document.querySelector('#release-date').appendChild(releaseDate);
+                }
+            });
+
+            //Publishers
+            document.querySelector('#publisher').innerHTML = '<b>Publishers</b>';
+            output.publishers.forEach((publishers) => {
+                var publisherName = document.createElement('p');
+                publisherName.innerHTML = publishers.name;
+                document.querySelector('#publisher').appendChild(publisherName);
+            });
+
+            //Developers
+            document.querySelector('#developer').innerHTML = '<b>Developers</b>';
+            output.developers.forEach((developers) => {
+                var developerName = document.createElement('p');
+                developerName.innerHTML = developers.name;
+                document.querySelector('#developer').appendChild(developerName);
+            });
+
+            //genre
+            document.querySelector('#genre').innerHTML = '<b>Genres</b>';
+            output.genres.forEach((genres) => {
+                var genreName = document.createElement('p');
+                genreName.innerHTML = genres.name;
+                document.querySelector('#genre').appendChild(genreName);
+            });
+
+            //Age rating
+            document.querySelector('#age-rating').innerHTML = '<b>Age ratings</b>';
+            var ageRating = document.createElement('p');
+            ageRating.innerHTML = output.esrb_rating.name;
+            document.querySelector('#age-rating').appendChild(ageRating);
+        });
+    });
 
     fetch(name).then((game) => {
         openDialog('game-dialog');

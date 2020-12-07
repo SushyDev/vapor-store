@@ -1,5 +1,5 @@
 .mdc-fab {
-  z-index: 999;
+  z-index: 9;
   position: fixed;
   margin-top: 16px;
   margin-left: 16px;
@@ -40,8 +40,55 @@
     transform: scale(1);
   }
 }
-@media (max-width: 960px) {
-  .cards:not(:first-child) {
-    justify-content: center;
-  }
+.mdc-dialog {
+  z-index: 10;
+}
+.mdc-dialog .mdc-dialog__surface {
+  min-width: 90vw;
+  min-height: 90%;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content {
+  display: flex;
+  overflow-y: auto;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left {
+  width: fit-content;
+  height: fit-content;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left img {
+  width: 342px;
+  height: 482px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details {
+  margin-top: 8px;
+  width: fit-content;
+  margin: 16px auto 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details div {
+  display: flex;
+  flex-direction: column;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details div b {
+  display: inline-block;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-left .details div p {
+  display: inline-block;
+  margin: 2px 0;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-right {
+  width: 100%;
+  height: fit-content;
+  margin: 0;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-right :first-child {
+  margin-top: 8px;
+}
+.mdc-dialog .mdc-dialog__surface .mdc-dialog__content .dialog-right p {
+  height: 45%;
+  margin: 8px 20px;
 }

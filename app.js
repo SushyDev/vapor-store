@@ -9,7 +9,7 @@ function spawnWindow() {
     win = new BrowserWindow({
         backgroundColor: '#121212',
         frame: false,
-        minWidth: 450,
+        minWidth: 835,
         minHeight: 550,
         icon: root + '/assets/icons/png/icon.png',
         webPreferences: {

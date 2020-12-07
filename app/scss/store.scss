@@ -2,7 +2,7 @@
 @import '@material/textfield';
 
 .mdc-fab {
-    z-index: 999;
+    z-index: 9;
     position: fixed;
     margin-top: 16px;
     margin-left: 16px;
@@ -41,8 +41,64 @@
     }
 }
 
-@media (max-width: 960px) {
-    .cards:not(:first-child) {
-        justify-content: center;
+.mdc-dialog {
+    z-index: 10;
+    .mdc-dialog__surface {
+        min-width: 90vw;
+        min-height: 90%;
+
+        .mdc-dialog__content {
+            display: flex;
+            overflow-y: auto;
+
+            .dialog-left {
+                width: fit-content;
+                height: fit-content;
+                img {
+                    width: 342px;
+                    height: 482px;
+                    border-radius: 10px;
+                    box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
+                }
+
+                .details {
+                    margin-top: 8px;
+                    width: fit-content;
+                    margin: 16px auto 0 auto;
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 25px;
+
+                    div {
+                        display: flex;
+                        flex-direction: column;
+
+                        b {
+                            display: inline-block;
+                        }
+
+                        p {
+                            display: inline-block;
+                            margin: 2px 0;
+                        }
+                    }
+                }
+            }
+
+            .dialog-right {
+                width: 100%;
+                height: fit-content;
+                margin: 0;
+
+                :first-child {
+                    margin-top: 8px;
+                }
+
+                p {
+                    height: 45%;
+                    margin: 8px 20px;
+                }
+            }
+        }
     }
 }
