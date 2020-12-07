@@ -56,12 +56,12 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Own Logo
 - [x] Stop / Pause/Resume Downloads
 - [x] Launching and deleting games from the app
+- [x] Make the Downloads snackbar a universally usable notification system
 - [ ] InApp Updater
 - [ ] Show Download Size
 - [ ] Import existing games
 - [ ] Game sorting by category
 - [ ] Updates
-- [ ] Make the Downloads snackbar a universally usable notification system
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 - [ ] Make it so the download popup appears sooner for better user feedback

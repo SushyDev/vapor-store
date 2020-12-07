@@ -1,6 +1,6 @@
 @import '@material/button';
 .overlays {
-    .download-snackbar-container {
+    .snackbar-container {
         position: absolute;
         bottom: 0;
         height: fit-content;
@@ -11,6 +11,10 @@
         .mdc-snackbar {
             position: relative;
             display: flex;
+
+            &.snackbar--invis {
+                display: none;
+            }
 
             .snack-flex {
                 display: flex;

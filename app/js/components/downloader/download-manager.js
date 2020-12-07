@@ -82,10 +82,8 @@ function pauseDownload(name) {
     }
 }
 
-//Close snackbar / cancel download
-function closeSnackbar(name) {
-    if (!confirm(`Are you sure you want to cancel the download for ${name}?`)) return;
-    document.getElementById(`${name}-snackbar`).remove();
+function cancelDownload(name, message) {
+    closeSnackbar(name, message);
     sessionStorage.setItem(`${name}-cancel`, 'true');
 }
 
