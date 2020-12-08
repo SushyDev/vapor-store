@@ -58,6 +58,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Launching and deleting games from the app
 - [x] Make the Downloads snackbar a universally usable notification system
 - [x] InApp Updater
+- [ ] Display changelog button on updater notification
 - [ ] Show Download Size
 - [ ] Import existing games
 - [ ] Game sorting by category
@@ -69,7 +70,6 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 
 - Current release doesn't work
 - Compile Vapor Store yourself for a working version
-- No way of generating a games list
 
 - Make it so the download popup appears sooner for better user feedback
 

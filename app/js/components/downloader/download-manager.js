@@ -88,7 +88,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
                     var scalePercent = downloadPercent / 100;
 
                     document.getElementById(`${name}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} ${downloadPercent.toFixed(1)}%`;
+                    document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} ${downloadPercent.toFixed(2)}%`;
                 } catch (e) {
                     /* Can error on download finish so it catches ehre */
                 }

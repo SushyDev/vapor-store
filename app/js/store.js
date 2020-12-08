@@ -16,8 +16,11 @@ searchBox.addEventListener('keyup', function (event) {
 });
 
 function searchGames() {
-    sessionStorage.setItem('gameSearch', searchBox.value);
+    var search = searchBox.value;
+    sessionStorage.setItem('gameSearch', search);
+    if (search.length <= 2) return;
     searchBox.value = '';
+
     //Run the search games function
     createCard();
     closeSearchFAB();
@@ -92,8 +95,6 @@ function openStoreGame(name) {
 
     showProgressBar();
 
-    console.log(name);
-
     //Get id by name
     $.get(`https://api.rawg.io/api/games?search=${name}`, (output) => {
         //Detailed info by id
@@ -156,13 +157,12 @@ function openStoreGame(name) {
             $.get(`https://api.rawg.io/api/games/${output.id}/screenshots`, (screenshots) => {
                 console.log(screenshots);
 
-                document.querySelector('#game-screenshots').innerHTML = ''
+                document.querySelector('#game-screenshots').innerHTML = '';
                 screenshots.results.forEach((screenshot) => {
                     console.log(screenshot);
-                    var image = document.createElement('img')
+                    var image = document.createElement('img');
                     image.src = screenshot.image;
                     document.querySelector('#game-screenshots').appendChild(image);
-
                 });
             });
         });

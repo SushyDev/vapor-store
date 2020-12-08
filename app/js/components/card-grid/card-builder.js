@@ -74,7 +74,6 @@ function buildCard(gameInfo, fetchName, type = 'store') {
     //If no cover is found use not found logo
 
     //Create the card
-
     var card = document.createElement('div');
     card.className = 'mdc-card';
     card.id = gameInfo.id;
