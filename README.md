@@ -1,10 +1,6 @@
 # Vapor Store 2
 
 ```diff
-- Vapor Store 2 currently does NOT work, join our Discord to follow up on its future and other development
-```
-
-```diff
 - WARNING: Vapor Store 2 is made to simplify downloading and installing games in a preinstalled format from the internet via a repository/source
 - I'm not responsible for the content of the sources our users may use
 - I am also not responsible for any legal troubles or computer issues you may face
@@ -68,7 +64,6 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 
 ### Issues
 
-- Current release doesn't work
 - Compile Vapor Store yourself for a working version
 
 - Make it so the download popup appears sooner for better user feedback
