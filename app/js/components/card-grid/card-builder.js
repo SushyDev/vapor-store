@@ -3,7 +3,11 @@ function selectCard(gameInfo, fetchName, type) {
     var gameName = gameInfo.name;
     var gameCover = gameInfo.url;
     var gameId = gameInfo.id;
-    var gameFolder = gameInfo.folder.replace(/\\/g, '/');
+    try {
+        var gameFolder = gameInfo.folder.replace(/\\/g, '/');
+    } catch (e) {
+        //No game folder
+    }
     if (gameCover == undefined) gameCover = '../img/not_found.svg';
 
     if (type == 'backup') {

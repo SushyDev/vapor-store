@@ -60,6 +60,12 @@ function createCard() {
             //Fetch data from the game by name
             fetch(fetchName).then((gameInfo) => {
                 //Stop if new search or different page
+
+                //If no game cover set own image
+                if (gameInfo.url == null) {
+                    gameInfo = {...gameInfo, url: '../img/game-cover.png'};
+                }
+
                 if (createCardId !== createCardLatest) return;
                 if (page != sessionStorage.getItem('page')) return;
                 buildCard(gameInfo, fetchName, 'store', page);
@@ -154,7 +160,6 @@ function openStoreGame(name) {
 
             //Screenshots
             $.get(`https://api.rawg.io/api/games/${output.id}/screenshots`, (screenshots) => {
-
                 document.querySelector('#game-screenshots').innerHTML = '';
                 screenshots.results.forEach((screenshot) => {
                     var image = document.createElement('img');
@@ -169,6 +174,11 @@ function openStoreGame(name) {
         openDialog('game-dialog');
         hideProgressBar();
         title.innerHTML = game.name;
+
+        //If no game cover set own image
+        if (game.url == null) {
+            game = {...game, url: '../img/game-cover.png'};
+        }
         image.src = game.url;
         download.setAttribute('onclick', `downloadGame('${name}')`);
     });
