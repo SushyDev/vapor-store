@@ -135,7 +135,7 @@ function gameDelete(gameTitle, targetFolder, fileName) {
             fs.writeFile(file, JSON.stringify(newlist), function (err) {
                 if (err) throw err;
                 devLog('Saved!');
-                goto('Installed')
+                goto('Installed');
             });
         });
     });

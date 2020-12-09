@@ -31,6 +31,11 @@ function fetch(name) {
     return getGameByName(name).then((nameResult) => {
         var id = nameResult[0].id;
         return getCoverById(id).then((IDResult) => {
+
+            if (!IDResult[0]) {
+                IDResult[0] = {...IDResult[0], url: '../img/game-cover.png'};
+            }
+
             return {...IDResult[0], ...nameResult[0]};
         });
     });

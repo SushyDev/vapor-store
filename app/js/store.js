@@ -61,11 +61,6 @@ function createCard() {
             fetch(fetchName).then((gameInfo) => {
                 //Stop if new search or different page
 
-                //If no game cover set own image
-                if (gameInfo.url == null) {
-                    gameInfo = {...gameInfo, url: '../img/game-cover.png'};
-                }
-
                 if (createCardId !== createCardLatest) return;
                 if (page != sessionStorage.getItem('page')) return;
                 buildCard(gameInfo, fetchName, 'store', page);
@@ -175,10 +170,6 @@ function openStoreGame(name) {
         hideProgressBar();
         title.innerHTML = game.name;
 
-        //If no game cover set own image
-        if (game.url == null) {
-            game = {...game, url: '../img/game-cover.png'};
-        }
         image.src = game.url;
         download.setAttribute('onclick', `downloadGame('${name}')`);
     });
