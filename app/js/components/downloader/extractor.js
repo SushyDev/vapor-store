@@ -18,7 +18,7 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
             downloadFinish(targetPath, targetFolder, filename, gameTitle);
             addGameToLibrary(targetPath, targetFolder, filename, gameTitle);
         } catch (err) {
-            devLog(err);
+            console.log(err);
         }
     }
     start();

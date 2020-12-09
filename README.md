@@ -61,6 +61,12 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Game updates
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
+- [ ] Move popups to MDC dialogs
+- [ ] Make it so the downloader always over writes zips
+- [ ] In installed games option have a button to open the games folder
+- [ ] For executable section have option to force run as administrator
+- [ ] Have a button in settings to clear zips in folder (in case some don't download correctly)
+- [ ] Clean out the downloader code
 
 ### Issues
 

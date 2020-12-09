@@ -3,6 +3,7 @@ function selectCard(gameInfo, fetchName, type) {
     var gameName = gameInfo.name;
     var gameCover = gameInfo.url;
     var gameId = gameInfo.id;
+    var gameFolder = gameInfo.folder.replace(/\\/g, '/');
     if (gameCover == undefined) gameCover = '../img/not_found.svg';
 
     if (type == 'backup') {
@@ -29,7 +30,7 @@ function selectCard(gameInfo, fetchName, type) {
         return `
 <div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
     <div class="mdc-card__media mdc-card__media--square">
-        <img id="${fetchName}" data-src="${gameCover}" class="lazyload" onclick="Start('${gameInfo.name}', '${gameInfo.folder}', '${gameInfo.fileName}')" onload="imgLoad(this)" />
+        <img id="${fetchName}" data-src="${gameCover}" class="lazyload" onclick="Start('${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')" onload="imgLoad(this)" />
     </div>
     <div class="card-content"></div>
 </div>
@@ -40,13 +41,13 @@ function selectCard(gameInfo, fetchName, type) {
 
     <div class="mdc-card__action-icons">
    
-    <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameDelete('${gameInfo.name2}', '${gameInfo.folder}', '${gameInfo.fileName}')" title="Remove">delete</button>
-    <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="Start('${gameInfo.name}', '${gameInfo.folder}', '${gameInfo.fileName}')" title="Play">play_arrow</button>
+    <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameDelete('${gameInfo.name2}', '${gameFolder}', '${gameInfo.fileName}')" title="Remove">delete</button>
+    <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="Start('${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')" title="Play">play_arrow</button>
     </div>
 </div>
 `;
         //No game settings yet, needs to be implemented when adding custom games
-        //<button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameSettings('${gameInfo.name}', '${gameInfo.folder}', '${gameInfo.fileName}')" title="Settings">settings</button>
+        //<button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameSettings('${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')" title="Settings">settings</button>
     } else {
         //Card for store
         return `
