@@ -1,6 +1,6 @@
 {
   "name": "vapor-store-2",
-  "version": "2.0.0-ALPHA",
+  "version": "2.0.0-beta",
   "description": "Vapor Store",
   "main": "app.js",
   "scripts": {
@@ -20,6 +20,12 @@
     "appId": "vapor.store",
     "productName": "Vapor Store",
     "asar": true,
+    "publish": [{
+      "provider": "github",
+      "owner": "SushyDev",
+      "repo": "vapor-store",
+      "releaseType": "prerelease"
+    }],
     "files": [
       "**/*",
       "node_modules/puppeteer/.local-chromium/linux-756035${/*}",
