@@ -2,17 +2,18 @@
   "name": "vapor-store-2",
   "version": "2.0.1-beta",
   "description": "Vapor Store",
+  "author": "SushyDev",
   "main": "app.js",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/SushyDev/vapor-store",
   "scripts": {
-    "build": "electron-builder -w always",
+    "build": "electron-builder -w -p always",
     "start": "APP_DEV=true electron ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SushyDev/vapor-store.git"
   },
-  "author": "SushyDev",
-  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/SushyDev/vapor-store"
   },
@@ -41,7 +42,6 @@
       "icon": "assets/icons/png/icon.png"
     }
   },
-  "homepage": "https://github.com/SushyDev/vapor-store",
   "dependencies": {
     "@material/card": "^8.0.0",
     "@material/feature-targeting": "^8.0.0",
