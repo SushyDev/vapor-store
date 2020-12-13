@@ -1,10 +1,10 @@
 {
   "name": "vapor-store-2",
-  "version": "2.0.0-beta",
+  "version": "2.0.1-beta",
   "description": "Vapor Store",
   "main": "app.js",
   "scripts": {
-    "build": "electron-builder -w",
+    "build": "electron-builder -w always",
     "start": "APP_DEV=true electron ."
   },
   "repository": {
