@@ -7,7 +7,7 @@
   "license": "GPL-3.0",
   "homepage": "https://github.com/SushyDev/vapor-store",
   "scripts": {
-    "build": "electron-builder -w -p always",
+    "build": "electron-builder -w",
     "start": "APP_DEV=true electron ."
   },
   "repository": {
