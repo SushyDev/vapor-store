@@ -18,7 +18,7 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
         ['label']: [
             {
                 id: `${name}-snackbar-title`,
-                innerHTML: `Extracting ${filename}...`,
+                innerHTML: `Extracting ${filename}`,
             },
         ],
         ['actions']: [],

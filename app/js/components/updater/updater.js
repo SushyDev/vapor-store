@@ -88,12 +88,11 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (da
         exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
             console.log(err);
         });
-
-        winClose(); 
-
-        //Remove notification
+        
+        //Remove notification and close vapor store
         setTimeout(() => {
             closeSnackbar(`${name}-download`, false);
+            winClose(); 
         }, 2500);
     });
 });
