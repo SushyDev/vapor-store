@@ -67,7 +67,11 @@ function newNotif(snackbarData) {
 //Close snackbar / cancel download
 function closeSnackbar(name, alert, message) {
     //Ask for confirm if confirm = true
-    if (alert) if (!confirm(message)) return;
+    if (alert) {
+        var confirmed = confirm(message);
+        if (!confirmed) return confirmed;
+    }
     //Remove snackbar
     document.getElementById(`${name}-snackbar`).remove();
+    return true;
 }

@@ -70,9 +70,4 @@ if (!SingleInstance) {
             window.focus();
         }
     });
-
-    // Create myWindow, load the rest of the app, etc...
-    app.whenReady().then(() => {
-        window = createWindow();
-    });
 }

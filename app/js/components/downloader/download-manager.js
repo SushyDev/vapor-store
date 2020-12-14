@@ -38,7 +38,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
         ['close']: [
             {
                 enabled: true,
-                onclick: `closeSnackbar('${name}-download', true, 'Are you sure you want to cancel the download for ${filename}')`,
+                onclick: `cancelDownload('${name}', true, 'Are you sure you want to cancel the download for ${filename}', '${fullPath.replace(/\\/g, '/')}')`,
                 title: 'Cancel',
                 icon: 'close',
                 id: `${name}-close`,
@@ -46,26 +46,32 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
         ],
     };
 
-    newNotif(snackbarData);
-
-    sessionStorage.setItem(`${name}-pause`, 'false');
-
     //Create snackbar
-
+    newNotif(snackbarData);
+    //Remove pause
+    sessionStorage.setItem(`${name}-pause`, 'false');
+    //On incoming data
     item.on('updated', (event, state) => {
         var name = filename.slice(0, -4);
         //if paused true then pause
         if (sessionStorage.getItem(`${name}-pause`) == 'true') item.pause();
-
         //If canceled then cancel
         if (sessionStorage.getItem(`${name}-cancel`) == 'true') {
+            //Cancel download
             item.cancel();
+            //remove from current downloading list
+            downloading.shift();
+            //remove zip file
+            fs.unink(fullPath, (err) => {
+                if (err) {
+                    console.error(err);
+                }
+            });
+            //Stop
             return;
         }
 
-        if (state === 'interrupted') {
-            //Download is interrupted but can be resumed
-        } else if (state === 'progressing') {
+        if (state === 'progressing') {
             //if paused
             if (item.isPaused()) {
                 setInterval(() => {
@@ -90,7 +96,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
                     document.getElementById(`${name}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
                     document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} ${downloadPercent.toFixed(2)}%`;
                 } catch (e) {
-                    /* Can error on download finish so it catches ehre */
+                    /* Can error on download finish so it catches here */
                 }
             }
         }
@@ -158,7 +164,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
                 }
             });
         } else {
-            devLog(`Download failed: ${state}`);
+            console.log(`Download failed: ${state}`);
         }
     });
 });
@@ -174,40 +180,10 @@ function pauseDownload(name) {
     }
 }
 
-function cancelDownload(name, message) {
-    closeSnackbar(name, message);
+//Cancel download
+function cancelDownload(name, alert, message, targetPath) {
+    //if pressed cancel dont continue
+    if (!closeSnackbar(`${name}-download`, alert, message)) return;
+    //set canceled in localstorage
     sessionStorage.setItem(`${name}-cancel`, 'true');
-}
-
-//Create snackbar
-function createSnackbar(name) {
-    var card = document.createElement('div');
-    card.id = name + '-snackbar';
-    card.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open';
-    card.innerHTML = `
-
-                        <div class="mdc-snackbar__surface snack-flex">
-                            <!--Progress-->
-                            <div role="progressbar" class="mdc-linear-progress">
-                                <div class="mdc-linear-progress__buffering-dots"></div>
-                                <div class="mdc-linear-progress__buffer" style="transform: scaleX(0.75)"></div>
-                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar" id="${name}-completed-progress"><span class="mdc-linear-progress__bar-inner"></span></div>
-                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar"><span class="mdc-linear-progress__bar-inner"></span></div>
-                            </div>
-                            <!--/Progress-->
-
-                            <div class="snack-content">
-                                <div class="mdc-snackbar__label" role="status" aria-live="polite" id="${name}-snackbar-title">${name}.zip 0.0%</div>
-                                <div class="mdc-snackbar__actions" id="${name}-snack-actions">
-                                    <button type="button" class="mdc-button mdc-snackbar__action" onclick="pauseDownload('${name}')" data-mdc-auto-init="MDCRipple">
-                                        <div class="mdc-button__ripple"></div>
-                                        <div class="mdc-button__label" id="${name}-pause-button__label">Pause</div>
-                                    </button>
-                                    <button class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Dismiss" onclick="closeSnackbar('${name}')">close</button>
-                                </div>
-                            </div>
-                        </div>
-`;
-    document.getElementById('download-snackbar-container').appendChild(card);
-    window.mdc.autoInit();
 }

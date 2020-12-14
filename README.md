@@ -74,6 +74,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Clean out the downloader code
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
+- [ ] Add scroll buttons for the games screenshots
 
 ### Issues
 
