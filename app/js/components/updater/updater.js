@@ -89,6 +89,8 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (da
             console.log(err);
         });
 
+        getWindow().close();
+
         //Remove notification
         setTimeout(() => {
             closeSnackbar(`${name}-download`, false);
