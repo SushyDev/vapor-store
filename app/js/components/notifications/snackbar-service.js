@@ -68,6 +68,6 @@ function newNotif(snackbarData) {
 function closeSnackbar(name, alert, message) {
     //Ask for confirm if confirm = true
     if (alert) if (!confirm(message)) return;
-    //Remoive snackbar
+    //Remove snackbar
     document.getElementById(`${name}-snackbar`).remove();
 }

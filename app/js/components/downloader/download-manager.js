@@ -10,7 +10,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
     var snackbarData = {
         ['main']: [
             {
-                name: `${name}`,
+                name: `${name}-download`,
             },
         ],
         ['progress']: [
@@ -38,7 +38,7 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
         ['close']: [
             {
                 enabled: true,
-                onclick: `closeSnackbar('${name}', true, 'Are you sure you want to cancel the download for ${filename}')`,
+                onclick: `closeSnackbar('${name}-download', true, 'Are you sure you want to cancel the download for ${filename}')`,
                 title: 'Cancel',
                 icon: 'close',
                 id: `${name}-close`,
@@ -103,11 +103,58 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
             ipcRenderer.on(`${fileurl}-download-success`, (event, gameTitle) => {
                 //Remove downloaded game from array
                 downloading.shift();
+
+                //Remove download snackbar
+                closeSnackbar(`${name}-download`, false);
+
+                //Add downloaded game to library
+                addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+
+                var snackbarData = {
+                    ['main']: [
+                        {
+                            name: `${name}-extractyn`,
+                        },
+                    ],
+                    ['progress']: [
+                        {
+                            enabled: false,
+                        },
+                    ],
+                    ['label']: [
+                        {
+                            id: `${name}-snackbar-title`,
+                            innerHTML: `Do you want to extract ${filename}`,
+                        },
+                    ],
+                    ['actions']: [
+                        {
+                            type: 'button',
+                            innerHTML: 'Yes',
+                            labelid: `${name}-extract-button__label`,
+                            class: 'yes-extract-button',
+                            id: 'yes-extract-button',
+                            onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${filename}', '${gameTitle}')`,
+                        },
+                        {
+                            type: 'button',
+                            innerHTML: 'No',
+                            labelid: `${name}-close-button__label`,
+                            class: 'no-extract-button',
+                            id: 'no-extract-button',
+                            onclick: `closeSnackbar('${name}-extractyn', true, 'Are you sure you don't want to extract ${filename})`,
+                        },
+                    ],
+                    ['close']: [
+                        {
+                            enabled: false,
+                        },
+                    ],
+                };
+
                 //Extract downloaded zip file
                 if (fileType == 'zip') {
-                    extractDownload(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
-                } else {
-                    downloadFinish(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+                    newNotif(snackbarData);
                 }
             });
         } else {
@@ -163,11 +210,4 @@ function createSnackbar(name) {
 `;
     document.getElementById('download-snackbar-container').appendChild(card);
     window.mdc.autoInit();
-}
-
-function downloadFinish(targetPath, targetFolder, filename, gameTitle) {
-    var name = filename.slice(0, -4);
-    setTimeout(() => {
-        document.getElementById(`${name}-snackbar`).remove();
-    }, 2500);
 }

@@ -22,6 +22,9 @@ function addGameToLibrary(targetPath, targetFolder, fileName, gameTitle) {
             devLog('Saved!');
         });
     });
+
+    //remove extract snackbar
+   // closeSnackbar(`${gameTitle}`);
 }
 
 //addGameToLibrary('targetPath', 'targetFolder', 'filename', 'gameTditle');

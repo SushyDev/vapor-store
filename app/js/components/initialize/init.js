@@ -36,6 +36,7 @@ sessionStorage.clear();
 const SGDBKey = localStorage.getItem('SGDB_Key');
 const downloadDir = localStorage.getItem('downloadDir');
 const darkMode = localStorage.getItem('darkMode');
+const optBeta = localStorage.getItem('beta');
 
 //Set SGDBKey if exists
 var client;
@@ -44,15 +45,14 @@ try {
 } catch (e) {}
 
 //Set default download location
-if (!downloadDir) {
-    //Using path resolve to convert for windows
-    localStorage.setItem('downloadDir', path.join(appDataPath, 'Games'));
-}
+//Using path resolve to convert for windows
+if (!downloadDir) localStorage.setItem('downloadDir', path.join(appDataPath, 'Games'));
 
 //Darkmode by default
-if (!darkMode) {
-    localStorage.setItem('darkMode', true);
-}
+if (!darkMode) localStorage.setItem('darkMode', true);
+
+//Set beta opt out by default
+if (!optBeta) localStorage.setItem('beta', false);
 
 //If library json file doesnt exist make it (and make the folder if it doesnt exist)
 var file = path.join(appDataPath, 'Json/library.json');

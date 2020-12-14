@@ -1,10 +1,41 @@
 //Extract zip in game file
 function extractDownload(targetPath, targetFolder, filename, gameTitle) {
     var name = filename.slice(0, -4);
-    document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} Extracting`;
-    document.getElementById(`${name}-snack-actions`).style.display = 'none';
 
-    async function start() {
+    closeSnackbar(`${name}-extractyn`, false);
+
+    var snackbarData = {
+        ['main']: [
+            {
+                name: `${name}-extract`,
+            },
+        ],
+        ['progress']: [
+            {
+                enabled: false,
+            },
+        ],
+        ['label']: [
+            {
+                id: `${name}-snackbar-title`,
+                innerHTML: `Extracting ${filename}...`,
+            },
+        ],
+        ['actions']: [],
+        ['close']: [
+            {
+                enabled: true,
+                onclick: `closeSnackbar('${name}-extract', false)`,
+                title: 'Hide',
+                icon: 'keyboard_arrow_down',
+                id: `${name}-extract-hide`,
+            },
+        ],
+    };
+
+    newNotif(snackbarData);
+
+    (async () => {
         try {
             await extract(targetPath, {dir: targetFolder});
             fs.unlink(targetPath, (err) => {
@@ -13,13 +44,15 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
                 }
             });
 
-            document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} Extracted`;
-            //Remove snackbar after 1 second
-            downloadFinish(targetPath, targetFolder, filename, gameTitle);
-            addGameToLibrary(targetPath, targetFolder, filename, gameTitle);
+            document.getElementById(`${name}-extract-snack-actions`).style.display = 'none';
+            document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracted ${filename}`;
+
+            //Close snackbar after 2.5 sec
+            setTimeout(() => {
+                closeSnackbar(`${name}-extract`, false);
+            }, 2500);
         } catch (err) {
             console.log(err);
         }
-    }
-    start();
+    })();
 }
