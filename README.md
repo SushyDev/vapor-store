@@ -45,6 +45,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 
 ### Roadmap
 
+#### Done
 - [x] Donate Button :D
 - [x] Search function for games
 - [x] Move to a built in Downloader/Installer
@@ -54,6 +55,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Launching and deleting games from the app
 - [x] Make the Downloads snackbar a universally usable notification system
 - [x] InApp Updater
+#### Important
 - [ ] **Move popups to MDC dialogs**
 - [ ] **Display changelog button on updater notification**
 - [ ] **In installed games option have a button to open the games folder**
@@ -61,6 +63,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Have a popup asking to extract or not**
 - [ ] **Custom generator script, custom fetch download script**
+#### Other
 - [ ] Show Download Size
 - [ ] Import existing games
 - [ ] Game sorting by category
