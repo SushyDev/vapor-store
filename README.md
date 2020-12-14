@@ -67,6 +67,8 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] For executable section have option to force run as administrator
 - [ ] Have a button in settings to clear zips in folder (in case some don't download correctly)
 - [ ] Clean out the downloader code
+- [ ] Have a popup asking to extract or not
+- [ ] Custom generator script, custom fetch download script
 
 ### Issues
 
