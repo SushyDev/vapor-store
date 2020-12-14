@@ -69,6 +69,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Clean out the downloader code
 - [ ] Have a popup asking to extract or not
 - [ ] Custom generator script, custom fetch download script
+- [ ] <span style="color:blue">some *blue* text</span>.
 
 ### Issues
 
