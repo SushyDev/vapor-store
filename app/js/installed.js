@@ -156,5 +156,5 @@ function getDirectories(gameFolder) {
 
 function openFolder(folder, filename) {
     console.log(path.join(folder, filename.slice(0, -4)));
-    shell.showItemInFolder(path.join(folder, filename.slice(0, -4), '/.exe'));
+    shell.showItemInFolder(path.join(folder, filename.slice(0, -4)));
 }
