@@ -58,3 +58,21 @@ if (isDev) {
     });
 }
 
+//Make app single instance
+const SingleInstance = app.requestSingleInstanceLock();
+if (!SingleInstance) {
+    app.quit();
+} else {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (window) {
+            if (window.isMinimized()) window.restore();
+            window.focus();
+        }
+    });
+
+    // Create myWindow, load the rest of the app, etc...
+    app.whenReady().then(() => {
+        window = createWindow();
+    });
+}
