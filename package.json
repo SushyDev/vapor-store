@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "2.0.0-beta-8",
+  "version": "2.0.0-beta-10",
   "description": "Vapor Store",
   "author": "SushyDev",
   "main": "app.js",
@@ -56,14 +56,9 @@
     "extract-zip": "^2.0.1",
     "fs": "0.0.1-security",
     "jquery": "^3.5.1",
-    "lozad": "^1.16.0",
     "material-components-web": "^7.0.0",
     "material-design-icons-webfont": "^1.0.0",
     "puppeteer": "3.3.0",
-    "puppeteer-core": "^5.5.0",
-    "puppeteer-electron": "0.0.10",
-    "request": "^2.88.2",
-    "sass": "^1.6.2",
     "steamgriddb": "^1.4.0"
   },
   "devDependencies": {
