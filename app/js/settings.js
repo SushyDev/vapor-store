@@ -34,7 +34,6 @@ function selectDownloadDir() {
 }
 
 //Check for list file & set text
-devLog(localStorage.getItem('listFile'));
 if (!localStorage.getItem('listFile')) {
     document.getElementById('gameFileDir').innerHTML = 'Please select a json file';
 } else {
@@ -49,4 +48,19 @@ function saveSGDBKey() {
     key = document.getElementById('sgdb-key').value;
     localStorage.setItem('SGDB_Key', key);
     win.reload();
+}
+
+//Opt into beta versions
+function betaOpt() {
+    var toggle = document.getElementById('beta-switch').checked;
+    if (toggle == true) {
+        localStorage.setItem('beta', true);
+    } else {
+        localStorage.setItem('beta', false);
+    }
+}
+//Set checked if checked is true
+if (localStorage.getItem('beta') == 'true') {
+    document.getElementById('beta-switch').checked = true;
+    document.getElementById('beta-switch').setAttribute('aria-checked', true)
 }

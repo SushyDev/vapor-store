@@ -11,21 +11,14 @@ const SGDB = require('steamgriddb');
 const $ = require('jquery');
 //Puppeteer for webscraping
 const puppeteer = require('puppeteer');
-
-//Request for idk
-// const request = require('request');
-
 //Extract for extracting zip files
 const extract = require('extract-zip');
 //Electron built in downloader wrapper
 const electronDl = require('electron-dl');
-
 //Path for directory stuff
 const path = require('path');
-
 //rimraf for deleting folders
 const rimraf = require('rimraf');
-
 //Shell for shell commands
 const shell = require('electron').shell;
 

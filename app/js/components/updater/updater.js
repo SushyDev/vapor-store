@@ -1,8 +1,12 @@
-$.get('https://api.github.com/repos/SushyDev/vapor-store/releases/latest', function (data) {
-    var downloadUrl = data.assets[0].browser_download_url;
-    var fileName = data.assets[0].name;
+$.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (data) {
+    var release = data[0];
+    var downloadUrl = release.assets[0].browser_download_url;
+    var fileName = release.assets[0].name;
     var name = fileName.slice(0, -4);
-    var latest = data.tag_name.slice(1);
+
+    var latest = release.tag_name.slice(1);
+    var current = app.getVersion();
+
     var snackbarData = {
         ['main']: [
             {
@@ -42,10 +46,33 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases/latest', funct
         ],
     };
 
-    if (latest > app.getVersion()) {
+    if (current.includes('beta')) {
+        if (latest.includes('beta')) {
+            var currentnb = current.replace('-beta-', '.'); // latest version will be 2.0.0.2 if its 2.0.0-beta-2
+            var latestnb = latest.replace('-beta-', '.'); // current version will be 2.0.0.1 if its 2.0.0-beta-1
+
+            //New beta over top of old beta
+            if (latestnb > currentnb) updateAvailable(true);
+        } else {
+            currentnb = current.split('-beta-')[0]; // current version will be 2.0.0 if its 2.0.0-beta-x
+            //New stable over top of beta
+            if (latest > currentnb) updateAvailable();
+        }
+    } else {
+        if (latest.includes('beta')) {
+            latestnb = latest.split('-beta-')[0]; // latest version will be 2.0.1 if its 2.0.1-beta-x
+            //new beta over top of latest
+            if (latestnb > current) updateAvailable(true);
+        } else {
+            if (latest > current) updateAvailable();
+        }
+    }
+
+    function updateAvailable(beta) {
+        if (localStorage.getItem('beta') == 'false' && beta == true) return;
         newNotif(snackbarData);
 
-        ipcRenderer.on(`${data.assets[0].browser_download_url}-download-success`, (event, gameTitle) => {
+        ipcRenderer.on(`${release.assets[0].browser_download_url}-download-success`, (event, gameTitle) => {
             var exec = require('child_process').exec;
             //Run exe
             exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
