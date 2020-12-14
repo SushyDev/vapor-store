@@ -89,7 +89,7 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (da
             console.log(err);
         });
 
-        getWindow().close();
+        winClose(); 
 
         //Remove notification
         setTimeout(() => {
@@ -97,6 +97,7 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (da
         }, 2500);
     });
 });
+
 
 function downloadUpdate(name, downloadUrl) {
     closeSnackbar(name, false);

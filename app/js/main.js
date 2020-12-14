@@ -89,7 +89,7 @@ function winMaximize() {
     window.isMaximized() ? window.unmaximize() : window.maximize();
 }
 function winClose() {
-    getWindow().close();
+    BrowserWindow.getAllWindows()[0].close();
 }
 
 //Get chromium path for windows/linux (Development is done on OpenSUSE)
