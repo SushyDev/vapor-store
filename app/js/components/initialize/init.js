@@ -9,11 +9,8 @@ const fs = require('fs');
 const SGDB = require('steamgriddb');
 //Jquery
 const $ = require('jquery');
-
 //Puppeteer for webscraping
 const puppeteer = require('puppeteer');
-
-
 //Extract for extracting zip files
 const extract = require('extract-zip');
 //Electron built in downloader wrapper

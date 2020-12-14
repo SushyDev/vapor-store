@@ -3,6 +3,7 @@ function selectCard(gameInfo, fetchName, type) {
     var gameName = gameInfo.name;
     var gameCover = gameInfo.url;
     var gameId = gameInfo.id;
+
     try {
         var gameFolder = gameInfo.folder.replace(/\\/g, '/');
     } catch (e) {
@@ -46,6 +47,7 @@ function selectCard(gameInfo, fetchName, type) {
     <div class="mdc-card__action-icons">
    
     <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="gameDelete('${gameInfo.name2}', '${gameFolder}', '${gameInfo.fileName}')" title="Remove">delete</button>
+    <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="openFolder('${gameFolder}', '${gameInfo.fileName}')" title="Open folder">folder</button>
     <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="Start('${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')" title="Play">play_arrow</button>
     </div>
 </div>

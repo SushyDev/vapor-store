@@ -15,9 +15,6 @@ function createCard() {
         //Stop if new search
         if (createCardId !== createCardLatest) return;
 
-        //List all games in the list
-        devLog(data);
-
         if (data['list'][0] == undefined) {
             alert('No games installed');
             goto('Store');
@@ -60,9 +57,6 @@ function Start(gameTitle, targetFolder, fileName) {
             return fs.statSync(path + '/' + file).isDirectory();
         });
     }
-
-    //All folders
-    devLog(getDirectories(gameFolder));
 
     getDirectories(gameFolder).forEach((folderName) => {
         const subFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4), folderName);
@@ -158,4 +152,9 @@ function getDirectories(gameFolder) {
             document.getElementById('game-cover-download').appendChild(startButton);
         }
     });
+}
+
+function openFolder(folder, filename) {
+    console.log(path.join(folder, filename.slice(0, -4)));
+    shell.showItemInFolder(path.join(folder, filename.slice(0, -4), '/.exe'));
 }
