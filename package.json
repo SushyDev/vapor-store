@@ -29,7 +29,7 @@
     }],
     "files": [
       "**/*",
-      "!**/node_modules/puppeteer/linux-756035${/*}",
+      "!**/node_modules/puppeteer/linux-756035/**/*",
       "app/json/*"
     ],
     "nsis": {
