@@ -1,9 +1,16 @@
 $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (data) {
     var release = data[0];
-    var downloadUrl = release.assets[0].browser_download_url;
-    var fileName = release.assets[0].name;
-    var name = fileName.slice(0, -4);
 
+    var fileName;
+    var downloadUrl;
+    release.assets.forEach((asset) => {
+        if (asset.name.endsWith('exe')) {
+            downloadUrl = asset.browser_download_url;
+            fileName = asset.name;
+        }
+    });
+
+    var name = fileName.slice(0, -4);
     var latest = release.tag_name.slice(1);
     var current = app.getVersion();
 
@@ -70,21 +77,23 @@ $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (da
 
     function updateAvailable(beta) {
         if (localStorage.getItem('beta') == 'false' && beta == true) return;
+
+        //Create the snackbar
         newNotif(snackbarData);
-
-        ipcRenderer.on(`${release.assets[0].browser_download_url}-download-success`, (event, gameTitle) => {
-            var exec = require('child_process').exec;
-            //Run exe
-            exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
-                console.log(err);
-            });
-
-            //Remove notification
-            setTimeout(() => {
-                document.getElementById(`${name}-snackbar`).remove();
-            }, 2500);
-        });
     }
+
+    //On download complete
+    ipcRenderer.on(`${downloadUrl}-download-success`, (event, gameTitle) => {
+        //Run exe
+        exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
+            console.log(err);
+        });
+
+        //Remove notification
+        setTimeout(() => {
+            closeSnackbar(`${name}-download`, false);
+        }, 2500);
+    });
 });
 
 function downloadUpdate(name, downloadUrl) {

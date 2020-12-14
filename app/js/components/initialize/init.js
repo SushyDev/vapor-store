@@ -9,8 +9,11 @@ const fs = require('fs');
 const SGDB = require('steamgriddb');
 //Jquery
 const $ = require('jquery');
+
 //Puppeteer for webscraping
 const puppeteer = require('puppeteer');
+
+
 //Extract for extracting zip files
 const extract = require('extract-zip');
 //Electron built in downloader wrapper
@@ -21,6 +24,8 @@ const path = require('path');
 const rimraf = require('rimraf');
 //Shell for shell commands
 const shell = require('electron').shell;
+//For executing files
+const exec = require('child_process').exec;
 
 //Electron stuff
 const {ipcRenderer, remote} = require('electron');

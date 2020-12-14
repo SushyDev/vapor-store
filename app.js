@@ -57,3 +57,4 @@ if (isDev) {
         electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
     });
 }
+
