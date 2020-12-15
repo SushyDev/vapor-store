@@ -16,7 +16,7 @@ function createCard() {
         if (createCardId !== createCardLatest) return;
 
         if (data['list'][0] == undefined) {
-            MDCAlert('No games installed', '', true);
+            MDCAlert('No games installed', 'Please install some games to continue', true);
             goto('Store');
         }
 
@@ -268,9 +268,5 @@ function createShortcut(executable) {
         windows: {filePath: `${executable.replace(/"/g, '')}`},
     });
 
-    if (shortcutsCreated) {
-        console.log('Everything worked correctly!');
-    } else {
-        console.log('Could not create the icon or set its permissions (in Linux if "chmod" is set to true, or not set)');
-    }
+    shortcutsCreated;
 }

@@ -55,8 +55,14 @@ if (!downloadDir) localStorage.setItem('downloadDir', path.join(appDataPath, 'Ga
 //Darkmode by default
 if (!darkMode) localStorage.setItem('darkMode', true);
 
-//Set beta opt out by default
-if (!optBeta) localStorage.setItem('beta', false);
+//Set beta in/opt out by default
+if (!optBeta) {
+    if (app.getVersion().includes('beta')) {
+        localStorage.setItem('beta', true);
+    } else {
+        localStorage.setItem('beta', false);
+    }
+}
 
 //If library json file doesnt exist make it (and make the folder if it doesnt exist)
 var file = path.join(appDataPath, 'Json/library.json');

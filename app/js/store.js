@@ -78,11 +78,15 @@ function selectGame(game) {
 }
 
 function openSearchFAB() {
-    fab.classList.add('mdc-fab--extended');
-    searchBox.focus();
-
-    if (!!searchBox.value) {
-        searchGames();
+    if (fab.classList.contains('mdc-fab--extended')) {
+        if (!!searchBox.value) {
+            searchGames();
+        } else {
+            closeSearchFAB();
+        }
+    } else {
+        fab.classList.add('mdc-fab--extended');
+        searchBox.focus();
     }
 }
 
