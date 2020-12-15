@@ -2,6 +2,15 @@
   display: flex;
   flex-direction: column;
 }
-.mdc-dialog .mdc-dialog__content button {
+.mdc-dialog .mdc-dialog__content .execrow {
+  display: flex;
   margin: 10px;
+}
+.mdc-dialog .mdc-dialog__content .execrow .admin {
+  min-width: 0px;
+  width: 36px;
+  margin-right: 10px;
+}
+.mdc-dialog .mdc-dialog__content .execrow .admin i {
+  margin: 0px;
 }

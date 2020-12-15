@@ -7,8 +7,13 @@
             display: flex;
             margin: 10px;
 
-            .mdc-fab {
-                height: 10px;
+            .admin {
+                min-width: 0px;
+                width: 36px;
+                margin-right: 10px;
+                i {
+                    margin: 0px;
+                }
             }
         }
     }

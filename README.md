@@ -62,9 +62,9 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Add scroll buttons for the games screenshots
 - [x] Make a easier dialog component just for alerts
 - [x] In installed games option have a button to open the games folder
+- [x] For executable section have option to run as administrator
 #### Important
 - [ ] **Display changelog button on updater notification**
-- [ ] **For executable section have option to force run as administrator**
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Custom generator script, custom fetch download script**
 #### Other

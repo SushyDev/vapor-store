@@ -92,7 +92,7 @@ function gameListExec(gameTitle, targetFolder, fileName) {
                 var executable = path.join(subFolder, file);
 
                 var execRow = document.createElement('div');
-                execRow.classList = 'execRow';
+                execRow.classList = 'execrow';
                 execRow.id = `${executable}-row`;
                 //Create exec button
                 var execButton = document.createElement('button');
@@ -102,13 +102,10 @@ function gameListExec(gameTitle, targetFolder, fileName) {
                 execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
                 //Create exec as admin button
                 var execAdminButton = document.createElement('button');
-                execAdminButton.className = 'mdc-button mdc-button--raised';
+                execAdminButton.className = 'mdc-button mdc-button--raised admin';
                 execAdminButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                 execAdminButton.setAttribute('onclick', `gamePlayAdmin('${JSON.stringify(executable)}')`);
-                execAdminButton.innerHTML = `  <div class="mdc-button__ripple"></div>
-  <i class="material-icons mdc-button__icon" aria-hidden="true"
-    >bookmark</i
-  >`;
+                execAdminButton.innerHTML = `<div class="mdc-button__ripple"></div><i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>`;
 
                 //Add button to content
                 document.getElementById(`${name}-exec-dialog-content`).appendChild(execRow);
