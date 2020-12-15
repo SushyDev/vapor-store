@@ -90,15 +90,30 @@ function gameListExec(gameTitle, targetFolder, fileName) {
         fs.readdirSync(subFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
                 var executable = path.join(subFolder, file);
+
+                var execRow = document.createElement('div');
+                execRow.classList = 'execRow';
+                execRow.id = `${executable}-row`;
                 //Create exec button
                 var execButton = document.createElement('button');
                 execButton.className = 'mdc-button mdc-button--raised';
                 execButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                 execButton.setAttribute('onclick', `gamePlay('${JSON.stringify(executable)}')`);
                 execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
+                //Create exec as admin button
+                var execAdminButton = document.createElement('button');
+                execAdminButton.className = 'mdc-button mdc-button--raised';
+                execAdminButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+                execAdminButton.setAttribute('onclick', `gamePlayAdmin('${JSON.stringify(executable)}')`);
+                execAdminButton.innerHTML = `  <div class="mdc-button__ripple"></div>
+  <i class="material-icons mdc-button__icon" aria-hidden="true"
+    >bookmark</i
+  >`;
 
                 //Add button to content
-                document.getElementById(`${name}-exec-dialog-content`).appendChild(execButton);
+                document.getElementById(`${name}-exec-dialog-content`).appendChild(execRow);
+                document.getElementById(`${executable}-row`).appendChild(execAdminButton);
+                document.getElementById(`${executable}-row`).appendChild(execButton);
                 window.mdc.autoInit();
             }
         });
@@ -110,7 +125,13 @@ function gameListExec(gameTitle, targetFolder, fileName) {
 
 function gamePlay(executable) {
     var exec = require('child_process').exec;
-    exec(executable, function (err, data) {
+    exec(executable, (err, data) => {
+        console.log(err);
+    });
+}
+
+function gamePlayAdmin(executable) {
+    exec(`powershell -command "start-process \\"${executable.replace(/"/g, '')}\\" -verb runas`, (err, data) => {
         console.log(err);
     });
 }
