@@ -16,7 +16,7 @@ function createCard() {
         if (createCardId !== createCardLatest) return;
 
         if (data['list'][0] == undefined) {
-            alert('No games installed');
+            MDCAlert('No games installed', '', true);
             goto('Store');
         }
 
@@ -50,8 +50,31 @@ createCard();
 function gameListExec(gameTitle, targetFolder, fileName) {
     const gameFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4));
 
-    //Clear dialog
-    document.getElementById('exec-dialog-content').innerHTML = '';
+    showProgressBar();
+
+    var name = gameTitle.replace(/ /g, '-').toLowerCase();
+
+    var dialogData = {
+        ['main']: {
+            name: `${name}-exec`,
+        },
+        ['title']: {
+            id: `${name}-dialog-title`,
+            innerHTML: `Executables`,
+        },
+        ['actions']: [
+            {
+                type: 'button',
+                icon: 'close',
+                class: 'close-button',
+                id: `${name}-close-button`,
+                onclick: `closeDialog('${name}-exec')`,
+            },
+        ],
+    };
+
+    //Create dialog
+    createDialog(dialogData, false);
 
     function getDirectories(path) {
         return fs.readdirSync(path).filter(function (file) {
@@ -61,11 +84,8 @@ function gameListExec(gameTitle, targetFolder, fileName) {
 
     getDirectories(gameFolder).forEach((folderName) => {
         const subFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4), folderName);
-        const fs = require('fs');
 
         //Open dialog with executable list
-        openDialog('exec-dialog');
-        document.getElementById('exec-dialog-title').innerHTML = 'Executables';
 
         fs.readdirSync(subFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
@@ -73,19 +93,19 @@ function gameListExec(gameTitle, targetFolder, fileName) {
                 //Create exec button
                 var execButton = document.createElement('button');
                 execButton.className = 'mdc-button mdc-button--raised';
+                execButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                 execButton.setAttribute('onclick', `gamePlay('${JSON.stringify(executable)}')`);
-
-                var execButtonName = document.createElement('span');
-                execButtonName.innerHTML = file;
-
-                execButton.appendChild(execButtonName);
+                execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
 
                 //Add button to content
-                document.getElementById('exec-dialog-content').appendChild(execButton);
+                document.getElementById(`${name}-exec-dialog-content`).appendChild(execButton);
                 window.mdc.autoInit();
             }
         });
     });
+
+    openDialog(`${name}-exec`);
+    hideProgressBar();
 }
 
 function gamePlay(executable) {
@@ -140,18 +160,20 @@ function gameDelete(gameTitle, targetFolder, fileName) {
 //List all executables in folder (includes all subfolders)
 function getDirectories(gameFolder) {
     const subFolder = localStorage.getItem('downloadDirectory') + folder + '/' + folderName;
-    const fs = require('fs');
 
     fs.readdirSync(subFolder).forEach((file) => {
         if (file.substr(file.length - 3) == 'exe') {
-            var executable = subFolder + '/' + file;
+            var executable = path.join(subFolder, file);
+            //Create exec button
+            var execButton = document.createElement('button');
+            execButton.className = 'mdc-button mdc-button--raised';
+            execButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+            execButton.setAttribute('onclick', `gamePlay('${JSON.stringify(executable)}')`);
+            execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
 
-            var startButton = document.createElement('p');
-            startButton.innerHTML = file.replace('.exe', '');
-            startButton.className = 'game-exe-list';
-            startButton.setAttribute('onclick', 'startGame(' + "'" + executable + "'" + ')');
-
-            document.getElementById('game-cover-download').appendChild(startButton);
+            //Add button to content
+            document.getElementById(`${name}-exec-dialog-content`).appendChild(execButton);
+            window.mdc.autoInit();
         }
     });
 }
@@ -161,14 +183,34 @@ function openFolder(folder, filename) {
 }
 
 function gameShortcut(gameTitle, targetFolder, fileName) {
-    console.log(gameTitle, targetFolder, fileName);
     const gameFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4));
 
-    //Clear dialog
-    document.getElementById('exec-dialog-content').innerHTML = '';
+    showProgressBar();
 
-    openDialog('exec-dialog');
-    document.getElementById('exec-dialog-title').innerHTML = 'Create shortcut';
+    var name = gameTitle.replace(/ /g, '-').toLowerCase();
+
+    var dialogData = {
+        ['main']: {
+            name: `${name}-shortcut`,
+        },
+        ['title']: {
+            id: `${name}-dialog-title`,
+            innerHTML: `Create shortcut`,
+        },
+        ['actions']: [
+            {
+                type: 'button',
+                icon: 'close',
+                class: 'close-button',
+                id: `${name}-close-button`,
+                onclick: `closeDialog('${name}-shortcut')`,
+            },
+        ],
+    };
+
+    console.log(dialogData);
+    //Create dialog
+    createDialog(dialogData, false);
 
     function getDirectories(path) {
         return fs.readdirSync(path).filter(function (file) {
@@ -178,30 +220,26 @@ function gameShortcut(gameTitle, targetFolder, fileName) {
 
     getDirectories(gameFolder).forEach((folderName) => {
         const subFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4), folderName);
-        const fs = require('fs');
-
-        //Open dialog with executable list
-        openDialog('exec-dialog');
 
         fs.readdirSync(subFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
                 var executable = path.join(subFolder, file);
                 //Create exec button
-                var execButton = document.createElement('button');
-                execButton.className = 'mdc-button mdc-button--raised';
-                execButton.setAttribute('onclick', `createShortcut('${JSON.stringify(executable)}')`);
-
-                var execButtonName = document.createElement('span');
-                execButtonName.innerHTML = file;
-
-                execButton.appendChild(execButtonName);
+                var shortcutButton = document.createElement('button');
+                shortcutButton.className = 'mdc-button mdc-button--raised';
+                shortcutButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+                shortcutButton.setAttribute('onclick', `createShortcut('${JSON.stringify(executable)}')`);
+                shortcutButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
 
                 //Add button to content
-                document.getElementById('exec-dialog-content').appendChild(execButton);
+                document.getElementById(`${name}-shortcut-dialog-content`).appendChild(shortcutButton);
                 window.mdc.autoInit();
             }
         });
     });
+
+    openDialog(`${name}-shortcut`);
+    hideProgressBar();
 }
 
 function createShortcut(executable) {

@@ -59,7 +59,7 @@
                 align-items: center;
 
                 //Game description
-                #dialog-game-description {
+                .dialog-game-description {
                     height: 515px;
                     max-width: 500px;
                     overflow-y: scroll;
@@ -110,10 +110,7 @@
                     display: flex;
                     overflow-x: auto;
                     margin-top: 8px;
-
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
+                    border-radius: 10px;
 
                     img {
                         object-fit: cover;

@@ -1,9 +1,9 @@
 var textBox = document.getElementById('game-name');
 
 //Page is developer only!
-if (!isDev) {
-    alert('This page is not ready yet')
-    goto('Home')
+if (isDev) {
+    MDCAlert('Page is not ready yet', 'Please wait for future updates', true)
+    goto('Home');
 }
 
 textBox.addEventListener('keyup', function (event) {

@@ -3,10 +3,10 @@ var fab = document.querySelector('.mdc-fab');
 
 //If no file or key alert
 if (!localStorage.getItem('SGDB_Key')) {
-    alert('No Steam Grid Key');
+    MDCAlert('No Steam Grid Key', 'Please get a SGDB key from their site', true);
     goto('Settings');
 } else if (!localStorage.getItem('listFile')) {
-    alert('No game file selected');
+    MDCAlert('No game list file selected', 'Please download a game list file and select it in the settings', true);
     goto('Settings');
 }
 
@@ -80,6 +80,10 @@ function selectGame(game) {
 function openSearchFAB() {
     fab.classList.add('mdc-fab--extended');
     searchBox.focus();
+
+    if (!!searchBox.value) {
+        searchGames();
+    }
 }
 
 function closeSearchFAB() {
@@ -88,14 +92,80 @@ function closeSearchFAB() {
 
 //Open store game dialog
 function openStoreGame(name) {
-    var dialog = document.querySelector('#game-dialog');
-    var title = dialog.querySelector('#dialog-title');
-    var image = dialog.querySelector('#dialog-image');
-    var image = dialog.querySelector('#dialog-image');
-    var download = dialog.querySelector('#download-button');
-
     showProgressBar();
 
+    fetch(name).then((game) => {
+        var dialogData = {
+            ['main']: {
+                name: `${name}-info`,
+            },
+            ['title']: {
+                id: `${name}-dialog-title`,
+                innerHTML: `${game.name}`,
+            },
+            ['contents']: [
+                {
+                    type: 'div',
+                    innerHTML: `<img src="${game.url}" alt="" class="dialog-image" id="${name}-image" /> <p id="dialog-game-description" class="dialog-game-description"></p>`,
+                    class: 'dialog-top',
+                    id: 'dialog-top',
+                },
+                {
+                    type: 'div',
+                    innerHTML: `<div class="details"> <div class="" id="age-rating"></div> <div class="" id="release-date"></div> <div class="" id="publisher"></div> <div class="" id="developer"></div> <div class="" id="platforms"></div> <div class="" id="genre"></div> </div> <div class="game-screenshots" id="game-screenshots"></div>`,
+                    class: 'dialog-bottom',
+                    id: 'dialog-bottom',
+                },
+                {
+                    type: 'div',
+                    innerHTML: '',
+                    class: 'publisher',
+                    id: 'publisher',
+                },
+                {
+                    type: 'div',
+                    innerHTML: '',
+                    class: 'developer',
+                    id: 'developer',
+                },
+                {
+                    type: 'div',
+                    innerHTML: '',
+                    class: 'platforms',
+                    id: 'platforms',
+                },
+                {
+                    type: 'div',
+                    innerHTML: '',
+                    class: 'genre',
+                    id: 'genre',
+                },
+            ],
+            ['actions']: [
+                {
+                    type: 'button',
+                    icon: 'close',
+                    class: 'close-button',
+                    id: `${name}-close-button`,
+                    onclick: `closeDialog('${name}-info')`,
+                },
+                {
+                    type: 'button',
+                    icon: 'get_app',
+                    class: 'download-button',
+                    id: `${name}-download-button`,
+                    onclick: `downloadGame('${name}')`,
+                },
+            ],
+        };
+
+        //Create dialog
+        createDialog(dialogData, false);
+        addMetadata(name);
+    });
+}
+
+function addMetadata(name) {
     //Get id by name
     $.get(`https://api.rawg.io/api/games?search=${name}`, (output) => {
         //Detailed info by id
@@ -163,14 +233,8 @@ function openStoreGame(name) {
                 });
             });
         });
-    });
-
-    fetch(name).then((game) => {
-        openDialog('game-dialog');
+    }).then(() => {
+        openDialog(`${name}-info`);
         hideProgressBar();
-        title.innerHTML = game.name;
-
-        image.src = game.url;
-        download.setAttribute('onclick', `downloadGame('${name}')`);
     });
 }

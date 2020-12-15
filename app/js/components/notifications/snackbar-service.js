@@ -36,7 +36,7 @@ function newNotif(snackbarData) {
 
     //Make buttons in action menu
     snackbarData.actions.forEach((action) => {
-        var actionButton = document.createElement('button');
+        var actionButton = document.createElement(action.type);
         actionButton.className = 'mdc-button mdc-snackbar__action';
         actionButton.setAttribute('onclick', `${action.onclick}`);
         actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');

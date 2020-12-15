@@ -13298,6 +13298,22 @@ body {
   user-select: none;
   font-family: sans-serif;
   background-color: var(--mdc-theme-background);
+  /* Buttons */
+}
+body *::-webkit-scrollbar {
+  width: 10px;
+  border: 5px solid white;
+  height: 10px;
+}
+body *::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #c1c1c1;
+}
+body *::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+body *::-webkit-scrollbar-button:single-button {
+  display: none;
 }
 body .mdc-top-app-bar {
   z-index: 7;

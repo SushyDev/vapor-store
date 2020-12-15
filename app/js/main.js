@@ -67,12 +67,6 @@ function checkTheme() {
 }
 checkTheme();
 
-//Close dialog by (this) value from button
-function closeDialog(button) {
-    var dialog = button.closest('.mdc-dialog--open');
-    dialog.classList.remove('mdc-dialog--open');
-}
-
 const getWindow = () => remote.BrowserWindow.getFocusedWindow();
 
 function winMinimize() {

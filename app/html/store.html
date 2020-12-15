@@ -33,38 +33,6 @@
 <!--Div with cards-->
 <div class="cards" id="cards"></div>
 
-<!--Game Dialog-->
-
-<div class="mdc-dialog game-dialog" id="game-dialog">
-    <div class="mdc-dialog__container">
-        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-content">
-            <h2 class="mdc-dialog__title" id="dialog-title"></h2>
-            <div class="mdc-dialog__content" id="dialog-content">
-                <div class="dialog-top">
-                    <img src="" alt="" class="dialog-image" id="dialog-image" />
-                    <p id="dialog-game-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates nihil sint architecto dolorum omnis cumque excepturi dolorem ut pariatur repellat, adipisci officia hic provident modi sit doloribus id quaerat facere.</p>
-                </div>
-                <div class="dialog-bottom">
-                    <div class="details">
-                        <div class="age-rating" id="age-rating"></div>
-                        <div class="release-date" id="release-date"></div>
-                        <div class="publisher" id="publisher"></div>
-                        <div class="developer" id="developer"></div>
-                        <div class="platforms" id="platforms"></div>
-                        <div class="genre" id="genre"></div>
-                    </div>
-                    <div class="game-screenshots" id="game-screenshots"></div>
-                </div>
-            </div>
-            <div class="mdc-dialog__actions">
-                <button class="mdc-icon-button material-icons" onclick="closeDialog(this)">close</button>
-                <button class="mdc-icon-button material-icons" id="download-button">download</button>
-            </div>
-        </div>
-    </div>
-    <div class="mdc-dialog__scrim"></div>
-</div>
-
 <script type="text/javascript">
     $(document).ready(function () {
         mdc.autoInit();

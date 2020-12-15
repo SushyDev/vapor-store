@@ -57,10 +57,13 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] InApp Updater
 - [x] Have a popup asking to extract or not after download
 - [x] Make vapor store single instance
+- [x] Create desktop shortcuts
+- [x] Move popups to MDC dialogs
+- [x] Add scroll buttons for the games screenshots
+- [x] Make a easier dialog component just for alerts
+- [x] In installed games option have a button to open the games folder
 #### Important
-- [ ] **Move popups to MDC dialogs**
 - [ ] **Display changelog button on updater notification**
-- [ ] **In installed games option have a button to open the games folder**
 - [ ] **For executable section have option to force run as administrator**
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Custom generator script, custom fetch download script**
@@ -75,7 +78,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Clean out the downloader code
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
-- [ ] Add scroll buttons for the games screenshots
+- [ ] Allow the progress bar to be dynamically added and removed
 
 ### Issues
 
