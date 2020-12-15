@@ -206,7 +206,7 @@ function gameShortcut(gameTitle, targetFolder, fileName) {
 
 function createShortcut(executable) {
     const shortcutsCreated = createDesktopShortcut({
-        windows: {filePath: executable.replace(/\\/g, '/')},
+        windows: {filePath: path.resolve(executable)},
         linux: {filePath: executable},
         osx: {filePath: executable},
     });
