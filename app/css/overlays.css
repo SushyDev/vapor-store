@@ -37,3 +37,6 @@
 .overlays .snackbar-container .mdc-snackbar .snack-flex .snack-content .mdc-snackbar__actions .mdc-icon-button {
   margin-right: 6px;
 }
+.overlays .alert-dialog .mdc-dialog__surface {
+  min-width: 0px;
+}

@@ -75,7 +75,7 @@ function MDCAlert(title, message, autoshow) {
     var name = title.replace(/ /g, '-').toLowerCase() + '-alert';
 
     var dialog = document.createElement('div');
-    dialog.className = `mdc-dialog ${name}-dialog`;
+    dialog.className = `mdc-dialog ${name}-dialog alert-dialog`;
     dialog.id = `${name}-dialog`;
     dialog.innerHTML = `
 <div class="mdc-dialog__container">

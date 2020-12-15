@@ -28,7 +28,7 @@
                 .snack-content {
                     display: flex;
                     width: 100%;
-                    
+
                     &.progress-true {
                         padding-bottom: 4px;
                     }
@@ -45,6 +45,12 @@
                     }
                 }
             }
+        }
+    }
+
+    .alert-dialog {
+        .mdc-dialog__surface {
+            min-width: 0px;
         }
     }
 }
