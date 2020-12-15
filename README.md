@@ -56,6 +56,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Make the Downloads snackbar a universally usable notification system
 - [x] InApp Updater
 - [x] Have a popup asking to extract or not after download
+- [x] Make vapor store single instance
 #### Important
 - [ ] **Move popups to MDC dialogs**
 - [ ] **Display changelog button on updater notification**

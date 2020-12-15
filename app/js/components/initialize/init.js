@@ -23,6 +23,8 @@ const rimraf = require('rimraf');
 const shell = require('electron').shell;
 //For executing files
 const exec = require('child_process').exec;
+//For creating desktop shortcuts
+const createDesktopShortcut = require('create-desktop-shortcuts');
 
 //Electron stuff
 const {ipcRenderer, remote} = require('electron');

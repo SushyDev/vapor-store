@@ -46,7 +46,8 @@ function createCard() {
 }
 createCard();
 
-function Start(gameTitle, targetFolder, fileName) {
+//Create list of executables in game folder
+function gameListExec(gameTitle, targetFolder, fileName) {
     const gameFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4));
 
     //Clear dialog
@@ -64,6 +65,7 @@ function Start(gameTitle, targetFolder, fileName) {
 
         //Open dialog with executable list
         openDialog('exec-dialog');
+        document.getElementById('exec-dialog-title').innerHTML = 'Executables';
 
         fs.readdirSync(subFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
@@ -155,6 +157,63 @@ function getDirectories(gameFolder) {
 }
 
 function openFolder(folder, filename) {
-    console.log(path.join(folder, filename.slice(0, -4)));
     shell.showItemInFolder(path.join(folder, filename.slice(0, -4)));
+}
+
+function gameShortcut(gameTitle, targetFolder, fileName) {
+    console.log(gameTitle, targetFolder, fileName);
+    const gameFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4));
+
+    //Clear dialog
+    document.getElementById('exec-dialog-content').innerHTML = '';
+
+    openDialog('exec-dialog');
+    document.getElementById('exec-dialog-title').innerHTML = 'Create shortcut';
+
+    function getDirectories(path) {
+        return fs.readdirSync(path).filter(function (file) {
+            return fs.statSync(path + '/' + file).isDirectory();
+        });
+    }
+
+    getDirectories(gameFolder).forEach((folderName) => {
+        const subFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4), folderName);
+        const fs = require('fs');
+
+        //Open dialog with executable list
+        openDialog('exec-dialog');
+
+        fs.readdirSync(subFolder).forEach((file) => {
+            if (file.substr(file.length - 3) == 'exe') {
+                var executable = path.join(subFolder, file);
+                //Create exec button
+                var execButton = document.createElement('button');
+                execButton.className = 'mdc-button mdc-button--raised';
+                execButton.setAttribute('onclick', `createShortcut('${JSON.stringify(executable)}')`);
+
+                var execButtonName = document.createElement('span');
+                execButtonName.innerHTML = file;
+
+                execButton.appendChild(execButtonName);
+
+                //Add button to content
+                document.getElementById('exec-dialog-content').appendChild(execButton);
+                window.mdc.autoInit();
+            }
+        });
+    });
+}
+
+function createShortcut(executable) {
+    const shortcutsCreated = createDesktopShortcut({
+        windows: {filePath: executable},
+        linux: {filePath: executable},
+        osx: {filePath: executable},
+    });
+
+    if (shortcutsCreated) {
+        console.log('Everything worked correctly!');
+    } else {
+        console.log('Could not create the icon or set its permissions (in Linux if "chmod" is set to true, or not set)');
+    }
 }

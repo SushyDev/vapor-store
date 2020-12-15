@@ -73,12 +73,6 @@ function closeDialog(button) {
     dialog.classList.remove('mdc-dialog--open');
 }
 
-//Open dialog by id name
-function openDialog(id) {
-    var dialog = document.getElementById(id);
-    dialog.classList.add('mdc-dialog--open');
-}
-
 const getWindow = () => remote.BrowserWindow.getFocusedWindow();
 
 function winMinimize() {

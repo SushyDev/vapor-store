@@ -31,7 +31,6 @@ function fetch(name) {
     return getGameByName(name).then((nameResult) => {
         var id = nameResult[0].id;
         return getCoverById(id).then((IDResult) => {
-
             if (!IDResult[0]) {
                 IDResult[0] = {...IDResult[0], url: '../img/game-cover.png'};
             }
@@ -66,4 +65,14 @@ try {
 function imgLoad(img) {
     setLayout();
     img.classList.remove('unloaded');
+}
+
+//Open more options popup
+function openMore(game) {
+    var popup = document.getElementById(game);
+    if (popup.classList.contains('mdc-menu-surface--open')) {
+        popup.classList.remove('mdc-menu-surface--open');
+    } else {
+        popup.classList.add('mdc-menu-surface--open');
+    }
 }
