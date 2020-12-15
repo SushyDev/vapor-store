@@ -84,17 +84,17 @@ if (!isDev) {
         }
 
         //On download complete
-        ipcRenderer.on(`${downloadUrl}-download-success`, (event, gameTitle) => {
+        ipcRenderer.on(`${downloadUrl}-download-success`, async (event, gameTitle) => {
+            //Close snackbar
+            closeSnackbar(`${name}-download`, false);
             //Run exe
-            exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
+            await exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
                 console.log(err);
+                //Close vaporstore
+                setTimeout(() => {
+                    winClose();
+                }, 2500);
             });
-
-            //Remove notification and close vapor store
-            setTimeout(() => {
-                closeSnackbar(`${name}-download`, false);
-                winClose();
-            }, 2500);
         });
     });
 
