@@ -1,7 +1,7 @@
 var textBox = document.getElementById('game-name');
 
 //Page is developer only!
-if (isDev) {
+if (!isDev) {
     MDCAlert('Page is not ready yet', 'Please wait for future updates', true)
     goto('Home');
 }
