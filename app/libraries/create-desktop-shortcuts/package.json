@@ -1,0 +1,44 @@
+{
+  "name": "create-desktop-shortcuts",
+  "main": "index.js",
+  "version": "1.2.0",
+  "description": "Easy API to create desktop shortcuts with Node",
+  "author": "The Jared Wilcurt",
+  "keywords": [
+    "Desktop Shortcuts",
+    "desktop icon",
+    "cross-platform",
+    "alias",
+    "lnk"
+  ],
+  "ManifestComments": [
+    "Pinned jest to 24.9.0. 25.1.0 is broken on Windows. Waiting for issue #9459 to be resolved."
+  ],
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint --config=.eslintrc.js index.js src tests manual-testing.js",
+    "fix": "eslint --fix --config=.eslintrc.js index.js src tests manual-testing.js",
+    "debug": "node --inspect-brk manual-testing.js",
+    "manual-test": "node manual-testing.js",
+    "test": "jest --runInBand --coverage",
+    "e2e": "node ./tests/e2e.js"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.12.1",
+    "eslint-config-tjw-base": "^1.0.0",
+    "eslint-config-tjw-jest": "^1.0.0",
+    "eslint-plugin-jsdoc": "^30.7.6",
+    "jest": "24.9.0",
+    "mock-fs": "^4.13.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwutils/create-desktop-shortcuts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nwutils/create-desktop-shortcuts/issues"
+  },
+  "homepage": "https://github.com/nwutils/create-desktop-shortcuts#readme"
+}

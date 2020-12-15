@@ -24,7 +24,9 @@ const shell = require('electron').shell;
 //For executing files
 const exec = require('child_process').exec;
 //For creating desktop shortcuts
-const createDesktopShortcut = require('create-desktop-shortcuts');
+const createDesktopShortcut = require('../libraries/create-desktop-shortcuts');
+//If development
+const isDev = require('electron-is-dev');
 
 //Electron stuff
 const {ipcRenderer, remote} = require('electron');
@@ -32,8 +34,6 @@ const app = require('electron').remote.app;
 const win = require('electron').remote.getCurrentWindow();
 const {dialog, BrowserWindow, process} = require('electron').remote;
 const appDataPath = path.resolve(app.getPath('userData'));
-const isDev = process.env.APP_DEV ? process.env.APP_DEV.trim() == 'true' : false;
-
 //Clear Sesion Storage
 sessionStorage.clear();
 //Localstorage values
