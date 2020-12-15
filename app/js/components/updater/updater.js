@@ -1,4 +1,5 @@
-if (!isDev) {
+if (isDev) {
+    console.log('up');
     $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (data) {
         var release = data[0];
 
@@ -88,13 +89,11 @@ if (!isDev) {
             //Close snackbar
             closeSnackbar(`${name}-download`, false);
             //Run exe
-            await exec(path.join(localStorage.getItem('downloadDir'), fileName), function (err, data) {
-                console.log(err);
-                //Close vaporstore
-                setTimeout(() => {
-                    winClose();
-                }, 2500);
-            });
+            await exec(path.join(localStorage.getItem('downloadDir'), fileName))
+            //Close vaporstore
+            setTimeout(() => {
+                winClose();
+            }, 1500)
         });
     });
 
