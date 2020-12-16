@@ -39,7 +39,7 @@
 5. Get a repo file
 6. Load the repo file in the Vapor Store settings
 
-### How to build it yourself
+### How to build
 
 Building Vapor Store is very simple because its a Electron app, you simply need to download the code from git and run the build command
 
