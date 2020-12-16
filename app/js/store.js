@@ -152,7 +152,7 @@ function openStoreGame(name) {
                     icon: 'get_app',
                     class: 'download-button',
                     id: `${name}-download-button`,
-                    onclick: `downloadGame('${name}')`,
+                    onclick: `fetchDownload('${name}')`,
                 },
             ],
         };
