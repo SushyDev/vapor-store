@@ -2,7 +2,7 @@ var textBox = document.getElementById('game-name');
 
 //Page is developer only!
 if (!isDev) {
-    MDCAlert('Page is not ready yet', 'Please wait for future updates', true)
+    MDCAlert('Page is not ready yet', 'Please wait for future updates')
     goto('Home');
 }
 

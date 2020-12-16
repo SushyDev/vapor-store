@@ -13397,6 +13397,9 @@ body .mdc-drawer-app-content .main-content .intro {
 body .mdc-drawer-app-content .main-content .intro .mdc-typography--headline4 {
   margin-block-start: 0 !important;
 }
+body .mdc-drawer-app-content .main-content .mdc-menu, body .mdc-drawer-app-content .main-content .mdc-list, body .mdc-drawer-app-content .main-content .mdc-list > * {
+  z-index: 50;
+}
 body .mdc-text-field--label-floating:not(.mdc-text-field--disabled) .mdc-floating-label {
   color: var(--mdc-theme-secondary);
 }

@@ -1,90 +1,87 @@
-//Downloading progress
-win.webContents.session.on('will-download', (event, item, webContents) => {
-    var filename = item.getFilename();
-    var fullPath = path.join(localStorage.getItem('downloadDir'), filename);
-    var name = filename.slice(0, -4);
-    var fileurl = item.getURL();
-    var fileType = filename.substr(-3);
-    //Dont pause on start
+var started = [];
 
-    var snackbarData = {
-        ['main']: [
-            {
-                name: `${name}-download`,
-            },
-        ],
-        ['progress']: [
-            {
-                enabled: true,
-                id: `${name}-completed-progress`,
-            },
-        ],
-        ['label']: [
-            {
-                id: `${name}-snackbar-title`,
-                innerHTML: `${filename} 0%`,
-            },
-        ],
-        ['actions']: [
-            {
-                type: 'button',
-                innerHTML: 'Pause',
-                labelid: `${name}-pause-button__label`,
-                class: 'pause-button',
-                id: 'pause-button',
-                onclick: `pauseDownload('${name}')`,
-            },
-        ],
-        ['close']: [
-            {
-                enabled: true,
-                onclick: `cancelDownload('${name}', true, 'Are you sure you want to cancel the download for ${filename}', '${fullPath.replace(/\\/g, '/')}')`,
-                title: 'Cancel',
-                icon: 'close',
-                id: `${name}-close`,
-            },
-        ],
-    };
+function startDownload(url, dir, gameTitle) {
+    var {download} = require('electron').remote.require('electron-dl');
+    download(mainWindow, url, {
+        directory: dir,
+        allowOverwrite: true,
+        onStarted: (item) => {
+            if (started.includes(gameTitle)) return;
+            started.push(gameTitle);
+            console.log('start');
 
-    //Create snackbar
-    newNotif(snackbarData);
-    //Remove pause
-    sessionStorage.setItem(`${name}-pause`, 'false');
-    //On incoming data
-    item.on('updated', (event, state) => {
-        var name = filename.slice(0, -4);
-        //if paused true then pause
-        if (sessionStorage.getItem(`${name}-pause`) == 'true') item.pause();
-        //If canceled then cancel
-        if (sessionStorage.getItem(`${name}-cancel`) == 'true') {
-            //Cancel download
-            item.cancel();
-            //remove from current downloading list
-            downloading.shift();
-            //remove zip file
-            fs.unink(fullPath, (err) => {
-                if (err) {
-                    console.error(err);
-                }
+            var filename = item.getFilename();
+            var fullPath = path.join(localStorage.getItem('downloadDir'), filename);
+            var name = filename.slice(0, -4);
+            var fileurl = item.getURL();
+            var fileType = filename.substr(-3);
+
+            var snackbarData = {
+                ['main']: [
+                    {
+                        name: `${name}-download`,
+                    },
+                ],
+                ['progress']: [
+                    {
+                        enabled: true,
+                        id: `${name}-completed-progress`,
+                    },
+                ],
+                ['label']: [
+                    {
+                        id: `${name}-snackbar-title`,
+                        innerHTML: `${filename} 0%`,
+                    },
+                ],
+                ['actions']: [
+                    {
+                        type: 'button',
+                        innerHTML: 'Pause',
+                        labelid: `${name}-pause-button__label`,
+                        class: 'pause-button',
+                        id: 'pause-button',
+                        onclick: `pauseDownload('${name}')`,
+                    },
+                ],
+                ['close']: [
+                    {
+                        enabled: true,
+                        onclick: `cancelDownload('${name}', true, 'Are you sure you want to cancel the download for ${filename}', '${fullPath.replace(/\\/g, '/')}')`,
+                        title: 'Cancel',
+                        icon: 'close',
+                        id: `${name}-close`,
+                    },
+                ],
+            };
+
+            //Remove starting snackbar
+            closeSnackbar(`${gameTitle}-download-starting`, false);
+            //Create snackbar
+            createSnack(snackbarData);
+
+            ipcRenderer.on(`${name}-pause`, () => {
+                item.pause();
             });
-            //Stop
-            return;
-        }
 
-        if (state === 'progressing') {
-            //if paused
-            if (item.isPaused()) {
-                setInterval(() => {
-                    //if value false resume
-                    if (sessionStorage.getItem(`${name}-pause`) == 'false') {
-                        try {
-                            item.resume();
-                        } catch (e) {
-                            return; /* fix memory leak hopefully */
-                        }
+            ipcRenderer.on(`${name}-resume`, () => {
+                item.resume();
+            });
+            ipcRenderer.on(`${name}-cancel`, () => {
+                item.cancel();
+                downloading.shift();
+                //remove zip file
+                fs.unink(fullPath, (err) => {
+                    if (err) {
+                        console.error(err);
                     }
-                }, 100);
-            } else {
+                });
+                //Stop
+                return;
+            });
+
+            //On incoming data
+            item.on('updated', (event, state) => {
                 try {
                     //Downloading
                     var received_bytes = item.getReceivedBytes();
@@ -98,84 +95,84 @@ win.webContents.session.on('will-download', (event, item, webContents) => {
                 } catch (e) {
                     /* Can error on download finish so it catches here */
                 }
-            }
-        }
-    });
+            });
 
-    //On download done
-    item.once('done', (event, state) => {
-        if (state === 'completed') {
-            //On download complete
-            ipcRenderer.on(`${fileurl}-download-success`, (event, gameTitle) => {
-                //Remove downloaded game from array
-                downloading.shift();
+            //On download done
+            item.once('done', (event, state) => {
+                //On download complete
+                if (state === 'completed') {
 
-                //Remove download snackbar
-                closeSnackbar(`${name}-download`, false);
+                    //Remove downloaded game from array
+                    downloading.shift();
 
-                //Add downloaded game to library
-                addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+                    //Remove download snackbar
+                    closeSnackbar(`${name}-download`, false);
 
-                var snackbarData = {
-                    ['main']: [
-                        {
-                            name: `${name}-extractyn`,
-                        },
-                    ],
-                    ['progress']: [
-                        {
-                            enabled: false,
-                        },
-                    ],
-                    ['label']: [
-                        {
-                            id: `${name}-snackbar-title`,
-                            innerHTML: `Do you want to extract ${filename}`,
-                        },
-                    ],
-                    ['actions']: [
-                        {
-                            type: 'button',
-                            innerHTML: 'Yes',
-                            labelid: `${name}-extract-button__label`,
-                            class: 'yes-extract-button',
-                            id: 'yes-extract-button',
-                            onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${filename}', '${gameTitle}')`,
-                        },
-                        {
-                            type: 'button',
-                            innerHTML: 'No',
-                            labelid: `${name}-close-button__label`,
-                            class: 'no-extract-button',
-                            id: 'no-extract-button',
-                            onclick: `closeSnackbar('${name}-extractyn', true, 'Are you sure you don't want to extract ${filename})`,
-                        },
-                    ],
-                    ['close']: [
-                        {
-                            enabled: false,
-                        },
-                    ],
-                };
+                    //Add downloaded game to library
+                    addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
 
-                //Extract downloaded zip file
-                if (fileType == 'zip') {
-                    newNotif(snackbarData);
+                    var snackbarData = {
+                        ['main']: [
+                            {
+                                name: `${name}-extractyn`,
+                            },
+                        ],
+                        ['progress']: [
+                            {
+                                enabled: false,
+                            },
+                        ],
+                        ['label']: [
+                            {
+                                id: `${name}-snackbar-title`,
+                                innerHTML: `Do you want to extract ${filename}`,
+                            },
+                        ],
+                        ['actions']: [
+                            {
+                                type: 'button',
+                                innerHTML: 'Yes',
+                                labelid: `${name}-extract-button__label`,
+                                class: 'yes-extract-button',
+                                id: 'yes-extract-button',
+                                onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${filename}', '${gameTitle}')`,
+                            },
+                            {
+                                type: 'button',
+                                innerHTML: 'No',
+                                labelid: `${name}-close-button__label`,
+                                class: 'no-extract-button',
+                                id: 'no-extract-button',
+                                onclick: `closeSnackbar('${name}-extractyn', true, 'Are you sure you don't want to extract ${filename})`,
+                            },
+                        ],
+                        ['close']: [
+                            {
+                                enabled: false,
+                            },
+                        ],
+                    };
+
+                    //Extract downloaded zip file
+                    if (fileType == 'zip') {
+                        createSnack(snackbarData);
+                    }
+                } else {
+                    //Download didnt complete
+                    console.log(`Download failed: ${state}`);
                 }
             });
-        } else {
-            console.log(`Download failed: ${state}`);
-        }
+        },
     });
-});
+}
 
-//Pause / resume
+//Pause / resume download
 function pauseDownload(name) {
-    if (sessionStorage.getItem(`${name}-pause`) == 'false') {
-        sessionStorage.setItem(`${name}-pause`, 'true');
+    if (document.getElementById(`${name}-pause-button__label`).innerHTML == 'Pause') {
+        ipcRenderer.sendTo(mainWindow.id, `${name}-pause`);
         document.getElementById(`${name}-pause-button__label`).innerHTML = 'Resume';
     } else {
-        sessionStorage.setItem(`${name}-pause`, 'false');
+        ipcRenderer.sendTo(mainWindow.id, `${name}-resume`);
         document.getElementById(`${name}-pause-button__label`).innerHTML = 'Pause';
     }
 }
@@ -185,5 +182,5 @@ function cancelDownload(name, alert, message, targetPath) {
     //if pressed cancel dont continue
     if (!closeSnackbar(`${name}-download`, alert, message)) return;
     //set canceled in localstorage
-    sessionStorage.setItem(`${name}-cancel`, 'true');
+    ipcRenderer.sendTo(mainWindow.id, `${name}-cancel`);
 }

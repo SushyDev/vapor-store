@@ -68,11 +68,32 @@ function imgLoad(img) {
 }
 
 //Open more options popup
-function openMore(game) {
-    var popup = document.getElementById(game);
-    if (popup.classList.contains('mdc-menu-surface--open')) {
-        popup.classList.remove('mdc-menu-surface--open');
+function openMore(name, name2, folder, fileName) {
+    var anchorpoint = document.getElementById(`${name}-menu-anchorpoint`);
+    if (!anchorpoint.innerHTML == '') {
+        anchorpoint.closest('.mdc-card').style.zIndex = 'auto';
+        anchorpoint.innerHTML = '';
     } else {
-        popup.classList.add('mdc-menu-surface--open');
+        anchorpoint.closest('.mdc-card').style.zIndex = '2';
+        anchorpoint.innerHTML = `
+<div id="toolbar" class="toolbar mdc-menu-surface--anchor">
+    <div class="mdc-menu mdc-menu-surface mdc-menu-surface--open">
+        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="openFolder('${folder}', '${fileName}')">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text">Open folder</span>
+            </li>
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="gameDelete('${name2}', '${folder}', '${fileName}')">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text">Delete</span>
+            </li>
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="gameShortcut('${name2}', '${folder}', '${fileName}')">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text">Add to desktop</span>
+            </li>
+        </ul>
+    </div>
+</div>
+`;
     }
 }

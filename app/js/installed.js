@@ -16,7 +16,7 @@ function createCard() {
         if (createCardId !== createCardLatest) return;
 
         if (data['list'][0] == undefined) {
-            MDCAlert('No games installed', 'Please install some games to continue', true);
+            MDCAlert('No games installed', 'Please install some games to continue');
             goto('Store');
         }
 

@@ -1,5 +1,8 @@
 //Main is for essential components that make stuff work
 
+//Main window
+const mainWindow = BrowserWindow.getAllWindows()[0];
+
 //Adjust page height for mobile devices running a chromium webbrowser
 function setPageHeight() {
     let vh = window.innerHeight * 0.01;
@@ -66,19 +69,6 @@ function checkTheme() {
     }
 }
 checkTheme();
-
-const getWindow = () => remote.BrowserWindow.getFocusedWindow();
-
-function winMinimize() {
-    getWindow().minimize();
-}
-function winMaximize() {
-    const window = getWindow();
-    window.isMaximized() ? window.unmaximize() : window.maximize();
-}
-function winClose() {
-    BrowserWindow.getAllWindows()[0].close();
-}
 
 //Get chromium path for windows/linux (Development is done on OpenSUSE)
 function getChromiumExecPath() {

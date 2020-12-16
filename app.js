@@ -2,7 +2,7 @@ const path = require('path');
 const electron = require('electron');
 const root = electron.app.getAppPath();
 const {ipcMain, app, BrowserWindow, dialog} = require('electron');
-const {download} = require('electron-dl');
+const ElectronDL = require('electron-dl');
 var isDev = process.env.APP_DEV ? process.env.APP_DEV.trim() == 'true' : false;
 
 function spawnWindow() {
@@ -44,19 +44,10 @@ app.on('activate', () => {
     }
 });
 
-ipcMain.on('download-item', async (event, url, dir, gameTitle) => {
-    await download(window, url, {
-        directory: dir,
-    });
-    event.sender.send(`${url}-download-success`, gameTitle);
+require('electron-reload')(__dirname, {
+    ignored: [path.join(__dirname, 'app', 'scss'), path.join(__dirname, 'app', 'json')],
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
 });
-
-if (isDev) {
-    require('electron-reload')(__dirname, {
-        ignored: [path.join(__dirname, 'app', 'scss'), path.join(__dirname, 'app', 'json')],
-        electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-    });
-}
 
 //Make app single instance
 const SingleInstance = app.requestSingleInstanceLock();

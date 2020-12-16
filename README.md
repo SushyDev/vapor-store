@@ -63,6 +63,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Make a easier dialog component just for alerts
 - [x] In installed games option have a button to open the games folder
 - [x] For executable section have option to run as administrator
+- [x] Clean out the downloader code
 #### Important
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have a button in settings to clear zips in folder**
@@ -79,14 +80,13 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 - [ ] Make it so the downloader always over writes zips
-- [ ] Clean out the downloader code
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
 - [ ] Allow the progress bar to be dynamically added and removed
 
 ### Issues
 
-- Make it so the download popup appears sooner for better user feedback
+- Sometimes when updating vaporstore closes before running the updater <br> Fix?: Move to electron-updater
 
 If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support 
 

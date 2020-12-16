@@ -33,7 +33,7 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
         ],
     };
 
-    newNotif(snackbarData);
+    createSnack(snackbarData);
 
     (async () => {
         try {

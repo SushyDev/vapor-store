@@ -155,6 +155,10 @@ body {
                     margin-block-start: 0 !important;
                 }
             }
+
+            .mdc-menu, .mdc-list, .mdc-list > *  {
+                z-index: 50;
+            }
         }
     }
 

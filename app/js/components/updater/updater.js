@@ -84,7 +84,7 @@ if (!isDev) {
             if (localStorage.getItem('beta') == 'false' && beta == true) return;
 
             //Create the snackbar
-            newNotif(snackbarData);
+            createSnack(snackbarData);
         }
 
         //On download complete

@@ -71,7 +71,7 @@ function createDialog(dialogData, autoshow) {
 }
 
 //alert(name, message, autoshow)
-function MDCAlert(title, message, autoshow) {
+function MDCAlert(title, message = '', autoshow = true) {
     var name = title.replace(/ /g, '-').toLowerCase() + '-alert';
 
     var dialog = document.createElement('div');

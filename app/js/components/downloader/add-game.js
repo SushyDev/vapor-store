@@ -15,16 +15,9 @@ function addGameToLibrary(targetPath, targetFolder, fileName, gameTitle) {
             fileName: fileName,
         });
 
-        devLog(updatedArray);
-
         fs.writeFile(file, JSON.stringify(updatedArray), function (err) {
             if (err) throw err;
             devLog('Saved!');
         });
     });
-
-    //remove extract snackbar
-   // closeSnackbar(`${gameTitle}`);
 }
-
-//addGameToLibrary('targetPath', 'targetFolder', 'filename', 'gameTditle');

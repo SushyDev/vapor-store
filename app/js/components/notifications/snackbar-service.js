@@ -1,13 +1,15 @@
-function newNotif(snackbarData) {
+function createSnack(snackbarData) {
     var main = snackbarData.main[0];
     var progress = snackbarData.progress[0];
     var label = snackbarData.label[0];
     var close = snackbarData.close[0];
 
     var name = main.name;
+
     //Create snackbar
     var snackbar = document.createElement('div');
     snackbar.id = `${name}-snackbar`;
+    if(!!main.role) snackbar.setAttribute('role', main.role)
     snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
     snackbar.innerHTML = `
                         <div class="mdc-snackbar__surface snack-flex" id="${name}-surface">
@@ -35,17 +37,21 @@ function newNotif(snackbarData) {
     }
 
     //Make buttons in action menu
-    snackbarData.actions.forEach((action) => {
-        var actionButton = document.createElement(action.type);
-        actionButton.className = 'mdc-button mdc-snackbar__action';
-        actionButton.setAttribute('onclick', `${action.onclick}`);
-        actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
-        actionButton.innerHTML = `
+    if (!!snackbarData.actions) {
+        snackbarData.actions.forEach((action) => {
+            var actionButton = document.createElement(action.type);
+            actionButton.className = 'mdc-button mdc-snackbar__action';
+            actionButton.setAttribute('onclick', `${action.onclick}`);
+            actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+            actionButton.innerHTML = `
                         <div class="mdc-button__ripple"></div>
                         <div class="mdc-button__label" id="${action.labelid}">${action.innerHTML}</div>
                         `;
-        document.getElementById(`${name}-snack-actions`).appendChild(actionButton);
-    });
+            document.getElementById(`${name}-snack-actions`).appendChild(actionButton);
+        });
+    } else {
+        document.getElementById(`${name}-snack-actions`).remove();
+    }
 
     //Add close button
     if (close.enabled) {

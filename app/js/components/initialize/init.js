@@ -14,7 +14,7 @@ const puppeteer = require('puppeteer');
 //Extract for extracting zip files
 const extract = require('extract-zip');
 //Electron built in downloader wrapper
-const electronDl = require('electron-dl');
+const electronDL = require('electron-dl');
 //Path for directory stuff
 const path = require('path');
 //rimraf for deleting folders
@@ -29,10 +29,10 @@ const createDesktopShortcut = require('../libraries/create-desktop-shortcuts');
 const isDev = require('electron-is-dev');
 
 //Electron stuff
+const {dialog, BrowserWindow, process, app} = require('electron').remote;
 const {ipcRenderer, remote} = require('electron');
-const app = require('electron').remote.app;
 const win = require('electron').remote.getCurrentWindow();
-const {dialog, BrowserWindow, process} = require('electron').remote;
+
 const appDataPath = path.resolve(app.getPath('userData'));
 //Clear Sesion Storage
 sessionStorage.clear();
