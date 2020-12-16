@@ -55,7 +55,8 @@ function startDownload(url, dir, gameTitle) {
             };
 
             //Remove starting snackbar
-            if(!gameTitle == 'vapor-store-update') closeSnackbar(`${gameTitle}-download-starting`, false);
+            console.log(gameTitle)
+            if(!gameTitle.includes('vapor-store-update')) closeSnackbar(`${gameTitle}-download-starting`, false);
   
             //Create snackbar
             createSnack(snackbarData);
