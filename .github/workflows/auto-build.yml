@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [self-hosted, Windows, X64]
 
     steps:
       - name: Check out Git repository
