@@ -67,6 +67,9 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Custom generator script, custom fetch download script**
+- [ ] **Have option between folder or standalone program in installed list**
+- [ ] **Default play exe for games in folder in installed list**
+- [ ] **Generator / Fetch scripts selector**
 #### Other
 - [ ] Show Download Size
 - [ ] Import existing games
