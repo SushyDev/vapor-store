@@ -146,7 +146,7 @@ function startDownload(url, dir, gameTitle) {
                                 labelid: `${name}-close-button__label`,
                                 class: 'no-extract-button',
                                 id: 'no-extract-button',
-                                onclick: `closeSnackbar('${name}-extractyn', true, 'Are you sure you don't want to extract ${fileName})`,
+                                onclick: `closeSnackbar('${name}-extractyn', true, "Are you sure you don't want to extract ${fileName}")`,
                             },
                         ],
                         ['close']: [
