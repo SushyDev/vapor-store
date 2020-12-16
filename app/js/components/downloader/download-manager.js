@@ -55,9 +55,9 @@ function startDownload(url, dir, gameTitle) {
             };
 
             //Remove starting snackbar
-            console.log(gameTitle)
-            if(!gameTitle.includes('vapor-store-update')) closeSnackbar(`${gameTitle}-download-starting`, false);
-  
+            console.log(gameTitle);
+            if (!gameTitle.includes('vapor-store-update')) closeSnackbar(`${gameTitle}-download-starting`, false);
+
             //Create snackbar
             createSnack(snackbarData);
 
@@ -102,15 +102,18 @@ function startDownload(url, dir, gameTitle) {
             item.once('done', (event, state) => {
                 //On download complete
                 if (state === 'completed') {
-
                     //Remove downloaded game from array
                     downloading.shift();
 
                     //Remove download snackbar
                     closeSnackbar(`${name}-download`, false);
 
-                    //Add downloaded game to library
-                    addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), fileName, gameTitle);
+                    //Add downloaded game to library or install update
+                    if (gameTitle == 'vapor-store-update') {
+                        installUpdate(fileName);
+                    } else {
+                        addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), fileName, gameTitle);
+                    }
 
                     var snackbarData = {
                         ['main']: [
@@ -156,7 +159,6 @@ function startDownload(url, dir, gameTitle) {
 
                     //Extract downloaded zip file
                     if (fileType == 'zip') createSnack(snackbarData);
-                    if (gameTitle == 'vapor-store-update') installUpdate(fileName)
                 } else {
                     //Download didnt complete
                     console.log(`Download failed: ${state}`);
