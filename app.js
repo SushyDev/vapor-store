@@ -3,7 +3,7 @@ const electron = require('electron');
 const root = electron.app.getAppPath();
 const {ipcMain, app, BrowserWindow, dialog} = require('electron');
 const ElectronDL = require('electron-dl');
-var isDev = process.env.APP_DEV ? process.env.APP_DEV.trim() == 'true' : false;
+const isDev = require('electron-is-dev');
 
 function spawnWindow() {
     win = new BrowserWindow({
@@ -44,11 +44,6 @@ app.on('activate', () => {
     }
 });
 
-require('electron-reload')(__dirname, {
-    ignored: [path.join(__dirname, 'app', 'scss'), path.join(__dirname, 'app', 'json')],
-    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-});
-
 //Make app single instance
 const SingleInstance = app.requestSingleInstanceLock();
 if (!SingleInstance) {
@@ -60,5 +55,12 @@ if (!SingleInstance) {
             if (window.isMinimized()) window.restore();
             window.focus();
         }
+    });
+}
+
+if (isDev) {
+    require('electron-reload')(__dirname, {
+        ignored: [path.join(__dirname, 'app', 'scss'), path.join(__dirname, 'app', 'json')],
+        electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
     });
 }
