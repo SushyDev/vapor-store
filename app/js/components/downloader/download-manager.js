@@ -8,13 +8,12 @@ function startDownload(url, dir, gameTitle) {
         onStarted: (item) => {
             if (started.includes(gameTitle)) return;
             started.push(gameTitle);
-            console.log('start');
 
-            var filename = item.getFilename();
-            var fullPath = path.join(localStorage.getItem('downloadDir'), filename);
-            var name = filename.slice(0, -4);
+            var fileName = item.getFilename();
+            var fullPath = path.join(localStorage.getItem('downloadDir'), fileName);
+            var name = fileName.slice(0, -4);
             var fileurl = item.getURL();
-            var fileType = filename.substr(-3);
+            var fileType = fileName.substr(-3);
 
             var snackbarData = {
                 ['main']: [
@@ -31,7 +30,7 @@ function startDownload(url, dir, gameTitle) {
                 ['label']: [
                     {
                         id: `${name}-snackbar-title`,
-                        innerHTML: `${filename} 0%`,
+                        innerHTML: `${fileName} 0%`,
                     },
                 ],
                 ['actions']: [
@@ -47,7 +46,7 @@ function startDownload(url, dir, gameTitle) {
                 ['close']: [
                     {
                         enabled: true,
-                        onclick: `cancelDownload('${name}', true, 'Are you sure you want to cancel the download for ${filename}', '${fullPath.replace(/\\/g, '/')}')`,
+                        onclick: `cancelDownload('${name}', true, 'Are you sure you want to cancel the download for ${fileName}', '${fullPath.replace(/\\/g, '/')}')`,
                         title: 'Cancel',
                         icon: 'close',
                         id: `${name}-close`,
@@ -56,7 +55,8 @@ function startDownload(url, dir, gameTitle) {
             };
 
             //Remove starting snackbar
-            closeSnackbar(`${gameTitle}-download-starting`, false);
+            if(!gameTitle == 'vapor-store-update') closeSnackbar(`${gameTitle}-download-starting`, false);
+  
             //Create snackbar
             createSnack(snackbarData);
 
@@ -91,7 +91,7 @@ function startDownload(url, dir, gameTitle) {
                     var scalePercent = downloadPercent / 100;
 
                     document.getElementById(`${name}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${name}-snackbar-title`).innerHTML = `${filename} ${downloadPercent.toFixed(2)}%`;
+                    document.getElementById(`${name}-snackbar-title`).innerHTML = `${fileName} ${downloadPercent.toFixed(2)}%`;
                 } catch (e) {
                     /* Can error on download finish so it catches here */
                 }
@@ -109,7 +109,7 @@ function startDownload(url, dir, gameTitle) {
                     closeSnackbar(`${name}-download`, false);
 
                     //Add downloaded game to library
-                    addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), filename, gameTitle);
+                    addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), fileName, gameTitle);
 
                     var snackbarData = {
                         ['main']: [
@@ -125,7 +125,7 @@ function startDownload(url, dir, gameTitle) {
                         ['label']: [
                             {
                                 id: `${name}-snackbar-title`,
-                                innerHTML: `Do you want to extract ${filename}`,
+                                innerHTML: `Do you want to extract ${fileName}`,
                             },
                         ],
                         ['actions']: [
@@ -135,7 +135,7 @@ function startDownload(url, dir, gameTitle) {
                                 labelid: `${name}-extract-button__label`,
                                 class: 'yes-extract-button',
                                 id: 'yes-extract-button',
-                                onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${filename}', '${gameTitle}')`,
+                                onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${fileName}', '${gameTitle}')`,
                             },
                             {
                                 type: 'button',
@@ -143,7 +143,7 @@ function startDownload(url, dir, gameTitle) {
                                 labelid: `${name}-close-button__label`,
                                 class: 'no-extract-button',
                                 id: 'no-extract-button',
-                                onclick: `closeSnackbar('${name}-extractyn', true, 'Are you sure you don't want to extract ${filename})`,
+                                onclick: `closeSnackbar('${name}-extractyn', true, 'Are you sure you don't want to extract ${fileName})`,
                             },
                         ],
                         ['close']: [
@@ -154,9 +154,8 @@ function startDownload(url, dir, gameTitle) {
                     };
 
                     //Extract downloaded zip file
-                    if (fileType == 'zip') {
-                        createSnack(snackbarData);
-                    }
+                    if (fileType == 'zip') createSnack(snackbarData);
+                    if (gameTitle == 'vapor-store-update') installUpdate(fileName)
                 } else {
                     //Download didnt complete
                     console.log(`Download failed: ${state}`);

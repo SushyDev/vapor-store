@@ -86,22 +86,22 @@ if (!isDev) {
             //Create the snackbar
             createSnack(snackbarData);
         }
+    });
 
-        //On download complete
-        ipcRenderer.on(`${downloadUrl}-download-success`, async (event, gameTitle) => {
-            //Close snackbar
-            closeSnackbar(`${name}-download`, false);
-            //Run exe
+    function downloadUpdate(name, downloadUrl) {
+        closeSnackbar(name, false);
+        startDownload(downloadUrl, localStorage.getItem('downloadDir'), 'vapor-store-update');
+    }
+
+    //On download complete
+    function installUpdate(fileName) {
+        //Run exe
+        (async () => {
             await exec(path.join(localStorage.getItem('downloadDir'), fileName));
             //Close vaporstore
             setTimeout(() => {
                 winClose();
             }, 1500);
-        });
-    });
-
-    function downloadUpdate(name, downloadUrl) {
-        closeSnackbar(name, false);
-        ipcRenderer.send('download-item', downloadUrl, localStorage.getItem('downloadDir'), 'vapor-store-update');
+        })();
     }
 }
