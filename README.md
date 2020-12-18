@@ -63,17 +63,18 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Make a easier dialog component just for alerts
 - [x] In installed games option have a button to open the games folder
 - [x] For executable section have option to run as administrator
-- [x] Clean out the downloader code
+- [x] Allow the progress bar to be dynamically added and removed
+- [x] Show Download Size
+- [x] Game metadata for installed games list
 #### Important
 - [ ] **Display changelog button on updater notification**
-- [ ] **Have a button in settings to clear zips in folder**
-- [ ] **Custom generator script, custom fetch download script**
 - [ ] **Have option between folder or standalone program in installed list**
 - [ ] **Default play exe for games in folder in installed list**
+- [ ] **Have a button in settings to clear zips in folder**
+- [ ] **Custom generator script, custom fetch download script**
 - [ ] **Generator / Fetch scripts selector**
-- [ ] **Game metadata for installed games list**
 #### Other
-- [ ] Show Download Size
+- [ ] Clean out the downloader code
 - [ ] Import existing games
 - [ ] Game sorting by category
 - [ ] Game updates
@@ -82,7 +83,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Make it so the downloader always over writes zips
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
-- [ ] Allow the progress bar to be dynamically added and removed
+- [ ] Search in installed games list
 
 ### Issues
 

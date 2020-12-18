@@ -7,8 +7,7 @@ import {MDCRipple} from '@material/ripple';
 import {MDCDialog} from '@material/dialog';
 import {MDCList} from '@material/list';
 import {MDCLinearProgress} from '@material/linear-progress';
-
-
+import {MDCMenuSurface} from '@material/menu-surface';
 
 // Instantiation
 const topAppBarElement = document.querySelector('.mdc-top-app-bar');

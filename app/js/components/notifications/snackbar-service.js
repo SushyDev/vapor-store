@@ -6,15 +6,16 @@ function createSnack(snackbarData) {
 
     var name = main.name;
 
+    console.log(progress.enabled);
+
     //Create snackbar
     var snackbar = document.createElement('div');
     snackbar.id = `${name}-snackbar`;
-    if(!!main.role) snackbar.setAttribute('role', main.role)
+    if (!!main.role) snackbar.setAttribute('role', main.role);
     snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
     snackbar.innerHTML = `
-                        <div class="mdc-snackbar__surface snack-flex" id="${name}-surface">
-
-                            <div class="snack-content progress-${progress.enabled}">
+                        <div class="mdc-snackbar__surface snack-flex" id="${name}-surface" progress="${progress.enabled}">
+                            <div class="snack-content">
                                 <div class="mdc-snackbar__label" role="status" aria-live="polite" id="${label.id}">${label.innerHTML}</div>
                                 <div class="mdc-snackbar__actions" id="${name}-snack-actions"></div>
                             </div>

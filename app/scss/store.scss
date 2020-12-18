@@ -1,126 +1,89 @@
 @import '@material/button';
 @import '@material/textfield';
 
-.mdc-fab {
-    z-index: 9;
+.searchbar {
+    -webkit-app-region: no-drag;
     position: fixed;
-    margin-top: 16px;
-    margin-left: 16px;
-    height: 56px;
-    transition: width 0.5s;
-    @include ink-color(var(--light-color));
-    @include caret-color(var(--light-color));
-    @include line-ripple-color(white);
+    width: 50vw;
+    top: 8px;
+    border-radius: 8px;
+    z-index: 9;
+    background: #ffffff66;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 48px;
+    display: flex;
+    color: #406575;
 
-    label {
-        display: none;
-        text-transform: none;
+    .material-icons {
+        width: 48px;
+        height: 48px;
+    }
+
+    input {
+        color: #406575;
+        width: 100%;
+        background: transparent;
+        border: none;
+        font-size: 1em;
+        line-height: 1rem;
+        font-family: var(--mdc-typography-font-family, Roboto, sans-serif);
+
+        &:focus {
+            outline: none;
+        }
     }
 }
 
-.mdc-fab--extended {
-    .mdc-text-field {
-        display: flex;
-        @include fill-color(transparent);
+.store {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    .cards {
+        max-height: 0px;
     }
 
-    .mdc-fab__label {
-        display: none;
-    }
-}
+    .genres {
+        .genre-container {
+            min-height: 450px;
 
-@keyframes scale-in {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.mdc-dialog {
-    z-index: 10;
-    .mdc-dialog__surface {
-        min-width: 950px;
-        max-height: 625px !important;
-
-        .mdc-dialog__content {
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-
-            .dialog-top {
-                display: flex;
-                width: 100%;
-                height: 515px !important;
-                align-items: center;
-
-                //Game description
-                .dialog-game-description {
-                    height: 515px;
-                    max-width: 500px;
-                    overflow-y: scroll;
-                    margin-left: 16px;
-                    display: flex;
-                    flex-direction: column;
-
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-                }
-
-                //Cover image
-                img {
-                    width: 342px;
-                    height: 482px;
-                    border-radius: 10px;
-                    box-shadow: 0 2px 4px rgba(66, 66, 66, 0.5);
-                }
+            h3 {
+                margin-left: 5vw;
+                color: white;
             }
 
-            .dialog-bottom {
-                display: flex;
+            .genre-cards {
+                height: 100%;
                 width: 100%;
-                height: 515px !important;
+                display: flex;
+                overflow-x: auto;
 
-                //Rating, devs, etc..
-                .details {
-                    margin-top: 8px;
-                    width: 342px;
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    margin-left: 18px;
-
-                    div {
-                        display: flex;
-                        flex-direction: column;
-
-                        p {
-                            margin: 2px 0;
-                        }
+                .mdc-card {
+                    &:first-of-type {
+                        margin-left: 5vw;
                     }
                 }
 
-                .game-screenshots {
-                    width: 500px;
-                    height: 400px;
-                    display: flex;
-                    overflow-x: auto;
-                    margin-top: 8px;
-                    border-radius: 10px;
-
-                    img {
-                        object-fit: cover;
-                        width: 500px;
-                        border-radius: 10px;
-
-                        &:not(:last-of-type) {
-                            margin-right: 12px;
-                        }
+                &:hover {
+                    &::-webkit-scrollbar {
+                        display: initial;
                     }
+                }
+
+                &::-webkit-scrollbar {
+                    display: none;
+                    height: 12px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background-color: var(--mdc-theme-background);
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    border-left: 5vw solid var(--mdc-theme-background);
+                    border-radius: 0;
                 }
             }
         }

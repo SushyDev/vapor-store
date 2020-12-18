@@ -78,6 +78,21 @@ fs.readFile(file, 'utf-8', (err, data) => {
     }
 });
 
+//Check if json file exists, if not then make it
+fs.readFile(file, 'utf-8', (err, data) => {
+    var array;
+    try {
+        array = JSON.parse(data);
+    } catch (e) {
+        array = {list: []};
+        fs.writeFile(file, JSON.stringify(array), function (err) {
+            if (err) throw err;
+            devLog('Saved!');
+        });
+    }
+
+});
+
 //Console log dev only
 function devLog(log) {
     if (isDev) {

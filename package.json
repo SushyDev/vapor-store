@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "2.0.0-beta-20",
+  "version": "2.0.0-beta-21",
   "description": "Vapor Store",
   "author": "SushyDev",
   "main": "app.js",
@@ -53,6 +53,7 @@
   "dependencies": {
     "@material/card": "^8.0.0",
     "@material/feature-targeting": "^8.0.0",
+    "@material/image-list": "^8.0.0",
     "@material/linear-progress": "^8.0.0",
     "@material/progress-indicator": "^8.0.0",
     "@material/ripple": "^8.0.0",
@@ -71,6 +72,6 @@
   "devDependencies": {
     "electron": "^7.2.4",
     "electron-builder": "^22.9.1",
-    "electron-reload": "^1.5.0" 
+    "electron-reload": "^1.5.0"
   }
 }

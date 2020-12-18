@@ -12,26 +12,23 @@
             position: relative;
             display: flex;
 
-            &.snackbar--invis {
-                display: none;
-            }
-
-            .snack-flex {
+            .mdc-snackbar__surface {
                 display: flex;
                 flex-direction: column;
                 padding-right: 0;
+                position: relative;
+                border-radius: 8px;
+                overflow: hidden;
 
-                .mdc-linear-progress {
-                    border-radius: 4px 4px 0 0;
+                &[progress='true'] {
+                    .snack-content {
+                        margin-top: -4px;
+                    }
                 }
 
                 .snack-content {
                     display: flex;
                     width: 100%;
-
-                    &.progress-true {
-                        padding-bottom: 4px;
-                    }
 
                     .mdc-snackbar__actions {
                         margin-left: auto;
@@ -48,9 +45,7 @@
         }
     }
 
-    .alert-dialog {
-        .mdc-dialog__surface {
-            min-width: 0px;
-        }
+    .mdc-dialog {
+        z-index: 999;
     }
 }

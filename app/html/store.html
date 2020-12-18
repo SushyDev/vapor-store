@@ -7,31 +7,83 @@
     <script src="../js/components/card-grid/card-grid.js"></script>
 </header>
 
-<!--Progress bar-->
-<div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate progress-bar" id="MDCLinearProgress" data-mdc-auto-init="MDCLinearProgress">
-    <div class="mdc-linear-progress__buffering-dots"></div>
-    <div class="mdc-linear-progress__buffer"></div>
-    <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-        <span class="mdc-linear-progress__bar-inner"></span>
-    </div>
-    <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-        <span class="mdc-linear-progress__bar-inner"></span>
-    </div>
+<div class="searchbar" id="searchbar">
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="searchGames()">search</button>
+    <input type="text" id="searchquery" placeholder="Search..." />
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="clearSearch()">clear</button>
 </div>
 
-<button class="mdc-fab" onclick="openSearchFAB(event)" data-mdc-auto-init="MDCRipple">
-    <div class="mdc-fab__ripple"></div>
-    <span class="material-icons mdc-fab__icon">search</span>
+<div class="store" id="store">
+    <!--Div with cards-->
+    <div class="cards" id="cards"></div>
+    <!--Genres-->
+    <div class="genres" id="genres">
+        <div class="genre-action genre-container" id="genre-action">
+            <h3 class="mdc-typography--headline3">Action</h3>
+            <div class="genre-cards" id="genre-Action-cards"></div>
+        </div>
 
-    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label" data-mdc-auto-init="MDCTextField">
-        <span class="mdc-text-field__ripple"></span>
-        <input class="mdc-text-field__input" type="text" placeholder="Search" id="game-search" aria-label="Label" />
-        <span class="mdc-line-ripple"></span>
-    </label>
-</button>
+        <div class="genre-adventure genre-container" id="genre-adventure">
+            <h3 class="mdc-typography--headline3">Adventure</h3>
+            <div class="genre-cards" id="genre-Adventure-cards"></div>
+        </div>
 
-<!--Div with cards-->
-<div class="cards" id="cards"></div>
+        <div class="genre-indie genre-container" id="genre-indie">
+            <h3 class="mdc-typography--headline3">Indie</h3>
+            <div class="genre-cards" id="genre-Indie-cards"></div>
+        </div>
+
+        <div class="genre-racing genre-container" id="genre-racing">
+            <h3 class="mdc-typography--headline3">Racing</h3>
+            <div class="genre-cards" id="genre-Racing-cards"></div>
+        </div>
+
+        <div class="genre-sports genre-container" id="genre-sports">
+            <h3 class="mdc-typography--headline3">Sports</h3>
+            <div class="genre-cards" id="genre-Sports-cards"></div>
+        </div>
+    </div>
+
+    <!--Game page-->
+    <div class="selected-game" id="selected-game">
+        <!--top row-->
+        <div class="top-row">
+            <div class="mdc-card" id="selected-game-download">
+                <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="selected-game-cover">
+                    <div class="game-card__primary">
+                        <h2 class="game-card__title mdc-typography mdc-typography--headline6" id="selected-game-title"></h2>
+                        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" id="selected-game-size"></h3>
+                    </div>
+                </div>
+                <div class="mdc-card__action-buttons">
+                    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple"></span>Download</button>
+                </div>
+            </div>
+            <div class="title-desc-container">
+                <h1 class="mdc-typography--headline4" id="selected-game-title"></h1>
+                <h1 class="mdc-typography--body2" id="selected-game-description"></h1>
+            </div>
+        </div>
+        <!--game info-->
+
+        <div class="bottom-row">
+            <div class="game-screenshots" id="game-screenshots"></div>
+            <div class="details">
+                <div class="" id="age-rating"></div>
+                <div class="" id="release-date"></div>
+                <div class="" id="publisher"></div>
+                <div class="" id="developer"></div>
+                <div class="" id="platforms"></div>
+                <div class="" id="genre"></div>
+            </div>
+        </div>
+
+        <!--Back button-->
+        <div class="back-button-container">
+            <button class="mdc-icon-button back-icon material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="closeGameTab()">first_page</button>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {

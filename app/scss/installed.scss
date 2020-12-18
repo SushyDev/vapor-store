@@ -3,11 +3,11 @@
         display: flex;
         flex-direction: column;
 
-        .execrow {
+        .buttonrow {
             display: flex;
             margin: 10px;
 
-            .admin {
+            .row-icon {
                 min-width: 0px;
                 width: 36px;
                 margin-right: 10px;
@@ -15,6 +15,14 @@
                     margin: 0px;
                 }
             }
+        }
+    }
+}
+
+.mdc-card {
+    .mdc-card__primary-action {
+        .game-card__primary {
+            margin-bottom: 0px;
         }
     }
 }

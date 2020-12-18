@@ -14,6 +14,8 @@ var _list = require("@material/list");
 
 var _linearProgress = require("@material/linear-progress");
 
+var _menuSurface = require("@material/menu-surface");
+
 //Script for all material design components
 // Instantiation
 var topAppBarElement = document.querySelector('.mdc-top-app-bar');

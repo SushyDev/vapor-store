@@ -2,15 +2,19 @@
   display: flex;
   flex-direction: column;
 }
-.mdc-dialog .mdc-dialog__content .execrow {
+.mdc-dialog .mdc-dialog__content .buttonrow {
   display: flex;
   margin: 10px;
 }
-.mdc-dialog .mdc-dialog__content .execrow .admin {
+.mdc-dialog .mdc-dialog__content .buttonrow .row-icon {
   min-width: 0px;
   width: 36px;
   margin-right: 10px;
 }
-.mdc-dialog .mdc-dialog__content .execrow .admin i {
+.mdc-dialog .mdc-dialog__content .buttonrow .row-icon i {
   margin: 0px;
+}
+
+.mdc-card .mdc-card__primary-action .game-card__primary {
+  margin-bottom: 0px;
 }

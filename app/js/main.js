@@ -1,5 +1,4 @@
 //Main is for essential components that make stuff work
-
 //Main window
 const mainWindow = BrowserWindow.getAllWindows()[0];
 
@@ -45,6 +44,11 @@ function goto(page = 'Home') {
     newSelect.classList.add('mdc-list-item--activated');
 
     sessionStorage.setItem('page', page);
+
+    //Hide progressbar
+    try {
+        hideProgressBar();
+    } catch (e) {}
 }
 goto();
 
@@ -80,4 +84,14 @@ function getChromiumExecPath() {
 
 function visit(url) {
     shell.openExternal(url);
+}
+
+var progressBar = document.getElementById('MDCTopAppBar-MDCLinearProgress');
+
+function showProgressBar() {
+    progressBar.style.display = 'block';
+}
+
+function hideProgressBar() {
+    progressBar.style.display = 'none';
 }

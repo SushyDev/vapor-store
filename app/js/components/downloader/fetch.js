@@ -18,7 +18,8 @@ function fetchDownload(gameTitle) {
         ],
         ['progress']: [
             {
-                enabled: false,
+                enabled: true,
+                id: `${gameTitle}-fetch-progress`,
             },
         ],
         ['label']: [
@@ -47,7 +48,7 @@ function fetchDownload(gameTitle) {
             var listItem = game.name.substring(1).slice(0, -1).replace(/ /g, '-');
             if (listItem != gameTitle) return;
             //Get url
-            getDownloadURL(game.url).then((output) => {
+            getDownloadURL(game.url, gameTitle).then((output) => {
                 //Start download
                 //ipcRenderer.send('download-item', output, localStorage.getItem('downloadDir'), downloadGame);
 
@@ -61,18 +62,21 @@ function fetchDownload(gameTitle) {
 }
 
 //Get url
-async function getDownloadURL(url) {
-
+async function getDownloadURL(url, gameTitle) {
     const browser = await puppeteer.launch({
         headless: true,
         executablePath: getChromiumExecPath(),
         args: ['--no-sandbox'],
     });
 
+    setFetchProgress(gameTitle, '.1');
+
     const page = await browser.newPage();
 
     //Go to steamunlocked page
     await page.goto(url);
+
+    setFetchProgress(gameTitle, '.2');
 
     //Wait for download button visible
     try {
@@ -81,6 +85,8 @@ async function getDownloadURL(url) {
         devLog(e);
     }
 
+    setFetchProgress(gameTitle, '.3');
+
     //Change button to redirect, then click
     await page.evaluate(() => {
         document.querySelector('.btn-download').target = '_self';
@@ -88,26 +94,38 @@ async function getDownloadURL(url) {
         return;
     });
 
+    setFetchProgress(gameTitle, '.4');
+
     //Wait until upload heaven loaded
-    await page.waitForNavigation({waitUntil: 'networkidle0'});
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+    
+    setFetchProgress(gameTitle, '.5');
 
     //Wait for 5 second cooldown
     await page.waitForSelector('#downloadNowBtn', {visible: true});
+
+    setFetchProgress(gameTitle, '.6');
 
     //Click download button
     await page.evaluate(() => {
         document.querySelector('#downloadNowBtn').click();
     });
 
+    setFetchProgress(gameTitle, '.7');
+
     //Wait for redirect
     await page.waitForNavigation({waitUntil: 'networkidle0'});
 
     await page.waitForSelector('.alert-success', {visible: true});
 
+    setFetchProgress(gameTitle, '.9');
+
     //Get href of 'Here' anchor
     const downloadUrl = await page.evaluate(() => {
         return document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href;
     });
+
+    setFetchProgress(gameTitle, '1');
 
     await browser.close();
 
@@ -118,4 +136,9 @@ async function getDownloadURL(url) {
     }
 
     return downloadUrl;
+}
+
+function setFetchProgress(gameTitle, progress) {
+    //Progress
+    document.getElementById(`${gameTitle}-fetch-progress`).style.transform = `scaleX(${progress})`;
 }

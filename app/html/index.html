@@ -40,8 +40,6 @@
         <!--Root style-->
         <link rel="stylesheet" href="../css/root.css" />
         <link rel="stylesheet" href="../css/overlays.css" />
-
-        <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
     </head>
 
     <body>
@@ -65,6 +63,18 @@
                     </div>
                 </div>
             </div>
+
+            <!--Progress bar-->
+            <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate top-app-bar-progress" id="MDCTopAppBar-MDCLinearProgress" data-mdc-auto-init="MDCLinearProgress">
+                <div class="mdc-linear-progress__buffering-dots"></div>
+                <div class="mdc-linear-progress__buffer"></div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                    <span class="mdc-linear-progress__bar-inner"></span>
+                </div>
+            </div>
         </header>
 
         <!--Drawer-->
@@ -72,31 +82,31 @@
             <div class="mdc-drawer__content">
                 <div class="mdc-list">
                     <!--List items-->
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" onclick="goto(this.children[2].textContent)">
+                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>
                         <span class="mdc-list-item__text">Home</span>
                     </a>
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)">
+                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shop</i>
                         <span class="mdc-list-item__text">Store</span>
                     </a>
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)">
+                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">videogame_asset</i>
                         <span class="mdc-list-item__text">Installed</span>
                     </a>
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)">
+                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">backup</i>
                         <span class="mdc-list-item__text">Backup & Sync</span>
                     </a>
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)">
+                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">settings</i>
                         <span class="mdc-list-item__text">Settings</span>

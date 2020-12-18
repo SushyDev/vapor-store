@@ -1,5 +1,5 @@
-var searchBox = document.getElementById('game-search');
-var fab = document.querySelector('.mdc-fab');
+var searchBox = document.getElementById('searchquery');
+var file = localStorage.getItem('listFile');
 
 //If no file or key alert
 if (!localStorage.getItem('SGDB_Key')) {
@@ -15,23 +15,50 @@ searchBox.addEventListener('keyup', function (event) {
     if (event.keyCode == 13) searchGames();
 });
 
+//CTRL + L for selecting searchbar
+document.onkeyup = function (e) {
+    if (e.which == 76) {
+        searchBox.focus();
+        searchBox.select();
+    }
+};
+
 function searchGames() {
     var search = searchBox.value;
-    sessionStorage.setItem('gameSearch', search);
-    if (search.length <= 2) return;
-    searchBox.value = '';
+    sessionStorage.setItem('searchquery', search);
+    //Hide active game list
+    if (search.length <= 2) {
+        showGenrePage();
+        return;
+    }
+    showSearchPage();
 
     //Run the search games function
     createCard();
-    closeSearchFAB();
 }
+
+function clearSearch() {
+    searchBox.value = '';
+    showGenrePage();
+}
+
+function showGenrePage() {
+    document.getElementById('selected-game').style.display = 'none';
+    document.getElementById('cards').style.maxHeight = '0px';
+    document.getElementById('genres').style.display = 'block';
+}
+
+function showSearchPage() {
+    document.getElementById('selected-game').style.display = 'none';
+    document.getElementById('cards').style.maxHeight = 'unset';
+    document.getElementById('genres').style.display = 'none';
+}
+
 //Search games function
 var createCardLatest;
 function createCard() {
-    var file = localStorage.getItem('listFile');
-
     try {
-        var search = sessionStorage.getItem('gameSearch').toLowerCase();
+        var search = sessionStorage.getItem('searchquery').toLowerCase();
     } catch (e) {
         return;
     }
@@ -70,169 +97,84 @@ function createCard() {
 }
 createCard();
 
-//Executes this when a user clicks the download button or the cover art of a game
-function selectGame(game) {
-    getGameByName(game).then((output) => {
-        devLog(output[0]);
-    });
-}
-
-function openSearchFAB() {
-    if (!fab.classList.contains('mdc-fab--extended')) {
-        fab.classList.add('mdc-fab--extended');
-        searchBox.focus();
-    }
-}
-
-function closeSearchFAB() {
-    fab.classList.remove('mdc-fab--extended');
-}
-
-//Open store game dialog
-function openStoreGame(name) {
-    showProgressBar();
-
-    fetch(name).then((game) => {
-        var dialogData = {
-            ['main']: {
-                name: `${name}-info`,
-            },
-            ['title']: {
-                id: `${name}-dialog-title`,
-                innerHTML: `${game.name}`,
-            },
-            ['contents']: [
-                {
-                    type: 'div',
-                    innerHTML: `<img src="${game.url}" alt="" class="dialog-image" id="${name}-image" /> <p id="dialog-game-description" class="dialog-game-description"></p>`,
-                    class: 'dialog-top',
-                    id: 'dialog-top',
-                },
-                {
-                    type: 'div',
-                    innerHTML: `<div class="details"> <div class="" id="age-rating"></div> <div class="" id="release-date"></div> <div class="" id="publisher"></div> <div class="" id="developer"></div> <div class="" id="platforms"></div> <div class="" id="genre"></div> </div> <div class="game-screenshots" id="game-screenshots"></div>`,
-                    class: 'dialog-bottom',
-                    id: 'dialog-bottom',
-                },
-                {
-                    type: 'div',
-                    innerHTML: '',
-                    class: 'publisher',
-                    id: 'publisher',
-                },
-                {
-                    type: 'div',
-                    innerHTML: '',
-                    class: 'developer',
-                    id: 'developer',
-                },
-                {
-                    type: 'div',
-                    innerHTML: '',
-                    class: 'platforms',
-                    id: 'platforms',
-                },
-                {
-                    type: 'div',
-                    innerHTML: '',
-                    class: 'genre',
-                    id: 'genre',
-                },
-            ],
-            ['actions']: [
-                {
-                    type: 'button',
-                    icon: 'close',
-                    class: 'close-button',
-                    id: `${name}-close-button`,
-                    onclick: `closeDialog('${name}-info')`,
-                },
-                {
-                    type: 'button',
-                    icon: 'get_app',
-                    class: 'download-button',
-                    id: `${name}-download-button`,
-                    onclick: `fetchDownload('${name}')`,
-                },
-            ],
-        };
-
-        //Create dialog
-        createDialog(dialogData, false);
-        addMetadata(name);
-    });
-}
-
-function addMetadata(name) {
-    //Get id by name
-    $.get(`https://api.rawg.io/api/games?search=${name}`, (output) => {
-        //Detailed info by id
-        $.get(`https://api.rawg.io/api/games/${output.results[0].id}`, (output) => {
-            //Set description
-            document.querySelector('#dialog-game-description').innerHTML = '<h3>Description</h3>' + output.description;
-
-            //Add platforms / Release date
-            document.querySelector('#platforms').innerHTML = '<b>Platforms</b>';
-            document.querySelector('#release-date').innerHTML = '<b>Release dates</b>';
-            output.platforms.forEach((platforms) => {
-                var platformName = document.createElement('p');
-                platformName.innerHTML = platforms.platform.name;
-                document.querySelector('#platforms').appendChild(platformName);
-
-                //Release date
-                if (platforms.platform.name == 'PC') {
-                    var releaseDate = document.createElement('p');
-                    releaseDate.innerHTML = platforms.released_at;
-                    document.querySelector('#release-date').appendChild(releaseDate);
-                }
-            });
-
-            //Publishers
-            document.querySelector('#publisher').innerHTML = '<b>Publishers</b>';
-            output.publishers.forEach((publishers) => {
-                var publisherName = document.createElement('p');
-                publisherName.innerHTML = publishers.name;
-                document.querySelector('#publisher').appendChild(publisherName);
-            });
-
-            //Developers
-            document.querySelector('#developer').innerHTML = '<b>Developers</b>';
-            output.developers.forEach((developers) => {
-                var developerName = document.createElement('p');
-                developerName.innerHTML = developers.name;
-                document.querySelector('#developer').appendChild(developerName);
-            });
-
-            //genre
-            document.querySelector('#genre').innerHTML = '<b>Genres</b>';
-            output.genres.forEach((genres) => {
-                var genreName = document.createElement('p');
-                genreName.innerHTML = genres.name;
-                document.querySelector('#genre').appendChild(genreName);
-            });
-
-            //Age rating
-            document.querySelector('#age-rating').innerHTML = '<b>Age ratings</b>';
-            var ageRating = document.createElement('p');
+//list some games based on category
+$.getJSON(file, async (data) => {
+    (async () => {
+        showProgressBar();
+        var Action = 0;
+        var Adventure = 0;
+        var Indie = 0;
+        var Racing = 0;
+        var Sports = 0;
+        while (!(Action + Adventure + Indie + Racing + Sports >= 50)) {
             try {
-                ageRating.innerHTML = output.esrb_rating.name;
-            } catch (e) {
-                ageRating.innerHTML = 'Unkown';
-            }
-            document.querySelector('#age-rating').appendChild(ageRating);
+                var gameAmount = data['list'].length;
+                var randomGame = Math.floor(Math.random() * gameAmount);
+                var game = data['list'][randomGame];
 
-            //Screenshots
-            $.get(`https://api.rawg.io/api/games/${output.id}/screenshots`, (screenshots) => {
-                document.querySelector('#game-screenshots').innerHTML = '';
-                screenshots.results.forEach((screenshot) => {
-                    var image = document.createElement('img');
-                    image.src = screenshot.image;
-                    document.querySelector('#game-screenshots').appendChild(image);
+                var fetchID = await $.get(`https://api.rawg.io/api/games?search=${game.name}`);
+                var fetchGenre = await $.get(`https://api.rawg.io/api/games/${fetchID.results[0].id}`);
+
+                fetchGenre.genres.forEach(async (genre) => {
+                    if (genre.name == 'Action') {
+                        if (Action >= 10) return;
+                        GetInfo(genre, fetchGenre, game);
+                        Action++;
+                    } else if (genre.name == 'Adventure') {
+                        if (Adventure >= 10) return;
+                        GetInfo(genre, fetchGenre, game);
+                        Adventure++;
+                    } else if (genre.name == 'Indie') {
+                        if (Indie >= 10) return;
+                        GetInfo(genre, fetchGenre, game);
+                        Indie++;
+                    } else if (genre.name == 'Racing') {
+                        if (Racing >= 10) return;
+                        GetInfo(genre, fetchGenre, game);
+                        Racing++;
+                    } else if (genre.name == 'Sports') {
+                        if (Sports >= 10) return;
+                        GetInfo(genre, fetchGenre, game);
+                        Racing++;
+                    }
                 });
-            });
-        });
-    }).then(() => {
-        openDialog(`${name}-info`);
+            } catch (e) {}
+        }
         hideProgressBar();
-    });
+    })();
+});
+
+async function GetInfo(genre, fetchGenre, game) {
+    var fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
+
+    var getCover = await fetch(game.name);
+    var gameInfo = fetchGenre;
+    var gameName = gameInfo.name;
+    var gameCover = getCover.url;
+    createGenreCard(gameInfo, fetchName, gameCover, gameName, genre.name);
+}
+
+function createGenreCard(gameInfo, fetchName, gameCover, gameName, genre) {
+    var cardContent = `
+        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameCover}')" id="${fetchName}-cover"  onclick="openStoreGame('${fetchName}')">
+            <div class="game-card__primary">
+                <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameName}</h2>
+                </div>
+                </div>
+                <div class="mdc-card__action-buttons">
+                    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="fetchDownload('${fetchName}')" ></span>Download</button>
+                    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="openStoreGame('${fetchName}')"></span>More</button>
+                </div>
+`;
+
+    var card = document.createElement('div');
+    card.className = 'mdc-card';
+    card.id = gameInfo.id;
+    card.innerHTML = cardContent;
+    try {
+        document.getElementById(`genre-${genre}-cards`).appendChild(card);
+    } catch (e) {
+        return;
+    }
+    window.mdc.autoInit();
 }

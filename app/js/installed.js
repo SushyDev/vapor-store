@@ -91,9 +91,9 @@ function gameListExec(gameTitle, targetFolder, fileName) {
             if (file.substr(file.length - 3) == 'exe') {
                 var executable = path.join(subFolder, file);
 
-                var execRow = document.createElement('div');
-                execRow.classList = 'execrow';
-                execRow.id = `${executable}-row`;
+                var buttonRow = document.createElement('div');
+                buttonRow.classList = 'buttonrow';
+                buttonRow.id = `${executable}-row`;
                 //Create exec button
                 var execButton = document.createElement('button');
                 execButton.className = 'mdc-button mdc-button--raised';
@@ -102,13 +102,13 @@ function gameListExec(gameTitle, targetFolder, fileName) {
                 execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
                 //Create exec as admin button
                 var execAdminButton = document.createElement('button');
-                execAdminButton.className = 'mdc-button mdc-button--raised admin';
+                execAdminButton.className = 'mdc-button mdc-button--raised row-icon';
                 execAdminButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                 execAdminButton.setAttribute('onclick', `gamePlayAdmin('${JSON.stringify(executable)}')`);
                 execAdminButton.innerHTML = `<div class="mdc-button__ripple"></div><i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>`;
 
                 //Add button to content
-                document.getElementById(`${name}-exec-dialog-content`).appendChild(execRow);
+                document.getElementById(`${name}-exec-dialog-content`).appendChild(buttonRow);
                 document.getElementById(`${executable}-row`).appendChild(execAdminButton);
                 document.getElementById(`${executable}-row`).appendChild(execButton);
                 window.mdc.autoInit();
@@ -200,6 +200,7 @@ function openFolder(folder, filename) {
     shell.showItemInFolder(path.join(folder, filename.slice(0, -4)));
 }
 
+//List exe's to create shortcut
 function gameShortcut(gameTitle, targetFolder, fileName) {
     const gameFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4));
 
@@ -226,7 +227,6 @@ function gameShortcut(gameTitle, targetFolder, fileName) {
         ],
     };
 
-    console.log(dialogData);
     //Create dialog
     createDialog(dialogData, false);
 
@@ -241,16 +241,22 @@ function gameShortcut(gameTitle, targetFolder, fileName) {
 
         fs.readdirSync(subFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
-                var executable = path.join(subFolder, file);
+                var shortcut = path.join(subFolder, file);
                 //Create exec button
+
+                var buttonRow = document.createElement('div');
+                buttonRow.classList = 'buttonrow';
+                buttonRow.id = `${shortcut}-row`;
+                //Create shortcut button
                 var shortcutButton = document.createElement('button');
                 shortcutButton.className = 'mdc-button mdc-button--raised';
                 shortcutButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
-                shortcutButton.setAttribute('onclick', `createShortcut('${JSON.stringify(executable)}')`);
+                shortcutButton.setAttribute('onclick', `createShortcut('${JSON.stringify(shortcut)}')`);
                 shortcutButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
 
                 //Add button to content
-                document.getElementById(`${name}-shortcut-dialog-content`).appendChild(shortcutButton);
+                document.getElementById(`${name}-shortcut-dialog-content`).appendChild(buttonRow);
+                document.getElementById(`${shortcut}-row`).appendChild(shortcutButton);
                 window.mdc.autoInit();
             }
         });
