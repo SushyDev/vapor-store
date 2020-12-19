@@ -66,6 +66,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Allow the progress bar to be dynamically added and removed
 - [x] Show Download Size
 - [x] Game metadata for installed games list
+- [x] Show extraction progress
 #### Important
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**

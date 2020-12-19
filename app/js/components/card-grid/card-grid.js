@@ -19,14 +19,16 @@ function fetch(name) {
     //Then use the id fetched from the name to search the cover by id
     //then return both arrays that are fetched from the steamgriddb
     return getGameByName(name).then((nameResult) => {
-        var id = nameResult[0].id;
-        return getCoverById(id).then((IDResult) => {
-            if (!IDResult[0]) {
-                IDResult[0] = {...IDResult[0], url: '../img/game-cover.png'};
-            }
+        try {
+            var id = nameResult[0].id;
+            return getCoverById(id).then((IDResult) => {
+                if (!IDResult[0]) {
+                    IDResult[0] = {...IDResult[0], url: '../img/game-cover.png'};
+                }
 
-            return {...IDResult[0], ...nameResult[0]};
-        });
+                return {...IDResult[0], ...nameResult[0]};
+            });
+        } catch (e) {}
     });
 }
 
@@ -41,7 +43,9 @@ function setLayout() {
             gutter: 24,
         });
         grid.mount();
-    } catch (e) {}
+    } catch (e) {
+        return;
+    }
 }
 
 //On resize update masonry layout

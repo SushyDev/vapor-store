@@ -30,7 +30,7 @@ function startDownload(url, dir, gameTitle) {
                 ['label']: [
                     {
                         id: `${name}-snackbar-title`,
-                        innerHTML: `${fileName} 0%`,
+                        innerHTML: `Downloading ${fileName} 0%`,
                     },
                 ],
                 ['actions']: [
@@ -91,7 +91,7 @@ function startDownload(url, dir, gameTitle) {
                     var scalePercent = downloadPercent / 100;
 
                     document.getElementById(`${name}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${name}-snackbar-title`).innerHTML = `${fileName} ${downloadPercent.toFixed(2)}%`;
+                    document.getElementById(`${name}-snackbar-title`).innerHTML = `Downloading ${fileName} ${downloadPercent.toFixed(2)}%`;
                 } catch (e) {
                     /* Can error on download finish so it catches here */
                 }

@@ -12,13 +12,14 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
         ],
         ['progress']: [
             {
-                enabled: false,
+                enabled: true,
+                id: `${name}-progress`,
             },
         ],
         ['label']: [
             {
                 id: `${name}-snackbar-title`,
-                innerHTML: `Extracting ${filename}`,
+                innerHTML: `Extracting ${filename} 0%`,
             },
         ],
         ['actions']: [],
@@ -37,7 +38,20 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
 
     (async () => {
         try {
-            await extract(targetPath, {dir: targetFolder});
+            var extracted = 0;
+            await extract(targetPath, {
+                dir: targetFolder,
+                onEntry: (entry, zipfile) => {
+                    extracted++;
+
+                    var progress = (extracted * 100) / zipfile.entryCount;
+                    var scalePercent = progress / 100;
+
+                    document.getElementById(`${name}-progress`).style.transform = `scaleX(${scalePercent})`;
+                    document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracting ${filename} ${progress.toFixed(2)}%`;
+                },
+            });
+
             fs.unlink(targetPath, (err) => {
                 if (err) {
                     console.error(err);

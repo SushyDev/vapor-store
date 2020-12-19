@@ -145,13 +145,17 @@ $.getJSON(file, async (data) => {
 });
 
 async function GetInfo(genre, fetchGenre, game) {
-    var fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
+    try {
+        var fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
 
-    var getCover = await fetch(game.name);
-    var gameInfo = fetchGenre;
-    var gameName = gameInfo.name;
-    var gameCover = getCover.url;
-    createGenreCard(gameInfo, fetchName, gameCover, gameName, genre.name);
+        var getCover = await fetch(game.name);
+        var gameInfo = fetchGenre;
+        var gameName = gameInfo.name;
+        var gameCover = getCover.url;
+        createGenreCard(gameInfo, fetchName, gameCover, gameName, genre.name);
+    } catch (e) {
+        return;
+    }
 }
 
 function createGenreCard(gameInfo, fetchName, gameCover, gameName, genre) {

@@ -19,7 +19,7 @@ function fetchDownload(gameTitle) {
         ['progress']: [
             {
                 enabled: true,
-                id: `${gameTitle}-fetch-progress`,
+                id: `${gameTitle}-progress`,
             },
         ],
         ['label']: [
@@ -140,5 +140,5 @@ async function getDownloadURL(url, gameTitle) {
 
 function setFetchProgress(gameTitle, progress) {
     //Progress
-    document.getElementById(`${gameTitle}-fetch-progress`).style.transform = `scaleX(${progress})`;
+    document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${progress})`;
 }

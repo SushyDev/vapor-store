@@ -6,8 +6,6 @@ function createSnack(snackbarData) {
 
     var name = main.name;
 
-    console.log(progress.enabled);
-
     //Create snackbar
     var snackbar = document.createElement('div');
     snackbar.id = `${name}-snackbar`;
