@@ -84,6 +84,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
 - [ ] Search in installed games list
+- [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 
 ### Issues
 
