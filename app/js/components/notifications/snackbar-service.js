@@ -80,3 +80,17 @@ function closeSnackbar(name, alert, message) {
     document.getElementById(`${name}-snackbar`).remove();
     return true;
 }
+
+function hideSnackbar(name) {
+    //Ask for confirm if confirm = true
+    //Remove snackbar
+    document.getElementById(`${name}-snackbar`).style.display = "none";
+    return true;
+}
+
+function showSnackbar(name) {
+    //Ask for confirm if confirm = true
+    //Remove snackbar
+    document.getElementById(`${name}-snackbar`).style.display = 'block';
+    return true;
+}

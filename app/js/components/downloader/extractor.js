@@ -26,7 +26,7 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
         ['close']: [
             {
                 enabled: true,
-                onclick: `closeSnackbar('${name}-extract', false)`,
+                onclick: `hideSnackbar('${name}-extract')`,
                 title: 'Hide',
                 icon: 'keyboard_arrow_down',
                 id: `${name}-extract-hide`,
@@ -47,8 +47,10 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
                     var progress = (extracted * 100) / zipfile.entryCount;
                     var scalePercent = progress / 100;
 
-                    document.getElementById(`${name}-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracting ${filename} ${progress.toFixed(2)}%`;
+                    try {
+                        document.getElementById(`${name}-progress`).style.transform = `scaleX(${scalePercent})`;
+                        document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracting ${filename} ${progress.toFixed(2)}%`;
+                    } catch (e) {}
                 },
             });
 
@@ -59,12 +61,13 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
             });
 
             document.getElementById(`${name}-extract-snack-actions`).style.display = 'none';
+            showSnackbar(`${name}-extract`);
             document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracted ${filename}`;
 
             //Close snackbar after 2.5 sec
             setTimeout(() => {
                 closeSnackbar(`${name}-extract`, false);
-            }, 2500);
+            }, 5000);
         } catch (err) {
             console.log(err);
         }
