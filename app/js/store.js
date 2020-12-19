@@ -83,15 +83,8 @@ function createCard() {
 
             //Format name for url
             var fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
-
             //Fetch data from the game by name
-            fetch(fetchName).then((gameInfo) => {
-                //Stop if new search or different page
-
-                if (createCardId !== createCardLatest) return;
-                if (page != sessionStorage.getItem('page')) return;
-                buildCard(gameInfo, fetchName, 'store', page);
-            });
+            buildCard(fetchName, 'store');
         });
     });
 }
@@ -101,68 +94,59 @@ createCard();
 $.getJSON(file, async (data) => {
     (async () => {
         showProgressBar();
+
+        createCardLatest = Symbol();
+        var createCardId = createCardLatest;
+        var page = sessionStorage.getItem('page');
+
         var Action = 0;
         var Adventure = 0;
         var Indie = 0;
         var Racing = 0;
         var Sports = 0;
         while (!(Action + Adventure + Indie + Racing + Sports >= 50)) {
-            try {
-                var gameAmount = data['list'].length;
-                var randomGame = Math.floor(Math.random() * gameAmount);
-                var game = data['list'][randomGame];
+            var gameAmount = data['list'].length;
+            var randomGame = Math.floor(Math.random() * gameAmount);
+            var game = data['list'][randomGame];
 
-                var fetchID = await $.get(`https://api.rawg.io/api/games?search=${game.name}`);
-                var fetchGenre = await $.get(`https://api.rawg.io/api/games/${fetchID.results[0].id}`);
+            if (createCardId !== createCardLatest) return;
+            if (page != sessionStorage.getItem('page')) return;
+            var fetchData = await fetch(game.name);
 
-                fetchGenre.genres.forEach(async (genre) => {
-                    if (genre.name == 'Action') {
-                        if (Action >= 10) return;
-                        GetInfo(genre, fetchGenre, game);
-                        Action++;
-                    } else if (genre.name == 'Adventure') {
-                        if (Adventure >= 10) return;
-                        GetInfo(genre, fetchGenre, game);
-                        Adventure++;
-                    } else if (genre.name == 'Indie') {
-                        if (Indie >= 10) return;
-                        GetInfo(genre, fetchGenre, game);
-                        Indie++;
-                    } else if (genre.name == 'Racing') {
-                        if (Racing >= 10) return;
-                        GetInfo(genre, fetchGenre, game);
-                        Racing++;
-                    } else if (genre.name == 'Sports') {
-                        if (Sports >= 10) return;
-                        GetInfo(genre, fetchGenre, game);
-                        Racing++;
-                    }
-                });
-            } catch (e) {}
+            fetchData.genres.forEach(async (genre) => {
+                if (genre.name == 'Action') {
+                    if (Action >= 10) return;
+                    createGenreCard(fetchData, game.name, genre.name);
+                    Action++;
+                } else if (genre.name == 'Adventure') {
+                    if (Adventure >= 10) return;
+                    createGenreCard(fetchData, game.name, genre.name);
+                    Adventure++;
+                } else if (genre.name == 'Indie') {
+                    if (Indie >= 10) return;
+                    createGenreCard(fetchData, game.name, genre.name);
+                    Indie++;
+                } else if (genre.name == 'Racing') {
+                    if (Racing >= 10) return;
+                    createGenreCard(fetchData, game.name, genre.name);
+                    Racing++;
+                } else if (genre.name == 'Sports') {
+                    if (Sports >= 10) return;
+                    createGenreCard(fetchData, game.name, genre.name);
+                    Racing++;
+                }
+            });
         }
         hideProgressBar();
     })();
 });
 
-async function GetInfo(genre, fetchGenre, game) {
-    try {
-        var fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
-
-        var getCover = await fetch(game.name);
-        var gameInfo = fetchGenre;
-        var gameName = gameInfo.name;
-        var gameCover = getCover.url;
-        createGenreCard(gameInfo, fetchName, gameCover, gameName, genre.name);
-    } catch (e) {
-        return;
-    }
-}
-
-function createGenreCard(gameInfo, fetchName, gameCover, gameName, genre) {
+function createGenreCard(fetchData, gameName, genre) {
+    var fetchName = gameName.replace(/ /g, '-').substring(1).slice(0, -1);
     var cardContent = `
-        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameCover}')" id="${fetchName}-cover"  onclick="openStoreGame('${fetchName}')">
+        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${fetchData.background_image}')" id="${fetchName}-cover"  onclick="openStoreGame('${fetchName}')">
             <div class="game-card__primary">
-                <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameName}</h2>
+                <h2 class="game-card__title mdc-typography mdc-typography--headline6">${fetchData.name}</h2>
                 </div>
                 </div>
                 <div class="mdc-card__action-buttons">
@@ -173,12 +157,8 @@ function createGenreCard(gameInfo, fetchName, gameCover, gameName, genre) {
 
     var card = document.createElement('div');
     card.className = 'mdc-card';
-    card.id = gameInfo.id;
+    card.id = fetchData.id;
     card.innerHTML = cardContent;
-    try {
-        document.getElementById(`genre-${genre}-cards`).appendChild(card);
-    } catch (e) {
-        return;
-    }
+    document.getElementById(`genre-${genre}-cards`).appendChild(card);
     window.mdc.autoInit();
 }

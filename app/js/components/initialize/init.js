@@ -5,8 +5,6 @@
 const childProcess = require('child_process');
 //File system
 const fs = require('fs');
-//Steam grid
-const SGDB = require('steamgriddb');
 //Jquery
 const $ = require('jquery');
 //Puppeteer for webscraping
@@ -37,16 +35,9 @@ const appDataPath = path.resolve(app.getPath('userData'));
 //Clear Sesion Storage
 sessionStorage.clear();
 //Localstorage values
-const SGDBKey = localStorage.getItem('SGDB_Key');
 const downloadDir = localStorage.getItem('downloadDir');
 const darkMode = localStorage.getItem('darkMode');
 const optBeta = localStorage.getItem('beta');
-
-//Set SGDBKey if exists
-var client;
-try {
-    client = new SGDB(SGDBKey);
-} catch (e) {}
 
 //Set default download location
 //Using path resolve to convert for windows

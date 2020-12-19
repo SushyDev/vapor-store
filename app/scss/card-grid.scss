@@ -14,16 +14,16 @@
 
 .mdc-card {
     background: var(--mdc-theme-background);
-    min-height: 500px;
+    min-height: 250px;
     border-radius: 12px;
     margin: 20px;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 438px;
+    max-width: 438px;
     overflow: hidden;
 
     .mdc-card__primary-action {
         padding: 0 16px 8px 16px;
-        min-height: 500px;
+        min-height: 250px;
         background-size: cover;
         background-position: center;
 

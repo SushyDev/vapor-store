@@ -44,12 +44,6 @@ document.getElementById('sgdb-key').value = localStorage.getItem('SGDB_Key');
 
 document.getElementById('gameDownloadDir').innerHTML = `Current folder: ${localStorage.getItem('downloadDir')}`;
 
-function saveSGDBKey() {
-    key = document.getElementById('sgdb-key').value;
-    localStorage.setItem('SGDB_Key', key);
-    win.reload();
-}
-
 //Opt into beta versions
 function betaOpt() {
     var toggle = document.getElementById('beta-switch').checked;

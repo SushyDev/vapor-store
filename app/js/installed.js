@@ -28,19 +28,12 @@ function createCard() {
 
             //Format name for url
 
+            var fileName = game.fileName;
+            var gameFolder = game.folder;
+
+            var fetchName = game.name.replace(/ /g, '-');
             //Fetch data from the game by name
-            fetch(game.name).then((gameInfo) => {
-                //Stop if new search or different page
-                if (createCardId !== createCardLatest) return;
-                if (page != sessionStorage.getItem('page')) return;
-                var type = 'installed';
-
-                gameInfo.folder = game.folder;
-                gameInfo.fileName = game.fileName;
-                gameInfo.name2 = game.name;
-
-                buildCard(gameInfo, game.name, type);
-            });
+            buildCard(fetchName, 'installed', fileName, gameFolder);
         });
     });
 }
