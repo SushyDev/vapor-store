@@ -8,7 +8,7 @@
   "homepage": "https://github.com/SushyDev/vapor-store",
   "scripts": {
     "build": "electron-builder -w",
-    "start": "electron ." 
+    "start": "electron ."  
   },
   "repository": {
     "type": "git",

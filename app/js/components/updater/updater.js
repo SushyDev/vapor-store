@@ -97,11 +97,11 @@ if (!isDev) {
     function installUpdate(fileName) {
         //Run exe
         (async () => {
-            setTimeout(() => {
-                exec(path.join(localStorage.getItem('downloadDir'), fileName));
+            await setTimeout(async () => {
+                await exec(path.join(localStorage.getItem('downloadDir'), fileName));
             }, 250);
             //Close vaporstore
-            setTimeout(() => {
+             setTimeout(() => {
                 winClose();
             }, 1500);
         })();
