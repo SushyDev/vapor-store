@@ -33,11 +33,9 @@
 ### How to set up
 
 1. Download & Install Vapor Store
-2. Create an account for the SteamGrid API
-3. Get a SteamGrid Key
-4. Enter your SteamGRid Key in the Vapor Store settings
-5. Get a repo file
-6. Load the repo file in the Vapor Store settings
+2. Create an account for the SteamGrid API and get the [key](https://www.steamgriddb.com/profile/preferences)
+3. Enter your SteamGrid Key in the Vapor Store settings
+4. Download a repo file and select it in the Vapor Store settings
 
 ### How to build
 
