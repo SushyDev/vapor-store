@@ -157,7 +157,10 @@ function startDownload(url, dir, gameTitle) {
                     };
 
                     //Extract downloaded zip file
-                    if (fileType == 'zip') createSnack(snackbarData);
+                    //If auto extract is on skip this step and extract automatically
+                    if (localStorage.getItem('autoExtract') == 'true') {
+                        extractDownload(`${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${fileName}', '${gameTitle}`);
+                    } else if (fileType == 'zip') createSnack(snackbarData);
                 } else {
                     //Download didnt complete
                     console.log(`Download failed: ${state}`);

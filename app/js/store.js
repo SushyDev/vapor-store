@@ -17,7 +17,7 @@ searchBox.addEventListener('keyup', function (event) {
 
 //CTRL + L for selecting searchbar
 document.onkeyup = function (e) {
-    if (e.which == 76) {
+    if (e.ctrlKey && e.keyCode == 76) {
         searchBox.focus();
         searchBox.select();
     }

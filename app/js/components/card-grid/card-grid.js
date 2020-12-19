@@ -55,6 +55,11 @@ function imgLoad(img) {
 function openMore(name, name2, folder, fileName) {
     var anchorpoint = document.querySelector(`div[anchorfor="${name}"]`);
 
+    console.log(name)
+    console.log(name2);
+    console.log(folder)
+    console.log(fileName);
+
     if (!anchorpoint.innerHTML == '') {
         anchorpoint.innerHTML = '';
     } else {
@@ -99,7 +104,7 @@ async function openStoreGame(name) {
 
 async function openInstalled(name, gameInfoName, gameFolder, fileName) {
     showProgressBar();
-
+    
     //close drawer
     drawer.open = false;
 

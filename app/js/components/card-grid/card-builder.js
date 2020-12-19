@@ -1,7 +1,7 @@
 //Select which card to use
 function selectCard(gameInfo, fetchName, type) {
     try {
-        var gameFolder = gameInfo.folder.replace(/\\/g, '/');
+        var gameFolder = gameInfo.gameFolder.replace(/\\/g, '/');
     } catch (e) {}
 
     if (gameInfo.background_image == undefined) gameInfo.background_image = '../img/not_found.svg';
@@ -55,7 +55,7 @@ async function buildCard(fetchName, type, fileName = undefined, gameFolder = und
     //If no cover is found use not found logo
     var gameInfo = await fetch(fetchName);
     //Create the card
-    gameInfo = {...gameInfo, fileName: fileName, gameFolder: gameFolder};
+    gameInfo = { ...gameInfo, fileName: fileName, gameFolder: gameFolder };
 
     var card = document.createElement('div');
     card.className = 'mdc-card';

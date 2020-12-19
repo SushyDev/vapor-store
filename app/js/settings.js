@@ -54,5 +54,20 @@ function betaOpt() {
 //Set checked if checked is true
 if (localStorage.getItem('beta') == 'true') {
     document.getElementById('beta-switch').checked = true;
-    document.getElementById('beta-switch').setAttribute('aria-checked', true)
+    document.getElementById('beta-switch').setAttribute('aria-checked', true);
+}
+
+//Auto extracct
+function autoExtract() {
+    var toggle = document.getElementById('extract-switch').checked;
+    if (toggle == true) {
+        localStorage.setItem('autoExtract', true);
+    } else {
+        localStorage.setItem('autoExtract', false);
+    }
+}
+//Set checked if checked is true
+if (localStorage.getItem('autoExtract') == 'true') {
+    document.getElementById('extract-switch').checked = true;
+    document.getElementById('extract-switch').setAttribute('aria-checked', true);
 }

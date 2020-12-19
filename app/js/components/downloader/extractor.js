@@ -2,7 +2,9 @@
 function extractDownload(targetPath, targetFolder, filename, gameTitle) {
     var name = filename.slice(0, -4);
 
-    closeSnackbar(`${name}-extractyn`, false);
+    try {
+        closeSnackbar(`${name}-extractyn`, false);
+    } catch (e) {}
 
     var snackbarData = {
         ['main']: [
