@@ -1,11 +1,8 @@
 var searchBox = document.getElementById('searchquery');
 var file = localStorage.getItem('listFile');
 
-//If no file or key alert
-if (!localStorage.getItem('SGDB_Key')) {
-    MDCAlert('No Steam Grid Key', 'Please get a SGDB key from their site');
-    goto('Settings');
-} else if (!localStorage.getItem('listFile')) {
+//If no file
+if (!localStorage.getItem('listFile')) {
     MDCAlert('No game list file selected', 'Please download a game list file and select it in the settings');
     goto('Settings');
 }
