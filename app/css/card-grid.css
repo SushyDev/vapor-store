@@ -25,8 +25,13 @@
   margin-top: auto;
   margin-bottom: 36px;
 }
-.mdc-card .mdc-card__primary-action .game-card__primary h2 {
+.mdc-card .mdc-card__primary-action .game-card__primary .mdc-typography--headline6 {
   color: white;
+  margin-bottom: 0;
+}
+.mdc-card .mdc-card__primary-action .game-card__primary .mdc-typography--subtitle2 {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .mdc-card .mdc-card__action-buttons {
   margin-top: -48px;
@@ -68,22 +73,13 @@
   overflow: hidden;
   border-radius: 8px;
 }
-.selected-game .top-row .mdc-card .mdc-card__primary-action .mdc-typography--headline6 {
-  margin-bottom: 0;
-}
-.selected-game .top-row .mdc-card .mdc-card__primary-action .mdc-typography--subtitle2 {
-  margin-top: 0;
-}
 .selected-game .top-row .title-desc-container {
   display: flex;
   flex-direction: column;
-}
-.selected-game .top-row .title-desc-container .mdc-typography--headline4 {
-  color: white;
+  color: var(--color);
 }
 .selected-game .top-row .title-desc-container .mdc-typography--body2 {
   width: 100%;
-  color: white;
   max-height: 495px;
   overflow-y: auto;
 }
@@ -115,7 +111,7 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  color: white;
+  color: var(--color);
   margin-top: 16px;
 }
 .selected-game .bottom-row .details div {

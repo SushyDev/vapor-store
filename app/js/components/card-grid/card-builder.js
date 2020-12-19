@@ -31,6 +31,7 @@ function selectCard(gameInfo, fetchName, type) {
 <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openInstalled('${fetchName}', '${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')">
     <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
     </div>
 </div>
 `;
@@ -40,6 +41,7 @@ function selectCard(gameInfo, fetchName, type) {
 <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openStoreGame('${fetchName}')">
     <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
     </div>
 </div>
 <div class="mdc-card__action-buttons">

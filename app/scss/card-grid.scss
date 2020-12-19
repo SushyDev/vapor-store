@@ -30,9 +30,14 @@
         .game-card__primary {
             margin-top: auto;
             margin-bottom: 36px;
-
-            h2 {
+            
+            .mdc-typography--headline6 {
                 color: white;
+                margin-bottom: 0;
+            }
+            .mdc-typography--subtitle2 {
+                margin-top: 0;
+                margin-bottom: 0;
             }
         }
     }
@@ -81,24 +86,14 @@
                 min-height: 600px;
                 overflow: hidden;
                 border-radius: 8px;
-
-                .mdc-typography--headline6 {
-                    margin-bottom: 0;
-                }
-                .mdc-typography--subtitle2 {
-                    margin-top: 0;
-                }
             }
         }
         .title-desc-container {
             display: flex;
             flex-direction: column;
-            .mdc-typography--headline4 {
-                color: white;
-            }
+            color: var(--color);
             .mdc-typography--body2 {
                 width: 100%;
-                color: white;
                 max-height: 495px;
                 overflow-y: auto;
 
@@ -137,7 +132,7 @@
             width: 100%;
             display: flex;
             justify-content: space-around;
-            color: white;
+            color: var(--color);
             margin-top: 16px;
 
             div {

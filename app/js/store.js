@@ -141,15 +141,16 @@ $.getJSON(file, async (data) => {
 function createGenreCard(fetchData, gameName, genre) {
     var fetchName = gameName.replace(/ /g, '-').substring(1).slice(0, -1);
     var cardContent = `
-        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${fetchData.background_image}')" id="${fetchName}-cover"  onclick="openStoreGame('${fetchName}')">
-            <div class="game-card__primary">
-                <h2 class="game-card__title mdc-typography mdc-typography--headline6">${fetchData.name}</h2>
-                </div>
-                </div>
-                <div class="mdc-card__action-buttons">
-                    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="fetchDownload('${fetchName}')" ></span>Download</button>
-                    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="openStoreGame('${fetchName}')"></span>More</button>
-                </div>
+<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${fetchData.background_image}')" id="${fetchName}-cover" onclick="openStoreGame('${fetchName}')">
+    <div class="game-card__primary">
+        <h2 class="game-card__title mdc-typography mdc-typography--headline6">${fetchData.name}</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${gameName}</h3>
+    </div>
+</div>
+<div class="mdc-card__action-buttons">
+    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="fetchDownload('${fetchName}')"></span>Download</button>
+    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="openStoreGame('${fetchName}')"></span>More</button>
+</div>
 `;
 
     var card = document.createElement('div');

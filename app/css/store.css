@@ -41,9 +41,9 @@
 .store .genres .genre-container {
   min-height: 350px;
 }
-.store .genres .genre-container h3 {
+.store .genres .genre-container .genre-title {
   margin-left: 5vw;
-  color: white;
+  color: var(--color);
 }
 .store .genres .genre-container .genre-cards {
   height: 100%;

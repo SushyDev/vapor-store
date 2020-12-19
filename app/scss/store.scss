@@ -49,9 +49,9 @@
         .genre-container {
             min-height: 350px;
 
-            h3 {
+            .genre-title {
                 margin-left: 5vw;
-                color: white;
+                color: var(--color);
             }
 
             .genre-cards {

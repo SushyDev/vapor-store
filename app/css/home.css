@@ -15,7 +15,7 @@
 }
 .cards .mdc-card__primary-action {
   padding: 0 0 8px 16px;
-  color: white;
+  color: var(--color);
 }
 .cards .demo-card__title {
   margin-top: 12px;
