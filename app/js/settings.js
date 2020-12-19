@@ -40,8 +40,6 @@ if (!localStorage.getItem('listFile')) {
     document.getElementById('gameFileDir').innerHTML = `Current file: ${localStorage.getItem('listFile')}`;
 }
 
-document.getElementById('sgdb-key').value = localStorage.getItem('SGDB_Key');
-
 document.getElementById('gameDownloadDir').innerHTML = `Current folder: ${localStorage.getItem('downloadDir')}`;
 
 //Opt into beta versions

@@ -27,15 +27,12 @@
 ### Requirements
 
 - [Vapor Store](https://sushydev.github.io/vapor-store/)
-- [SteamGrid API Key](https://www.steamgriddb.com/profile/preferences)
 - [A repo file](https://discord.gg/ZjDTpmf)
 
 ### How to set up
 
 1. Download & Install Vapor Store
-2. Create an account for the SteamGrid API and get the [API key](https://www.steamgriddb.com/profile/preferences)
-3. Enter your SteamGrid Key in the Vapor Store settings
-4. Download a repo file and select it in the Vapor Store settings
+2. Download a repo file and select it in the Vapor Store settings
 
 ### How to build
 
