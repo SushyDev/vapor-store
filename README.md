@@ -22,7 +22,7 @@
 
 ### Download
 
-- [Download here!](https://sushydev.github.io/vapor-store/)
+- [Download here!](https://github.com/SushyDev/vapor-store/releases)
 
 ### Requirements
 
