@@ -1,13 +1,8 @@
 //Extract zip in game file
 function extractDownload(targetPath, targetFolder, gameTitle) {
-    var folderName = targetFolder.split('/').pop();
+    var folderName = targetFolder.split(path.sep).pop();
     var zipFile = folderName + '.zip';
     var extractDir = targetFolder.replace(folderName, '');
-
-    console.log('targetPath', targetPath)
-    console.log('folderName', folderName);
-    console.log('zipFile', zipFile);
-    console.log('extractDir', extractDir);
 
     try {
         closeSnackbar(`${gameTitle}-extractyn`, false);
