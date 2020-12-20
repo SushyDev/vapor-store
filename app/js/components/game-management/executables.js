@@ -111,7 +111,7 @@ function getSubFolders(dir) {
 }
 
 function openFolder(folder, filename) {
-    shell.showItemInFolder(path.join(folder, filename.slice(0, -4)));
+    shell.showItemInFolder(path.join(folder));
 }
 
 //If no folder was found
