@@ -74,7 +74,7 @@ function gameListExec(gameTitle, targetFolder, fileName, launchDefault) {
             data['list'].forEach((game) => {
                 if (game.fileName == fileName) {
                     if (!!game.default) {
-                        gamePlay(game.default);
+                        gamePlay(path.resolve(game.default));
                     } else {
                         listExec();
                     }
@@ -160,8 +160,9 @@ function gameListExec(gameTitle, targetFolder, fileName, launchDefault) {
 }
 
 function gamePlay(executable) {
+    console.log('exec', executable);
     var exec = require('child_process').exec;
-    exec(executable, (err, data) => {
+    exec(`start "" "${executable}"`, (err, data) => {
         console.log(err);
     });
 }

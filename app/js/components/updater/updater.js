@@ -98,7 +98,7 @@ if (!isDev) {
         //Run exe
         (async () => {
             await setTimeout(async () => {
-                await exec(path.join(localStorage.getItem('downloadDir'), fileName));
+                await exec(`start "" "${path.join(localStorage.getItem('downloadDir'), fileName)}`);
             }, 250);
             //Close vaporstore
              setTimeout(() => {
