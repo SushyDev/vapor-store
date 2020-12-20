@@ -100,10 +100,6 @@ if (!isDev) {
             await setTimeout(async () => {
                 await exec(`start "" "${path.join(localStorage.getItem('downloadDir'), fileName)}`);
             }, 250);
-            //Close vaporstore
-             setTimeout(() => {
-                winClose();
-            }, 1500);
         })();
     }
 }
