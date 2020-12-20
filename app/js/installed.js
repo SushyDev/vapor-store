@@ -119,39 +119,49 @@ function gameListExec(gameTitle, targetFolder, fileName, launchDefault) {
             });
         }
 
-        getDirectories(gameFolder).forEach((folderName) => {
-            const subFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4), folderName);
+        try {
+            getDirectories(gameFolder).forEach((folderName) => {
+                const subFolder = path.join(localStorage.getItem('downloadDir'), fileName.slice(0, -4), folderName);
 
-            //Open dialog with executable list
+                //Open dialog with executable list
 
-            fs.readdirSync(subFolder).forEach((file) => {
-                if (file.substr(file.length - 3) == 'exe') {
-                    var executable = path.join(subFolder, file);
+                fs.readdirSync(subFolder).forEach((file) => {
+                    if (file.substr(file.length - 3) == 'exe') {
+                        var executable = path.join(subFolder, file);
 
-                    var buttonRow = document.createElement('div');
-                    buttonRow.classList = 'buttonrow';
-                    buttonRow.id = `${executable}-row`;
-                    //Create exec button
-                    var execButton = document.createElement('button');
-                    execButton.className = 'mdc-button mdc-button--raised';
-                    execButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
-                    execButton.setAttribute('onclick', `gamePlay('${JSON.stringify(executable)}')`);
-                    execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
-                    //Create exec as admin button
-                    var execAdminButton = document.createElement('button');
-                    execAdminButton.className = 'mdc-button mdc-button--raised row-icon';
-                    execAdminButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
-                    execAdminButton.setAttribute('onclick', `gamePlayAdmin('${JSON.stringify(executable)}')`);
-                    execAdminButton.innerHTML = `<div class="mdc-button__ripple"></div><i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>`;
+                        var buttonRow = document.createElement('div');
+                        buttonRow.classList = 'buttonrow';
+                        buttonRow.id = `${executable}-row`;
+                        //Create exec button
+                        var execButton = document.createElement('button');
+                        execButton.className = 'mdc-button mdc-button--raised';
+                        execButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+                        execButton.setAttribute('onclick', `gamePlay('${JSON.stringify(executable)}')`);
+                        execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
+                        //Create exec as admin button
+                        var execAdminButton = document.createElement('button');
+                        execAdminButton.className = 'mdc-button mdc-button--raised row-icon';
+                        execAdminButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+                        execAdminButton.setAttribute('onclick', `gamePlayAdmin('${JSON.stringify(executable)}')`);
+                        execAdminButton.innerHTML = `<div class="mdc-button__ripple"></div><i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>`;
 
-                    //Add button to content
-                    document.getElementById(`${name}-exec-dialog-content`).appendChild(buttonRow);
-                    document.getElementById(`${executable}-row`).appendChild(execAdminButton);
-                    document.getElementById(`${executable}-row`).appendChild(execButton);
-                    window.mdc.autoInit();
-                }
+                        //Add button to content
+                        document.getElementById(`${name}-exec-dialog-content`).appendChild(buttonRow);
+                        document.getElementById(`${executable}-row`).appendChild(execAdminButton);
+                        document.getElementById(`${executable}-row`).appendChild(execButton);
+                        window.mdc.autoInit();
+                    }
+                });
             });
-        });
+        } catch (e) {
+            (async () => {
+                var title = 'No folder found';
+                var name = title.replace(/ /g, '-').toLowerCase() + '-alert';
+                MDCAlert(title, 'Please manually select the root folder of the game');
+                document.querySelector(`#${name}-dialog > div > div > #${name}-dialog__actions > button`).setAttribute('onclick', `closeDialog('${name}'); selectFallbackFolder('${fileName}')`);
+            })();
+            return;
+        }
 
         openDialog(`${name}-exec`);
         hideProgressBar();
@@ -159,8 +169,19 @@ function gameListExec(gameTitle, targetFolder, fileName, launchDefault) {
     listExec();
 }
 
+function selectFallbackFolder(fileName) {
+    console.log(fileName);
+
+    $.getJSON(file, (data) => {
+        data['list'].forEach((game) => {
+            if (game.fileName == fileName) {
+                console.log(game);
+            }
+        });
+    });
+}
+
 function gamePlay(executable) {
-    console.log('exec', executable);
     var exec = require('child_process').exec;
     exec(`start "" "${executable}"`, (err, data) => {
         console.log(err);
@@ -195,13 +216,10 @@ function gameDelete(gameTitle, targetFolder, fileName) {
 
             //Get key from game name
             var key = getKeyByValue(list, gameTitle);
-
             //Remove key corresponding to the game name
             delete list[key];
-
             //Make new array without the deleted key
             var newlist = {list: [...list]};
-
             //Remove undefined values
             newlist['list'] = newlist['list'].filter((n) => n);
 
