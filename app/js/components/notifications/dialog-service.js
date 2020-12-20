@@ -1,19 +1,4 @@
-//Open dialog by id name
-/*
-function openDialog(id) {
-    var dialog = document.getElementById(id);
-    dialog.classList.add('');
-}
-
-//Close dialog by (this) value from button
-function closeDialog(button) {
-    var dialog = button.closest('.mdc-dialog--open');
-    dialog.classList.remove('mdc-dialog--open');
-}
-
-*/
-
-function createDialog(dialogData, autoshow) {
+function createDialog(dialogData, autoshow = true) {
     var main = dialogData.main;
     var title = dialogData.title;
 

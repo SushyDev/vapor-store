@@ -3,6 +3,11 @@
     <link rel="stylesheet" href="../css/installed.css" />
     <script src="../js/components/card-grid/card-builder.js"></script>
     <script src="../js/components/card-grid/card-grid.js"></script>
+    <script src="../js/components/game-management/add-custom.js"></script>
+    <script src="../js/components/game-management/executables.js"></script>
+    <script src="../js/components/game-management/play.js"></script>
+    <script src="../js/components/game-management/remove.js"></script>
+    <script src="../js/components/game-management/shortcuts.js"></script>
     <script src="../js/installed.js"></script>
 </head>
 
@@ -15,6 +20,12 @@
 
 <!--Div with cards-->
 <div class="cards" id="cards"></div>
+
+<!--Add games FAB-->
+<button class="mdc-fab" aria-label="Favorite" onclick="addInstalledGame()" data-mdc-auto-init="MDCRipple">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">add</span>
+</button>
 
 <!--Game page-->
 <div class="selected-game" id="selected-game">

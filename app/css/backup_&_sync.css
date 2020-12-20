@@ -3,7 +3,3 @@
   bottom: 16px;
   right: 16px;
 }
-
-.mdc-dialog .mdc-dialog__surface .mdc-text-field {
-  --mdc-theme-primary: var(--mdc-theme-secondary);
-}

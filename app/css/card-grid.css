@@ -63,7 +63,7 @@
 }
 .mdc-card .mdc-card__primary-action .game-card__primary .mdc-typography--subtitle2 {
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 4px;
 }
 .mdc-card .mdc-card__action-buttons {
   margin-top: -48px;

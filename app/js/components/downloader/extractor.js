@@ -1,37 +1,44 @@
 //Extract zip in game file
-function extractDownload(targetPath, targetFolder, filename, gameTitle) {
-    var name = filename.slice(0, -4);
+function extractDownload(targetPath, targetFolder, gameTitle) {
+    var folderName = targetFolder.split('/').pop();
+    var zipFile = folderName + '.zip';
+    var extractDir = targetFolder.replace(folderName, '');
+
+    console.log('targetPath', targetPath)
+    console.log('folderName', folderName);
+    console.log('zipFile', zipFile);
+    console.log('extractDir', extractDir);
 
     try {
-        closeSnackbar(`${name}-extractyn`, false);
+        closeSnackbar(`${gameTitle}-extractyn`, false);
     } catch (e) {}
 
     var snackbarData = {
         ['main']: [
             {
-                name: `${name}-extract`,
+                name: `${gameTitle}-extract`,
             },
         ],
         ['progress']: [
             {
                 enabled: true,
-                id: `${name}-progress`,
+                id: `${gameTitle}-progress`,
             },
         ],
         ['label']: [
             {
-                id: `${name}-snackbar-title`,
-                innerHTML: `Extracting ${filename} 0%`,
+                id: `${gameTitle}-snackbar-title`,
+                innerHTML: `Extracting ${zipFile} 0%`,
             },
         ],
         ['actions']: [],
         ['close']: [
             {
                 enabled: true,
-                onclick: `hideSnackbar('${name}-extract')`,
+                onclick: `hideSnackbar('${gameTitle}-extract')`,
                 title: 'Hide',
                 icon: 'keyboard_arrow_down',
-                id: `${name}-extract-hide`,
+                id: `${gameTitle}-extract-hide`,
             },
         ],
     };
@@ -39,39 +46,35 @@ function extractDownload(targetPath, targetFolder, filename, gameTitle) {
     createSnack(snackbarData);
 
     (async () => {
-        try {
-            var extracted = 0;
-            await extract(targetPath, {
-                dir: targetFolder,
-                onEntry: (entry, zipfile) => {
-                    extracted++;
+        var extracted = 0;
+        await extract(targetPath, {
+            dir: extractDir,
+            onEntry: (entry, zipfile) => {
+                extracted++;
 
-                    var progress = (extracted * 100) / zipfile.entryCount;
-                    var scalePercent = progress / 100;
+                var progress = (extracted * 100) / zipfile.entryCount;
+                var scalePercent = progress / 100;
 
-                    try {
-                        document.getElementById(`${name}-progress`).style.transform = `scaleX(${scalePercent})`;
-                        document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracting ${filename} ${progress.toFixed(2)}%`;
-                    } catch (e) {}
-                },
-            });
+                try {
+                    document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${scalePercent})`;
+                    document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracting ${zipFile} ${progress.toFixed(2)}%`;
+                } catch (e) {}
+            },
+        });
 
-            fs.unlink(targetPath, (err) => {
-                if (err) {
-                    console.error(err);
-                }
-            });
+        fs.unlink(targetPath, (err) => {
+            if (err) {
+                console.error(err);
+            }
+        });
 
-            document.getElementById(`${name}-extract-snack-actions`).style.display = 'none';
-            showSnackbar(`${name}-extract`);
-            document.getElementById(`${name}-snackbar-title`).innerHTML = `Extracted ${filename}`;
+        document.getElementById(`${gameTitle}-extract-snack-actions`).style.display = 'none';
+        showSnackbar(`${gameTitle}-extract`);
+        document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracted ${zipFile}`;
 
-            //Close snackbar after 2.5 sec
-            setTimeout(() => {
-                closeSnackbar(`${name}-extract`, false);
-            }, 5000);
-        } catch (err) {
-            console.log(err);
-        }
+        //Close snackbar after 2.5 sec
+        setTimeout(() => {
+            closeSnackbar(`${gameTitle}-extract`, false);
+        }, 5000);
     })();
 }

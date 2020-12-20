@@ -1,5 +1,8 @@
-function addGameToLibrary(targetPath, targetFolder, fileName, gameTitle) {
+function addGameToLibrary(targetPath, targetFolder, gameTitle) {
     var file = path.join(appDataPath, '/Json/library.json');
+
+    var folderName = targetFolder.split('/').pop();
+
     fs.readFile(file, 'utf-8', (err, data) => {
         var array;
         try {
@@ -11,8 +14,8 @@ function addGameToLibrary(targetPath, targetFolder, fileName, gameTitle) {
         var updatedArray = array;
         updatedArray['list'].push({
             name: gameTitle,
-            folder: targetFolder,
-            fileName: fileName,
+            directory: targetFolder,
+            folder: folderName,
         });
 
         fs.writeFile(file, JSON.stringify(updatedArray), function (err) {

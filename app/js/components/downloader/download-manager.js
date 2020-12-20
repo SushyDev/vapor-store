@@ -9,47 +9,47 @@ function startDownload(url, dir, gameTitle) {
             if (started.includes(gameTitle)) return;
             started.push(gameTitle);
 
-            var fileName = item.getFilename();
-            var fullPath = path.join(localStorage.getItem('downloadDir'), fileName);
-            var name = fileName.slice(0, -4);
-            var fileurl = item.getURL();
-            var fileType = fileName.substr(-3);
+            var downloadDir = localStorage.getItem('downloadDir');
+            var zipFile = item.getFilename();
+            var fullPath = path.join(downloadDir, zipFile);
+            var folderName = zipFile.slice(0, -4);
+            var fileType = zipFile.substr(-3);
 
             var snackbarData = {
                 ['main']: [
                     {
-                        name: `${name}-download`,
+                        name: `${gameTitle}-download`,
                     },
                 ],
                 ['progress']: [
                     {
                         enabled: true,
-                        id: `${name}-completed-progress`,
+                        id: `${gameTitle}-completed-progress`,
                     },
                 ],
                 ['label']: [
                     {
-                        id: `${name}-snackbar-title`,
-                        innerHTML: `Downloading ${fileName} 0%`,
+                        id: `${gameTitle}-snackbar-title`,
+                        innerHTML: `Downloading ${zipFile} 0%`,
                     },
                 ],
                 ['actions']: [
                     {
                         type: 'button',
                         innerHTML: 'Pause',
-                        labelid: `${name}-pause-button__label`,
+                        labelid: `${gameTitle}-pause-button__label`,
                         class: 'pause-button',
                         id: 'pause-button',
-                        onclick: `pauseDownload('${name}')`,
+                        onclick: `pauseDownload('${gameTitle}')`,
                     },
                 ],
                 ['close']: [
                     {
                         enabled: true,
-                        onclick: `cancelDownload('${name}', true, 'Are you sure you want to cancel the download for ${fileName}', '${fullPath.replace(/\\/g, '/')}')`,
+                        onclick: `cancelDownload('${gameTitle}', true, 'Are you sure you want to cancel the download for ${zipFile}', '${fullPath.replace(/\\/g, '/')}')`,
                         title: 'Cancel',
                         icon: 'close',
-                        id: `${name}-close`,
+                        id: `${gameTitle}-close`,
                     },
                 ],
             };
@@ -60,22 +60,18 @@ function startDownload(url, dir, gameTitle) {
             //Create snackbar
             createSnack(snackbarData);
 
-            ipcRenderer.on(`${name}-pause`, () => {
+            ipcRenderer.on(`${gameTitle}-pause`, () => {
                 item.pause();
             });
 
-            ipcRenderer.on(`${name}-resume`, () => {
+            ipcRenderer.on(`${gameTitle}-resume`, () => {
                 item.resume();
             });
-            ipcRenderer.on(`${name}-cancel`, () => {
+            
+            ipcRenderer.on(`${gameTitle}-cancel`, () => {
                 item.cancel();
+                //remove item from currently downloading list
                 downloading.shift();
-                //remove zip file
-                fs.unink(fullPath, (err) => {
-                    if (err) {
-                        console.error(err);
-                    }
-                });
                 //Stop
                 return;
             });
@@ -90,8 +86,8 @@ function startDownload(url, dir, gameTitle) {
                     var downloadPercent = (received_bytes * 100) / total_bytes;
                     var scalePercent = downloadPercent / 100;
 
-                    document.getElementById(`${name}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${name}-snackbar-title`).innerHTML = `Downloading ${fileName} ${downloadPercent.toFixed(2)}%`;
+                    document.getElementById(`${gameTitle}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
+                    document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Downloading ${zipFile} ${downloadPercent.toFixed(2)}%`;
                 } catch (e) {
                     /* Can error on download finish so it catches here */
                 }
@@ -105,19 +101,19 @@ function startDownload(url, dir, gameTitle) {
                     downloading.shift();
 
                     //Remove download snackbar
-                    closeSnackbar(`${name}-download`, false);
+                    closeSnackbar(`${gameTitle}-download`, false);
 
                     //Add downloaded game to library or install update
                     if (gameTitle == 'vapor-store-update') {
-                        installUpdate(fileName);
+                        installUpdate(zipFile);
                     } else {
-                        addGameToLibrary(fullPath, localStorage.getItem('downloadDir'), fileName, gameTitle);
+                        addGameToLibrary(fullPath, path.join(downloadDir, folderName), gameTitle);
                     }
 
                     var snackbarData = {
                         ['main']: [
                             {
-                                name: `${name}-extractyn`,
+                                name: `${gameTitle}-extractyn`,
                             },
                         ],
                         ['progress']: [
@@ -127,26 +123,26 @@ function startDownload(url, dir, gameTitle) {
                         ],
                         ['label']: [
                             {
-                                id: `${name}-snackbar-title`,
-                                innerHTML: `Do you want to extract ${fileName}`,
+                                id: `${gameTitle}-snackbar-title`,
+                                innerHTML: `Do you want to extract ${zipFile}`,
                             },
                         ],
                         ['actions']: [
                             {
                                 type: 'button',
                                 innerHTML: 'Yes',
-                                labelid: `${name}-extract-button__label`,
+                                labelid: `${gameTitle}-extract-button__label`,
                                 class: 'yes-extract-button',
                                 id: 'yes-extract-button',
-                                onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${fileName}', '${gameTitle}')`,
+                                onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${path.join(downloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
                             },
                             {
                                 type: 'button',
                                 innerHTML: 'No',
-                                labelid: `${name}-close-button__label`,
+                                labelid: `${gameTitle}-close-button__label`,
                                 class: 'no-extract-button',
                                 id: 'no-extract-button',
-                                onclick: `closeSnackbar('${name}-extractyn', true, "Are you sure you don't want to extract ${fileName}")`,
+                                onclick: `closeSnackbar('${gameTitle}-extractyn', true, "Are you sure you don't want to extract ${zipFile}")`,
                             },
                         ],
                         ['close']: [
@@ -157,10 +153,12 @@ function startDownload(url, dir, gameTitle) {
                     };
 
                     //Extract downloaded zip file
-                    //If auto extract is on skip this step and extract automatically
-                    if (localStorage.getItem('autoExtract') == 'true') {
-                        extractDownload(`${fullPath.replace(/\\/g, '/')}', '${localStorage.getItem('downloadDir').replace(/\\/g, '/')}', '${fileName}', '${gameTitle}`);
-                    } else if (fileType == 'zip') createSnack(snackbarData);
+                    if (fileType == 'zip') {
+                        if (localStorage.getItem('autoExtract') == 'true') {
+                            //If auto extract is on skip this step and extract automatically
+                            extractDownload(fullPath, path.join(downloadDir, folderName), gameTitle);
+                        } else createSnack(snackbarData);
+                    }
                 } else {
                     //Download didnt complete
                     console.log(`Download failed: ${state}`);
