@@ -25,7 +25,7 @@
       {
         "provider": "github",
         "owner": "SushyDev",
-        "repo": "vapor-store",
+        "repo": "vapor-store", 
         "releaseType": "prerelease"
       }
     ],
