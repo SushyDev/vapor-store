@@ -31,7 +31,7 @@ function gameShortcut(gameTitle, gameFolder, folderName, launchDefault) {
     try {
         getListOfExec(gameFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
-                var shortcut = path.join(subFolder, file);
+                var shortcut = path.join(gameFolder, file);
                 //Create exec button
 
                 var buttonRow = document.createElement('div');
