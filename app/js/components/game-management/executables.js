@@ -5,7 +5,7 @@ function gameListExec(gameTitle, gameFolder, folderName, launchDefault) {
     if (launchDefault) {
         $.getJSON(file, (data) => {
             data['list'].forEach((game) => {
-                if (game.folder == folderName) {
+                if (game.folder == path.resolve(gameFolder)) {
                     if (!!game.default) {
                         gamePlay(path.resolve(game.default));
                     } else {
@@ -47,7 +47,7 @@ function gameListExec(gameTitle, gameFolder, folderName, launchDefault) {
         try {
             getListOfExec(gameFolder).forEach((file) => {
                 if (file.substr(file.length - 3) == 'exe') {
-                    var executable = path.join(subFolder, file);
+                    var executable = path.join(gameFolder, file);
 
                     var buttonRow = document.createElement('div');
                     buttonRow.classList = 'buttonrow';
@@ -57,7 +57,7 @@ function gameListExec(gameTitle, gameFolder, folderName, launchDefault) {
                     execButton.className = 'mdc-button mdc-button--raised';
                     execButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                     execButton.setAttribute('onclick', `gamePlay('${JSON.stringify(executable)}')`);
-                    execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
+                    execButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file.split(path.sep).pop()}</span>`;
                     //Create exec as admin button
                     var execAdminButton = document.createElement('button');
                     execAdminButton.className = 'mdc-button mdc-button--raised row-icon';
@@ -89,20 +89,24 @@ function gameListExec(gameTitle, gameFolder, folderName, launchDefault) {
 }
 
 function getListOfExec(gameFolder) {
-    var list;
-    var list2 = fs.readdirSync(gameFolder);
-    getSubFolders(gameFolder).forEach((subFolderName) => {
-        var fullSubFolderDir = path.join(gameFolder, subFolderName);
+    var list = [];
+    list = fs.readdirSync(gameFolder);
+    getSubFolders(gameFolder).forEach((subFolder) => {
+        var fullSubFolderDir = path.join(gameFolder, subFolder);
         //Open dialog with executable list
-        list = fs.readdirSync(fullSubFolderDir);
+        if (subFolder.includes('.exe')) return;
+        try {
+            list = list.concat(fs.readdirSync(fullSubFolderDir).map((i) => path.join(subFolder, i)));
+        }catch(e){}
     });
-    return list.concat(list2);
+    return list;
 }
 
 //If subfolder return subfolder name
 function getSubFolders(dir) {
     return fs.readdirSync(dir).filter(function (subfolder) {
-        return fs.statSync(path.join(dir, subfolder)).isDirectory();
+ 
+        return fs.statSync(path.join(dir, subfolder));
     });
 }
 
@@ -112,12 +116,12 @@ function openFolder(folder, filename) {
 
 //If no folder was found
 function selectFallbackFolder(fileName) {
-    console.log(fileName);
+   // console.log(fileName);
 
     $.getJSON(file, (data) => {
         data['list'].forEach((game) => {
             if (game.fileName == fileName) {
-                console.log(game);
+               // console.log(game);
             }
         });
     });

@@ -50,11 +50,8 @@ function fetchDownload(gameTitle) {
             //Get url
             getDownloadURL(game.url, gameTitle).then((output) => {
                 //Start download
-                //ipcRenderer.send('download-item', output, localStorage.getItem('downloadDir'), downloadGame);
-
-                //Downloading progress
-                var url = output;
                 var dir = localStorage.getItem('downloadDir');
+                var url = output;
                 startDownload(url, dir, gameTitle);
             });
         });

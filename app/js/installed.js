@@ -32,11 +32,6 @@ function createCard(search = undefined) {
         //Stop if new search
         if (createCardId !== createCardLatest) return;
 
-        if (data['list'][0] == undefined) {
-            MDCAlert('No games installed', 'Please install some games to continue');
-            goto('Store');
-        }
-
         //For every game in the list
         data['list'].forEach((game) => {
             //Stop if new search

@@ -1,6 +1,6 @@
 function gamePlay(executable) {
     var exec = require('child_process').exec;
-    exec(`start "" "${executable}"`, (err, data) => {
+    exec(`start "" ${executable}`, (err, data) => {
         console.log(err);
     });
 }
@@ -43,7 +43,7 @@ function selectDefault(gameTitle, gameFolder, folderName, launchDefault) {
     try {
         getListOfExec(gameFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {
-                var shortcut = path.join(subFolder, file);
+                var shortcut = path.join(gameFolder, file);
                 //Create exec button
 
                 var buttonRow = document.createElement('div');
@@ -54,7 +54,7 @@ function selectDefault(gameTitle, gameFolder, folderName, launchDefault) {
                 defaultButton.className = 'mdc-button mdc-button--raised';
                 defaultButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                 defaultButton.setAttribute('onclick', `setDefault('${gameTitle}', '${JSON.stringify(shortcut)}')`);
-                defaultButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
+                defaultButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file.split(path.sep).pop()}</span>`;
 
                 //Add button to content
                 document.getElementById(`${name}-default-dialog-content`).appendChild(buttonRow);

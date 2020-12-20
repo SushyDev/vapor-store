@@ -57,10 +57,11 @@ if (!SingleInstance) {
         }
     });
 }
-
+/*
 if (isDev) {
     require('electron-reload')(__dirname, {
         ignored: [path.join(__dirname, 'app', 'scss'), path.join(__dirname, 'app', 'json')],
         electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
     });
 }
+*/

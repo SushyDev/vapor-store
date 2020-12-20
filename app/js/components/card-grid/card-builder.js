@@ -2,6 +2,7 @@
 function selectCard(gameInfo, fetchName, type) {
     try {
         var gameFolder = gameInfo.gameFolder.replace(/\\/g, '/');
+        var gameDir = gameInfo.gameDir.replace(/\\/g, '/');
     } catch (e) {}
 
     if (gameInfo.background_image == undefined) gameInfo.background_image = '../img/not_found.svg';
@@ -29,7 +30,7 @@ function selectCard(gameInfo, fetchName, type) {
         if (sessionStorage.getItem('page') != 'Installed') return;
         //Card for installed
         return `
-        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openInstalled('${fetchName}', '${gameInfo.name}', '${gameInfo.gameDir}')">
+        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openInstalled('${fetchName}', '${specialToASCII(gameInfo.name)}', '${gameDir}')">
         <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>

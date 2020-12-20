@@ -42,7 +42,7 @@ function gameShortcut(gameTitle, gameFolder, folderName, launchDefault) {
                 shortcutButton.className = 'mdc-button mdc-button--raised';
                 shortcutButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
                 shortcutButton.setAttribute('onclick', `createShortcut('${JSON.stringify(shortcut)}')`);
-                shortcutButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file}</span>`;
+                shortcutButton.innerHTML = `<div class="mdc-button__ripple"></div><span class="mdc-button__label">${file.split(path.sep).pop()}</span>`;
 
                 //Add button to content
                 document.getElementById(`${name}-shortcut-dialog-content`).appendChild(buttonRow);
