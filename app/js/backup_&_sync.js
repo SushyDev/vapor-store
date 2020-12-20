@@ -30,7 +30,7 @@ function createCard(gameName) {
     try {
         var search = gameName.toLowerCase();
     } catch (e) {
-        devLog(e);
+        if (isDev) console.log(e);
         return;
     }
 

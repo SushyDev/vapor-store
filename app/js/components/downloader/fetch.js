@@ -82,7 +82,7 @@ async function getDownloadURL(url, gameTitle) {
     try {
         await page.waitForSelector('.btn-download', {visible: true});
     } catch (e) {
-        devLog(e);
+        if (isDev) console.log(e);
     }
 
     setFetchProgress(gameTitle, '.3');
@@ -97,8 +97,8 @@ async function getDownloadURL(url, gameTitle) {
     setFetchProgress(gameTitle, '.4');
 
     //Wait until upload heaven loaded
-    await page.waitForNavigation({ waitUntil: 'networkidle0' });
-    
+    await page.waitForNavigation({waitUntil: 'networkidle0'});
+
     setFetchProgress(gameTitle, '.5');
 
     //Wait for 5 second cooldown

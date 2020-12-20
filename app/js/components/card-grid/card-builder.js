@@ -26,16 +26,18 @@ function selectCard(gameInfo, fetchName, type) {
 </div>
 `;
     } else if (type == 'installed') {
+        if (sessionStorage.getItem('page') != 'Installed') return;
         //Card for installed
         return `
-<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openInstalled('${fetchName}', '${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')">
-    <div class="game-card__primary">
+        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openInstalled('${fetchName}', '${gameInfo.name}', '${gameFolder}', '${gameInfo.fileName}')">
+        <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
-    </div>
-</div>
-`;
+        </div>
+        </div>
+        `;
     } else {
+        if (sessionStorage.getItem('page') != 'Store') return;
         //Card for store
         return `
 <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openStoreGame('${fetchName}')">
@@ -57,13 +59,16 @@ async function buildCard(fetchName, type, fileName = undefined, gameFolder = und
     //If no cover is found use not found logo
     var gameInfo = await fetch(fetchName);
     //Create the card
-    gameInfo = { ...gameInfo, fileName: fileName, gameFolder: gameFolder };
+    gameInfo = {...gameInfo, fileName: fileName, gameFolder: gameFolder};
 
-    var card = document.createElement('div');
-    card.className = 'mdc-card';
-    card.id = gameInfo.id;
-    card.innerHTML = selectCard(gameInfo, fetchName, type);
-    addCard(card);
+    var cardContent = selectCard(gameInfo, fetchName, type);
+    if (!!cardContent) {
+        var card = document.createElement('div');
+        card.className = 'mdc-card';
+        card.id = gameInfo.id;
+        card.innerHTML = cardContent;
+        addCard(card);
+    }
 }
 
 //Add card to grids

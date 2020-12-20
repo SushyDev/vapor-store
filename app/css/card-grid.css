@@ -1,3 +1,35 @@
+.searchbar {
+  -webkit-app-region: no-drag;
+  position: fixed;
+  width: 50vw;
+  top: 8px;
+  border-radius: 8px;
+  z-index: 9;
+  background: #ffffff66;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 48px;
+  display: flex;
+  color: #406575;
+}
+.searchbar .material-icons {
+  width: 48px;
+  height: 48px;
+}
+.searchbar input {
+  color: #406575;
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-size: 1em;
+  line-height: 1rem;
+  font-family: var(--mdc-typography-font-family, Roboto, sans-serif);
+}
+.searchbar input:focus {
+  outline: none;
+}
+
 .cards {
   width: auto !important;
   height: 100% !important;

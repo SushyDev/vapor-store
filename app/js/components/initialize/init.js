@@ -78,17 +78,10 @@ fs.readFile(file, 'utf-8', (err, data) => {
         array = {list: []};
         fs.writeFile(file, JSON.stringify(array), function (err) {
             if (err) throw err;
-            devLog('Saved!');
+            if (isDev) console.log('Saved!');
         });
     }
 
 });
 
-//Console log dev only
-function devLog(log) {
-    if (isDev) {
-        console.log('DevLog', log);
-    }
-    return;
-}
-devLog('Hi Developer');
+if (isDev) console.log('Hi Developer')

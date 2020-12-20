@@ -24,7 +24,7 @@ function searchGames() {
     var search = searchBox.value;
     sessionStorage.setItem('searchquery', search);
     //Hide active game list
-    if (search.length <= 2) {
+    if (search.length < 1) {
         showGenrePage();
         return;
     }
@@ -97,11 +97,11 @@ $.getJSON(file, async (data) => {
         var page = sessionStorage.getItem('page');
 
         var Action = 0;
+        var Strategy = 0;
         var Adventure = 0;
+        var Simulation = 0;
         var Indie = 0;
-        var Racing = 0;
-        var Sports = 0;
-        while (!(Action + Adventure + Indie + Racing + Sports >= 50)) {
+        while (!(Action + Adventure + Indie + Simulation + Strategy >= 50)) {
             var gameAmount = data['list'].length;
             var randomGame = Math.floor(Math.random() * gameAmount);
             var game = data['list'][randomGame];
@@ -123,14 +123,14 @@ $.getJSON(file, async (data) => {
                     if (Indie >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
                     Indie++;
-                } else if (genre.name == 'Racing') {
-                    if (Racing >= 10) return;
+                } else if (genre.name == 'Simulation') {
+                    if (Simulation >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
-                    Racing++;
-                } else if (genre.name == 'Sports') {
-                    if (Sports >= 10) return;
+                    Simulation++;
+                } else if (genre.name == 'Strategy') {
+                    if (Strategy >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
-                    Racing++;
+                    Strategy++;
                 }
             });
         }
@@ -153,10 +153,28 @@ function createGenreCard(fetchData, gameName, genre) {
 </div>
 `;
 
+    if (sessionStorage.getItem('page') != 'Store') return;
+
     var card = document.createElement('div');
     card.className = 'mdc-card';
     card.id = fetchData.id;
     card.innerHTML = cardContent;
     document.getElementById(`genre-${genre}-cards`).appendChild(card);
     window.mdc.autoInit();
+}
+
+async function openStoreGame(name) {
+    showProgressBar();
+
+    //close drawer
+    drawer.open = false;
+
+    document.getElementById('selected-game-cover').style.background = document.getElementById(`${name}-cover`).style.backgroundImage;
+    document.getElementById('selected-game-cover').style.backgroundSize = 'cover';
+    document.getElementById('selected-game-cover').style.backgroundPosition = 'center';
+
+    //Set download button
+    document.getElementById('selected-game-download').setAttribute('onclick', `fetchDownload('${name}')`);
+
+    addMetadata(name, 'store');
 }

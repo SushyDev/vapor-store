@@ -17,7 +17,7 @@ function addGameToLibrary(targetPath, targetFolder, fileName, gameTitle) {
 
         fs.writeFile(file, JSON.stringify(updatedArray), function (err) {
             if (err) throw err;
-            devLog('Saved!');
+            if (isDev) console.log('Saved!');
         });
     });
 }

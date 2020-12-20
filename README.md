@@ -63,15 +63,17 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Game metadata for installed games list
 - [x] Show extraction progress
 - [x] Make extraction complete popup display even if extract snackbar is hidden
+- [x] Clean out the downloader code
+- [x] Default play exe for games in folder in installed list
+- [x] Setting to auto extract after download
+- [x] Search in installed games list
 #### Important
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**
-- [ ] **Default play exe for games in folder in installed list**
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Custom generator script, custom fetch download script**
 - [ ] **Generator / Fetch scripts selector**
 #### Other
-- [ ] Clean out the downloader code
 - [ ] Import existing games
 - [ ] Game sorting by category
 - [ ] Game updates
@@ -80,7 +82,6 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Make it so the downloader always over writes zips
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
-- [ ] Search in installed games list
 - [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 
 ### Issues
