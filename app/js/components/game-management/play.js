@@ -1,6 +1,6 @@
 function gamePlay(executable) {
     var exec = require('child_process').exec;
-    exec(`start "" ${executable}`, (err, data) => {
+    exec(`start "" "${executable.replace(/"/g, '')}"`, (err, data) => {
         console.log(err);
     });
 }
