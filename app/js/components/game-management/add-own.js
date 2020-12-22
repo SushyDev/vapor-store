@@ -88,7 +88,7 @@ function createCustomGame(name) {
 
     setTimeout(() => {
         goto('Installed');
-    }, 100)
+    }, 100);
 
     sessionStorage.removeItem('selectedGameFolder');
 }

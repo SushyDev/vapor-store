@@ -68,6 +68,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Setting to auto extract after download
 - [x] Search in installed games list
 - [x] Import existing games
+- [x] List installed steam games
 #### Important
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**
@@ -85,6 +86,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 - [ ] Make a notification when the download is completed
 - [ ] When adding your own game have a option to select the metadata
+- [ ] Enable / Disable some features for games from steam
 
 ### Issues
 
