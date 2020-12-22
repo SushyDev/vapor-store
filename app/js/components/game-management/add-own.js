@@ -80,11 +80,15 @@ function selectGameFolder() {
 function createCustomGame(name) {
     var targetFolder = sessionStorage.getItem('selectedGameFolder');
     var gameTitle = document.getElementById('game-name-value').value.replace(/ /g, '-');
-    
+
     if (!gameTitle || !targetFolder) return;
 
     addGameToLibrary(undefined, targetFolder, gameTitle);
     closeDialog(name);
+
+    setTimeout(() => {
+        goto('Installed');
+    }, 100)
 
     sessionStorage.removeItem('selectedGameFolder');
 }

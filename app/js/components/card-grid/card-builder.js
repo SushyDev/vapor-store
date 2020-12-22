@@ -38,8 +38,8 @@ function selectCard(gameInfo, fetchName, type) {
         </div>
         `;
     } else {
-        if (sessionStorage.getItem('page') != 'Store') return;
-        //Card for store
+        if (sessionStorage.getItem('page') != 'Library') return;
+        //Card for library
         return `
 <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')" id="${fetchName}-cover" onclick="openStoreGame('${fetchName}')">
     <div class="game-card__primary">

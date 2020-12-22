@@ -52,7 +52,6 @@ function showSearchPage() {
 }
 
 //Search games function
-var createCardLatest;
 function createCard() {
     try {
         var search = sessionStorage.getItem('searchquery').toLowerCase();
@@ -64,24 +63,22 @@ function createCard() {
     cards.innerHTML = '';
     showProgressBar();
 
-    createCardLatest = Symbol();
-    var createCardId = createCardLatest;
+    //set page
     var page = sessionStorage.getItem('page');
 
-    //Read the store games list json file
+    //Read the library games list json file
     $.getJSON(file, (data) => {
-        //Stop if new search
-        if (createCardId !== createCardLatest) return;
+        //Cancel is not on page anymore
+        if (page != sessionStorage.getItem('page')) return;
         //For every game in the list
         data['list'].forEach((game) => {
-            //Stop if new search
-            if (createCardId !== createCardLatest) return;
             if (!game.name.includes(search)) return;
-
+            //Cancel is not on page anymore
+            if (page != sessionStorage.getItem('page')) return;
             //Format name for url
             var fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
             //Fetch data from the game by name
-            buildCard(fetchName, 'store');
+            buildCard(fetchName, 'library');
         });
     });
 }
@@ -92,8 +89,7 @@ $.getJSON(file, async (data) => {
     (async () => {
         showProgressBar();
 
-        createCardLatest = Symbol();
-        var createCardId = createCardLatest;
+        //set page
         var page = sessionStorage.getItem('page');
 
         var Action = 0;
@@ -106,8 +102,9 @@ $.getJSON(file, async (data) => {
             var randomGame = Math.floor(Math.random() * gameAmount);
             var game = data['list'][randomGame];
 
-            if (createCardId !== createCardLatest) return;
+            //Cancel is not on page anymore
             if (page != sessionStorage.getItem('page')) return;
+
             var fetchData = await fetch(game.name);
 
             fetchData.genres.forEach(async (genre) => {
@@ -153,7 +150,7 @@ function createGenreCard(fetchData, gameName, genre) {
 </div>
 `;
 
-    if (sessionStorage.getItem('page') != 'Store') return;
+    if (sessionStorage.getItem('page') != 'Library') return;
 
     var card = document.createElement('div');
     card.className = 'mdc-card';
