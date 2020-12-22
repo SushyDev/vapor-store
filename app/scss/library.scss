@@ -1,7 +1,7 @@
 @import '@material/button';
 @import '@material/textfield';
 
-.store {
+.library {
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -17,6 +17,8 @@
             .genre-title {
                 margin-left: 5vw;
                 color: var(--color);
+                font-size: 2.45rem;
+                margin-bottom: 20px;
             }
 
             .genre-cards {
@@ -29,6 +31,11 @@
                     &:first-of-type {
                         margin-left: 5vw;
                     }
+                }
+
+                &::after {
+                    content: '';
+                    border-right: 20px solid transparent;
                 }
 
                 &:hover {
@@ -48,6 +55,7 @@
 
                 &::-webkit-scrollbar-thumb {
                     border-left: 5vw solid var(--mdc-theme-background);
+                    border-right: 40px solid var(--mdc-theme-background);
                     border-radius: 0;
                 }
             }

@@ -49,11 +49,11 @@
 
 .mdc-card {
     background: var(--mdc-theme-background);
-    min-height: 250px;
+    min-height: 200px;
     border-radius: 12px;
     margin: 20px;
-    min-width: 438px;
-    max-width: 438px;
+    min-width: 375px;
+    max-width: 375px;
     overflow: hidden;
 
     .mdc-card__primary-action {
@@ -71,6 +71,7 @@
                 margin-bottom: 0;
             }
             .mdc-typography--subtitle2 {
+                color: var(--mdc-theme-primary);
                 margin-top: 0;
                 margin-bottom: 4px;
             }

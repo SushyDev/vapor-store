@@ -12,6 +12,8 @@
 .store .genres .genre-container .genre-title {
   margin-left: 5vw;
   color: var(--color);
+  font-size: 2.45rem;
+  margin-bottom: 20px;
 }
 .store .genres .genre-container .genre-cards {
   height: 100%;
@@ -21,6 +23,10 @@
 }
 .store .genres .genre-container .genre-cards .mdc-card:first-of-type {
   margin-left: 5vw;
+}
+.store .genres .genre-container .genre-cards::after {
+  content: "";
+  border-right: 20px solid transparent;
 }
 .store .genres .genre-container .genre-cards:hover::-webkit-scrollbar {
   display: initial;
@@ -34,5 +40,6 @@
 }
 .store .genres .genre-container .genre-cards::-webkit-scrollbar-thumb {
   border-left: 5vw solid var(--mdc-theme-background);
+  border-right: 40px solid var(--mdc-theme-background);
   border-radius: 0;
 }

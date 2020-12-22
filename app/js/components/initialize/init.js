@@ -25,6 +25,8 @@ const exec = require('child_process').exec;
 const createDesktopShortcut = require('../libraries/create-desktop-shortcuts');
 //If development
 const isDev = require('electron-is-dev');
+//Get installed steam games
+const humid = require('humid')
 
 //Electron stuff
 const {dialog, BrowserWindow, process, app} = require('electron').remote;

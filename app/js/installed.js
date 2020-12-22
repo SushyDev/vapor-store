@@ -14,7 +14,6 @@ document.onkeyup = function (e) {
     }
 };
 
-var createCardLatest;
 function createCard(search = undefined) {
     //Remove previous cards
     cards.innerHTML = '';
@@ -23,25 +22,17 @@ function createCard(search = undefined) {
     //Close gamestab
     closeGameTab();
 
-    createCardLatest = Symbol();
-    var createCardId = createCardLatest;
-    var page = sessionStorage.getItem('page');
-
     //Read the store games list json file
     $.getJSON(file, (data) => {
-        //Stop if new search
-        if (createCardId !== createCardLatest) return;
+
+        if (data['list'] == '') {
+            hideProgressBar()
+            return;
+        }
 
         //For every game in the list
         data['list'].forEach((game) => {
-            //Stop if new search
-
-            if (search != undefined) {
-                if (!game.name.includes(search.toLowerCase())) return;
-            }
-            if (createCardId !== createCardLatest) return;
-
-            //Format name for url
+            if (search != undefined) if (!game.name.includes(search.toLowerCase())) return;
 
             var gameDir = game.directory;
             var folderName = game.folder;
