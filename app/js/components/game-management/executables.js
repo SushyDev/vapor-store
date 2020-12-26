@@ -1,11 +1,12 @@
 //Create list of executables in game folder
 function gameListExec(gameTitle, gameFolder, folderName, launchDefault) {
     var subFolder = path.join(gameFolder, folderName);
-
+    
     if (launchDefault) {
         $.getJSON(file, (data) => {
             data['list'].forEach((game) => {
-                if (game.folder == path.resolve(gameFolder)) {
+                console.log(game.folder)
+                if (game.folder == folderName) {
                     if (!!game.default) {
                         gamePlay(path.resolve(game.default));
                     } else {
