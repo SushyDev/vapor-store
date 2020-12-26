@@ -1,0 +1,46 @@
+<head>
+    <link rel="stylesheet" href="../css/downloader.css" />
+    <link rel="stylesheet" href="../css/card-grid.css" />
+
+    <script src="../js/components/download-page/fetching-item.js"></script>
+    <script src="../js/components/download-page/downloading-item.js"></script>
+    <script src="../js/components/download-page/extracting-item.js"></script>
+
+    <script src="../js/components/card-grid/card-grid.js"></script>
+</head>
+
+<div class="downloader">
+    <div class="download-item-container" id="download-item-container"></div>
+    <div class="download-info-container game-info">
+        <div class="download-info-content" id="game-info-content">
+            <div class="top-row">
+                <div class="mdc-card" id="selected-game-download">
+                    <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="selected-game-cover"></div>
+                </div>
+                <div class="title-desc-container">
+                    <h1 class="mdc-typography--headline4" id="selected-game-title"></h1>
+                    <h1 class="mdc-typography--body2" id="selected-game-description"></h1>
+                </div>
+            </div>
+            <!--game info-->
+
+            <div class="bottom-row">
+                <div class="game-screenshots" id="game-screenshots"></div>
+                <div class="details">
+                    <div class="" id="age-rating"></div>
+                    <div class="" id="release-date"></div>
+                    <div class="" id="publisher"></div>
+                    <div class="" id="developer"></div>
+                    <div class="" id="platforms"></div>
+                    <div class="" id="genre"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" defer>
+    $(document).ready(function () {
+        mdc.autoInit();
+    });
+</script>

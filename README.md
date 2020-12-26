@@ -83,8 +83,13 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Implement better updater
 - [ ] Clean out the snackbar notification service code
 - [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
-- [ ] Make a notification when the download is completed
+- [ ] Make a desktop notification when the download is completed
 - [ ] When adding your own game have a option to select the metadata
+- [ ] Downloader tab
+- [ ] Download by link with metadata
+- [ ] Move localStorage to electron-store
+- [ ] Add warning when closing the app whilst downloading
+- [ ] Minimize to tray on close when downloading
 
 ### Issues
 

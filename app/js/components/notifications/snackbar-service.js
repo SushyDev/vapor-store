@@ -10,7 +10,7 @@ function createSnack(snackbarData) {
     var snackbar = document.createElement('div');
     snackbar.id = `${name}-snackbar`;
     if (!!main.role) snackbar.setAttribute('role', main.role);
-    snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
+    snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis snackbar--downloading';
     snackbar.innerHTML = `
                         <div class="mdc-snackbar__surface snack-flex" id="${name}-surface" progress="${progress.enabled}">
                             <div class="snack-content">
@@ -78,19 +78,18 @@ function closeSnackbar(name, alert, message) {
     }
     //Remove snackbar
     document.getElementById(`${name}-snackbar`).remove();
+
     return true;
 }
 
 function hideSnackbar(name) {
     //Ask for confirm if confirm = true
     //Remove snackbar
-    document.getElementById(`${name}-snackbar`).style.display = "none";
-    return true;
+    document.getElementById(`${name}-snackbar`).style.display = 'none';
 }
 
 function showSnackbar(name) {
     //Ask for confirm if confirm = true
     //Remove snackbar
     document.getElementById(`${name}-snackbar`).style.display = 'block';
-    return true;
 }

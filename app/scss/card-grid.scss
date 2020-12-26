@@ -65,7 +65,7 @@
         .game-card__primary {
             margin-top: auto;
             margin-bottom: 36px;
-            
+
             .mdc-typography--headline6 {
                 color: white;
                 margin-bottom: 0;
@@ -78,7 +78,8 @@
         }
     }
     .mdc-card__action-buttons {
-        margin-top: -48px;
+        height: 56px;
+        margin-top: -56px;
         margin-left: 12px;
     }
 }
@@ -101,7 +102,9 @@
     width: 100%;
     background: var(--mdc-theme-background);
     overflow-y: auto;
+}
 
+.game-info {
     .top-row {
         display: flex;
         margin: 32px;
@@ -141,9 +144,10 @@
     }
 
     .bottom-row {
-        display: flex;
+        display: grid;
         flex-direction: column;
         margin: 32px;
+        max-width: 100%;
 
         .game-screenshots {
             width: 100%;

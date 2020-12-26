@@ -29,7 +29,7 @@ const isDev = require('electron-is-dev');
 const humid = require('humid')
 
 //Electron stuff
-const {dialog, BrowserWindow, process, app} = require('electron').remote;
+const {dialog, BrowserWindow, ipcMain, process, Notification, app} = require('electron').remote;
 const {ipcRenderer, remote} = require('electron');
 const win = require('electron').remote.getCurrentWindow();
 

@@ -1,8 +1,12 @@
+var currentExtractions = [];
+
 //Extract zip in game file
 function extractDownload(targetPath, targetFolder, gameTitle) {
     var folderName = targetFolder.split(path.sep).pop();
     var zipFile = folderName + '.zip';
     var extractDir = targetFolder.replace(folderName, '');
+
+    currentExtractions.push(gameTitle);
 
     try {
         closeSnackbar(`${gameTitle}-extractyn`, false);
@@ -53,6 +57,7 @@ function extractDownload(targetPath, targetFolder, gameTitle) {
                 try {
                     document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${scalePercent})`;
                     document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracting ${zipFile} ${progress.toFixed(2)}%`;
+                    ipcRenderer.send('item-extraction-progress', gameTitle, zipFile, progress);
                 } catch (e) {}
             },
         });
@@ -63,9 +68,16 @@ function extractDownload(targetPath, targetFolder, gameTitle) {
             }
         });
 
+        //Function for getting key from game name
+        var indexNum = currentExtractions.findIndex((key) => key === gameTitle);
+        delete currentExtractions[indexNum];
+        currentExtractions = currentExtractions.filter((n) => n);
+
         document.getElementById(`${gameTitle}-extract-snack-actions`).style.display = 'none';
         showSnackbar(`${gameTitle}-extract`);
         document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracted ${zipFile}`;
+
+        ipcRenderer.send('item-extraction-complete', gameTitle);
 
         //Close snackbar after 2.5 sec
         setTimeout(() => {

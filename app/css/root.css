@@ -13265,7 +13265,7 @@ a.mdc-list-item {
   --mdc-theme-primary: #40c4ff;
   --mdc-theme-secondary: #f57ba4;
   --mdc-theme-background: #ffffff;
-  --drawer-selected: rgba(255, 168, 253, 0.12);
+  --divider-color: rgba(0, 0, 0, 0.12);
   --el1: #bdbdbd;
   --el2: #eeeeee;
   --drawer-bg: #eeeeee;
@@ -13277,8 +13277,9 @@ a.mdc-list-item {
 
 [data-theme=dark] {
   --mdc-theme-primary: #40c4ff;
-  --mdc-theme-secondary: rgb(245, 123, 164);
+  --mdc-theme-secondary: #f57ba4;
   --mdc-theme-background: #121212;
+  --divider-color: rgba(0, 0, 0, 0.12)
   --el1: #bdbdbd;
   --el2: #1d1d1d;
   --drawer-bg: #212121;
@@ -13440,4 +13441,8 @@ body .mdc-text-field--outlined:not(.mdc-text-field--label-floating) .mdc-floatin
 .mdc-button,
 .mdc-linear-progress {
   --mdc-theme-primary: var(--mdc-theme-secondary);
+}
+
+.mdc-list-divider {
+  border-color: var(--divider-color);
 }

@@ -1,4 +1,5 @@
-var started = [];
+var currentDownloadName = [];
+var currentDownloadData = [];
 
 function startDownload(url, dir, gameTitle) {
     var {download} = require('electron').remote.require('electron-dl');
@@ -6,14 +7,24 @@ function startDownload(url, dir, gameTitle) {
         directory: dir,
         allowOverwrite: true,
         onStarted: (item) => {
-            if (started.includes(gameTitle)) return;
-            started.push(gameTitle);
+            if (currentDownloadName.includes(gameTitle)) return;
+            currentDownloadName.push(gameTitle);
 
             var downloadDir = localStorage.getItem('downloadDir');
             var zipFile = item.getFilename();
             var fullPath = path.join(downloadDir, zipFile);
             var folderName = zipFile.slice(0, -4);
             var fileType = zipFile.substr(-3);
+            var startTime = Date.now();
+
+            var downloadData = {
+                gameTitle: gameTitle,
+                zipFile: zipFile,
+                fullPath: fullPath,
+                url: url,
+            };
+
+            currentDownloadData.push(downloadData);
 
             var snackbarData = {
                 ['main']: [
@@ -67,11 +78,17 @@ function startDownload(url, dir, gameTitle) {
             ipcRenderer.on(`${gameTitle}-resume`, () => {
                 item.resume();
             });
-            
+
             ipcRenderer.on(`${gameTitle}-cancel`, () => {
                 item.cancel();
                 //remove item from currently downloading list
-                downloading.shift();
+
+                var indexNum = currentDownloadData.findIndex((key) => key.gameTitle === gameTitle);
+
+                delete currentDownloadData[indexNum];
+
+                currentDownloadData = currentDownloadData.filter((n) => n);
+
                 //Stop
                 return;
             });
@@ -88,6 +105,9 @@ function startDownload(url, dir, gameTitle) {
 
                     document.getElementById(`${gameTitle}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
                     document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Downloading ${zipFile} ${downloadPercent.toFixed(2)}%`;
+
+                    //Send item data to downloader
+                    ipcRenderer.send('item-updated-data', {received: received_bytes, total: total_bytes, startTime: startTime}, downloadData, gameTitle);
                 } catch (e) {
                     /* Can error on download finish so it catches here */
                 }
@@ -98,7 +118,10 @@ function startDownload(url, dir, gameTitle) {
                 //On download complete
                 if (state === 'completed') {
                     //Remove downloaded game from array
-                    downloading.shift();
+                    currentDownloadData.shift();
+
+                    //Send item download completed
+                    ipcRenderer.send('item-download-completed', gameTitle);
 
                     //Remove download snackbar
                     closeSnackbar(`${gameTitle}-download`, false);
@@ -152,12 +175,22 @@ function startDownload(url, dir, gameTitle) {
                         ],
                     };
 
+                    const notification = {
+                        title: `${zipFile} download complete!`,
+                        body: 'Return to Vapor Store for further actions',
+                        icon: path.join(process.cwd(), 'assets/icons/png/icon.png'),
+                    };
+                    new Notification(notification).show();
+
                     //Extract downloaded zip file
                     if (fileType == 'zip') {
                         if (localStorage.getItem('autoExtract') == 'true') {
                             //If auto extract is on skip this step and extract automatically
                             extractDownload(fullPath, path.join(downloadDir, folderName), gameTitle);
-                        } else createSnack(snackbarData);
+                        } else {
+                            createSnack(snackbarData);
+                            ipcRenderer.send('item-extraction-confirm', fullPath, path.join(downloadDir, folderName), gameTitle);
+                        }
                     }
                 } else {
                     //Download didnt complete

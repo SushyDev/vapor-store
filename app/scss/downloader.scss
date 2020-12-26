@@ -1,0 +1,92 @@
+@import '@material/linear-progress';
+
+.snackbar--downloading {
+    display: none !important;
+}
+
+.downloader {
+    display: grid;
+    grid-template-columns: 600px auto;
+
+    .download-item-container {
+        //MDC Divider
+        border-right: 1px solid;
+        border-color: var(--divider-color);
+        width: 600px;
+        min-width: 600px;
+        height: calc(100vh - 64px);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .downloader-list-item {
+            background-color: var(--drawer-bg);
+
+            &.active {
+                border-right: 3px solid var(--mdc-theme-primary);
+            }
+
+            .download-item-body {
+                .download-item-content {
+                    margin-left: 26px;
+                    margin-bottom: 12px;
+
+                    .title-desc {
+                        h1 {
+                            margin-bottom: 0px;
+                            word-wrap: break-word;
+                            width: 95%;
+                        }
+                    }
+
+                    .mdc-linear-progress {
+                        --mdc-theme-primary: #40c4ff;
+                        height: 7px;
+                        width: calc(100% - 32px);
+                        border-radius: 4px;
+
+                        .mdc-linear-progress__bar-inner {
+                            border-top-width: 30px;
+                        }
+                    }
+                }
+            }
+
+            .download-item-actions {
+                height: 52px;
+                display: flex;
+                align-items: center;
+
+                .mdc-button:first-of-type {
+                    margin-left: 26px;
+                }
+            }
+        }
+    }
+
+    .download-info-container {
+        .download-info-content {
+            display: none;
+        }
+        height: calc(100vh - 64px);
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 1560px) {
+    .downloader {
+        .download-info-container {
+            .top-row {
+                flex-direction: column;
+
+                .title-desc-container {
+                    margin-left: 26px;
+                }
+            }
+        }
+    }
+}

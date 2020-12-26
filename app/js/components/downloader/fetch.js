@@ -1,10 +1,10 @@
 //List of currently downloading games
-var downloading = [];
+var fetchingDownload = [];
 
 //Download game
 function fetchDownload(gameTitle) {
     //If already downloading
-    if (downloading.includes(gameTitle)) {
+    if (fetchingDownload.includes(gameTitle)) {
         MDCAlert('Already downloading this game');
         return;
     }
@@ -39,7 +39,9 @@ function fetchDownload(gameTitle) {
     createSnack(snackbarData);
 
     //Add downloading game to array
-    downloading.push(gameTitle);
+    fetchingDownload.push(gameTitle);
+
+    ipcRenderer.send('item-fetch-data', gameTitle);
 
     //Get file from local storage
     var file = localStorage.getItem('listFile');
@@ -132,10 +134,17 @@ async function getDownloadURL(url, gameTitle) {
         fs.mkdirSync(targetFolder);
     }
 
+    fetchingDownload.shift();
     return downloadUrl;
 }
 
 function setFetchProgress(gameTitle, progress) {
     //Progress
     document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${progress})`;
+
+    if (progress == '1') {
+        ipcRenderer.send('item-fetching-complete', gameTitle);
+    } else {
+        ipcRenderer.send('item-fetching-progress', gameTitle, progress);
+    }
 }

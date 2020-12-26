@@ -133,7 +133,15 @@ async function addMetadata(name, type) {
         });
     });
 
-    document.getElementById('selected-game').style.display = 'initial';
+    if (type == 'downloader') {
+        console.log(gameInfo.background_image);
+        document.getElementById('selected-game-cover').style.backgroundImage = `url('${gameInfo.background_image}')`;
+    }
+
+    try {
+        document.getElementById('selected-game').style.display = 'initial';
+    } catch (e) { }
+    
     //Reset scroll
     $('#selected-game').scrollTop(0);
     hideProgressBar();

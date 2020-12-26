@@ -21,7 +21,7 @@ window.addEventListener('resize', () => {
 });
 
 //Jquery function for dynamically loading in content to the main-content div
-function goto(page = 'Home') {
+function goto(page = 'Downloader') {
     document.getElementById('top-app-bar-title').innerHTML = page;
 
     $('#main-content').load('../html/' + page.toLowerCase().replace(/ /g, '_') + '.html');

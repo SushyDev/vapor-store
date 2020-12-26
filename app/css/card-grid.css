@@ -67,7 +67,8 @@
   margin-bottom: 4px;
 }
 .mdc-card .mdc-card__action-buttons {
-  margin-top: -48px;
+  height: 56px;
+  margin-top: -56px;
   margin-left: 12px;
 }
 
@@ -88,73 +89,75 @@
   background: var(--mdc-theme-background);
   overflow-y: auto;
 }
-.selected-game .top-row {
+
+.game-info .top-row {
   display: flex;
   margin: 32px;
   width: fit-content;
 }
-.selected-game .top-row.installed .mdc-typography--headline6 {
+.game-info .top-row.installed .mdc-typography--headline6 {
   margin-bottom: 44.6px !important;
 }
-.selected-game .top-row .mdc-card {
+.game-info .top-row .mdc-card {
   min-width: 360px;
   min-height: 600px;
   overflow: visible;
 }
-.selected-game .top-row .mdc-card .mdc-card__primary-action {
+.game-info .top-row .mdc-card .mdc-card__primary-action {
   min-height: 600px;
   overflow: hidden;
   border-radius: 8px;
 }
-.selected-game .top-row .title-desc-container {
+.game-info .top-row .title-desc-container {
   display: flex;
   flex-direction: column;
   color: var(--color);
 }
-.selected-game .top-row .title-desc-container .mdc-typography--body2 {
+.game-info .top-row .title-desc-container .mdc-typography--body2 {
   width: 100%;
   max-height: 495px;
   overflow-y: auto;
 }
-.selected-game .top-row .title-desc-container .mdc-typography--body2 * {
+.game-info .top-row .title-desc-container .mdc-typography--body2 * {
   width: 95%;
 }
-.selected-game .bottom-row {
-  display: flex;
+.game-info .bottom-row {
+  display: grid;
   flex-direction: column;
   margin: 32px;
+  max-width: 100%;
 }
-.selected-game .bottom-row .game-screenshots {
+.game-info .bottom-row .game-screenshots {
   width: 100%;
   height: 400px;
   display: flex;
   overflow-x: auto;
   border-radius: 10px;
 }
-.selected-game .bottom-row .game-screenshots img {
+.game-info .bottom-row .game-screenshots img {
   object-fit: cover;
   width: 500px;
   border-radius: 10px;
   margin-bottom: 12px;
 }
-.selected-game .bottom-row .game-screenshots img:not(:last-of-type) {
+.game-info .bottom-row .game-screenshots img:not(:last-of-type) {
   margin-right: 12px;
 }
-.selected-game .bottom-row .details {
+.game-info .bottom-row .details {
   width: 100%;
   display: flex;
   justify-content: space-around;
   color: var(--color);
   margin-top: 16px;
 }
-.selected-game .bottom-row .details div {
+.game-info .bottom-row .details div {
   display: flex;
   flex-direction: column;
 }
-.selected-game .bottom-row .details div p {
+.game-info .bottom-row .details div p {
   margin: 2px 0;
 }
-.selected-game .back-button-container {
+.game-info .back-button-container {
   width: 64px;
   height: 64px;
   display: flex;
@@ -167,26 +170,26 @@
   z-index: 7;
   -webkit-app-region: no-drag;
 }
-.selected-game .back-button-container button {
+.game-info .back-button-container button {
   color: white;
 }
-.selected-game .back-button-container button::before, .selected-game .back-button-container button::after {
+.game-info .back-button-container button::before, .game-info .back-button-container button::after {
   background-color: white;
 }
-.selected-game .back-button-container button:hover::before {
+.game-info .back-button-container button:hover::before {
   opacity: 0.08;
 }
-.selected-game .back-button-container button.mdc-ripple-upgraded--background-focused::before, .selected-game .back-button-container button:not(.mdc-ripple-upgraded):focus::before {
+.game-info .back-button-container button.mdc-ripple-upgraded--background-focused::before, .game-info .back-button-container button:not(.mdc-ripple-upgraded):focus::before {
   transition-duration: 75ms;
   opacity: 0.24;
 }
-.selected-game .back-button-container button:not(.mdc-ripple-upgraded)::after {
+.game-info .back-button-container button:not(.mdc-ripple-upgraded)::after {
   transition: opacity 150ms linear;
 }
-.selected-game .back-button-container button:not(.mdc-ripple-upgraded):active::after {
+.game-info .back-button-container button:not(.mdc-ripple-upgraded):active::after {
   transition-duration: 75ms;
   opacity: 0.24;
 }
-.selected-game .back-button-container button.mdc-ripple-upgraded {
+.game-info .back-button-container button.mdc-ripple-upgraded {
   --mdc-ripple-fg-opacity: 0.24;
 }
