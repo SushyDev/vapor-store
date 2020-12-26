@@ -12,25 +12,26 @@ function fetchDownload(gameTitle) {
     var snackbarData = {
         ['main']: [
             {
-                name: `${gameTitle}-download-starting`,
-                role: 'downloadStarting',
+                name: `${gameTitle}-fetching`,
             },
         ],
         ['progress']: [
             {
-                enabled: true,
-                id: `${gameTitle}-progress`,
+                id: `${gameTitle}-fetching-progress`,
             },
         ],
         ['label']: [
             {
-                id: `download-starting-snackbar-title`,
-                innerHTML: `Download is starting...`,
+                id: `fetching-snackbar-title`,
+                innerHTML: `Fetching download`,
             },
         ],
         ['close']: [
             {
-                enabled: false,
+                onclick: `hideSnackbar('${gameTitle}-fetching')`,
+                title: 'Hide',
+                icon: 'keyboard_arrow_down',
+                id: `${gameTitle}-fetching-hide`,
             },
         ],
     };
@@ -140,7 +141,7 @@ async function getDownloadURL(url, gameTitle) {
 
 function setFetchProgress(gameTitle, progress) {
     //Progress
-    document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${progress})`;
+    document.getElementById(`${gameTitle}-fetching-progress`).style.transform = `scaleX(${progress})`;
 
     if (progress == '1') {
         ipcRenderer.send('item-fetching-complete', gameTitle);

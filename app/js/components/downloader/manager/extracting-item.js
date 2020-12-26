@@ -54,7 +54,22 @@ ipcMain.on('item-extraction-complete', (event, gameTitle) => {
     removeItem(gameTitle, 'extraction');
 });
 
-ipcMain.on('item-extraction-confirm', (event, fullPath, targetFolder, gameTitle) => {
+function checkConfirmExtract() {
+    extractNeedsConfirm.forEach((game) => {
+        if (!document.getElementById(`${game.gameTitle}-extraction-item`)) createConfirmExtract(game);
+    });
+}
+checkConfirmExtract();
+
+ipcMain.on('item-extraction-confirm', () => {
+    checkConfirmExtract();
+});
+
+function createConfirmExtract(game) {
+    var gameTitle = game.gameTitle;
+    var fullPath = game.fullPath;
+    var targetFolder = game.targetFolder;
+
     if (!!document.getElementById(`${gameTitle}-confirm-item`)) return;
 
     var folderName = targetFolder.split(path.sep).pop();
@@ -100,12 +115,17 @@ ipcMain.on('item-extraction-confirm', (event, fullPath, targetFolder, gameTitle)
     document.getElementById('download-item-container').appendChild(item);
 
     window.mdc.autoInit();
-});
+}
 
 async function cancelExtract(name, alert, message, gameTitle) {
     //if pressed cancel dont continue
-    console.log(`${name}-snackbar`);
     if (!closeSnackbar(`${name}`, alert, message)) return;
+
+    var indexNum = extractNeedsConfirm.findIndex((key) => key.gameTitle === gameTitle);
+
+    delete extractNeedsConfirm[indexNum];
+
+    extractNeedsConfirm = extractNeedsConfirm.filter((n) => n);
 
     removeItem(gameTitle, 'confirm');
 }

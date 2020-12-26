@@ -1,5 +1,6 @@
 var currentDownloadName = [];
 var currentDownloadData = [];
+var extractNeedsConfirm = [];
 
 function startDownload(url, dir, gameTitle) {
     var {download} = require('electron').remote.require('electron-dl');
@@ -34,8 +35,7 @@ function startDownload(url, dir, gameTitle) {
                 ],
                 ['progress']: [
                     {
-                        enabled: true,
-                        id: `${gameTitle}-completed-progress`,
+                        id: `${gameTitle}-download-progress`,
                     },
                 ],
                 ['label']: [
@@ -44,29 +44,18 @@ function startDownload(url, dir, gameTitle) {
                         innerHTML: `Downloading ${zipFile} 0%`,
                     },
                 ],
-                ['actions']: [
-                    {
-                        type: 'button',
-                        innerHTML: 'Pause',
-                        labelid: `${gameTitle}-pause-button__label`,
-                        class: 'pause-button',
-                        id: 'pause-button',
-                        onclick: `pauseDownload('${gameTitle}')`,
-                    },
-                ],
                 ['close']: [
                     {
-                        enabled: true,
-                        onclick: `cancelDownload('${gameTitle}', true, 'Are you sure you want to cancel the download for ${zipFile}', '${fullPath.replace(/\\/g, '/')}')`,
-                        title: 'Cancel',
-                        icon: 'close',
-                        id: `${gameTitle}-close`,
+                        onclick: `hideSnackbar('${gameTitle}-download')`,
+                        title: 'Hide',
+                        icon: 'keyboard_arrow_down',
+                        id: `${gameTitle}-hide`,
                     },
                 ],
             };
 
             //Remove starting snackbar
-            if (!gameTitle.includes('vapor-store-update')) closeSnackbar(`${gameTitle}-download-starting`, false);
+            if (!gameTitle.includes('vapor-store-update')) closeSnackbar(`${gameTitle}-fetching`, false);
 
             //Create snackbar
             createSnack(snackbarData);
@@ -103,7 +92,7 @@ function startDownload(url, dir, gameTitle) {
                     var downloadPercent = (received_bytes * 100) / total_bytes;
                     var scalePercent = downloadPercent / 100;
 
-                    document.getElementById(`${gameTitle}-completed-progress`).style.transform = `scaleX(${scalePercent})`;
+                    document.getElementById(`${gameTitle}-download-progress`).style.transform = `scaleX(${scalePercent})`;
                     document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Downloading ${zipFile} ${downloadPercent.toFixed(2)}%`;
 
                     //Send item data to downloader
@@ -120,28 +109,16 @@ function startDownload(url, dir, gameTitle) {
                     //Remove downloaded game from array
                     currentDownloadData.shift();
 
-                    //Send item download completed
-                    ipcRenderer.send('item-download-completed', gameTitle);
-
                     //Remove download snackbar
                     closeSnackbar(`${gameTitle}-download`, false);
 
-                    //Add downloaded game to library or install update
-                    if (gameTitle == 'vapor-store-update') {
-                        installUpdate(zipFile);
-                    } else {
-                        addGameToLibrary(fullPath, path.join(downloadDir, folderName), gameTitle);
-                    }
+                    //Send item download completed
+                    ipcRenderer.send('item-download-completed', gameTitle);
 
-                    var snackbarData = {
+                    var extractConfirmSnackbar = {
                         ['main']: [
                             {
-                                name: `${gameTitle}-extractyn`,
-                            },
-                        ],
-                        ['progress']: [
-                            {
-                                enabled: false,
+                                name: `${gameTitle}-extract-confirm`,
                             },
                         ],
                         ['label']: [
@@ -155,26 +132,30 @@ function startDownload(url, dir, gameTitle) {
                                 type: 'button',
                                 innerHTML: 'Yes',
                                 labelid: `${gameTitle}-extract-button__label`,
-                                class: 'yes-extract-button',
-                                id: 'yes-extract-button',
+                                class: 'extract-button',
+                                id: 'extract-button',
                                 onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${path.join(downloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
                             },
                             {
                                 type: 'button',
                                 innerHTML: 'No',
                                 labelid: `${gameTitle}-close-button__label`,
-                                class: 'no-extract-button',
-                                id: 'no-extract-button',
+                                class: 'close-button',
+                                id: 'close-button',
                                 onclick: `closeSnackbar('${gameTitle}-extractyn', true, "Are you sure you don't want to extract ${zipFile}")`,
-                            },
-                        ],
-                        ['close']: [
-                            {
-                                enabled: false,
                             },
                         ],
                     };
 
+                    //Add downloaded game to library or install update
+                    if (gameTitle == 'vapor-store-update') {
+                        installUpdate(zipFile);
+                    } else {
+                        createSnack(extractConfirmSnackbar);
+                        addGameToLibrary(fullPath, path.join(downloadDir, folderName), gameTitle);
+                    }
+
+                    //Create notification
                     const notification = {
                         title: `${zipFile} download complete!`,
                         body: 'Return to Vapor Store for further actions',
@@ -188,8 +169,15 @@ function startDownload(url, dir, gameTitle) {
                             //If auto extract is on skip this step and extract automatically
                             extractDownload(fullPath, path.join(downloadDir, folderName), gameTitle);
                         } else {
-                            createSnack(snackbarData);
-                            ipcRenderer.send('item-extraction-confirm', fullPath, path.join(downloadDir, folderName), gameTitle);
+                            var extractConfirmData = {
+                                fullPath: fullPath,
+                                targetFolder: path.join(downloadDir, folderName),
+                                gameTitle: gameTitle,
+                            };
+
+                            extractNeedsConfirm.push(extractConfirmData);
+
+                            ipcRenderer.send('item-extraction-confirm');
                         }
                     }
                 } else {
@@ -199,23 +187,4 @@ function startDownload(url, dir, gameTitle) {
             });
         },
     });
-}
-
-//Pause / resume download
-function pauseDownload(name) {
-    if (document.getElementById(`${name}-pause-button__label`).innerHTML == 'Pause') {
-        ipcRenderer.sendTo(mainWindow.id, `${name}-pause`);
-        document.getElementById(`${name}-pause-button__label`).innerHTML = 'Resume';
-    } else {
-        ipcRenderer.sendTo(mainWindow.id, `${name}-resume`);
-        document.getElementById(`${name}-pause-button__label`).innerHTML = 'Pause';
-    }
-}
-
-//Cancel download
-function cancelDownload(name, alert, message, targetPath) {
-    //if pressed cancel dont continue
-    if (!closeSnackbar(`${name}-download`, alert, message)) return;
-    //set canceled in localstorage
-    ipcRenderer.sendTo(mainWindow.id, `${name}-cancel`);
 }

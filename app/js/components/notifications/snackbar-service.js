@@ -1,18 +1,22 @@
 function createSnack(snackbarData) {
     var main = snackbarData.main[0];
-    var progress = snackbarData.progress[0];
     var label = snackbarData.label[0];
-    var close = snackbarData.close[0];
-
+    var close;
+    var progress;
+    var hasprogress = false;
     var name = main.name;
+
+    try {
+        progress = snackbarData.progress[0];
+        hasprogress = true;
+    } catch (e) {}
 
     //Create snackbar
     var snackbar = document.createElement('div');
     snackbar.id = `${name}-snackbar`;
-    if (!!main.role) snackbar.setAttribute('role', main.role);
-    snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis snackbar--downloading';
+    snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
     snackbar.innerHTML = `
-                        <div class="mdc-snackbar__surface snack-flex" id="${name}-surface" progress="${progress.enabled}">
+                        <div class="mdc-snackbar__surface snack-flex" id="${name}-surface" progress="${hasprogress}">
                             <div class="snack-content">
                                 <div class="mdc-snackbar__label" role="status" aria-live="polite" id="${label.id}">${label.innerHTML}</div>
                                 <div class="mdc-snackbar__actions" id="${name}-snack-actions"></div>
@@ -22,8 +26,9 @@ function createSnack(snackbarData) {
     document.getElementById('snackbar-container').appendChild(snackbar);
 
     //Add progress
-    if (progress.enabled) {
-        var progressbar = document.createElement('div');
+    if (!!snackbarData.progress) {
+        let progress = snackbarData.progress[0];
+        let progressbar = document.createElement('div');
         progressbar.setAttribute('role', 'progressbar');
         progressbar.className = 'mdc-linear-progress';
         progressbar.innerHTML = `
@@ -38,7 +43,7 @@ function createSnack(snackbarData) {
     //Make buttons in action menu
     if (!!snackbarData.actions) {
         snackbarData.actions.forEach((action) => {
-            var actionButton = document.createElement(action.type);
+            let actionButton = document.createElement(action.type);
             actionButton.className = 'mdc-button mdc-snackbar__action';
             actionButton.setAttribute('onclick', `${action.onclick}`);
             actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
@@ -48,13 +53,12 @@ function createSnack(snackbarData) {
                         `;
             document.getElementById(`${name}-snack-actions`).appendChild(actionButton);
         });
-    } else {
-        document.getElementById(`${name}-snack-actions`).remove();
     }
 
     //Add close button
-    if (close.enabled) {
-        var closeButton = document.createElement('button');
+    if (!!snackbarData.close) {
+        let close = snackbarData.close[0];
+        let closeButton = document.createElement('button');
         closeButton.id = close.id;
         closeButton.className = 'mdc-icon-button mdc-snackbar__dismiss material-icons';
         closeButton.setAttribute('title', close.title);
@@ -70,10 +74,10 @@ function createSnack(snackbarData) {
 }
 
 //Close snackbar / cancel download
-function closeSnackbar(name, alert, message) {
+function closeSnackbar(name, alert = false, message) {
     //Ask for confirm if confirm = true
     if (alert) {
-        var confirmed = confirm(message);
+        let confirmed = confirm(message);
         if (!confirmed) return confirmed;
     }
     //Remove snackbar

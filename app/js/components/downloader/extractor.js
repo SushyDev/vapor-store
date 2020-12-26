@@ -2,17 +2,23 @@ var currentExtractions = [];
 
 //Extract zip in game file
 function extractDownload(targetPath, targetFolder, gameTitle) {
-    var folderName = targetFolder.split(path.sep).pop();
-    var zipFile = folderName + '.zip';
-    var extractDir = targetFolder.replace(folderName, '');
+    let folderName = targetFolder.split(path.sep).pop();
+    let zipFile = folderName + '.zip';
+    let extractDir = targetFolder.replace(folderName, '');
+
+    let indexNum = extractNeedsConfirm.findIndex((key) => key.gameTitle === gameTitle);
+
+    delete extractNeedsConfirm[indexNum];
+
+    extractNeedsConfirm = extractNeedsConfirm.filter((n) => n);
 
     currentExtractions.push(gameTitle);
 
     try {
-        closeSnackbar(`${gameTitle}-extractyn`, false);
+        closeSnackbar(`${gameTitle}-extract-confirm`);
     } catch (e) {}
 
-    var snackbarData = {
+    let snackbarData = {
         ['main']: [
             {
                 name: `${gameTitle}-extract`,
@@ -20,7 +26,6 @@ function extractDownload(targetPath, targetFolder, gameTitle) {
         ],
         ['progress']: [
             {
-                enabled: true,
                 id: `${gameTitle}-progress`,
             },
         ],
@@ -30,10 +35,8 @@ function extractDownload(targetPath, targetFolder, gameTitle) {
                 innerHTML: `Extracting ${zipFile} 0%`,
             },
         ],
-        ['actions']: [],
         ['close']: [
             {
-                enabled: true,
                 onclick: `hideSnackbar('${gameTitle}-extract')`,
                 title: 'Hide',
                 icon: 'keyboard_arrow_down',
@@ -73,15 +76,8 @@ function extractDownload(targetPath, targetFolder, gameTitle) {
         delete currentExtractions[indexNum];
         currentExtractions = currentExtractions.filter((n) => n);
 
-        document.getElementById(`${gameTitle}-extract-snack-actions`).style.display = 'none';
-        showSnackbar(`${gameTitle}-extract`);
-        document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracted ${zipFile}`;
+        closeSnackbar(`${gameTitle}-extract`, false);
 
         ipcRenderer.send('item-extraction-complete', gameTitle);
-
-        //Close snackbar after 2.5 sec
-        setTimeout(() => {
-            closeSnackbar(`${gameTitle}-extract`, false);
-        }, 5000);
     })();
 }

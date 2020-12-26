@@ -105,4 +105,4 @@ function addSteamInstalled() {
         })();
     });
 }
-addSteamInstalled();
+if (!isDev) addSteamInstalled();

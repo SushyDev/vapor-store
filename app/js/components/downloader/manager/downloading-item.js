@@ -31,11 +31,11 @@ function createDownloadItem(game) {
     </div>
 </div>
 <div class="download-item-actions" id="${game.gameTitle}-download-item-actions">
-    <button class="mdc-button" data-mdc-auto-init="MDCRipple" onclick="downloaderPause('${game.gameTitle}')">
+    <button class="mdc-button" data-mdc-auto-init="MDCRipple" onclick="downloadPause('${game.gameTitle}')">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label" id="${game.gameTitle}-downloader-pause-button__label">Pause</span>
     </button>
-    <button class="mdc-button" data-mdc-auto-init="MDCRipple" onclick="downloaderCancel('${game.gameTitle}', true, 'Are you sure you want to cancel the download for ${game.zipFile}')">
+    <button class="mdc-button" data-mdc-auto-init="MDCRipple" onclick="downloadCancel('${game.gameTitle}', true, 'Are you sure you want to cancel the download for ${game.zipFile}')">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Cancel</span>
     </button>
@@ -76,26 +76,6 @@ ipcMain.on('item-updated-data', (e, item, data, gameTitle) => {
         mlp.progress = scalePercent;
     } catch (e) {}
 });
-
-function downloaderPause(name) {
-    if (document.getElementById(`${name}-downloader-pause-button__label`).innerHTML == 'Pause') {
-        ipcRenderer.sendTo(mainWindow.id, `${name}-pause`);
-        document.getElementById(`${name}-downloader-pause-button__label`).innerHTML = 'Resume';
-    } else {
-        ipcRenderer.sendTo(mainWindow.id, `${name}-resume`);
-        document.getElementById(`${name}-downloader-pause-button__label`).innerHTML = 'Pause';
-    }
-}
-
-//Cancel download
-async function downloaderCancel(name, alert, message) {
-    //if pressed cancel dont continue
-    if (!closeSnackbar(`${name}-download`, alert, message));
-    //set canceled in localstorage
-    ipcRenderer.sendTo(mainWindow.id, `${name}-cancel`);
-
-    removeItem(name, 'download');
-}
 
 ipcMain.on('item-download-completed', (event, gameTitle) => {
     try {
