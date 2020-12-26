@@ -4,11 +4,11 @@
     display: none !important;
 }
 
-.downloader {
+.downloads {
     display: grid;
     grid-template-columns: 600px auto;
 
-    .download-item-container {
+    .downloads-list {
         //MDC Divider
         border-right: 1px solid;
         border-color: var(--divider-color);
@@ -23,7 +23,7 @@
             display: none;
         }
 
-        .downloader-list-item {
+        .download-item {
             background-color: var(--drawer-bg);
 
             &.active {
@@ -68,8 +68,8 @@
         }
     }
 
-    .download-info-container {
-        .download-info-content {
+    .download-item-info-container {
+        .download-item-info {
             display: none;
         }
         height: calc(100vh - 64px);
@@ -77,9 +77,16 @@
     }
 }
 
+.mdc-fab {
+    z-index: 10;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+}
+
 @media (max-width: 1560px) {
-    .downloader {
-        .download-info-container {
+    .downloads {
+        .download-item-info-container {
             .top-row {
                 flex-direction: column;
 

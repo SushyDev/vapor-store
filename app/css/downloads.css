@@ -1,0 +1,76 @@
+.snackbar-container {
+  display: none !important;
+}
+
+.downloads {
+  display: grid;
+  grid-template-columns: 600px auto;
+}
+.downloads .downloads-list {
+  border-right: 1px solid;
+  border-color: var(--divider-color);
+  width: 600px;
+  min-width: 600px;
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.downloads .downloads-list::-webkit-scrollbar {
+  display: none;
+}
+.downloads .downloads-list .download-item {
+  background-color: var(--drawer-bg);
+}
+.downloads .downloads-list .download-item.active {
+  border-right: 3px solid var(--mdc-theme-primary);
+}
+.downloads .downloads-list .download-item .download-item-body .download-item-content {
+  margin-left: 26px;
+  margin-bottom: 12px;
+}
+.downloads .downloads-list .download-item .download-item-body .download-item-content .title-desc h1 {
+  margin-bottom: 0px;
+  word-wrap: break-word;
+  width: 95%;
+}
+.downloads .downloads-list .download-item .download-item-body .download-item-content .mdc-linear-progress {
+  --mdc-theme-primary: #40c4ff;
+  height: 7px;
+  width: calc(100% - 32px);
+  border-radius: 4px;
+}
+.downloads .downloads-list .download-item .download-item-body .download-item-content .mdc-linear-progress .mdc-linear-progress__bar-inner {
+  border-top-width: 30px;
+}
+.downloads .downloads-list .download-item .download-item-actions {
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+.downloads .downloads-list .download-item .download-item-actions .mdc-button:first-of-type {
+  margin-left: 26px;
+}
+.downloads .download-item-info-container {
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+.downloads .download-item-info-container .download-item-info {
+  display: none;
+}
+
+.mdc-fab {
+  z-index: 10;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+@media (max-width: 1560px) {
+  .downloads .download-item-info-container .top-row {
+    flex-direction: column;
+  }
+  .downloads .download-item-info-container .top-row .title-desc-container {
+    margin-left: 26px;
+  }
+}

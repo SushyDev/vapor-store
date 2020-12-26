@@ -1,18 +1,21 @@
 <head>
-    <link rel="stylesheet" href="../css/downloader.css" />
+    <link rel="stylesheet" href="../css/downloads.css" />
     <link rel="stylesheet" href="../css/card-grid.css" />
 
-    <script src="../js/components/downloader/manager/fetching-item.js"></script>
-    <script src="../js/components/downloader/manager/downloading-item.js"></script>
-    <script src="../js/components/downloader/manager/extracting-item.js"></script>
+    <script src="../js/downloads.js"></script>
+
+    <script src="../js/components/downloader/downloads/fetching-item.js"></script>
+    <script src="../js/components/downloader/downloads/downloading-item.js"></script>
+    <script src="../js/components/downloader/downloads/extracting-item.js"></script>
 
     <script src="../js/components/card-grid/card-grid.js"></script>
 </head>
 
-<div class="downloader">
-    <div class="download-item-container" id="download-item-container"></div>
-    <div class="download-info-container game-info">
-        <div class="download-info-content" id="game-info-content">
+<div class="downloads">
+    <div class="downloads-list" id="downloads-list"></div>
+
+    <div class="download-item-info-container game-info">
+        <div class="download-item-info" id="download-item-info">
             <div class="top-row">
                 <div class="mdc-card" id="selected-game-download">
                     <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="selected-game-cover"></div>
@@ -38,6 +41,12 @@
         </div>
     </div>
 </div>
+
+<!--Add download-->
+<button class="mdc-fab" aria-label="Favorite" onclick="addDownload()" data-mdc-auto-init="MDCRipple">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">add</span>
+</button>
 
 <script type="text/javascript" defer>
     $(document).ready(function () {

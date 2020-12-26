@@ -6,7 +6,7 @@ function checkCurrentExtractions() {
 
 function createExtractingItem(gameTitle) {
     let item = document.createElement('div');
-    item.className = 'extraction-item downloader-list-item';
+    item.className = 'extraction download-item';
     item.id = `${gameTitle}-extraction-item`;
     item.innerHTML = `
      <div class="download-item-body mdc-ripple-surface" data-mdc-auto-init="MDCRipple" onclick="selectDownload(this); addMetadata('${gameTitle}', 'downloader')">
@@ -33,7 +33,7 @@ function createExtractingItem(gameTitle) {
     `;
 
     try {
-        document.getElementById('download-item-container').appendChild(item);
+        document.getElementById('downloads-list').appendChild(item);
     } catch (e) {}
 
     window.mdc.autoInit();
@@ -76,7 +76,7 @@ function createConfirmExtract(game) {
     var zipFile = folderName + '.zip';
 
     let item = document.createElement('div');
-    item.className = 'confirm-item downloader-list-item';
+    item.className = 'confirm download-item';
     item.id = `${gameTitle}-confirm-item`;
     item.innerHTML = `
 <div class="download-item-body mdc-ripple-surface" data-mdc-auto-init="MDCRipple" onclick="selectDownload(this); addMetadata('${gameTitle}', 'downloader')">
@@ -104,7 +104,7 @@ function createConfirmExtract(game) {
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Extract</span>
     </button>
-    <button class="mdc-button" data-mdc-auto-init="MDCRipple" onclick="cancelExtract('${gameTitle}-extractyn', true, 'Are you sure you dont want to extract ${zipFile}', '${gameTitle}')">
+    <button class="mdc-button" data-mdc-auto-init="MDCRipple" onclick="cancelExtract('${gameTitle}-extract-confirm', true, 'Are you sure you dont want to extract ${zipFile}', '${gameTitle}')">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Cancel</span>
     </button>
@@ -112,7 +112,7 @@ function createConfirmExtract(game) {
 <hr class="mdc-list-divider" />
     `;
 
-    document.getElementById('download-item-container').appendChild(item);
+    document.getElementById('downloads-list').appendChild(item);
 
     window.mdc.autoInit();
 }

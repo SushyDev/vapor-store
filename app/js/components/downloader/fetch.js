@@ -53,9 +53,8 @@ function fetchDownload(gameTitle) {
             //Get url
             getDownloadURL(game.url, gameTitle).then((output) => {
                 //Start download
-                var dir = localStorage.getItem('downloadDir');
                 var url = output;
-                startDownload(url, dir, gameTitle);
+                startDownload(url, localStorage.getItem('downloadDir'), gameTitle);
             });
         });
     });

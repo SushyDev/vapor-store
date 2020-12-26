@@ -7,7 +7,7 @@ function checkCurrentDownloads() {
 
 function createDownloadItem(game) {
     let item = document.createElement('div');
-    item.className = 'download-item downloader-list-item';
+    item.className = 'download download-item';
     item.id = `${game.gameTitle}-download-item`;
     item.innerHTML = `
 <div class="download-item-body mdc-ripple-surface" data-mdc-auto-init="MDCRipple" onclick="selectDownload(this); addMetadata('${game.gameTitle}', 'downloader')">
@@ -45,7 +45,7 @@ function createDownloadItem(game) {
     `;
 
     try {
-        document.getElementById('download-item-container').appendChild(item);
+        document.getElementById('downloads-list').appendChild(item);
     } catch (e) {}
 
     window.mdc.autoInit();

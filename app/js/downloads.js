@@ -7,16 +7,15 @@ function selectDownload(elem) {
 
     container.classList.add('active');
 
-    document.getElementById('game-info-content').style.display = 'initial';
+    document.getElementById('download-item-info').style.display = 'initial';
 }
-var testarray = [
-    {
-        fullPath: '/home/sushy/.config/vapor-store/Games/Emily.Wants.To.Play.zip',
-        gameTitle: 'emily-wants-to-play',
-        url: 'https://download141.uploadhaven.com/1/application/zip/2W6qYYUEHTH1MLaUn6FPlQiIGRi3T4DlalhsyNWu.zip?key=jVNb5AFo81-fYy1I8dlWZA&expire=1608998764&filename=Emily.Wants.To.Play.zip',
-        zipFile: 'Emily.Wants.To.Play.zip',
-    },
-];
+
+function removeItem(gameTitle, type) {
+    try {
+        document.getElementById(`${gameTitle}-${type}-item`).remove();
+    } catch (e) {}
+}
+
 function downloadPause(name) {
     if (document.getElementById(`${name}-downloader-pause-button__label`).innerHTML == 'Pause') {
         ipcRenderer.sendTo(mainWindow.id, `${name}-pause`);
@@ -30,9 +29,14 @@ function downloadPause(name) {
 //Cancel download
 async function downloadCancel(name, alert, message) {
     //if pressed cancel dont continue
-    if (!closeSnackbar(`${name}-download`, alert, message));
+    if (!closeSnackbar(`${name}-download`, alert, message)) return;
     //set canceled in localstorage
     ipcRenderer.sendTo(mainWindow.id, `${name}-cancel`);
 
     removeItem(name, 'download');
+}
+
+function addDownload() {
+    alert('Not implemented yet')
+   // startDownload(url, localStorage.getItem('downloadDir'), gameTitle);
 }

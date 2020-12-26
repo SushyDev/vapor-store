@@ -134,7 +134,6 @@ async function addMetadata(name, type) {
     });
 
     if (type == 'downloader') {
-        console.log(gameInfo.background_image);
         document.getElementById('selected-game-cover').style.backgroundImage = `url('${gameInfo.background_image}')`;
     }
 

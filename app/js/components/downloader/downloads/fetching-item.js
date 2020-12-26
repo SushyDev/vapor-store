@@ -1,21 +1,3 @@
-function selectDownload(elem) {
-    var container = elem.closest('.downloader-list-item');
-
-    try {
-        document.querySelector('.active').classList.remove('active');
-    } catch (e) {}
-
-    container.classList.add('active');
-
-    document.getElementById('game-info-content').style.display = 'initial';
-}
-
-function removeItem(gameTitle, type) {
-    try {
-        document.getElementById(`${gameTitle}-${type}-item`).remove();
-    } catch (e) {}
-}
-
 fetchingDownload.forEach((game) => {
     console.log(game);
     createFetchingItem(game);
@@ -23,7 +5,7 @@ fetchingDownload.forEach((game) => {
 
 function createFetchingItem(gameTitle) {
     let item = document.createElement('div');
-    item.className = 'fetch-item downloader-list-item';
+    item.className = 'fetch download-item';
     item.id = `${gameTitle}-fetch-item`;
     item.innerHTML = `
      <div class="download-item-body mdc-ripple-surface" data-mdc-auto-init="MDCRipple" onclick="selectDownload(this); addMetadata('${gameTitle}', 'downloader')">
@@ -50,7 +32,7 @@ function createFetchingItem(gameTitle) {
     `;
 
     try {
-        document.getElementById('download-item-container').appendChild(item);
+        document.getElementById('downloads-list').appendChild(item);
     } catch (e) {}
 
     window.mdc.autoInit();

@@ -63,6 +63,8 @@ function createSnack(snackbarData) {
         closeButton.className = 'mdc-icon-button mdc-snackbar__dismiss material-icons';
         closeButton.setAttribute('title', close.title);
         closeButton.setAttribute('onclick', close.onclick);
+        closeButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
+        closeButton.setAttribute('data-mdc-ripple-is-unbounded', 'true');
         closeButton.innerHTML = close.icon;
         document.getElementById(`${name}-snack-actions`).appendChild(closeButton);
     }
