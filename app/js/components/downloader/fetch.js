@@ -115,8 +115,6 @@ async function getDownloadURL(url, gameTitle) {
     //Wait for redirect
     await page.waitForNavigation({waitUntil: 'networkidle0'});
 
-    await page.waitForSelector('.alert-success', {visible: true});
-
     setFetchProgress(gameTitle, '.9');
 
     //Get href of 'Here' anchor

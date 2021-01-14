@@ -1,5 +1,4 @@
 fetchingDownload.forEach((game) => {
-    console.log(game);
     createFetchingItem(game);
 });
 
