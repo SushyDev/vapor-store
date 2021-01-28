@@ -69,7 +69,7 @@
     "puppeteer": "3.3.0"
   },
   "devDependencies": {
-    "electron": "^7.2.4",
+    "electron": "^9.4.0",
     "electron-builder": "^22.9.1",
     "electron-reload": "^1.5.0"
   }
