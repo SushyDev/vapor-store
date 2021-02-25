@@ -15,6 +15,7 @@
     - [How to set up](#how-to-set-up)
     - [How to build](#how-to-build-it-yourself)
     - [Roadmap](#roadmap)
+    - [Ideas](#ideas)
     - [Issues](#issues)
   - [Support my work](#support-my-work)
 
@@ -92,11 +93,16 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Add warning when closing the app whilst downloading
 - [ ] Minimize to tray on close when downloading
 
-### Issues
+### Ideas
+- Add support for Masquerade, GOG Games, and GDrive/Mega
+- Be able to add custom themes, or a color palette to change the look and color of Vapor Store
+- Make downloading faster or change file hosts
+
+### Issues 
 
 Please report
 
-If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support or open an issue on this repository please.
+If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support or open an issue on this repository.
 
 ## Support my work
 
