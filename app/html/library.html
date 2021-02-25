@@ -1,16 +1,16 @@
 <header>
-    <link rel="stylesheet" href="../css/library.css" />
-    <script src="../js/library.js" defer></script>
-
     <link rel="stylesheet" href="../css/card-grid.css" />
-    <script src="../js/components/card-grid/card-builder.js"></script>
-    <script src="../js/components/card-grid/card-grid.js"></script>
+    <link rel="stylesheet" href="../css/library.css" />
+    <script defer>
+        vapor.pages.library.Initialize();
+        $(document).ready(() => mdc.autoInit());
+    </script>
 </header>
 
 <div class="searchbar" id="searchbar">
     <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="searchGames()">search</button>
     <input type="text" id="searchquery" placeholder="Search..." />
-    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="clearSearch()">clear</button>
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.clearSearch()">clear</button>
 </div>
 
 <div class="library" id="library">
@@ -80,13 +80,7 @@
 
         <!--Back button-->
         <div class="back-button-container">
-            <button class="mdc-icon-button back-icon material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="closeGameTab()">first_page</button>
+            <button class="mdc-icon-button back-icon material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.closeGameTab()">first_page</button>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        mdc.autoInit();
-    });
-</script>

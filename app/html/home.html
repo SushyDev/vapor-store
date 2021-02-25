@@ -1,6 +1,9 @@
 <head>
     <link rel="stylesheet" href="../css/home.css" />
-    <script src="../js/home.js"></script>
+    <script defer>
+        vapor.pages.home.Initialize();
+        $(document).ready(() => mdc.autoInit());
+    </script>
 </head>
 
 <div class="intro">
