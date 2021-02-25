@@ -4,7 +4,6 @@
 - WARNING: Vapor Store 2 is made to simplify downloading and installing games in a preinstalled format from the internet via a repository/source
 - I'm not responsible for the content of the sources our users may use
 - I am also not responsible for any legal troubles or computer issues you may face
-
 ```
 
 ## Table of Contents  <!-- no toc -->
@@ -15,6 +14,7 @@
     - [How to set up](#how-to-set-up)
     - [How to build](#how-to-build-it-yourself)
     - [Roadmap](#roadmap)
+    - [Ideas](#ideas)
     - [Issues](#issues)
   - [Support my work](#support-my-work)
 
@@ -22,17 +22,21 @@
 
 ### Download
 
-- [Download here!](https://github.com/SushyDev/vapor-store/releases)
+- [Releases Page](https://github.com/SushyDev/vapor-store/releases)
+- [Vapor Store Downloads](https://vaporstore.netlify.app)
 
 ### Requirements
 
-- [Vapor Store](https://sushydev.github.io/vapor-store/)
-- [A repo file](https://discord.gg/ZjDTpmf)
+- [Vapor Store](https://github.com/SushyDev/vapor-store/releases)
+- [A Repo/JSON file](https://discord.gg/ZjDTpmf)
 
 ### How to set up
 
-1. Download & Install Vapor Store
-2. Download a repo file and select it in the Vapor Store settings
+1. Download & Install Vapor Store Version 2.0.0 or above
+2. 
+3. Download a Repo/JSON file from the Discord Server(https://discord.gg/ZjDTpmf) and then go to your Vapor Store Settings
+4. In your settings click the "Select File" button and select the JSON file you downloaded from the Discord server, after that your games should be in your library
+5. Enjoy downloading your games!
 
 ### How to build
 
@@ -91,11 +95,16 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Add warning when closing the app whilst downloading
 - [ ] Minimize to tray on close when downloading
 
-### Issues
+### Ideas
+- Add support for Masquerade, GOG Games, and GDrive/Mega
+- Be able to add custom themes, or a color palette to change the look and color of Vapor Store
+- Make downloading faster or change file hosts
+
+### Issues 
 
 Please report
 
-If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support 
+If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support or open an issue on this repository.
 
 ## Support my work
 
