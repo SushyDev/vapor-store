@@ -22,17 +22,18 @@
 
 ### Download
 
-- [Download here!](https://github.com/SushyDev/vapor-store/releases)
+- [Releases Page](https://github.com/SushyDev/vapor-store/releases)
+- [Vapor Store Downloads](https://vaporstore.netlify.app)
 
 ### Requirements
 
-- [Vapor Store](https://sushydev.github.io/vapor-store/)
-- [A repo file](https://discord.gg/ZjDTpmf)
+- [Vapor Store](https://github.com/SushyDev/vapor-store/releases)
+- [A Repo/JSON file](https://discord.gg/ZjDTpmf)
 
 ### How to set up
 
 1. Download & Install Vapor Store
-2. Download a repo file and select it in the Vapor Store settings
+2. Download a Repo/JSON file from the Discord and select it in the Vapor Store settings
 
 ### How to build
 
@@ -95,7 +96,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 
 Please report
 
-If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support 
+If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support or open an issue on this repository please.
 
 ## Support my work
 
