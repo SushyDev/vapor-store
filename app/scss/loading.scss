@@ -1,11 +1,12 @@
 body {
-    background: #40c4ff;
+    background: #40c4ff80;
     width: 100vw;
     height: 100vh;
     max-width: 100vw;
     padding: 0;
     margin: 0;
     overflow: hidden;
+    border-radius: 250px;
 
     .overlay {
         position: absolute;
@@ -16,9 +17,9 @@ body {
         justify-content: center;
         z-index: 1;
 
-        P {
+        p {
             color: white;
-            font-size: 7.5vw;
+            font-size: 8.5vw;
             font-family: sans-serif;
             font-weight: bold;
         }
@@ -70,7 +71,7 @@ body {
             border-radius: 50%;
             background: #f57ba4;
             animation: ripple 3s infinite;
-            box-shadow: 0px 0px 1px 0px #508fb9;
+            box-shadow: 0px 0px 1px 0px #40c4ff;
         }
 
         @keyframes ripple {
@@ -87,4 +88,9 @@ body {
             }
         }
     }
+}
+
+* {
+    user-select: none;
+    cursor: default;
 }

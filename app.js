@@ -27,8 +27,8 @@ const spawnMain = async () => {
 
 const spawnLoading = async () => {
     win = new BrowserWindow({
-        backgroundColor: '#121212',
         frame: false,
+        transparent: true,
         width: 500,
         height: 500,
         icon: root + '/assets/icons/png/icon.png',
@@ -43,7 +43,7 @@ const spawnLoading = async () => {
     return win;
 };
 
-electron.app.on('ready', () => startApp());
+electron.app.on('ready', () => setTimeout(() => startApp(), process.platform == 'linux' ? 1000 : 0));
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
@@ -52,7 +52,10 @@ app.on('window-all-closed', () => {
 const startApp = async () => {
     const main = await spawnMain();
     const loading = await spawnLoading();
+
     checkForSingleInstance(main);
+
+    return;
 
     ipcMain.once('loaded', (listener) => {
         main.show();
