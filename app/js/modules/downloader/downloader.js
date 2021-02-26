@@ -68,13 +68,14 @@ exports.startDownload = (url, dir, gameTitle) => {
 
                 delete currentDownloadData[indexNum];
 
-                currentDownloadData = currentDownloadData.filter((n) => n);
+                currentDownloadData = currentDownloadData.filter((item) => item);
 
                 return;
             });
 
             //On incoming data
-            item.on('updated', (event, state) => {
+            item.on('updated', (event, state, e) => {
+                if (item.isDestroyed() || item.isDestroyed() == undefined) return;
                 try {
                     //Downloading
                     const received_bytes = item.getReceivedBytes();
@@ -88,7 +89,9 @@ exports.startDownload = (url, dir, gameTitle) => {
 
                     // ? Send item data to downloader
                     ipcRenderer.send('item-updated-data', {received: received_bytes, total: total_bytes, startTime: startTime}, downloadData, gameTitle);
-                } catch (e) {
+                } catch (err) {
+                    console.log(event, state, e);
+                    console.log('item-updated', err);
                     // ! Can error on download finish so it catches here
                 }
             });
@@ -106,58 +109,57 @@ exports.startDownload = (url, dir, gameTitle) => {
                     //Send item download completed
                     ipcRenderer.send('item-download-completed', gameTitle);
 
-                    const extractConfirmSnackbar = {
-                        ['main']: [
-                            {
-                                name: `${gameTitle}-extract-confirm`,
-                            },
-                        ],
-                        ['label']: [
-                            {
-                                id: `${gameTitle}-snackbar-title`,
-                                innerHTML: `Do you want to extract ${itemName}`,
-                            },
-                        ],
-                        ['actions']: [
-                            {
-                                type: 'button',
-                                innerHTML: 'Yes',
-                                labelid: `${gameTitle}-extract-button__label`,
-                                class: 'extract-button',
-                                id: 'extract-button',
-                                onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${path.join(downloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
-                            },
-                            {
-                                type: 'button',
-                                innerHTML: 'No',
-                                labelid: `${gameTitle}-close-button__label`,
-                                class: 'close-button',
-                                id: 'close-button',
-                                onclick: `vaporSnackbar.close('${gameTitle}-extractyn', true, "Are you sure you don't want to extract ${itemName}")`,
-                            },
-                        ],
-                    };
-
                     //Add downloaded game to library or install update
                     if (gameTitle == 'vapor-store-update') {
                         vapor.app.installUpdate(itemName);
                     } else {
+                        const extractConfirmSnackbar = {
+                            ['main']: [
+                                {
+                                    name: `${gameTitle}-extract-confirm`,
+                                },
+                            ],
+                            ['label']: [
+                                {
+                                    id: `${gameTitle}-snackbar-title`,
+                                    innerHTML: `Do you want to extract ${itemName}`,
+                                },
+                            ],
+                            ['actions']: [
+                                {
+                                    type: 'button',
+                                    innerHTML: 'Yes',
+                                    labelid: `${gameTitle}-extract-button__label`,
+                                    class: 'extract-button',
+                                    id: 'extract-button',
+                                    onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${path.join(downloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
+                                },
+                                {
+                                    type: 'button',
+                                    innerHTML: 'No',
+                                    labelid: `${gameTitle}-close-button__label`,
+                                    class: 'close-button',
+                                    id: 'close-button',
+                                    onclick: `vaporSnackbar.close('${gameTitle}-extractyn', true, "Are you sure you don't want to extract ${itemName}")`,
+                                },
+                            ],
+                        };
                         vapor.ui.snackbar.create(extractConfirmSnackbar);
                         downloader.addGameToLibrary(fullPath, path.join(downloadDir, folderName), gameTitle);
                     }
 
                     //Create notification
-                    const notification = {
+                    const notifData = {
                         title: `${itemName} download complete!`,
                         body: 'Return to Vapor Store for further actions',
-                        icon: path.join(process.cwd(), 'assets/icons/png/icon.png'),
+                        icon: vapor.fn.vaporIcon(),
                     };
-                    new Notification(notification).show();
+                    new Notification(notifData).show();
 
-                    //Extract downloaded zip file
+                    // ? Extract downloaded zip file
                     if (fileType == 'zip') {
                         if (localStorage.getItem('autoExtract') == 'true') {
-                            //If auto extract is on skip this step and extract automatically
+                            // ? If auto extract is on skip this step and extract automatically
                             downloader.extractDownload(fullPath, path.join(downloadDir, folderName), gameTitle);
                         } else {
                             const extractConfirmData = {
@@ -172,7 +174,7 @@ exports.startDownload = (url, dir, gameTitle) => {
                         }
                     }
                 } else {
-                    //Download didnt complete
+                    // ? Download didnt complete
                     console.log(`Download failed: ${state}`);
                 }
             });
@@ -180,14 +182,13 @@ exports.startDownload = (url, dir, gameTitle) => {
     });
 };
 
-const checkCurrentDownloads = () => {
+function checkCurrentDownloads() {
     currentDownloadData.forEach((game) => {
         if (!document.getElementById(`${game.gameTitle}-download-item`) && sessionStorage.getItem('page') == 'Downloads') downloader.item.createDownloadItem(game);
     });
-};
+}
 
-// ! Fix this later
-ipcMain.on('item-updated-data', (e, item, data, gameTitle) => {
+ipcMain.on('item-updated-data', (event, item, data, gameTitle) => {
     checkCurrentDownloads();
 
     const received_bytes = item.received;
@@ -195,21 +196,20 @@ ipcMain.on('item-updated-data', (e, item, data, gameTitle) => {
     const downloadPercent = (received_bytes * 100) / total_bytes;
     const scalePercent = downloadPercent / 100;
 
-    //received / 1000000 / time;
-
     const seconds = (Date.now() - item.startTime) / 1000;
     const MB = received_bytes / (1024 * 1024);
     const GB = MB / 1024;
     const MBps = MB / seconds;
     const totalGB = total_bytes / (1024 * 1024 * 1024);
 
-    try {
+    // # Update download page item
+    if (sessionStorage.getItem('page') == 'Downloads') {
         const downloadInfo = document.getElementById(`${gameTitle}-download-info`);
         downloadInfo.innerHTML = `${downloadPercent.toFixed(2)}% | ${MBps.toFixed(2)}MB/s | ${GB.toFixed(2)}GB/${totalGB.toFixed(2)}GB`;
         const progress = document.getElementById(`${gameTitle}-progress`);
         const mlp = new mdc.linearProgress.MDCLinearProgress(progress);
         mlp.progress = scalePercent;
-    } catch (e) {}
+    }
 });
 
 ipcMain.on('item-download-completed', (e, gameTitle) => downloader.item.removeItem(gameTitle, 'download'));

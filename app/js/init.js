@@ -1,6 +1,11 @@
 // ! Initialize script
 // ? Sets some constants and clears the session storage when the app first starts
 
+// # Electron stuff
+const {dialog, BrowserWindow, ipcMain, process, Notification, app} = require('electron').remote;
+const {ipcRenderer, remote} = require('electron');
+const win = require('electron').remote.getCurrentWindow();
+
 // # For launching apps
 const childProcess = require('child_process');
 // # File system
@@ -22,12 +27,9 @@ const exec = require('child_process').exec;
 // # For creating desktop shortcuts
 const createDesktopShortcut = require('../libraries/create-desktop-shortcuts');
 // # If development
-const isDev = require('electron-is-dev');
 
-//Electron stuff
-const {dialog, BrowserWindow, ipcMain, process, Notification, app} = require('electron').remote;
-const {ipcRenderer, remote} = require('electron');
-const win = require('electron').remote.getCurrentWindow();
+const isAlpha = app.getVersion().includes('alpha');
+const isDev = isAlpha ? true : require('electron-is-dev');
 
 const appDataPath = path.resolve(app.getPath('userData'));
 
@@ -44,7 +46,7 @@ const downloadDir = localStorage.getItem('downloadDir');
 const darkMode = localStorage.getItem('darkMode');
 const optBeta = localStorage.getItem('beta');
 
-if (isDev) console.log('Hi Developer');
+if (isDev) isAlpha ? console.log('Hi alpha tester') : console.log('Hi Developer');
 vapor.app.Initialize();
 
 let currentDownloadName = [];

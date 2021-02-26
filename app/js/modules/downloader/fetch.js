@@ -121,7 +121,11 @@ async function getDownloadURL(url, gameTitle) {
 
     console.log(downloadUrl);
 
-    downloadUrl || console.log('Download failed');
+    if (!downloadUrl) {
+        vapor.ui.MDCAlert('Download failed', 'please retry');
+        fetchingDownload.shift();
+        return;
+    }
 
     setFetchProgress(gameTitle, '1');
 

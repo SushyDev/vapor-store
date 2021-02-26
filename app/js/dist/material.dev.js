@@ -1,6 +1,5 @@
 'use strict';
 
-$(document).ready(() => {});
 const _topAppBar = require('@material/top-app-bar');
 
 const _drawer = require('@material/drawer');

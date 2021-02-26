@@ -15,3 +15,5 @@ exports.vaporConfig = () => vaporConfig();
 exports.installedGames = () => path.join(vaporConfig(), 'installed.json');
 
 console.log(`Storing files in ${vaporConfig()}`);
+
+exports.vaporIcon = () => path.join(process.cwd(), 'assets/icons/png/icon.png');

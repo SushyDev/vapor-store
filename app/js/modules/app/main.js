@@ -8,37 +8,29 @@ exports.Initialize = () => {
     // ? If no beta preference is set, check if current version is beta and set default accordingly
     if (!optBeta) app.getVersion().includes('beta') ? localStorage.setItem('beta', true) : localStorage.setItem('beta', false);
 
-    // ? If library json file doesnt exist make it (and make the folder if it doesnt exist)
     const file = vapor.fn.installedGames();
-    fs.readFile(file, 'utf-8', (err, data) => {
-        if (err) {
-            fs.mkdir(vapor.fn.vaporConfig(), {recursive: true}, (err) => {
-                if (err) throw err;
-                fs.appendFile(file, '', function (err) {
-                    if (err) throw err;
-                });
-            });
-            return;
-        }
+    // ? If library json file doesnt exist make it (and make the folder if it doesnt exist)
+    fs.readFile(file, 'utf-8', (err) => {
+        if (err) checkDir();
     });
+
+    // ? Check if config folder exists, if not then create folder, then check for the installed file
+    const checkDir = () => fs.exists(vapor.fn.vaporConfig(), (err) => fs.mkdir(vapor.fn.vaporConfig(), {recursive: true}, (err) => (err ? console.log('Directories', err) : checkList())));
 
     // ? Check if json file exists, if not then make it
-    fs.readFile(file, 'utf-8', (err, data) => {
-        let array;
-        try {
-            array = JSON.parse(data);
-        } catch (e) {
-            array = {list: []};
-            fs.writeFile(file, JSON.stringify(array), function (err) {
-                if (err) throw err;
-                if (isDev) console.log('Saved!');
-            });
-        }
-    });
+    const checkList = () => {
+        fs.readFile(file, 'utf-8', (err) => {
+            if (err)
+                fs.writeFile(file, JSON.stringify({list: []}), (err) => {
+                    if (err) console.log('File', err);
+                });
+        });
+    };
 
+    // ? If isn't in dev envroinmnet then check o
     if (!isDev) vapor.app.fetchUpdate();
 
-    // ! Set theme
+    // ? Set theme
     vapor.settings.theme.checkTheme();
 
     $(document).ready(() => vapor.nav.goto());
