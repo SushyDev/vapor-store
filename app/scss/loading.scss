@@ -1,12 +1,18 @@
 body {
-    background: #40c4ff80;
     width: 100vw;
     height: 100vh;
-    max-width: 100vw;
     padding: 0;
     margin: 0;
-    overflow: hidden;
-    border-radius: 250px;
+
+    .loading {
+        width: 100vw;
+        height: 100vh;
+        background: #40c4ff;
+        border-radius: 25px;
+        z-index: 0;
+        overflow: hidden;
+        transform: translateZ(0);
+    }
 
     .overlay {
         position: absolute;
@@ -15,7 +21,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 1;
+        z-index: 2;
 
         p {
             color: white;
@@ -26,6 +32,9 @@ body {
     }
 
     .ripple {
+        z-index: 1;
+        border: 1px solid transparent;
+
         .circle:nth-child(5) {
             width: 1000px;
             height: 1000px;

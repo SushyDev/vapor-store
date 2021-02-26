@@ -55,8 +55,6 @@ const startApp = async () => {
 
     checkForSingleInstance(main);
 
-    return;
-
     ipcMain.once('loaded', (listener) => {
         main.show();
         loading.close();

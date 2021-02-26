@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "2.0.0-alpha-2",
+  "version": "2.0.0-alpha-3",
   "description": "Vapor Store",
   "author": "SushyDev",
   "main": "app.js",
@@ -74,4 +74,3 @@
     "electron-reload": "^1.5.0"
   }
 }
-
