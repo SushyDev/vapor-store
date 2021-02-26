@@ -33,10 +33,9 @@
 ### How to set up
 
 1. Download & Install Vapor Store Version 2.0.0 or above
-2. 
-3. Download a Repo/JSON file from the Discord Server(https://discord.gg/ZjDTpmf) and then go to your Vapor Store Settings
-4. In your settings click the "Select File" button and select the JSON file you downloaded from the Discord server, after that your games should be in your library
-5. Enjoy downloading your games!
+2. Download a Repo/JSON file from the Discord Server(https://discord.gg/ZjDTpmf) and then go to your Vapor Store Settings
+3. In your settings click the "Select File" button and select the JSON file you downloaded from the Discord server, after that your games should be in your library
+4. Enjoy downloading your games!
 
 ### How to build
 
