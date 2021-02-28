@@ -99,6 +99,14 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - Add support for Masquerade, GOG Games, and GDrive/Mega
 - Be able to add custom themes, or a color palette to change the look and color of Vapor Store
 - Make downloading faster or change file hosts
+- Be able to make the user add their own hosts or games to the library if possible 
+
+### Known Bugs
+- Buttons not functioning properly
+- Downloading randomly pausing or is abnormally slow
+- Play button not launching installed games (may be work in progress)
+- Auto-Extracting sometimes fails or is broken
+- Loading bar keeps on going even though there is nothing to load left
 
 ### Issues 
 
