@@ -115,5 +115,4 @@ Please report
 If you're having any other issues / bugs join our [Discord](https://discord.gg/ZjDTpmf) to report a bug and get support or open an issue on this repository.
 
 ## Support my work
-
  - [Donate](https://ko-fi.com/sushy)
