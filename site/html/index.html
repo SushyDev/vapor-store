@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <title>Vapor Store is loading</title>
+        <script src="../js/loading.js" defer></script>
         <link rel="stylesheet" href="../scss/loading.scss" />
     </head>
     <body>
@@ -17,18 +18,10 @@
                 <div class="circle small shade5"></div>
             </div>
         </div>
+
+        <!--Site-->
+        <main>
+            <h2>Vapor Store</h2>
+        </main>
     </body>
-
-    <script defer>
-        setTimeout(() => (window.location.href = './home.html'), 1000);
-
-        function lockSize() {
-            const loading = document.querySelector('#loading');
-            const vh = window.innerHeight * 0.01;
-            loading.style.setProperty('--vh', `${vh}px`);
-        }
-        lockSize();
-
-        window.addEventListener('resize', () => lockSize());
-    </script>
 </html>

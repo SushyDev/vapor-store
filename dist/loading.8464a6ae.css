@@ -1,21 +1,25 @@
 body {
-  width: 100vw;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  background: #40c4ff;
-  padding: 0;
   margin: 0;
-  overflow: hidden;
+  padding: 0;
+  background: #40c4ff;
 }
 body .loading {
+  position: fixed;
+  top: 0;
+  background: #40c4ff;
   width: 100vw;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   z-index: 0;
   overflow: hidden;
   transform: translateZ(0);
+  animation: disappear 0.5s forwards 1.5s;
 }
-body .overlay {
+body .loading * {
+  user-select: none;
+  cursor: default;
+}
+body .loading .overlay {
   position: absolute;
   width: 100vw;
   height: 100%;
@@ -24,52 +28,52 @@ body .overlay {
   justify-content: center;
   z-index: 2;
 }
-body .overlay p {
+body .loading .overlay p {
   color: white;
   font-size: 8.5vw;
   font-family: sans-serif;
   font-weight: bold;
 }
-body .ripple {
+body .loading .ripple {
   z-index: 1;
   border: 1px solid transparent;
 }
-body .ripple .circle:nth-child(5) {
+body .loading .ripple .circle:nth-child(5) {
   width: 1000px;
   height: 1000px;
   left: -500px;
   bottom: -500px;
   opacity: 0.2;
 }
-body .ripple .circle:nth-child(4) {
+body .loading .ripple .circle:nth-child(4) {
   width: 800px;
   height: 800px;
   left: -400px;
   bottom: -400px;
   opacity: 0.5;
 }
-body .ripple .circle:nth-child(3) {
+body .loading .ripple .circle:nth-child(3) {
   width: 600px;
   height: 600px;
   left: -300px;
   bottom: -300px;
   opacity: 0.7;
 }
-body .ripple .circle:nth-child(2) {
+body .loading .ripple .circle:nth-child(2) {
   width: 400px;
   height: 400px;
   left: -200px;
   bottom: -200px;
   opacity: 0.8;
 }
-body .ripple .circle:nth-child(1) {
+body .loading .ripple .circle:nth-child(1) {
   width: 200px;
   height: 200px;
   left: -100px;
   bottom: -100px;
   opacity: 1;
 }
-body .ripple .circle {
+body .loading .ripple .circle {
   position: absolute;
   border-radius: 50%;
   background: #f57ba4;
@@ -87,10 +91,14 @@ body .ripple .circle {
     transform: scale(0.8);
   }
 }
-
-* {
-  user-select: none;
-  cursor: default;
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=/loading.8464a6ae.css.map */
