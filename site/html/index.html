@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Vapor Store is loading</title>
+        <link rel="stylesheet" href="../scss/loading.scss" />
+    </head>
+    <body>
+        <div class="loading" id="loading">
+            <div class="overlay">
+                <p>Vapor Store</p>
+            </div>
+            <div class="ripple">
+                <div class="circle xxlarge shade1"></div>
+                <div class="circle xlarge shade2"></div>
+                <div class="circle xlarge shade3"></div>
+                <div class="circle medium shade4"></div>
+                <div class="circle small shade5"></div>
+            </div>
+        </div>
+    </body>
+
+    <script defer>
+        setTimeout(() => (window.location.href = './home.html'), 1000);
+
+        function lockSize() {
+            const loading = document.querySelector('#loading');
+            const vh = window.innerHeight * 0.01;
+            loading.style.setProperty('--vh', `${vh}px`);
+        }
+        lockSize();
+
+        window.addEventListener('resize', () => lockSize());
+    </script>
+</html>

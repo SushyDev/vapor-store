@@ -1,0 +1,19 @@
+{
+  "name": "vapor-store-2-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel site/html/*.html",
+    "build": "parcel build site/html/*.html --out-dir docs --public-url ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "devDependencies": {
+    "sass": "^1.32.8"
+  }
+}
