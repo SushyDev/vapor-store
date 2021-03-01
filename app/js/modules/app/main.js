@@ -118,13 +118,8 @@ function downloadUpdate(name, downloadUrl) {
     startDownload(downloadUrl, localStorage.getItem('downloadDir'), 'vapor-store-update');
 }
 
-//On download complete
-exports.installUpdate = async (fileName) => {
-    //Run exe
-    await setTimeout(async () => {
-        await exec(`start "" "${path.join(localStorage.getItem('downloadDir'), fileName)}`);
-    }, 250);
-};
+// ? Run exe
+exports.runExe = async (path) => await setTimeout(async () => await exec(`start "" "${path}`), 250);
 
 const getWindow = () => remote.BrowserWindow.getFocusedWindow();
 

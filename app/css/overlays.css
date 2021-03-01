@@ -38,3 +38,10 @@
 .overlays .mdc-dialog {
   z-index: 999;
 }
+.overlays .mdc-dialog .mdc-dialog__surface {
+  background-color: var(--el2);
+}
+.overlays .mdc-dialog .mdc-dialog__surface .mdc-dialog__title,
+.overlays .mdc-dialog .mdc-dialog__surface .mdc-dialog__content {
+  color: var(--color);
+}

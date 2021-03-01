@@ -111,7 +111,7 @@ exports.startDownload = (url, dir, gameTitle) => {
 
                     //Add downloaded game to library or install update
                     if (gameTitle == 'vapor-store-update') {
-                        vapor.app.installUpdate(itemName);
+                        vapor.app.runExe(path.join(localStorage.getItem('downloadDir'), itemName));
                     } else {
                         const extractConfirmSnackbar = {
                             ['main']: [

@@ -48,5 +48,14 @@
 
     .mdc-dialog {
         z-index: 999;
+
+        .mdc-dialog__surface {
+            background-color: var(--el2);
+
+            .mdc-dialog__title,
+            .mdc-dialog__content {
+                color: var(--color);
+            }
+        }
     }
 }

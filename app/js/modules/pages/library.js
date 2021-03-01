@@ -4,8 +4,8 @@ exports.Initialize = () => {
 
     //If no file
     if (!localStorage.getItem('listFile')) {
-        MDCAlert('No game list file selected', 'Please download a game list file and select it in the settings');
-        goto('Settings');
+        vapor.ui.dialog.MDCAlert('No game list file selected', 'Please download a game list file and select it in the settings');
+        vapor.nav.goto('Settings');
     }
 
     //Function for searching

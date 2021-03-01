@@ -82,9 +82,7 @@ exports.createCustomGame = (name) => {
     addGameToLibrary(undefined, targetFolder, gameTitle);
     closeDialog(name);
 
-    setTimeout(() => {
-        goto('Installed');
-    }, 100);
+    setTimeout(() => vapor.nav.goto('Installed'), 100);
 
     sessionStorage.removeItem('selectedGameFolder');
 };
@@ -94,28 +92,22 @@ exports.gameDelete = (gameTitle, gameFolder, folderName, launchDefault) => {
     if (!confirm(`Are you sure you want to delete ${folderName}`)) return;
 
     //delete folder from game
-    rimraf(gameFolder, function () {
+    rimraf(gameFolder, () => {
         //Remove deleted game from list
         $.getJSON(vapor.fn.installedGames(), (data) => {
             const list = data['list'];
 
-            //Function for getting key from game name
-
-            //Get key from game name
-            const key = vapor.app.functions.getKeyByValue(list, gameTitle);
-            //Remove key corresponding to the game name
+            // ? Get key from game name
+            const key = vapor.fn.getKeyByValue(list, gameTitle);
+            // ? Remove key corresponding to the game name
             delete list[key];
-            //Make new array without the deleted key
+            // ? Make new array without the deleted key
             const newlist = {list: [...list]};
-            //Remove undefined values
+            // ? Filter out undefined values
             newlist['list'] = newlist['list'].filter((n) => n);
 
-            //Save to library json file
-            fs.writeFile(vapor.fn.installedGames(), JSON.stringify(newlist), function (err) {
-                if (err) console.log(err);
-                if (isDev) console.log('Saved!');
-                goto('Installed');
-            });
+            // ? Save to library json file
+            fs.writeFile(vapor.fn.installedGames(), JSON.stringify(newlist), (err) => (err ? console.log(err) : vapor.nav.goto('Installed')));
         });
     });
 };

@@ -1,5 +1,5 @@
 // ! Returns path to library json file
-exports.getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key].name === gameTitle);
+exports.getKeyByValue = (array, value) => Object.keys(array).find((key) => array[key].name === value);
 
 // ! Get chromium path for windows/linux (Development is done on OpenSUSE)
 exports.getChromiumExecPath = () => (process.platform == 'linux' ? puppeteer.executablePath() : puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked'));

@@ -55,7 +55,7 @@ exports.create = (dialogData, autoshow = true) => {
 };
 
 //alert(name, message, autoshow)
-exports.MDCAlert = (title, message = '', autoshow = true) => {
+exports.MDCAlert = (title = 'Alert', message = '', autoshow = true) => {
     const name = title.replace(/ /g, '-').toLowerCase() + '-alert';
 
     const dialog = document.createElement('div');

@@ -39,7 +39,7 @@ exports.listExec = () => {
 
     //Create dialog
     vapor.ui.dialog.create(dialogData, false);
-
+    const file = vapor.fn.installedGames();
     try {
         getListOfExec(gameFolder).forEach((file) => {
             if (file.substr(file.length - 3) == 'exe') {

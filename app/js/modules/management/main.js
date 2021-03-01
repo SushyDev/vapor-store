@@ -24,7 +24,7 @@ exports.openMore = (name, name2, gameDir, folderName) => {
         <span class="mdc-list-item__ripple"></span>
         <span class="mdc-list-item__text">Open folder</span>
         </li>
-        <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="gameDelete('${name2}', '${gameDir}', '${folderName}')">
+        <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="management.game.gameDelete('${name2}', '${gameDir}', '${folderName}')">
         <span class="mdc-list-item__ripple"></span>
         <span class="mdc-list-item__text">Delete</span>
         </li>
