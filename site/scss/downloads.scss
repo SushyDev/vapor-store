@@ -1,6 +1,7 @@
 main {
     .content {
         user-select: none;
+        margin-top: 20vh;
 
         h1 {
             font-weight: bold;
@@ -9,7 +10,7 @@ main {
     }
 }
 
-.list {
+.download-list {
     width: fit-content;
     height: fit-content;
     border: 2px solid white;
@@ -18,13 +19,19 @@ main {
     padding: 0;
 
     .download-item {
-        height: 100px;
-        width: 70vw;
         padding: 1em;
         display: flex;
         align-items: center;
-
         border-bottom: 2px solid white;
+
+        .split {
+            display: flex;
+            width: fit-content;
+        }
+
+        &.alpha {
+            background-color: #e66e6e;
+        }
 
         img {
             height: 100%;
@@ -47,7 +54,6 @@ main {
         }
 
         button {
-            margin-left: auto;
             font-size: 2em;
         }
     }
@@ -56,19 +62,22 @@ main {
 @media only screen and (min-width: 900px) {
     main {
         .content {
-            height: 80%;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
 
-            button {
-                font-size: 4em;
-            }
-
             h1 {
                 font-size: 8.5em;
+            }
+
+            .download-item {
+                height: 100px;
+                width: 70vw;
+                button {
+                    margin-left: auto;
+                }
             }
         }
     }
@@ -77,19 +86,28 @@ main {
 @media only screen and (max-width: 900px) {
     main {
         .content {
-            height: 80%;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
 
-            button {
-                font-size: 3em;
-            }
-
             h1 {
                 font-size: 5em;
+            }
+
+            .download-list {
+                .download-item {
+                    height: fit-content;
+                    width: 80vw;
+                    flex-direction: column;
+
+                    button {
+                        margin-top: 1em;
+                        width: 90%;
+                        font-size: 1.5em;
+                    }
+                }
             }
         }
     }
@@ -98,16 +116,11 @@ main {
 @media only screen and (min-width: 530px) {
     main {
         .content {
-            height: 80%;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-
-            button {
-                font-size: 3em;
-            }
 
             h1 {
                 font-size: 5em;
@@ -131,10 +144,6 @@ main {
             justify-content: center;
             flex-direction: column;
 
-            button {
-                font-size: 2em;
-            }
-
             h1 {
                 font-size: 3em;
                 width: fit-content;
@@ -157,10 +166,6 @@ main {
             align-items: center;
             justify-content: center;
             flex-direction: column;
-
-            button {
-                font-size: 7.5vw;
-            }
 
             h1 {
                 font-size: 10vw;

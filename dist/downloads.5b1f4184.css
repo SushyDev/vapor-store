@@ -1,12 +1,13 @@
 main .content {
   user-select: none;
+  margin-top: 20vh;
 }
 main .content h1 {
   font-weight: bold;
   color: white;
 }
 
-.list {
+.download-list {
   width: fit-content;
   height: fit-content;
   border: 2px solid white;
@@ -14,78 +15,87 @@ main .content h1 {
   list-style: none;
   padding: 0;
 }
-.list .download-item {
-  height: 100px;
-  width: 70vw;
+.download-list .download-item {
   padding: 1em;
   display: flex;
   align-items: center;
   border-bottom: 2px solid white;
 }
-.list .download-item img {
+.download-list .download-item .split {
+  display: flex;
+  width: fit-content;
+}
+.download-list .download-item.alpha {
+  background-color: #e66e6e;
+}
+.download-list .download-item img {
   height: 100%;
   width: 100px;
 }
-.list .download-item .info {
+.download-list .download-item .info {
   display: flex;
   flex-direction: column;
   margin: 0 2em;
 }
-.list .download-item .info h2 {
+.download-list .download-item .info h2 {
   color: white;
   margin: 0;
 }
-.list .download-item .info p {
+.download-list .download-item .info p {
   color: #121212;
 }
-.list .download-item button {
-  margin-left: auto;
+.download-list .download-item button {
   font-size: 2em;
 }
 
 @media only screen and (min-width: 900px) {
   main .content {
-    height: 80%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  }
-  main .content button {
-    font-size: 4em;
   }
   main .content h1 {
     font-size: 8.5em;
   }
+  main .content .download-item {
+    height: 100px;
+    width: 70vw;
+  }
+  main .content .download-item button {
+    margin-left: auto;
+  }
 }
 @media only screen and (max-width: 900px) {
   main .content {
-    height: 80%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  }
-  main .content button {
-    font-size: 3em;
   }
   main .content h1 {
     font-size: 5em;
   }
+  main .content .download-list .download-item {
+    height: fit-content;
+    width: 80vw;
+    flex-direction: column;
+  }
+  main .content .download-list .download-item button {
+    margin-top: 1em;
+    width: 90%;
+    font-size: 1.5em;
+  }
 }
 @media only screen and (min-width: 530px) {
   main .content {
-    height: 80%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  }
-  main .content button {
-    font-size: 3em;
   }
   main .content h1 {
     font-size: 5em;
@@ -106,9 +116,6 @@ main .content h1 {
     justify-content: center;
     flex-direction: column;
   }
-  main .content button {
-    font-size: 2em;
-  }
   main .content h1 {
     font-size: 3em;
     width: fit-content;
@@ -128,9 +135,6 @@ main .content h1 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  }
-  main .content button {
-    font-size: 7.5vw;
   }
   main .content h1 {
     font-size: 10vw;

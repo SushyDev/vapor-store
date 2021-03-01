@@ -924,6 +924,7 @@ var httpGet = /*#__PURE__*/function () {
 
 httpGet('https://api.github.com/repos/SushyDev/vapor-store/releases').then(function (data) {
   if (!data) return;
+  console.log(data);
   data.forEach(function (release) {
     buildDownload(release).then(function (item) {
       return document.getElementById('download-list').appendChild(item);
@@ -931,15 +932,22 @@ httpGet('https://api.github.com/repos/SushyDev/vapor-store/releases').then(funct
   });
 });
 
+var getDownload = function getDownload(release) {
+  return release.assets.find(function (asset) {
+    return asset.browser_download_url.includes('exe');
+  }).browser_download_url;
+};
+
 var buildDownload = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(data) {
-    var item, icon, info, title, version, download;
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(release) {
+    var isAlpha, item, icon, info, title, version, download, split;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            isAlpha = release !== null && release !== void 0 && release.tag_name.includes('alpha') ? true : false;
             item = document.createElement('li');
-            item.className = 'download-item';
+            item.classList = "download-item ".concat(isAlpha && 'alpha');
             icon = document.createElement('img');
             icon.src = 'https://raw.githubusercontent.com/SushyDev/vapor-store/master/assets/icons/png/icon.png';
             icon.className = 'icon';
@@ -948,18 +956,21 @@ var buildDownload = /*#__PURE__*/function () {
             title = document.createElement('h2');
             title.textContent = 'Vapor Store';
             version = document.createElement('p');
-            version.textContent = data ? data.tag_name : 'unknown';
+            version.textContent = release ? release.tag_name : 'unknown';
             download = document.createElement('button');
             download.textContent = 'Download';
-            download.setAttribute('onclick', "window.open('".concat(data ? data.download : 'example.com', "')"));
+            download.setAttribute('onclick', "window.open('".concat(release ? getDownload(release) : 'example.com', "')"));
+            split = document.createElement('div');
+            split.className = 'split';
             info.appendChild(title);
             info.appendChild(version);
-            item.appendChild(icon);
-            item.append(info);
+            split.appendChild(icon);
+            split.appendChild(info);
+            item.append(split);
             item.appendChild(download);
             return _context2.abrupt("return", item);
 
-          case 20:
+          case 24:
           case "end":
             return _context2.stop();
         }
@@ -999,7 +1010,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34165" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45899" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

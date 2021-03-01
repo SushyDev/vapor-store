@@ -1,6 +1,7 @@
 main {
     .quote {
         user-select: none;
+        margin-top: 20vh;
 
         h1 {
             font-weight: bold;
@@ -12,7 +13,7 @@ main {
 @media only screen and (min-width: 900px) {
     main {
         .quote {
-            height: 80%;
+            height: fit-content;
             width: 100%;
             display: flex;
             align-items: center;
@@ -33,7 +34,6 @@ main {
 @media only screen and (max-width: 900px) {
     main {
         .quote {
-            height: 80%;
             width: 100%;
             display: flex;
             align-items: center;
@@ -54,7 +54,6 @@ main {
 @media only screen and (min-width: 530px) {
     main {
         .quote {
-            height: 80%;
             width: 100%;
             display: flex;
             align-items: center;

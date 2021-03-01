@@ -6,14 +6,18 @@ const httpGet = async (link) => {
 
 httpGet('https://api.github.com/repos/SushyDev/vapor-store/releases').then((data) => {
     if (!data) return;
+    console.log(data);
     data.forEach((release) => {
         buildDownload(release).then((item) => document.getElementById('download-list').appendChild(item));
     });
 });
 
-const buildDownload = async (data) => {
+const getDownload = (release) => release.assets.find((asset) => asset.browser_download_url.includes('exe')).browser_download_url;
+const buildDownload = async (release) => {
+    const isAlpha = release?.tag_name.includes('alpha') ? true : false;
+
     const item = document.createElement('li');
-    item.className = 'download-item';
+    item.classList = `download-item ${isAlpha && 'alpha'}`;
 
     const icon = document.createElement('img');
     icon.src = 'https://raw.githubusercontent.com/SushyDev/vapor-store/master/assets/icons/png/icon.png';
@@ -26,17 +30,22 @@ const buildDownload = async (data) => {
     title.textContent = 'Vapor Store';
 
     const version = document.createElement('p');
-    version.textContent = data ? data.tag_name : 'unknown';
+    version.textContent = release ? release.tag_name : 'unknown';
 
     const download = document.createElement('button');
     download.textContent = 'Download';
-    download.setAttribute('onclick', `window.open('${data ? data.download : 'example.com'}')`);
+    download.setAttribute('onclick', `window.open('${release ? getDownload(release) : 'example.com'}')`);
+
+    const split = document.createElement('div');
+    split.className = 'split';
 
     info.appendChild(title);
     info.appendChild(version);
 
-    item.appendChild(icon);
-    item.append(info);
+    split.appendChild(icon);
+    split.appendChild(info);
+
+    item.append(split);
     item.appendChild(download);
 
     return item;
