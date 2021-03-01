@@ -30,41 +30,44 @@
 .loading .ripple {
   z-index: 1;
   border: 1px solid transparent;
+  position: relative;
 }
 .loading .ripple .circle:nth-child(5) {
-  width: 1000px;
-  height: 1000px;
-  left: -500px;
-  bottom: -500px;
+  width: 110%;
+  height: 110%;
+  left: -55%;
+  bottom: -55%;
   opacity: 0.2;
 }
 .loading .ripple .circle:nth-child(4) {
-  width: 800px;
-  height: 800px;
-  left: -400px;
-  bottom: -400px;
-  opacity: 0.5;
+  width: 90%;
+  height: 90%;
+  left: -45%;
+  bottom: -45%;
+  opacity: 0.4;
 }
 .loading .ripple .circle:nth-child(3) {
-  width: 600px;
-  height: 600px;
-  left: -300px;
-  bottom: -300px;
-  opacity: 0.7;
+  width: 75%;
+  height: 75%;
+  left: -40%;
+  bottom: -40%;
+  opacity: 0.6;
 }
 .loading .ripple .circle:nth-child(2) {
-  width: 400px;
-  height: 400px;
-  left: -200px;
-  bottom: -200px;
+  width: 50%;
+  height: 50%;
+  left: -25%;
+  bottom: -25%;
   opacity: 0.8;
 }
 .loading .ripple .circle:nth-child(1) {
-  width: 200px;
-  height: 200px;
-  left: -100px;
-  bottom: -100px;
+  width: 35%;
+  height: 35%;
+  left: -17.5%;
+  bottom: -17.5%;
   opacity: 1;
+  z-index: 1;
+  box-shadow: none;
 }
 .loading .ripple .circle {
   position: absolute;
@@ -92,6 +95,21 @@
     opacity: 0;
     display: none;
     pointer-events: none;
+  }
+}
+
+@media (min-width: 720px) {
+  .loading .ripple {
+    width: 45vw;
+    height: 45vw;
+    top: calc(100% - 45vw);
+  }
+}
+@media (max-width: 720px) {
+  .loading .ripple {
+    width: 100vw;
+    height: 100vw;
+    top: calc(100% - 100vw);
   }
 }
 
