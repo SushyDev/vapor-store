@@ -1,3 +1,3 @@
 const {lockSize} = require('../js/screen-size');
-lockSize('#loading');
-window.addEventListener('resize', () => lockSize('#loading'));
+lockSize('body');
+window.addEventListener('resize', () => lockSize('body'));

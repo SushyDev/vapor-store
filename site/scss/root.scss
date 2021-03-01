@@ -1,0 +1,52 @@
+:root {
+    --main: #40c4ff;
+    --accent: #f57ba4;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    background: var(--main);
+
+    main {
+        height: 100%;
+        .title {
+            height: 80%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            user-select: none;
+
+            button {
+                border: none;
+                border-radius: 15px;
+                font-size: 4em;
+                padding: 0.4em 0.9em;
+                background-color: var(--accent);
+                color: white;
+                border: solid 0.1em var(--main);
+
+                &:focus {
+                    border: solid 0.1em #00000040;
+                }
+            }
+
+            h1 {
+                color: white;
+                font-size: 8.5em;
+                font-family: sans-serif;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+* {
+    &:focus {
+        outline: none;
+    }
+}
