@@ -6,6 +6,10 @@ main .content h1 {
   font-weight: bold;
   color: white;
 }
+main .content p {
+  color: red;
+  font-weight: bolder;
+}
 
 .download-list {
   width: fit-content;
