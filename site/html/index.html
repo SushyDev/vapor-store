@@ -5,10 +5,12 @@
         <script src="../js/loading.js" defer></script>
         <link rel="stylesheet" href="../scss/loading.scss" />
         <link rel="stylesheet" href="../scss/root.scss" />
-        <link rel="shortcut icon" href="https://raw.githubusercontent.com/SushyDev/vapor-store/master/assets/icons/png/icon.png" type="image/x-icon">
+        <link rel="stylesheet" href="../scss/index.scss" />
+        <link rel="shortcut icon" href="https://raw.githubusercontent.com/SushyDev/vapor-store/master/assets/icons/png/icon.png" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     </head>
     <body>
+        <!--Loading Screen-->
         <div class="loading" id="loading">
             <div class="overlay">
                 <h1>Vapor Store</h1>
@@ -24,6 +26,7 @@
 
         <!--Site-->
         <main>
+            <!--Navigation-->
             <nav>
                 <div class="title">
                     <img src="https://raw.githubusercontent.com/SushyDev/vapor-store/master/assets/icons/png/icon.png" alt="" />
@@ -32,13 +35,13 @@
 
                 <div class="links">
                     <a href="/">Home</a>
-                    <a href="downloads">Downloads</a>
+                    <a href="downloads.html">Downloads</a>
                 </div>
             </nav>
 
             <div class="quote">
                 <h1>Vapor Store</h1>
-                <button>Download</button>
+                <button onclick="window.location.href = './downloads.html'">Download</button>
             </div>
         </main>
     </body>

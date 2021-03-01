@@ -3,6 +3,18 @@
     --accent: #f57ba4;
 }
 
+button {
+    border-radius: 15px;
+    color: white;
+    border: solid 0.1em var(--main);
+    background-color: var(--accent);
+    padding: 0.4em 0.9em;
+
+    &:focus {
+        border: solid 0.1em white;
+    }
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -49,290 +61,148 @@ body {
                 }
             }
         }
-
-        .quote {
-            user-select: none;
-
-            button {
-                border-radius: 15px;
-                color: white;
-                border: solid 0.1em var(--main);
-                background-color: var(--accent);
-
-                &:focus {
-                    border: solid 0.1em white;
-                }
-            }
-
-            h1 {
-                font-weight: bold;
-                color: white;
-            }
-        }
     }
 }
 
 @media only screen and (min-width: 900px) {
-    body {
-        main {
-            nav {
-                height: 52px;
-                display: flex;
-                align-items: center;
+    nav {
+        height: 52px;
+        display: flex;
+        align-items: center;
 
-                .title {
-                    width: fit-content;
-                    font-size: 1em;
-                    margin-left: 1em;
-                }
+        .title {
+            width: fit-content;
+            font-size: 1em;
+            margin-left: 1em;
+        }
 
-                .links {
-                    margin-left: auto;
-                    margin-right: 1em;
-                    display: flex;
+        .links {
+            margin-left: auto;
+            margin-right: 1em;
+            display: flex;
 
-                    a {
-                        font-size: 1.25em;
-                        padding: 0 15px;
-                    }
-                }
-            }
-
-            .quote {
-                height: 80%;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-
-                button {
-                    font-size: 4em;
-                    padding: 0.4em 0.9em;
-                }
-
-                h1 {
-                    font-size: 8.5em;
-                }
+            a {
+                font-size: 1.25em;
+                padding: 0 15px;
             }
         }
     }
 }
 
 @media only screen and (max-width: 900px) {
-    body {
-        main {
-            nav {
-                height: 52px;
-                display: flex;
-                align-items: center;
+    nav {
+        height: 52px;
+        display: flex;
+        align-items: center;
 
-                .title {
-                    width: fit-content;
-                    font-size: 1em;
-                }
+        .title {
+            width: fit-content;
+            font-size: 1em;
+        }
 
-                .links {
-                    margin-left: auto;
-                    margin-right: 1em;
-                    display: flex;
+        .links {
+            margin-left: auto;
+            margin-right: 1em;
+            display: flex;
 
-                    a {
-                        font-size: 1.25em;
-                        padding: 0 15px;
-                    }
-                }
-            }
-
-            .quote {
-                height: 80%;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-
-                button {
-                    font-size: 3em;
-                    padding: 0.4em 0.9em;
-                }
-
-                h1 {
-                    font-size: 5em;
-                }
+            a {
+                font-size: 1.25em;
+                padding: 0 15px;
             }
         }
     }
 }
 
 @media only screen and (min-width: 530px) {
-    body {
-        main {
-            nav {
-                height: 52px;
-                display: flex;
-                align-items: center;
+    nav {
+        height: 52px;
+        display: flex;
+        align-items: center;
 
-                .title {
-                    width: fit-content;
-                    font-size: 1em;
-                    margin-left: 1em;
-                }
+        .title {
+            width: fit-content;
+            font-size: 1em;
+            margin-left: 1em;
+        }
 
-                .links {
-                    margin-left: auto;
-                    margin-right: 1em;
-                    display: flex;
+        .links {
+            margin-left: auto;
+            margin-right: 1em;
+            display: flex;
 
-                    a {
-                        font-size: 1.25em;
-                        padding: 0 15px;
-                    }
-                }
-            }
-
-            .quote {
-                height: 80%;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-
-                button {
-                    font-size: 3em;
-                    padding: 0.4em 0.9em;
-                }
-
-                h1 {
-                    font-size: 5em;
-                }
+            a {
+                font-size: 1.25em;
+                padding: 0 15px;
             }
         }
     }
 }
 
 @media only screen and (max-width: 530px) {
-    body {
-        main {
-            display: flex;
-            flex-direction: column;
+    nav {
+        height: 208px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
-            nav {
-                height: 208px;
-                display: flex;
-                align-items: center;
-                flex-direction: column;
+        .title {
+            width: fit-content;
+            font-size: 1.5em;
 
-                .title {
-                    width: fit-content;
-                    font-size: 1.5em;
-
-                    h2 {
-                        padding: 0;
-                        margin: 0.5em;
-                    }
-                }
-
-                .links {
-                    width: 100%;
-                    height: fit-content;
-                    align-items: center;
-                    justify-content: space-around;
-                    display: flex;
-
-                    a {
-                        font-size: 1.5em;
-                        padding: 0 15px;
-                    }
-                }
+            h2 {
+                padding: 0;
+                margin: 0.5em;
             }
+        }
 
-            .quote {
-                margin-top: 25%;
-                padding-bottom: 10%;
-                height: fit-content;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
+        .links {
+            width: 100%;
+            height: fit-content;
+            align-items: center;
+            justify-content: space-around;
+            display: flex;
 
-                button {
-                    font-size: 2em;
-                    padding: 0.4em 0.9em;
-                }
-
-                h1 {
-                    font-size: 3em;
-                    width: fit-content;
-                }
+            a {
+                font-size: 1.5em;
+                padding: 0 15px;
             }
         }
     }
 }
 
 @media only screen and (max-width: 320px) {
-    body {
-        main {
-            display: flex;
+    nav {
+        height: 208px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .title {
+            width: fit-content;
+            font-size: 8vw;
             flex-direction: column;
 
-            nav {
-                height: 208px;
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-
-                .title {
-                    width: fit-content;
-                    font-size: 8vw;
-                    flex-direction: column;
-
-                    img {
-                        margin-top: 1em;
-                    }
-
-                    h2 {
-                        padding: 0;
-                        margin: 0.5em;
-                    }
-                }
-
-                .links {
-                    width: 100%;
-                    height: fit-content;
-                    align-items: center;
-                    justify-content: space-around;
-                    display: flex;
-                    margin-top: 1em;
-
-                    a {
-                        font-size: 8vw;
-                        padding: 0 15px;
-                    }
-                }
+            img {
+                margin-top: 1em;
             }
 
-            .quote {
-                margin-top: 25%;
-                padding-bottom: 10%;
-                height: fit-content;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
+            h2 {
+                padding: 0;
+                margin: 0.5em;
+            }
+        }
 
-                button {
-                    font-size: 7.5vw;
-                    padding: 0.4em 0.9em;
-                }
+        .links {
+            width: 100%;
+            height: fit-content;
+            align-items: center;
+            justify-content: space-around;
+            display: flex;
+            margin-top: 1em;
 
-                h1 {
-                    font-size: 10vw;
-                    width: fit-content;
-                }
+            a {
+                font-size: 8vw;
+                padding: 0 15px;
             }
         }
     }

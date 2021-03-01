@@ -3,6 +3,17 @@
   --accent: #f57ba4;
 }
 
+button {
+  border-radius: 15px;
+  color: white;
+  border: solid 0.1em var(--main);
+  background-color: var(--accent);
+  padding: 0.4em 0.9em;
+}
+button:focus {
+  border: solid 0.1em white;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -38,203 +49,116 @@ body main nav .links a:visited, body main nav .links a:active {
   margin-bottom: -2px;
   border-bottom: solid 4px white;
 }
-body main .quote {
-  user-select: none;
-}
-body main .quote button {
-  border-radius: 15px;
-  color: white;
-  border: solid 0.1em var(--main);
-  background-color: var(--accent);
-}
-body main .quote button:focus {
-  border: solid 0.1em white;
-}
-body main .quote h1 {
-  font-weight: bold;
-  color: white;
-}
 
 @media only screen and (min-width: 900px) {
-  body main nav {
+  nav {
     height: 52px;
     display: flex;
     align-items: center;
   }
-  body main nav .title {
+  nav .title {
     width: fit-content;
     font-size: 1em;
     margin-left: 1em;
   }
-  body main nav .links {
+  nav .links {
     margin-left: auto;
     margin-right: 1em;
     display: flex;
   }
-  body main nav .links a {
+  nav .links a {
     font-size: 1.25em;
     padding: 0 15px;
-  }
-  body main .quote {
-    height: 80%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  body main .quote button {
-    font-size: 4em;
-    padding: 0.4em 0.9em;
-  }
-  body main .quote h1 {
-    font-size: 8.5em;
   }
 }
 @media only screen and (max-width: 900px) {
-  body main nav {
+  nav {
     height: 52px;
     display: flex;
     align-items: center;
   }
-  body main nav .title {
+  nav .title {
     width: fit-content;
     font-size: 1em;
   }
-  body main nav .links {
+  nav .links {
     margin-left: auto;
     margin-right: 1em;
     display: flex;
   }
-  body main nav .links a {
+  nav .links a {
     font-size: 1.25em;
     padding: 0 15px;
   }
-  body main .quote {
-    height: 80%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  body main .quote button {
-    font-size: 3em;
-    padding: 0.4em 0.9em;
-  }
-  body main .quote h1 {
-    font-size: 5em;
-  }
 }
 @media only screen and (min-width: 530px) {
-  body main nav {
+  nav {
     height: 52px;
     display: flex;
     align-items: center;
   }
-  body main nav .title {
+  nav .title {
     width: fit-content;
     font-size: 1em;
     margin-left: 1em;
   }
-  body main nav .links {
+  nav .links {
     margin-left: auto;
     margin-right: 1em;
     display: flex;
   }
-  body main nav .links a {
+  nav .links a {
     font-size: 1.25em;
     padding: 0 15px;
   }
-  body main .quote {
-    height: 80%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  body main .quote button {
-    font-size: 3em;
-    padding: 0.4em 0.9em;
-  }
-  body main .quote h1 {
-    font-size: 5em;
-  }
 }
 @media only screen and (max-width: 530px) {
-  body main {
-    display: flex;
-    flex-direction: column;
-  }
-  body main nav {
+  nav {
     height: 208px;
     display: flex;
     align-items: center;
     flex-direction: column;
   }
-  body main nav .title {
+  nav .title {
     width: fit-content;
     font-size: 1.5em;
   }
-  body main nav .title h2 {
+  nav .title h2 {
     padding: 0;
     margin: 0.5em;
   }
-  body main nav .links {
+  nav .links {
     width: 100%;
     height: fit-content;
     align-items: center;
     justify-content: space-around;
     display: flex;
   }
-  body main nav .links a {
+  nav .links a {
     font-size: 1.5em;
     padding: 0 15px;
-  }
-  body main .quote {
-    margin-top: 25%;
-    padding-bottom: 10%;
-    height: fit-content;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  body main .quote button {
-    font-size: 2em;
-    padding: 0.4em 0.9em;
-  }
-  body main .quote h1 {
-    font-size: 3em;
-    width: fit-content;
   }
 }
 @media only screen and (max-width: 320px) {
-  body main {
-    display: flex;
-    flex-direction: column;
-  }
-  body main nav {
+  nav {
     height: 208px;
     display: flex;
     align-items: center;
     flex-direction: column;
   }
-  body main nav .title {
+  nav .title {
     width: fit-content;
     font-size: 8vw;
     flex-direction: column;
   }
-  body main nav .title img {
+  nav .title img {
     margin-top: 1em;
   }
-  body main nav .title h2 {
+  nav .title h2 {
     padding: 0;
     margin: 0.5em;
   }
-  body main nav .links {
+  nav .links {
     width: 100%;
     height: fit-content;
     align-items: center;
@@ -242,27 +166,9 @@ body main .quote h1 {
     display: flex;
     margin-top: 1em;
   }
-  body main nav .links a {
+  nav .links a {
     font-size: 8vw;
     padding: 0 15px;
-  }
-  body main .quote {
-    margin-top: 25%;
-    padding-bottom: 10%;
-    height: fit-content;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  body main .quote button {
-    font-size: 7.5vw;
-    padding: 0.4em 0.9em;
-  }
-  body main .quote h1 {
-    font-size: 10vw;
-    width: fit-content;
   }
 }
 
