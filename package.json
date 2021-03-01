@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel site/html/index.html",
-    "build": "parcel build site/html/*.html --out-dir docs --public-url ./"
+    "build": "parcel build site/html/index.html --out-dir docs --public-url ./"
   },
   "keywords": [],
   "author": "",
