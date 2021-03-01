@@ -11,6 +11,7 @@ main {
         p {
             color: red;
             font-weight: bolder;
+            font-size: 1.45em;
         }
     }
 }
@@ -36,6 +37,10 @@ main {
 
         &.alpha {
             background-color: #e66e6e;
+
+            button {
+                border-color: #e66e6e;
+            }
         }
 
         img {

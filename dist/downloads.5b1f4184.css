@@ -9,6 +9,7 @@ main .content h1 {
 main .content p {
   color: red;
   font-weight: bolder;
+  font-size: 1.45em;
 }
 
 .download-list {
@@ -31,6 +32,9 @@ main .content p {
 }
 .download-list .download-item.alpha {
   background-color: #e66e6e;
+}
+.download-list .download-item.alpha button {
+  border-color: #e66e6e;
 }
 .download-list .download-item img {
   height: 100%;
