@@ -19,11 +19,24 @@ body main {
 }
 body main nav .title {
   color: white;
+  display: flex;
+  align-items: center;
+}
+body main nav .title img {
+  width: 36px;
+  height: 36px;
+  margin-right: 1em;
 }
 body main nav .links a {
   font-weight: bold;
   color: white;
   text-decoration: none;
+  user-select: none;
+  margin-bottom: 8px;
+}
+body main nav .links a:visited, body main nav .links a:active {
+  margin-bottom: -2px;
+  border-bottom: solid 4px white;
 }
 body main .quote {
   user-select: none;
@@ -87,6 +100,41 @@ body main .quote h1 {
   body main nav .title {
     width: fit-content;
     font-size: 1em;
+  }
+  body main nav .links {
+    margin-left: auto;
+    margin-right: 1em;
+    display: flex;
+  }
+  body main nav .links a {
+    font-size: 1.25em;
+    padding: 0 15px;
+  }
+  body main .quote {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  body main .quote button {
+    font-size: 3em;
+    padding: 0.4em 0.9em;
+  }
+  body main .quote h1 {
+    font-size: 5em;
+  }
+}
+@media only screen and (min-width: 530px) {
+  body main nav {
+    height: 52px;
+    display: flex;
+    align-items: center;
+  }
+  body main nav .title {
+    width: fit-content;
+    font-size: 1em;
     margin-left: 1em;
   }
   body main nav .links {
@@ -129,13 +177,16 @@ body main .quote h1 {
     width: fit-content;
     font-size: 1.5em;
   }
+  body main nav .title h2 {
+    padding: 0;
+    margin: 0.5em;
+  }
   body main nav .links {
     width: 100%;
-    height: 50%;
+    height: fit-content;
     align-items: center;
     justify-content: space-around;
     display: flex;
-    margin-top: 1em;
   }
   body main nav .links a {
     font-size: 1.5em;
@@ -174,10 +225,18 @@ body main .quote h1 {
   body main nav .title {
     width: fit-content;
     font-size: 8vw;
+    flex-direction: column;
+  }
+  body main nav .title img {
+    margin-top: 1em;
+  }
+  body main nav .title h2 {
+    padding: 0;
+    margin: 0.5em;
   }
   body main nav .links {
     width: 100%;
-    height: 50%;
+    height: fit-content;
     align-items: center;
     justify-content: space-around;
     display: flex;
