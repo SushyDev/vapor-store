@@ -7,7 +7,7 @@ exports.startDownload = (url, dir, gameTitle) => {
             if (currentDownloadName.includes(gameTitle)) return;
             currentDownloadName.push(gameTitle);
 
-            const downloadDir = localStorage.getItem('downloadDir');
+            const downloadDir = vapor.config.get().downloadDir;
             const itemName = item.getFilename();
             const fullPath = path.join(downloadDir, itemName);
             const folderName = itemName.slice(0, -4);
@@ -50,9 +50,6 @@ exports.startDownload = (url, dir, gameTitle) => {
                 ],
             };
 
-            //Remove starting snackbar
-            if (!gameTitle.includes('vapor-store-update')) vapor.ui.snackbar.close(`${gameTitle}-fetching`, false);
-
             //Create snackbar
             vapor.ui.snackbar.create(snackbarData);
 
@@ -64,7 +61,7 @@ exports.startDownload = (url, dir, gameTitle) => {
                 item.cancel();
 
                 // # remove item from currently downloading list
-                const indexNum = currentDownloadData.findIndex((key) => key.gameTitle === gameTitle);
+                const indexNum = vapor.fn.getKeyByValue(currentDownloadData, 'gameTitle', gameTitle);
 
                 delete currentDownloadData[indexNum];
 
@@ -74,7 +71,7 @@ exports.startDownload = (url, dir, gameTitle) => {
             });
 
             //On incoming data
-            item.on('updated', (event, state, e) => {
+            item.on('updated', (event, state) => {
                 if (item.isDestroyed() || item.isDestroyed() == undefined) return;
                 try {
                     //Downloading
@@ -90,7 +87,6 @@ exports.startDownload = (url, dir, gameTitle) => {
                     // ? Send item data to downloader
                     ipcRenderer.send('item-updated-data', {received: received_bytes, total: total_bytes, startTime: startTime}, downloadData, gameTitle);
                 } catch (err) {
-                    console.log(event, state, e);
                     console.log('item-updated', err);
                     // ! Can error on download finish so it catches here
                 }
@@ -132,7 +128,7 @@ exports.startDownload = (url, dir, gameTitle) => {
                                     labelid: `${gameTitle}-extract-button__label`,
                                     class: 'extract-button',
                                     id: 'extract-button',
-                                    onclick: `extractDownload('${fullPath.replace(/\\/g, '/')}', '${path.join(downloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
+                                    onclick: `downloader.extractDownload('${fullPath.replace(/\\/g, '/')}', '${path.join(downloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
                                 },
                                 {
                                     type: 'button',
@@ -158,7 +154,7 @@ exports.startDownload = (url, dir, gameTitle) => {
 
                     // ? Extract downloaded zip file
                     if (fileType == 'zip') {
-                        if (localStorage.getItem('autoExtract') == 'true') {
+                        if (vapor.config.get().autoExtract) {
                             // ? If auto extract is on skip this step and extract automatically
                             downloader.extractDownload(fullPath, path.join(downloadDir, folderName), gameTitle);
                         } else {
@@ -212,4 +208,4 @@ ipcMain.on('item-updated-data', (event, item, data, gameTitle) => {
     }
 });
 
-ipcMain.on('item-download-completed', (e, gameTitle) => downloader.item.removeItem(gameTitle, 'download'));
+ipcMain.on('item-download-completed', (event, gameTitle) => downloader.item.removeItem(gameTitle, 'download'));

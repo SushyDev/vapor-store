@@ -1,10 +1,10 @@
 //Extract zip in game file
-exports.extractDownload = (targetPath, targetFolder, gameTitle) => {
+exports.extractDownload = async (targetPath, targetFolder, gameTitle) => {
     const folderName = targetFolder.split(path.sep).pop();
     const zipFile = folderName + '.zip';
     const extractDir = targetFolder.replace(folderName, '');
 
-    const indexNum = extractNeedsConfirm.findIndex((key) => key.gameTitle === gameTitle);
+    const indexNum = vapor.fn.getKeyByValue(extractNeedsConfirm, 'gameTitle', gameTitle);
 
     delete extractNeedsConfirm[indexNum];
 
@@ -45,35 +45,34 @@ exports.extractDownload = (targetPath, targetFolder, gameTitle) => {
 
     vapor.ui.snackbar.create(snackbarData);
 
-    (async () => {
-        let extracted = 0;
-        await extract(targetPath, {
-            dir: extractDir,
-            onEntry: (entry, zipfile) => {
-                extracted++;
+    let extracted = 0;
+    await extract(targetPath, {
+        dir: extractDir,
+        onEntry: (entry, zipfile) => {
+            extracted++;
 
-                const progress = (extracted * 100) / zipfile.entryCount;
-                const scalePercent = progress / 100;
+            const progress = (extracted * 100) / zipfile.entryCount;
+            const scalePercent = progress / 100;
 
-                try {
-                    document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracting ${zipFile} ${progress.toFixed(2)}%`;
-                    ipcRenderer.send('item-extraction-progress', gameTitle, zipFile, progress);
-                } catch (e) {}
-            },
-        });
+            try {
+                document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${scalePercent})`;
+                document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracting ${zipFile} ${progress.toFixed(2)}%`;
+                ipcRenderer.send('item-extraction-progress', gameTitle, zipFile, progress);
+            } catch (e) {}
+        },
+    });
 
-        fs.unlink(targetPath, (err) => {
-            if (err) console.error(err);
-        });
+    fs.unlink(targetPath, (err) => {
+        if (err) console.error(err);
+    });
 
-        //Function for getting key from game name
-        const indexNum = currentExtractions.findIndex((key) => key === gameTitle);
-        delete currentExtractions[indexNum];
-        currentExtractions = currentExtractions.filter((n) => n);
+    //Function for getting key from game name
+    const indexNum2 = currentExtractions.findIndex((key) => key === gameTitle);
 
-        vapor.ui.snackbar.close(`${gameTitle}-extract`, false);
+    delete currentExtractions[indexNum2];
+    currentExtractions = currentExtractions.filter((n) => n);
 
-        ipcRenderer.send('item-extraction-complete', gameTitle);
-    })();
+    vapor.ui.snackbar.close(`${gameTitle}-extract`, false);
+
+    ipcRenderer.send('item-extraction-complete', gameTitle);
 };

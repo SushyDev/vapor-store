@@ -20,7 +20,7 @@ exports.Installed = async (fetchName, type, gameDir = undefined, gameFolder = un
     card.className = 'mdc-card';
     card.id = gameInfo.id;
     card.innerHTML = cardContent;
-    addCard(card);
+    addCard(card, 'Installed');
 };
 
 // ! Build library card
@@ -49,7 +49,7 @@ exports.Library = async (fetchName, type, gameDir = undefined, gameFolder = unde
     card.className = 'mdc-card';
     card.id = gameInfo.id;
     card.innerHTML = cardContent;
-    addCard(card);
+    addCard(card, 'Library');
 };
 
 // ! Add metadata to page when opening game
@@ -141,9 +141,10 @@ exports.addMetadata = async (name, type) => {
 };
 
 // ! Append card to grid
-function addCard(card) {
+function addCard(card, page) {
+    const cards = document.getElementById('cards');
     // ? Add the card to the grid
-    cards.appendChild(card);
+    if (sessionStorage.getItem('page') == page) cards.appendChild(card);
     vapor.ui.hideProgressBar();
     // ? starts some material design components stuff on the newly added div
     window.mdc.autoInit();

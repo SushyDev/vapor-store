@@ -31,8 +31,6 @@ const createDesktopShortcut = require('../libraries/create-desktop-shortcuts');
 const isAlpha = app.getVersion().includes('alpha');
 const isDev = isAlpha ? true : require('electron-is-dev');
 
-const appDataPath = path.resolve(app.getPath('userData'));
-
 // ! Import vapor store modules
 
 const vapor = require('../js/modules/vapor-modules');
@@ -41,10 +39,6 @@ const downloader = require('../js/modules/downloader/modules');
 
 //Clear Sesion Storage
 sessionStorage.clear();
-//Localstorage values
-const downloadDir = localStorage.getItem('downloadDir');
-const darkMode = localStorage.getItem('darkMode');
-const optBeta = localStorage.getItem('beta');
 
 if (isDev) isAlpha ? console.log('Hi alpha tester') : console.log('Hi Developer');
 vapor.app.Initialize();

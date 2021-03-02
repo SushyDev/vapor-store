@@ -50,7 +50,7 @@ exports.fetchDownload = (gameTitle) => {
     $.getJSON(file, (data) => {
         data['list'].forEach((game) => {
             const listItem = game.name.substring(1).slice(0, -1).replace(/ /g, '-');
-            if (listItem == gameTitle) getDownloadURL(game.url, gameTitle).then((output) => downloader.startDownload(output, vapor.fn.vaporGames(), gameTitle));
+            if (listItem == gameTitle) getDownloadURL(game.url, gameTitle).then((output) => downloader.startDownload(output, vapor.config.get().downloadDir, gameTitle));
         });
     });
 };
@@ -119,10 +119,9 @@ async function getDownloadURL(url, gameTitle) {
         }
     });
 
-    console.log(downloadUrl);
-
     if (!downloadUrl) {
-        vapor.ui.MDCAlert('Download failed', 'please retry');
+        console.log(downloadUrl);
+        vapor.ui.dialog.MDCAlert('Download failed', 'please retry');
         fetchingDownload.shift();
         return;
     }
@@ -139,6 +138,9 @@ async function getDownloadURL(url, gameTitle) {
 
     // ? Remove item from currently fetching list
     fetchingDownload.shift();
+
+    //Remove starting snackbar
+    if (!gameTitle.includes('vapor-store-update')) vapor.ui.snackbar.close(`${gameTitle}-fetching`, false);
     return downloadUrl;
 }
 

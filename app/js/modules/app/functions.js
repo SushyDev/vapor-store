@@ -1,21 +1,24 @@
 // ! Returns path to library json file
-exports.getKeyByValue = (array, value) => Object.keys(array).find((key) => array[key].name === value);
+exports.getKeyByValue = (array, type, value) => Object.keys(array).find((key) => array[key][type] === value);
 
 // ! Get chromium path for windows/linux (Development is done on OpenSUSE)
 exports.getChromiumExecPath = () => (process.platform == 'linux' ? puppeteer.executablePath() : puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked'));
 
 // ! Vapor Store files directory's
-const vaporFiles = () => path.join(appDataPath, 'Files');
-const vaporConfig = () => path.join(vaporFiles(), 'json');
-const vaporGames = () => path.join(vaporFiles(), 'games');
+const vaporData = () => path.resolve(app.getPath('userData'));
+const vaporFiles = () => path.join(vaporData(), 'Files');
+const vaporConfigs = () => path.join(vaporFiles(), 'json');
 
+// ! Main paths
 exports.vaporFiles = () => vaporFiles();
-exports.vaporConfig = () => vaporConfig();
-exports.vaporGames = () => vaporGames();
+exports.vaporConfigs = () => vaporConfigs();
+
+// ! Sub paths
+exports.vaporGames = () => path.join(vaporFiles(), 'games');
+exports.vaporConfig = () => path.join(vaporConfigs(), 'config.json');
+exports.vaporData = () => vaporData();
 
 // ! Get the installed games file
-exports.installedGames = () => path.join(vaporConfig(), 'installed.json');
-
-console.log(`Storing files in ${vaporConfig()}`);
+exports.installedGames = () => path.join(vaporConfigs(), 'installed.json');
 
 exports.vaporIcon = () => path.join(process.cwd(), 'assets/icons/png/icon.png');

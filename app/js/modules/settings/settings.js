@@ -6,9 +6,10 @@ exports.selectListFile = () => {
         filters: [{name: 'JSON', extensions: ['json']}],
     };
 
-    dialog.showOpenDialog(null, options).then(async (file) => {
-        localStorage.setItem('listFile', path.resolve(file.filePaths[0]));
-        document.getElementById('gameFileDir').innerHTML = `Current file: ${localStorage.getItem('listFile')}`;
+    dialog.showOpenDialog(null, options).then((file) => {
+        vapor.config.setItem({listFile: path.resolve(file.filePaths[0])}).then((config) => {
+            document.getElementById('gameFileDir').innerHTML = `Current file: ${config.listFile}`;
+        });
     });
 };
 
@@ -18,29 +19,32 @@ exports.selectDownloadDir = () => {
         title: 'Select Folder',
         properties: ['openDirectory'],
     };
-    dialog.showOpenDialog(null, options).then(async (folder) => {
-        localStorage.setItem('downloadDir', path.resolve(folder.filePaths[0]));
-        document.getElementById('gameDownloadDir').innerHTML = `Current folder: ${localStorage.getItem('downloadDir')}`;
+    dialog.showOpenDialog(null, options).then((folder) => {
+        vapor.config.setItem({downloadDir: path.resolve(folder.filePaths[0])}).then((config) => {
+            document.getElementById('gameDownloadDir').innerHTML = `Current folder: ${config.downloadDir}`;
+        });
     });
 };
 
 // ! Toggle opt into beta versions
 exports.toggleBetaOpt = () => {
     const toggle = document.getElementById('beta-switch').checked;
-    toggle ? localStorage.setItem('beta', true) : localStorage.setItem('beta', false);
+    toggle ? vapor.config.setItem({optBeta: true}) : vapor.config.setItem({optBeta: false});
 };
 
 // ! Toggle Auto extract
 exports.toggleAutoExtract = () => {
     const toggle = document.getElementById('extract-switch').checked;
-    toggle ? localStorage.setItem('autoExtract', true) : localStorage.setItem('autoExtract', false);
+    toggle ? vapor.config.setItem({autoExtract: true}) : vapor.config.setItem({autoExtract: false});
 };
 
 // ! Update theme toggle on the settings page
-exports.updateThemeToggle = () => {
-    const darkMode = localStorage.getItem('darkMode');
+exports.updateThemeToggle = (darkMode) => {
+    console.log(darkMode);
+    if (darkMode == undefined) darkMode = vapor.config.get().darkMode;
+    console.log(darkMode);
 
-    darkMode == 'true' ? toggleLight() : toggleDark();
+    darkMode ? toggleLight() : toggleDark();
 
     function toggleLight() {
         document.getElementById('theme').childNodes[3].innerHTML = `brightness_high`;

@@ -1,6 +1,7 @@
 module.exports = {
     app: require('./app/main'),
     fn: require('./app/functions'),
+    config: require('./app/config'),
     pages: require('./pages/modules'),
     cards: require('./cards/modules'),
     settings: require('./settings/settings'),

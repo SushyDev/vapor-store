@@ -1,9 +1,9 @@
 exports.Initialize = () => {
     const searchBox = vapor.cards.grid.searchBox();
-    const file = localStorage.getItem('listFile');
+    const file = vapor.config.get().listFile;
 
     //If no file
-    if (!localStorage.getItem('listFile')) {
+    if (!file) {
         vapor.ui.dialog.MDCAlert('No game list file selected', 'Please download a game list file and select it in the settings');
         vapor.nav.goto('Settings');
     }

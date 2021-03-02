@@ -73,6 +73,8 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Import existing games
 - [x] Make a desktop notification when the download is completed
 - [x] Downloader tab
+- [x] Implement better updater
+- [x] Clean out the snackbar notification service code
 #### Important
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**
@@ -85,14 +87,22 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 - [ ] Make it so the downloader always over writes zips
-- [ ] Implement better updater
-- [ ] Clean out the snackbar notification service code
 - [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 - [ ] When adding your own game have a option to select the metadata
 - [ ] Download by link with metadata
-- [ ] Move localStorage to electron-store
+- [ ] Move localStorage to electron-store (Possibly? / Maybe make my own minimal version)
 - [ ] Add warning when closing the app whilst downloading
 - [ ] Minimize to tray on close when downloading
+
+### Goals for alpha
+- [x] Update variables
+- [ ] Move components to modules
+- [ ] Fix FS related code
+- [ ] Clean out try/catch
+- [ ] Improve stability / code conflicts
+- [ ] Make code more readable & minimal  
+- [ ] Document the code more
+- [ ] a Vapor Store api?
 
 ### Ideas
 - Add support for Masquerade, GOG Games, and GDrive/Mega

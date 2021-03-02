@@ -24,7 +24,5 @@ exports.goto = (page = 'Home') => {
     sessionStorage.setItem('page', page);
 
     //Hide progressbar
-    try {
-        hideProgressBar();
-    } catch (e) {}
+    vapor.ui.hideProgressBar();
 };

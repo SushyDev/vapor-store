@@ -96,26 +96,18 @@ function getListOfExec(gameFolder) {
     return list;
 }
 
-//If subfolder return subfolder name
-function getSubFolders(dir) {
-    return fs.readdirSync(dir).filter(function (subfolder) {
-        return fs.statSync(path.join(dir, subfolder));
-    });
-}
+// ! If subfolder return subfolder name
+const getSubFolders = (dir) => fs.readdirSync(dir).filter((subfolder) => fs.statSync(path.join(dir, subfolder)));
 
-function openFolder(folder, filename) {
-    shell.showItemInFolder(path.join(folder));
-}
+// ! No idea what this does
+const openFolder = (folder, filename) => shell.showItemInFolder(path.join(folder));
 
-//If no folder was found
-function selectFallbackFolder(fileName) {
-    // console.log(fileName);
+// ! If no folder was found use fallback folder
+const selectFallbackFolder = (fileName) => $.getJSON(file, (data) => data['list'].find((game) => game.fileName == fileName));
 
-    $.getJSON(file, (data) => {
-        data['list'].forEach((game) => {
-            if (game.fileName == fileName) {
-                // console.log(game);
-            }
-        });
-    });
-}
+// console.log(fileName);
+// data['list'].forEach((game) => {
+//     if (game.fileName == fileName) {
+//         // console.log(game);
+//     }
+// });

@@ -1,12 +1,5 @@
 exports.Initialize = () => {
-    // ? If no download directory is set, set to vapor store default
-    if (!downloadDir) localStorage.setItem('downloadDir', vapor.fn.vaporGames());
-
-    // ? If no theme preference is set then default to darkmode
-    if (!darkMode) localStorage.setItem('darkMode', true);
-
-    // ? If no beta preference is set, check if current version is beta and set default accordingly
-    if (!optBeta) app.getVersion().includes('beta') ? localStorage.setItem('beta', true) : localStorage.setItem('beta', false);
+    vapor.config.Initialize();
 
     const file = vapor.fn.installedGames();
     // ? If library json file doesnt exist make it (and make the folder if it doesnt exist)
