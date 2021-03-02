@@ -50,7 +50,7 @@ exports.fetchDownload = (gameTitle) => {
     $.getJSON(file, (data) => {
         data['list'].forEach((game) => {
             const listItem = game.name.substring(1).slice(0, -1).replace(/ /g, '-');
-            if (listItem == gameTitle) getDownloadURL(game.url, gameTitle).then((output) => downloader.startDownload(output, localStorage.getItem('downloadDir'), gameTitle));
+            if (listItem == gameTitle) getDownloadURL(game.url, gameTitle).then((output) => downloader.startDownload(output, vapor.fn.vaporGames(), gameTitle));
         });
     });
 };
@@ -132,7 +132,7 @@ async function getDownloadURL(url, gameTitle) {
     await browser.close();
 
     //Make folder if doesn't exist
-    const targetFolder = localStorage.getItem('downloadDir');
+    const targetFolder = vapor.fn.vaporGames();
 
     // ? If target folder doesn't exist then create it
     fs.existsSync(targetFolder) || fs.mkdirSync(targetFolder);

@@ -28,6 +28,9 @@
   content: "";
   border-right: 20px solid transparent;
 }
+.library .genres .genre-container .genre-cards:hover {
+  margin-bottom: -12px;
+}
 .library .genres .genre-container .genre-cards:hover::-webkit-scrollbar {
   display: initial;
 }

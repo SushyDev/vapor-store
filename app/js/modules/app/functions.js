@@ -7,9 +7,11 @@ exports.getChromiumExecPath = () => (process.platform == 'linux' ? puppeteer.exe
 // ! Vapor Store files directory's
 const vaporFiles = () => path.join(appDataPath, 'Files');
 const vaporConfig = () => path.join(vaporFiles(), 'json');
+const vaporGames = () => path.join(vaporFiles(), 'games');
 
 exports.vaporFiles = () => vaporFiles();
 exports.vaporConfig = () => vaporConfig();
+exports.vaporGames = () => vaporGames();
 
 // ! Get the installed games file
 exports.installedGames = () => path.join(vaporConfig(), 'installed.json');

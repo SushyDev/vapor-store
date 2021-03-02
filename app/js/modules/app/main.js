@@ -1,6 +1,6 @@
 exports.Initialize = () => {
     // ? If no download directory is set, set to vapor store default
-    if (!downloadDir) localStorage.setItem('downloadDir', path.join(appDataPath, 'Games'));
+    if (!downloadDir) localStorage.setItem('downloadDir', vapor.fn.vaporGames());
 
     // ? If no theme preference is set then default to darkmode
     if (!darkMode) localStorage.setItem('darkMode', true);
@@ -99,23 +99,25 @@ exports.fetchUpdate = () => {
         // ? Latest Version Number
         const latestVN = latest.split('-beta-')[0];
 
-        // ! Check for updates
-        current.includes('beta') && latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
+        // ! When update is available
+        const updateAvailable = (beta) => (localStorage.getItem('beta') == 'false' && beta == true) || vapor.ui.snackbar.create(snackbarData);
+
+        current.includes('alpha') && latest.includes('alpha') && updateAvailable();
 
         // ! Check if there is update
+        const noneIsBeta = () => (latest > current ? updateAvailable() : undefined);
         const bothAreBeta = () => (latestVN > currentVN ? updateAvailable(true) : parseInt(latestBN) > parseInt(currentBN) ? updateAvailable(true) : undefined);
         const currentIsBeta = () => (latest == currentVN ? updateAvailable() : latest > currentVN ? updateAvailable() : undefined);
         const latestIsBeta = () => (latestVN > current ? updateAvailable(true) : undefined);
-        const noneIsBeta = () => (latest > current ? updateAvailable() : undefined);
 
-        // ! When update is available
-        const updateAvailable = (beta) => (localStorage.getItem('beta') == 'false' && beta == true) || createSnack(snackbarData);
+        // ! Check for updates
+        current.includes('beta') && latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
     });
 };
 
 function downloadUpdate(name, downloadUrl) {
-    closeSnackbar(name, false);
-    startDownload(downloadUrl, localStorage.getItem('downloadDir'), 'vapor-store-update');
+    vapor.ui.snackbar.close(name, false);
+    downloader.startDownload(downloadUrl, vapor.fn.vaporGames(), 'vapor-store-update');
 }
 
 // ? Run exe
