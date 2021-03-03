@@ -21,7 +21,7 @@
 ## Info
 
 ### Download
-
+ 
 - [Releases Page](https://github.com/SushyDev/vapor-store/releases)
 - [Vapor Store Downloads](https://vaporstore.netlify.app)
 
