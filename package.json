@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "2.0.0-alpha-7",
+  "version": "2.0.0-alpha-9",
   "description": "Vapor Store",
   "author": "SushyDev",
   "main": "app.js",
@@ -66,7 +66,8 @@
     "jquery": "^3.5.1",
     "material-components-web": "^7.0.0",
     "material-design-icons-webfont": "^1.0.0",
-    "puppeteer": "3.3.0"
+    "puppeteer": "3.3.0",
+    "zero-md": "^2.1.1"
   },
   "devDependencies": {
     "electron": "^7.3.3",

@@ -1,18 +1,19 @@
 exports.create = (dialogData, autoshow = true) => {
-    const main = dialogData.main;
-    const title = dialogData.title;
+    const main = dialogData.main[0];
+    const content = dialogData.content;
     const name = main.name;
 
     const dialog = document.createElement('div');
-    dialog.className = `mdc-dialog ${name}-dialog`;
-    dialog.id = `${name}-dialog`;
+    dialog.className = `mdc-dialog ${main.id}-dialog`;
+    dialog.id = `${main.id}-dialog`;
     dialog.innerHTML = `
     <div class="mdc-dialog__container">
         <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-content">
-            <h2 class="mdc-dialog__title" id="${title.id}">${title.innerHTML}</h2>
+            <h2 class="mdc-dialog__title" id="${main.id}">${name}</h2>
             <div class="mdc-dialog__content" id="${name}-dialog-content">
+            ${content}
             </div>
-            <div class="mdc-dialog__actions" id="${name}-dialog__actions">
+            <div class="mdc-dialog__actions" id="${name}-dialog__actions">                
             </div>
         </div>
     </div>
@@ -24,13 +25,24 @@ exports.create = (dialogData, autoshow = true) => {
     //Make buttons in action menu
     if (!!dialogData.actions) {
         dialogData.actions.forEach((action) => {
-            const actionButton = document.createElement(action.type);
-            actionButton.className = 'mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded';
-            actionButton.id = `${action.id}`;
-            actionButton.setAttribute('onclick', `${action.onclick}`);
+            console.log(action);
+            const actionButton = document.createElement('button');
+            actionButton.className = 'mdc-button';
+            actionButton.setAttribute('onclick', `${action.action}`);
             actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
             actionButton.setAttribute('data-mdc-ripple-is-unbounded', true);
-            actionButton.innerHTML = `${action.icon}`;
+
+            const ripple = document.createElement('div');
+            ripple.className = 'mdc-button__ripple';
+
+            const label = document.createElement('span');
+            label.className = 'mdc-button__label';
+            label.textContent = action.name;
+            label.setAttribute('onclick', action.action);
+
+            actionButton.appendChild(ripple);
+            actionButton.appendChild(label);
+
             document.getElementById(`${name}-dialog__actions`).appendChild(actionButton);
         });
     } else {
@@ -49,7 +61,7 @@ exports.create = (dialogData, autoshow = true) => {
         });
     }
 
-    if (autoshow) vapor.ui.dialog.open(`${name}`);
+    if (autoshow) vapor.ui.dialog.open(`${main.id}`);
 
     window.mdc.autoInit();
 };

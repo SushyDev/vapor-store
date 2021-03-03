@@ -19,12 +19,17 @@
                 padding-right: 0;
                 position: relative;
                 border-radius: 8px;
+                background-color: var(--el2);
                 overflow: hidden;
 
                 &[progress='true'] {
                     .snack-content {
                         margin-top: -4px;
                     }
+                }
+
+                .mdc-snackbar__label {
+                    color: var(--color) !important;
                 }
 
                 .snack-content {
@@ -39,6 +44,7 @@
 
                         .mdc-icon-button {
                             margin-right: 6px;
+                            color: var(--color) !important;
                         }
                     }
                 }
@@ -54,8 +60,20 @@
 
             .mdc-dialog__title,
             .mdc-dialog__content {
-                color: var(--color);
+                color: var(--color) !important;
             }
         }
+    }
+}
+
+.markdown-body {
+    color: var(--color);
+
+    a {
+        color: var(--mdc-theme-secondary);
+    }
+
+    .token {
+        color: red;
     }
 }

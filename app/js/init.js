@@ -26,10 +26,10 @@ const shell = require('electron').shell;
 const exec = require('child_process').exec;
 // # For creating desktop shortcuts
 const createDesktopShortcut = require('../libraries/create-desktop-shortcuts');
-// # If development
 
+// # If development / Alpha
 const isAlpha = app.getVersion().includes('alpha');
-const isDev = isAlpha ? true : require('electron-is-dev');
+const isDev = require('electron-is-dev');
 
 // ! Import vapor store modules
 
@@ -40,7 +40,8 @@ const downloader = require('../js/modules/downloader/modules');
 //Clear Sesion Storage
 sessionStorage.clear();
 
-if (isDev) isAlpha ? console.log('Hi alpha tester') : console.log('Hi Developer');
+if (isDev) console.log('Hi Developer');
+if (isAlpha) console.log('Hi alpha tester');
 
 let currentDownloadData = [];
 let extractNeedsConfirm = [];

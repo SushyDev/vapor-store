@@ -21,7 +21,6 @@ exports.Initialize = () => {
 
     // ? If isn't in dev envroinmnet then check o
     if (!isDev) vapor.app.fetchUpdate();
-    if (isAlpha) vapor.app.fetchUpdate();
 
     // ? Set theme
     vapor.settings.theme.checkTheme();
@@ -72,13 +71,19 @@ exports.fetchUpdate = () => {
             ['close']: [
                 {
                     enabled: true,
-                    onclick: `closeSnackbar('${name}', false)`,
+                    onclick: `vapor.ui.snackbar.close('${name}', false)`,
                     title: 'Dismiss',
                     icon: 'close',
                     id: `${name}-close`,
                 },
             ],
         };
+
+        // ? Curent Alpha Version Number
+        const currentAN = current.split('-alpha-').pop();
+
+        // ? Latest Alpha Version Number
+        const latestAN = latest.split('-alpha-').pop();
 
         // ? Current Beta Number
         const currentBN = current.split('-beta-').pop();
@@ -93,9 +98,10 @@ exports.fetchUpdate = () => {
         const latestVN = latest.split('-beta-')[0];
 
         // ! When update is available
-        const updateAvailable = (beta) => (localStorage.getItem('beta') == 'false' && beta == true) || vapor.ui.snackbar.create(snackbarData);
+        const updateAvailable = (beta) => (!vapor.config.get().optBeta && beta) || vapor.ui.snackbar.create(snackbarData);
 
-        current.includes('alpha') && latest.includes('alpha') && updateAvailable();
+        // ! When alpha update is available
+        current.includes('alpha') && latest.includes('alpha') && latestAN > currentAN && updateAvailable();
 
         // ! Check if there is update
         const noneIsBeta = () => (latest > current ? updateAvailable() : undefined);

@@ -1,8 +1,13 @@
 .main-content {
   overflow: auto;
-  display: flex;
-  flex-direction: column;
   padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .main-content .intro {
   color: var(--color);
@@ -12,6 +17,8 @@
 }
 .main-content .cards {
   display: grid;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
 }
 .main-content .cards .mdc-card {
@@ -39,6 +46,8 @@
 .main-content .cards .mdc-card {
   margin-top: 20px;
   background: var(--el2);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   max-width: 600px;
 }
@@ -55,12 +64,15 @@
 }
 .main-content .stats {
   width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
 }
 .main-content .stats .cards {
   width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
-  padding-bottom: 20px;
   grid-gap: 20px;
   grid-auto-rows: 400px;
   grid-template-columns: repeat(auto-fill, 300px);
@@ -74,18 +86,33 @@
   padding: 0;
 }
 .main-content .stats .cards .mdc-card .mdc-card__primary-action .card__primary {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: 100%;
   width: 100%;
 }
 .main-content .stats .cards .mdc-card .mdc-card__primary-action .card__primary .stat {
   height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .main-content .stats .cards .mdc-card .mdc-card__primary-action .card__primary .stat h2 {
   font-size: 4em;

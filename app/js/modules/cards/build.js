@@ -8,18 +8,19 @@ exports.Installed = async (fetchName, type, gameDir = undefined, gameFolder = un
     const bgImage = gameInfo.background_image ? gameInfo.background_image : '../img/not_found.svg';
 
     const cardContent = `
-        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${bgImage}')" id="${fetchName}-cover" onclick="vapor.cards.grid.openInstalled('${fetchName}', '${specialToASCII(gameInfo.name)}', '${gameDir}')">
+        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple"  onclick="vapor.cards.grid.openInstalled('${fetchName}', '${specialToASCII(gameInfo.name)}', '${gameDir}')">
         <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
         </div>
-        </div>
-        `;
+        </div>`;
 
     const card = document.createElement('div');
     card.className = 'mdc-card';
     card.id = gameInfo.id;
+    card.setAttribute('cover', `${fetchName}-cover`);
     card.innerHTML = cardContent;
+    card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${bgImage}')`;
     addCard(card, 'Installed');
 };
 
@@ -33,7 +34,7 @@ exports.Library = async (fetchName, type, gameDir = undefined, gameFolder = unde
     const bgImage = gameInfo.background_image ? gameInfo.background_image : '../img/not_found.svg';
 
     const cardContent = `
-<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${bgImage}')" id="${fetchName}-cover" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')">
+    <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')">
     <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
@@ -42,13 +43,14 @@ exports.Library = async (fetchName, type, gameDir = undefined, gameFolder = unde
 <div class="mdc-card__action-buttons">
     <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="downloader.fetchDownload('${fetchName}')"></span>Download</button>
     <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')"></span>More</button>
-</div>
-`;
+</div>`;
 
     const card = document.createElement('div');
     card.className = 'mdc-card';
     card.id = gameInfo.id;
     card.innerHTML = cardContent;
+    card.setAttribute('cover', `${fetchName}-cover`);
+    card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${bgImage}')`;
     addCard(card, 'Library');
 };
 

@@ -1,15 +1,14 @@
 .main-content {
     overflow: auto;
-
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
 
     .intro {
         color: var(--color);
 
         h1:nth-of-type(2) {
-            color: var(--color2)
+            color: var(--color2);
         }
     }
 
@@ -73,7 +72,6 @@
         .cards {
             width: 100%;
             height: fit-content;
-            padding-bottom: 20px;
 
             grid-gap: 20px;
             grid-auto-rows: 400px;

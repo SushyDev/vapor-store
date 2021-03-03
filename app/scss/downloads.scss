@@ -5,15 +5,16 @@
 }
 
 .downloads {
+    $sidebarlength: 500px;
     display: grid;
-    grid-template-columns: 600px auto;
+    grid-template-columns: 500px auto;
 
     .downloads-list {
         //MDC Divider
         border-right: 1px solid;
         border-color: var(--divider-color);
-        width: 600px;
-        min-width: 600px;
+        width: $sidebarlength;
+        min-width: $sidebarlength;
         height: calc(100vh - 64px);
         display: flex;
         flex-direction: column;
@@ -92,6 +93,14 @@
 
                 .title-desc-container {
                     margin-left: 26px;
+                }
+            }
+
+            .bottom-row {
+                .details {
+                    display: grid !important;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
                 }
             }
         }

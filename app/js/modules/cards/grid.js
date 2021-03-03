@@ -6,7 +6,7 @@ exports.openLibraryGame = (name) => {
     //close drawer
     drawer.open = false;
 
-    document.getElementById('selected-game-cover').style.background = document.getElementById(`${name}-cover`).style.backgroundImage;
+    document.getElementById('selected-game-cover').style.background = document.querySelector(`div[cover='${name}-cover']`).style.backgroundImage;
     document.getElementById('selected-game-cover').style.backgroundSize = 'cover';
     document.getElementById('selected-game-cover').style.backgroundPosition = 'center';
 
@@ -28,7 +28,7 @@ exports.openInstalled = async (name, gameInfoName, gameDir) => {
     //remove menu
     document.getElementById('menu-anchorpoint').innerHTML = '';
 
-    document.getElementById('selected-game-cover').style.background = document.getElementById(`${name}-cover`).style.backgroundImage;
+    document.getElementById('selected-game-cover').style.background = document.querySelector(`div[cover='${name}-cover']`).style.backgroundImage;
     document.getElementById('selected-game-cover').style.backgroundSize = 'cover';
     document.getElementById('selected-game-cover').style.backgroundPosition = 'center';
 

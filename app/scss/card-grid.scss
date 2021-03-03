@@ -56,10 +56,8 @@
     max-width: 375px;
     overflow: hidden;
 
-    border: 3px solid transparent;
-
     &:focus-within {
-        border-color: var(--mdc-theme-secondary);
+        box-shadow: 0 0 0 3px var(--mdc-theme-secondary); /* All the borders by using the spread properties */
     }
 
     .mdc-card__primary-action {
@@ -152,7 +150,7 @@
     .bottom-row {
         display: grid;
         flex-direction: column;
-        margin: 32px;
+        margin: 32px 20px;
         max-width: 100%;
 
         .game-screenshots {

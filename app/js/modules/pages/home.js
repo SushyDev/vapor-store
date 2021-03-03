@@ -14,8 +14,22 @@ exports.Initialize = () => {
     });
 };
 
-exports.showCL = () => {
-    $.get('https://raw.githubusercontent.com/SushyDev/vapor-store/data/home.html', (data) => {
-        const changelog = data;
-    });
+exports.showChangelog = () => {
+    const dialogData = {
+        ['main']: [
+            {
+                name: `Changelog`,
+                id: 'changelog',
+            },
+        ],
+        ['content']: '<zero-md src="https://raw.githubusercontent.com/SushyDev/vapor-store/master/CHANGELOG.md"><template data-merge="append"><link rel="stylesheet" href="../css/overlays.css"></template></zero-md>',
+        ['actions']: [
+            {
+                name: 'close',
+                action: `vapor.ui.dialog.close('changelog')`,
+            },
+        ],
+    };
+
+    vapor.ui.dialog.create(dialogData);
 };
