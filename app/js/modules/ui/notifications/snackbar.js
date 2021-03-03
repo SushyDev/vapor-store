@@ -73,7 +73,7 @@ exports.close = (name, alert = false, message) => {
     //Ask for confirm if confirm = true
     if (alert) if (!confirm(message)) return confirmed;
     //Remove snackbar
-    document.getElementById(`${name}-snackbar`).remove();
+    if (document.getElementById(`${name}-snackbar`)) document.getElementById(`${name}-snackbar`).remove();
 
     return true;
 };

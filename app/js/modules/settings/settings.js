@@ -40,9 +40,7 @@ exports.toggleAutoExtract = () => {
 
 // ! Update theme toggle on the settings page
 exports.updateThemeToggle = (darkMode) => {
-    console.log(darkMode);
     if (darkMode == undefined) darkMode = vapor.config.get().darkMode;
-    console.log(darkMode);
 
     darkMode ? toggleLight() : toggleDark();
 

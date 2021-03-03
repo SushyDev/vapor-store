@@ -23,19 +23,19 @@
 ### Download
 
 - [Releases Page](https://github.com/SushyDev/vapor-store/releases)
-- [Vapor Store Downloads](https://vaporstore.netlify.app)
+- [Vapor Store](https://get-vapor.vercel.app/downloads.html)
 
 ### Requirements
 
-- [Vapor Store](https://github.com/SushyDev/vapor-store/releases)
+- [Vapor Store](https://get-vapor.vercel.app/downloads.html)
 - [A Repo file](https://discord.gg/ZjDTpmf)
 
 ### How to set up
 
-1. Download & Install Vapor Store Version 2.0.0 or above
-2. Download a repo file from the Discord Server(https://discord.gg/ZjDTpmf) and then go to your Vapor Store Settings
-3. In your settings click the "Select File" button and select the JSON file you downloaded from the Discord server, after that your games should be in your library
-4. Enjoy downloading your games!
+1. Download & Install Vapor Store
+2. Download a repo
+3. Go to your Vapor Store Settings
+4. Select the repo file
 
 ### How to build
 
@@ -104,10 +104,23 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Document the code more
 - [ ] a Vapor Store api?
 
-### Ideas
-- Add support for Masquerade, GOG Games, and GDrive/Mega
-- Be able to add custom themes, or a color palette to change the look and color of Vapor Store
-- Make downloading faster or change file hosts
+## Modules moved
+
+- [x] Init
+- [x] Updates
+- [x] Game downloads
+- [x] Navigation
+- [x] IU/Notifications
+- [x] Pages
+- [x] Settings
+- [x] Downloader items
+- [x] Installed games
+- [ ] Launching games
+- [ ] Listing exe's
+- [ ] Removing/Deleting installed game
+- [ ] Create shortcuts
+- [ ] Open containing folder
+- [ ] Add custom game
 
 ### Issues 
 

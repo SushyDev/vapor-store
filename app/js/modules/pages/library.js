@@ -10,7 +10,7 @@ exports.Initialize = () => {
 
     //Function for searching
     searchBox.addEventListener('keyup', (event) => {
-        if (event.keyCode == 13) searchGames();
+        if (event.keyCode == 13) vapor.pages.library.searchGames();
     });
 
     //CTRL + L for selecting searchbar
@@ -21,51 +21,6 @@ exports.Initialize = () => {
         }
     };
 
-    function searchGames() {
-        var search = searchBox.value;
-        sessionStorage.setItem('searchquery', search);
-        //Hide active game list
-        if (search.length < 1) vapor.pages.library.showGenrePage();
-        showSearchPage();
-
-        //Run the search games function
-        createCard();
-    }
-
-    function showSearchPage() {
-        document.getElementById('selected-game').style.display = 'none';
-        document.getElementById('cards').style.maxHeight = 'unset';
-        document.getElementById('genres').style.display = 'none';
-    }
-
-    // ! Search games function
-    function createCard() {
-        // ? If there is a search query do that
-        const search = sessionStorage.getItem('searchquery') ? sessionStorage.getItem('searchquery').toLowerCase() : undefined;
-
-        //Remove previous cards
-        cards.innerHTML = '';
-        vapor.ui.showProgressBar();
-
-        //set page
-        const page = sessionStorage.getItem('page');
-
-        //Read the library games list json file
-        $.getJSON(file, (data) => {
-            //Cancel is not on page anymore
-            if (page != sessionStorage.getItem('page')) return;
-            //For every game in the list
-            data['list'].forEach((game) => {
-                if (!game.name.includes(search)) return;
-                //Cancel is not on page anymore
-                if (page != sessionStorage.getItem('page')) return;
-                //Format name for url
-                const fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
-                //Fetch data from the game by name
-                vapor.cards.build.Library(fetchName, 'library');
-            });
-        });
-    }
     createCard();
 
     //list some games based on category
@@ -97,22 +52,27 @@ exports.Initialize = () => {
                     if (Action >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
                     Action++;
+                    return;
                 } else if (genre.name == 'Adventure') {
                     if (Adventure >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
                     Adventure++;
+                    return;
                 } else if (genre.name == 'Indie') {
                     if (Indie >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
                     Indie++;
+                    return;
                 } else if (genre.name == 'Simulation') {
                     if (Simulation >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
                     Simulation++;
+                    return;
                 } else if (genre.name == 'Strategy') {
                     if (Strategy >= 10) return;
                     createGenreCard(fetchData, game.name, genre.name);
                     Strategy++;
+                    return;
                 }
             });
         }
@@ -144,6 +104,56 @@ exports.Initialize = () => {
         window.mdc.autoInit();
     }
 };
+
+exports.searchGames = () => {
+    const searchBox = vapor.cards.grid.searchBox();
+
+    const search = searchBox.value;
+    sessionStorage.setItem('searchquery', search);
+    //Hide active game list
+    if (search.length < 1) vapor.pages.library.showGenrePage();
+    showSearchPage();
+
+    //Run the search games function
+    createCard();
+};
+
+function showSearchPage() {
+    document.getElementById('selected-game').style.display = 'none';
+    document.getElementById('cards').style.maxHeight = 'unset';
+    document.getElementById('genres').style.display = 'none';
+}
+
+// ! Search games function
+function createCard() {
+    const file = vapor.config.get().listFile;
+
+    // ? If there is a search query do that
+    const search = sessionStorage.getItem('searchquery') ? sessionStorage.getItem('searchquery').toLowerCase() : undefined;
+
+    //Remove previous cards
+    cards.innerHTML = '';
+    vapor.ui.showProgressBar();
+
+    //set page
+    const page = sessionStorage.getItem('page');
+
+    //Read the library games list json file
+    $.getJSON(file, (data) => {
+        //Cancel is not on page anymore
+        if (page != sessionStorage.getItem('page')) return;
+        //For every game in the list
+        data['list'].forEach((game) => {
+            if (!game.name.includes(search)) return;
+            //Cancel is not on page anymore
+            if (page != sessionStorage.getItem('page')) return;
+            //Format name for url
+            const fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
+            //Fetch data from the game by name
+            vapor.cards.build.Library(fetchName, 'library');
+        });
+    });
+}
 
 exports.showGenrePage = () => {
     document.getElementById('selected-game').style.display = 'none';

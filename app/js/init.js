@@ -41,10 +41,10 @@ const downloader = require('../js/modules/downloader/modules');
 sessionStorage.clear();
 
 if (isDev) isAlpha ? console.log('Hi alpha tester') : console.log('Hi Developer');
-vapor.app.Initialize();
 
-let currentDownloadName = [];
 let currentDownloadData = [];
 let extractNeedsConfirm = [];
 let currentExtractions = [];
 let fetchingDownload = [];
+
+vapor.app.Initialize();

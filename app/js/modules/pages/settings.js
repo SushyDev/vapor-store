@@ -7,7 +7,7 @@ exports.Initialize = () => {
     }
 
     //Set checked if checked is true
-    if (vapor.config.get().betaOpt) {
+    if (vapor.config.get().optBeta) {
         document.getElementById('beta-switch').checked = true;
         document.getElementById('beta-switch').setAttribute('aria-checked', true);
     }
@@ -16,7 +16,7 @@ exports.Initialize = () => {
     if (!vapor.config.get().listFile) {
         document.getElementById('gameFileDir').innerHTML = 'Please select a json file';
     } else {
-        document.getElementById('gameFileDir').innerHTML = `Current file: ${localStorage.getItem('listFile')}`;
+        document.getElementById('gameFileDir').innerHTML = `Current file: ${vapor.config.get().listFile}`;
     }
 
     document.getElementById('gameDownloadDir').innerHTML = `Current folder: ${vapor.config.get().downloadDir}`;

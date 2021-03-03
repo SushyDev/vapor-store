@@ -1,27 +1,27 @@
 exports.Initialize = () => {
     vapor.config.Initialize();
 
-    const file = vapor.fn.installedGames();
+    const FILE = vapor.fn.installedGames();
     // ? If library json file doesnt exist make it (and make the folder if it doesnt exist)
-    fs.readFile(file, 'utf-8', (err) => {
-        if (err) checkDir();
+    fs.readFile(FILE, 'utf-8', (err, data) => {
+        if (err) overwriteInstalled();
+        try {
+            JSON.parse(data);
+        } catch (e) {
+            overwriteInstalled();
+        }
     });
 
-    // ? Check if config folder exists, if not then create folder, then check for the installed file
-    const checkDir = () => fs.exists(vapor.fn.vaporConfig(), (err) => fs.mkdir(vapor.fn.vaporConfig(), {recursive: true}, (err) => (err ? console.log('Directories', err) : checkList())));
-
     // ? Check if json file exists, if not then make it
-    const checkList = () => {
-        fs.readFile(file, 'utf-8', (err) => {
-            if (err)
-                fs.writeFile(file, JSON.stringify({list: []}), (err) => {
-                    if (err) console.log('File', err);
-                });
+    const overwriteInstalled = () => {
+        fs.writeFile(FILE, JSON.stringify({list: []}), (err) => {
+            if (err) console.log('File', err);
         });
     };
 
     // ? If isn't in dev envroinmnet then check o
     if (!isDev) vapor.app.fetchUpdate();
+    if (isAlpha) vapor.app.fetchUpdate();
 
     // ? Set theme
     vapor.settings.theme.checkTheme();
@@ -30,7 +30,7 @@ exports.Initialize = () => {
 };
 
 exports.fetchUpdate = () => {
-    $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', function (data) {
+    $.get('https://api.github.com/repos/SushyDev/vapor-store/releases', (data) => {
         const release = data[0];
         const isExe = release.assets.find((asset) => asset.name.endsWith('exe'));
 
@@ -66,7 +66,7 @@ exports.fetchUpdate = () => {
                     labelid: `${name}-download-button__label`,
                     class: 'download-button',
                     id: 'download-button',
-                    onclick: `downloadUpdate('${name}', '${downloadUrl}')`,
+                    onclick: `vapor.app.getUpdate('${name}', '${downloadUrl}')`,
                 },
             ],
             ['close']: [
@@ -108,10 +108,10 @@ exports.fetchUpdate = () => {
     });
 };
 
-function downloadUpdate(name, downloadUrl) {
+exports.getUpdate = (name, downloadUrl) => {
     vapor.ui.snackbar.close(name, false);
     downloader.startDownload(downloadUrl, vapor.fn.vaporGames(), 'vapor-store-update');
-}
+};
 
 // ? Run exe
 exports.runExe = async (path) => await setTimeout(async () => await exec(`start "" "${path}`), 250);

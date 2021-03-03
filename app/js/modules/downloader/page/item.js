@@ -44,13 +44,13 @@ exports.createDownloadItem = (game) => {
 
 exports.checkCurrentExtractions = () => {
     currentExtractions.forEach((game) => {
-        if (!document.getElementById(`${game}-extraction-item`)) createExtractingItem(game);
+        if (!document.getElementById(`${game}-extraction-item`)) downloader.item.createExtractingItem(game);
     });
 };
 
 exports.checkConfirmExtract = () => {
     extractNeedsConfirm.forEach((game) => {
-        if (!document.getElementById(`${game.gameTitle}-extraction-item`)) createConfirmExtract(game);
+        if (!document.getElementById(`${game.gameTitle}-extraction-item`)) downloader.item.createConfirmExtract(game);
     });
 };
 
@@ -196,12 +196,7 @@ exports.createFetchingItem = (gameTitle) => {
 };
 
 exports.removeItem = (gameTitle, type) => {
-    try {
-        document.getElementById(`${gameTitle}-${type}-item`).remove();
-    } catch (e) {
-        console.log(`Error removing item: ${gameTitle}-${type}-item`);
-        // ! Item doesn't exist
-    }
+    if (sessionStorage.getItem('page') == 'Downloads') document.getElementById(`${gameTitle}-${type}-item`).remove();
 };
 
 exports.selectItem = (elem) => {

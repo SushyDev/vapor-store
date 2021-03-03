@@ -25,7 +25,7 @@
                 height: 100%;
                 width: 100%;
                 display: flex;
-                overflow-x: auto;
+                overflow-x: scroll;
 
                 .mdc-card {
                     &:first-of-type {
@@ -39,15 +39,9 @@
                 }
 
                 &:hover {
-                    margin-bottom: -12px;
-                    &::-webkit-scrollbar {
-                        display: initial;
+                    &::-webkit-scrollbar-thumb {
+                        background-color: var(--mdc-theme-secondary);
                     }
-                }
-
-                &::-webkit-scrollbar {
-                    display: none;
-                    height: 12px;
                 }
 
                 &::-webkit-scrollbar-track {
@@ -55,6 +49,7 @@
                 }
 
                 &::-webkit-scrollbar-thumb {
+                    background-color: var(--mdc-theme-background);
                     border-left: 5vw solid var(--mdc-theme-background);
                     border-right: 40px solid var(--mdc-theme-background);
                     border-radius: 0;

@@ -5,7 +5,7 @@ exports.getFetching = () => fetchingDownload;
 //Download game
 exports.fetchDownload = (gameTitle) => {
     //If already downloading
-    if (fetchingDownload.includes(gameTitle)) {
+    if (fetchingDownload.includes(gameTitle) || currentDownloadData.find((game) => game.gameTitle == gameTitle)) {
         vapor.ui.dialog.MDCAlert('Already downloading this game');
         return;
     }
@@ -45,9 +45,7 @@ exports.fetchDownload = (gameTitle) => {
 
     ipcRenderer.send('item-fetch-data', gameTitle);
 
-    //Get file from local storage
-    const file = localStorage.getItem('listFile');
-    $.getJSON(file, (data) => {
+    $.getJSON(vapor.config.get().listFile, (data) => {
         data['list'].forEach((game) => {
             const listItem = game.name.substring(1).slice(0, -1).replace(/ /g, '-');
             if (listItem == gameTitle) getDownloadURL(game.url, gameTitle).then((output) => downloader.startDownload(output, vapor.config.get().downloadDir, gameTitle));
@@ -73,11 +71,7 @@ async function getDownloadURL(url, gameTitle) {
     setFetchProgress(gameTitle, '.2');
 
     //Wait for download button visible
-    try {
-        await page.waitForSelector('.btn-download', {visible: true});
-    } catch (e) {
-        if (isDev) console.log(e);
-    }
+    await page.waitForSelector('.btn-download', {visible: true});
 
     setFetchProgress(gameTitle, '.3');
 
@@ -111,7 +105,7 @@ async function getDownloadURL(url, gameTitle) {
     setFetchProgress(gameTitle, '.9');
 
     //Get href of 'Here' anchor
-    const downloadUrl = await page.evaluate(() => {
+    const downloadURL = await page.evaluate(() => {
         try {
             return document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href;
         } catch (e) {
@@ -119,10 +113,9 @@ async function getDownloadURL(url, gameTitle) {
         }
     });
 
-    if (!downloadUrl) {
-        console.log(downloadUrl);
-        vapor.ui.dialog.MDCAlert('Download failed', 'please retry');
-        fetchingDownload.shift();
+    if (!downloadURL) {
+        vapor.ui.dialog.MDCAlert('Download failed', `Please retry<br>Fetched url is ${downloadURL}`);
+        fetchingDownload = fetchingDownload.filter((item) => item !== gameTitle);
         return;
     }
 
@@ -130,18 +123,12 @@ async function getDownloadURL(url, gameTitle) {
 
     await browser.close();
 
-    //Make folder if doesn't exist
-    const targetFolder = vapor.fn.vaporGames();
-
-    // ? If target folder doesn't exist then create it
-    fs.existsSync(targetFolder) || fs.mkdirSync(targetFolder);
-
     // ? Remove item from currently fetching list
-    fetchingDownload.shift();
+    fetchingDownload = fetchingDownload.filter((item) => item !== gameTitle);
 
     //Remove starting snackbar
     if (!gameTitle.includes('vapor-store-update')) vapor.ui.snackbar.close(`${gameTitle}-fetching`, false);
-    return downloadUrl;
+    return downloadURL;
 }
 
 function setFetchProgress(gameTitle, progress) {
