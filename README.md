@@ -21,22 +21,21 @@
 ## Info
 
 ### Download
- 
+
 - [Releases Page](https://github.com/SushyDev/vapor-store/releases)
-- [Vapor Store Downloads](https://vaporstore.netlify.app)
+- [Vapor Store](https://get-vapor.vercel.app/downloads.html)
 
 ### Requirements
 
-- [Vapor Store](https://github.com/SushyDev/vapor-store/releases)
-- [A Repo/JSON file](https://discord.gg/ZjDTpmf)
+- [Vapor Store](https://get-vapor.vercel.app/downloads.html)
+- [A Repo file](https://discord.gg/ZjDTpmf)
 
 ### How to set up
 
-1. Download & Install Vapor Store Version 2.0.0 or above
-2. 
-3. Download a Repo/JSON file from the Discord Server(https://discord.gg/ZjDTpmf) and then go to your Vapor Store Settings
-4. In your settings click the "Select File" button and select the JSON file you downloaded from the Discord server, after that your games should be in your library
-5. Enjoy downloading your games!
+1. Download & Install Vapor Store
+2. Download a repo
+3. Go to your Vapor Store Settings
+4. Select the repo file
 
 ### How to build
 
@@ -74,6 +73,8 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Import existing games
 - [x] Make a desktop notification when the download is completed
 - [x] Downloader tab
+- [x] Implement better updater
+- [x] Clean out the snackbar notification service code
 #### Important
 - [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**
@@ -86,19 +87,40 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 - [ ] Make it so the downloader always over writes zips
-- [ ] Implement better updater
-- [ ] Clean out the snackbar notification service code
 - [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 - [ ] When adding your own game have a option to select the metadata
 - [ ] Download by link with metadata
-- [ ] Move localStorage to electron-store
+- [ ] Move localStorage to electron-store (Possibly? / Maybe make my own minimal version)
 - [ ] Add warning when closing the app whilst downloading
 - [ ] Minimize to tray on close when downloading
 
-### Ideas
-- Add support for Masquerade, GOG Games, and GDrive/Mega
-- Be able to add custom themes, or a color palette to change the look and color of Vapor Store
-- Make downloading faster or change file hosts
+### Goals for alpha
+- [x] Update variables
+- [ ] Move components to modules
+- [ ] Fix FS related code
+- [ ] Clean out try/catch
+- [ ] Improve stability / code conflicts
+- [ ] Make code more readable & minimal  
+- [ ] Document the code more
+- [ ] a Vapor Store api?
+
+## Modules moved
+
+- [x] Init
+- [x] Updates
+- [x] Game downloads
+- [x] Navigation
+- [x] IU/Notifications
+- [x] Pages
+- [x] Settings
+- [x] Downloader items
+- [x] Installed games
+- [ ] Launching games
+- [ ] Listing exe's
+- [ ] Removing/Deleting installed game
+- [ ] Create shortcuts
+- [ ] Open containing folder
+- [ ] Add custom game
 
 ### Issues 
 
