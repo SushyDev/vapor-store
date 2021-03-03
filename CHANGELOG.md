@@ -2,5 +2,4 @@
 
 1. Small highlight changes to the cards UI
 2. Stats on the homepage
-3. Improved downloader stability
-4.  
+3. Improved downloader stability 
