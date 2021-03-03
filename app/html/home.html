@@ -12,7 +12,54 @@
 </div>
 
 <!--Div with cards-->
-<div class="cards" id="cards"></div>
+<div class="cards" id="cards">
+    <div class="mdc-card">
+        <div class="mdc-card__primary-action demo-card__primary-action" data-mdc-auto-init="MDCRipple" tabindex="0">
+            <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Welcome to Vapor Store</h2>
+                <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" id="version"></h3>
+                <span class="demo-card__secondary mdc-typography mdc-typography--body2">This program is still in beta</span>
+            </div>
+        </div>
+
+        <div class="mdc-card__actions">
+            <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple" onclick="vapor.nav.visit('https://ko-fi.com/sushy')">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Changelog</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="mdc-card">
+        <div class="mdc-card__primary-action demo-card__primary-action" data-mdc-auto-init="MDCRipple" tabindex="0">
+            <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Donate</h2>
+                <span class="demo-card__secondary mdc-typography mdc-typography--body2">Support my work on Ko-Fi!</span>
+            </div>
+        </div>
+        <div class="mdc-card__actions">
+            <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple" onclick="vapor.nav.visit('https://ko-fi.com/sushy')">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Donate</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="mdc-card">
+        <div class="mdc-card__primary-action demo-card__primary-action" data-mdc-auto-init="MDCRipple" tabindex="0">
+            <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Need help?</h2>
+                <span class="demo-card__secondary mdc-typography mdc-typography--body2">Join the discord!</span>
+            </div>
+        </div>
+        <div class="mdc-card__actions">
+            <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple" onclick="vapor.nav.visit('https://discord.gg/ZjDTpmf')">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Join</span>
+            </button>
+        </div>
+    </div>
+</div>
 
 <div class="stats">
     <div class="intro">
