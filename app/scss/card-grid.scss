@@ -55,16 +55,16 @@
     min-width: 375px;
     max-width: 375px;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
 
     &:focus-within {
-        box-shadow: 0 0 0 3px var(--mdc-theme-secondary); /* All the borders by using the spread properties */
+        box-shadow: 0 0 0 3px var(--mdc-theme-secondary);
     }
 
     .mdc-card__primary-action {
         padding: 0 16px 8px 16px;
         min-height: 250px;
-        background-size: cover;
-        background-position: center;
 
         .game-card__primary {
             margin-top: auto;

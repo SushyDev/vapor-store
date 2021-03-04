@@ -9,6 +9,8 @@ exports.Initialize = () => {
         if (data) document.querySelector('#loaded-games h2').textContent = JSON.parse(data).list.length;
     });
 
+    document.getElementById('version').textContent = `Version: ${app.getVersion()}`;
+
     $(document).ready(() => {
         ipcRenderer.send('loaded', true);
     });

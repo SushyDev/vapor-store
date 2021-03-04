@@ -29,7 +29,6 @@ exports.Initialize = () => {
 
         //set page
         const page = sessionStorage.getItem('page');
-
         let Action = 0;
         let Strategy = 0;
         let Adventure = 0;
@@ -82,7 +81,7 @@ exports.Initialize = () => {
     function createGenreCard(fetchData, gameName, genre) {
         const fetchName = gameName.replace(/ /g, '-').substring(1).slice(0, -1);
         const cardContent = `
-<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${fetchData.background_image}')" id="${fetchName}-cover" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')">
+<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="${fetchName}-cover" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')">
     <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${fetchData.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${gameName}</h3>
@@ -100,6 +99,8 @@ exports.Initialize = () => {
         card.className = 'mdc-card';
         card.id = fetchData.id;
         card.innerHTML = cardContent;
+        card.setAttribute('cover', `${fetchName}-cover`);
+        card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${fetchData.background_image}')`;
         document.getElementById(`genre-${genre}-cards`).appendChild(card);
         window.mdc.autoInit();
     }

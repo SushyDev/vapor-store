@@ -116,6 +116,7 @@ async function getDownloadURL(url, gameTitle) {
     if (!downloadURL) {
         vapor.ui.dialog.MDCAlert('Download failed', `Please retry<br>Fetched url is ${downloadURL}`);
         fetchingDownload = fetchingDownload.filter((item) => item !== gameTitle);
+        vapor.ui.snackbar.close(`${gameTitle}-fetching-progress`, false);
         return;
     }
 

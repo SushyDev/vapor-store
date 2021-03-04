@@ -20,9 +20,17 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  grid-gap: 20px;
+  grid-auto-rows: 150px;
+  grid-template-columns: repeat(auto-fill, 300px);
 }
 .main-content .cards .mdc-card {
+  margin-top: 20px;
   background: var(--el2);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 300px;
 }
 .main-content .cards .mdc-card__primary-action {
   padding: 0 0 8px 16px;
@@ -38,35 +46,13 @@
 .main-content .cards .mdc-card__actions {
   margin-top: auto;
 }
-.main-content .cards {
-  grid-gap: 20px;
-  grid-auto-rows: 200px;
-  grid-template-columns: repeat(auto-fill, 300px);
-}
-.main-content .cards .mdc-card {
-  margin-top: 20px;
-  background: var(--el2);
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  max-width: 600px;
-}
-.main-content .cards .mdc-card__primary-action {
-  padding: 0 0 8px 16px;
-  color: var(--color);
-}
-.main-content .cards .demo-card__title {
-  margin-top: 12px;
-  margin-bottom: 0px;
-}
-.main-content .cards .demo-card__subtitle {
-  margin-top: 0px;
-}
 .main-content .stats {
   width: 100%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  padding: 20px 0;
+  margin: 20px 0;
 }
 .main-content .stats .cards {
   width: 100%;
@@ -74,7 +60,7 @@
   height: -moz-fit-content;
   height: fit-content;
   grid-gap: 20px;
-  grid-auto-rows: 400px;
+  grid-auto-rows: 350px;
   grid-template-columns: repeat(auto-fill, 300px);
 }
 .main-content .stats .cards .mdc-card {

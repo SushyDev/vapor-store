@@ -48,17 +48,16 @@
   min-width: 375px;
   max-width: 375px;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
 .mdc-card:focus-within {
   -webkit-box-shadow: 0 0 0 3px var(--mdc-theme-secondary);
           box-shadow: 0 0 0 3px var(--mdc-theme-secondary);
-  /* All the borders by using the spread properties */
 }
 .mdc-card .mdc-card__primary-action {
   padding: 0 16px 8px 16px;
   min-height: 250px;
-  background-size: cover;
-  background-position: center;
 }
 .mdc-card .mdc-card__primary-action .game-card__primary {
   margin-top: auto;
@@ -143,7 +142,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin: 32px;
+  margin: 32px 20px;
   max-width: 100%;
 }
 .game-info .bottom-row .game-screenshots {

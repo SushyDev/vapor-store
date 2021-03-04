@@ -67,6 +67,10 @@
 .downloads .download-item-info-container .download-item-info {
   display: none;
 }
+.downloads .download-item-info-container #selected-game-cover {
+  background-size: cover;
+  background-position: center;
+}
 
 .mdc-fab {
   z-index: 10;

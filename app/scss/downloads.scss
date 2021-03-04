@@ -73,6 +73,12 @@
         .download-item-info {
             display: none;
         }
+
+        #selected-game-cover {
+            background-size: cover;
+            background-position: center;
+        }
+
         height: calc(100vh - 64px);
         overflow-y: auto;
     }

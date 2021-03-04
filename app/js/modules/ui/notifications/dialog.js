@@ -25,12 +25,10 @@ exports.create = (dialogData, autoshow = true) => {
     //Make buttons in action menu
     if (!!dialogData.actions) {
         dialogData.actions.forEach((action) => {
-            console.log(action);
             const actionButton = document.createElement('button');
-            actionButton.className = 'mdc-button';
+            actionButton.className = 'mdc-button mdc-dialog__button';
             actionButton.setAttribute('onclick', `${action.action}`);
             actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
-            actionButton.setAttribute('data-mdc-ripple-is-unbounded', true);
 
             const ripple = document.createElement('div');
             ripple.className = 'mdc-button__ripple';

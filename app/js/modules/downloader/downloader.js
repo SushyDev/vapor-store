@@ -1,11 +1,9 @@
 exports.startDownload = (url, downloadDir, gameTitle) => {
-    console.log('hi', gameTitle);
     const {download} = require('electron').remote.require('electron-dl');
     download(win, url, {
         directory: downloadDir,
         allowOverwrite: true,
         onStarted: (item) => {
-            console.log(item);
             if (item.getFilename().endsWith('.html')) {
                 item.cancel();
                 vapor.ui.dialog.MDCAlert('Download failed', `Please retry<br>Bad item`);

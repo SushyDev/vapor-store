@@ -48,7 +48,6 @@ function setConfig(FILE, data) {
     // ? If download dir doesn't exist then create it
     fs.exists(content.downloadDir, async (exists) => exists || fs.mkdirSync(content.downloadDir, {recursive: true}));
 
-    console.log(content);
     // ? Write file content
     fs.writeFileSync(FILE, JSON.stringify(content), 'UTF-8');
 }
