@@ -18,6 +18,7 @@ exports.startDownload = (url, downloadDir, gameTitle) => {
             const itemFileType = itemFilename.substr(-3);
             const folderName = itemFilename.slice(0, -4);
             const startTime = Date.now();
+            let other = 'bruh';
 
             const downloadData = {
                 gameTitle: gameTitle,

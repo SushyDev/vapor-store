@@ -137,5 +137,5 @@ function setFetchProgress(gameTitle, progress) {
     document.getElementById(`${gameTitle}-fetching-progress`).style.transform = `scaleX(${progress})`;
 
     // ? Unless progress is full update it
-    progress == '1' ? ipcRenderer.send('item-fetching-complete', gameTitle) : ipcRenderer.send('item-fetching-progress', gameTitle, progress);
+    progress == '1' ? vapor.pages.downloads.itemFetchingComplete(gameTitle) : vapor.pages.downloads.itemFetchProgress(gameTitle, progress);
 }

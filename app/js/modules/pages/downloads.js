@@ -1,35 +1,37 @@
 exports.Initialize = () => {
     const fetchingDownload = downloader.getFetching();
     fetchingDownload.forEach((game) => downloader.item.createFetchingItem(game));
-
-    // ! Fix this later
-
-    // ? Watching download item events
-
-    ipcMain.on('item-fetching-progress', (e, gameTitle, progress) => {
-        try {
-            const progressBar = document.getElementById(`${gameTitle}-fetch-progress`);
-            const mlp = new mdc.linearProgress.MDCLinearProgress(progressBar);
-            mlp.progress = progress;
-        } catch (e) {}
-    });
-
-    ipcMain.on('item-fetching-complete', (event, gameTitle) => downloader.item.removeItem(gameTitle, 'fetch'));
-
-    // ! Fix this later
-
-    ipcMain.on('item-extraction-progress', (e, gameTitle, zipFile, progress) => {
-        downloader.item.checkCurrentExtractions();
-
-        const scalePercent = progress / 100;
-        try {
-            const progressBar = document.getElementById(`${gameTitle}-extraction-progress`);
-            const mlp = new mdc.linearProgress.MDCLinearProgress(progressBar);
-            mlp.progress = scalePercent;
-        } catch (e) {}
-    });
-
-    ipcMain.on('item-extraction-complete', (event, gameTitle) => downloader.item.removeItem(gameTitle, 'extraction'));
-
-    ipcMain.on('item-extraction-confirm', () => downloader.item.checkConfirmExtract());
 };
+
+// ? Watching download item events
+
+// ? On item extraction progresss
+exports.itemExtProgress = (gameTitle, zipFile, progress) => {
+    downloader.item.checkCurrentExtractions();
+
+    const scalePercent = progress / 100;
+    try {
+        const progressBar = document.getElementById(`${gameTitle}-extraction-progress`);
+        const mlp = new mdc.linearProgress.MDCLinearProgress(progressBar);
+        mlp.progress = scalePercent;
+    } catch (e) {}
+};
+
+// ? On extraction done
+exports.itemExtComplete = (gameTitle) => downloader.item.removeItem(gameTitle, 'extraction');
+
+// ? When requires user confirmation to extract game
+// ? Maybe later add game specific confirm? idk how this works anymore
+exports.itemExtConfirm = () => downloader.item.checkConfirmExtract();
+
+// ? On item fetching progress
+exports.itemFetchProgress = (gameTitle, progress) => {
+    try {
+        const progressBar = document.getElementById(`${gameTitle}-fetch-progress`);
+        const mlp = new mdc.linearProgress.MDCLinearProgress(progressBar);
+        mlp.progress = progress;
+    } catch (e) {}
+};
+
+// ? On item fetching done
+exports.itemFetchingComplete = (gameTitle) => downloader.item.removeItem(gameTitle, 'fetch');

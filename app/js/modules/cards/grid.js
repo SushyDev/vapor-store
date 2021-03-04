@@ -16,7 +16,7 @@ exports.openLibraryGame = (name) => {
     vapor.cards.build.addMetadata(name, 'store');
 };
 
-//Show game info page
+//When open a game in installed page then fill contents
 exports.openInstalled = async (name, gameInfoName, gameDir) => {
     vapor.ui.showProgressBar();
 

@@ -57,8 +57,9 @@ exports.extractDownload = async (targetPath, targetFolder, gameTitle) => {
             try {
                 document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${scalePercent})`;
                 document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracting ${zipFile} ${progress.toFixed(2)}%`;
-                ipcRenderer.send('item-extraction-progress', gameTitle, zipFile, progress);
             } catch (e) {}
+
+            vapor.pages.downloads.itemExtProgress(gameTitle, zipFile, progress);
         },
     });
 
@@ -74,5 +75,5 @@ exports.extractDownload = async (targetPath, targetFolder, gameTitle) => {
 
     vapor.ui.snackbar.close(`${gameTitle}-extract`, false);
 
-    ipcRenderer.send('item-extraction-complete', gameTitle);
+    vapor.pages.downloads.itemExtComplete(gameTitle);
 };

@@ -4,12 +4,10 @@ const root = electron.app.getAppPath();
 const {ipcMain, app, BrowserWindow, dialog} = require('electron');
 const isDev = require('electron-is-dev');
 const {spawn} = require('child_process');
-// ! Remove ? => const ElectronDL = require('electron-dl');
-// ! Remove ? =>  const {launch} = require('puppeteer');
 
 const spawnMain = async () => {
-    win = new BrowserWindow({
-        backgroundColor: '#121212',
+    const win = new BrowserWindow({
+        // backgroundColor: '#121212',
         frame: false,
         minWidth: 990,
         minHeight: 670,
@@ -17,6 +15,7 @@ const spawnMain = async () => {
         icon: root + '/assets/icons/png/icon.png',
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
         },
     });
 
@@ -32,9 +31,6 @@ const spawnLoading = async () => {
         width: 500,
         height: 500,
         icon: root + '/assets/icons/png/icon.png',
-        webPreferences: {
-            nodeIntegration: true,
-        },
     });
 
     win.setMenuBarVisibility(false);
@@ -59,9 +55,6 @@ const startApp = async () => {
         main.show();
         loading.close();
     });
-
-    // ! Display loading screen for 2000ms
-    // ! After 1900ms launch Vapor Store
 };
 
 app.on('activate', () => {

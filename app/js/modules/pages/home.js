@@ -11,9 +11,7 @@ exports.Initialize = () => {
 
     document.getElementById('version').textContent = `Version: ${app.getVersion()}`;
 
-    $(document).ready(() => {
-        ipcRenderer.send('loaded', true);
-    });
+    $(document).ready(() => ipcRenderer.send('loaded', true));
 };
 
 exports.showChangelog = () => {
