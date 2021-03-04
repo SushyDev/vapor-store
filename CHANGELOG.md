@@ -1,3 +1,5 @@
+### 2.0.0 Alpha 10
+1. Small fixes
 ### 2.0.0 Alpha 9
 1. You can now actually view the changelog
 2. Visit links fixed on the homepage
