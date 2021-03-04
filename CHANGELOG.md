@@ -1,6 +1,3 @@
-### 2.0.0 Alpha 10
-1. Small fixes
-
 ### 2.0.0 Alpha 11
 1. Moved electron version from 7.3.3 to 11.3.0
 2. You can now open the folder of the installed game
