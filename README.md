@@ -103,6 +103,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Make code more readable & minimal  
 - [ ] Document the code more
 - [ ] a Vapor Store api?
+- [ ] Move all popups to MDC Dialogs
 
 ## Modules moved
 
