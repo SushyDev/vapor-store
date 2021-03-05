@@ -22,6 +22,7 @@
 
 ### Download
 
+- [Releases Page](https://github.com/SushyDev/vapor-store/releases)
 - [Vapor Store](https://get-vapor.vercel.app/downloads.html)
 
 ### Requirements
@@ -74,10 +75,8 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Downloader tab
 - [x] Implement better updater
 - [x] Clean out the snackbar notification service code
-- [x] Display changelog button on updater notification
-- [x] Overwrite installed games instead of adding duplicates
-
 #### Important
+- [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Custom generator script, custom fetch download script**
@@ -88,8 +87,10 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 - [ ] Make it so the downloader always over writes zips
+- [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 - [ ] When adding your own game have a option to select the metadata
 - [ ] Download by link with metadata
+- [ ] Move localStorage to electron-store (Possibly? / Maybe make my own minimal version)
 - [ ] Add warning when closing the app whilst downloading
 - [ ] Minimize to tray on close when downloading
 
@@ -102,10 +103,12 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Make code more readable & minimal  
 - [ ] Document the code more
 - [ ] a Vapor Store api?
+<<<<<<< Updated upstream
 - [ ] Move all popups to MDC Dialogs
+=======
 - [ ] Replace most IPC calls with modules
-- [x] Move localStorage to electron-store (Possibly? / Maybe make my own minimal version)
 - [ ] Replace fetching/downloading/extracting snackbars with a simple starting/finished download snackbar
+>>>>>>> Stashed changes
 
 ## Modules moved
 
@@ -120,9 +123,9 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Installed games
 - [ ] Launching games
 - [ ] Listing exe's
-- [x] Removing/Deleting installed game
+- [ ] Removing/Deleting installed game
 - [ ] Create shortcuts
-- [x] Open containing folder
+- [ ] Open containing folder
 - [ ] Add custom game
 
 ### Issues 

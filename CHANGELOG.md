@@ -1,3 +1,12 @@
+### 2.0.0 Alpha 12
+1. Integrated almost all installed games features
+2. You can now:
+   - Launch games
+   - Launch games as admin
+   - Create a desktop shortcut for games
+   - Remove games from installed list
+   - Delete games completely
+
 ### 2.0.0 Alpha 11
 1. Moved electron version from 7.3.3 to 11.3.0
 2. You can now open the folder of the installed game
