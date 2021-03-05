@@ -19,13 +19,14 @@ exports.Initialize = () => {
         });
     };
 
-    // ? If isn't in dev envroinmnet then check o
-    if (!isDev) vapor.app.fetchUpdate();
-
     // ? Set theme
     vapor.settings.theme.checkTheme();
 
-    $(document).ready(() => vapor.nav.goto());
+    $(document).ready(() => {
+        vapor.nav.goto();
+        // ? If isn't in dev envroinmnet then check o
+        if (isDev) vapor.app.fetchUpdate();
+    });
 };
 
 exports.fetchUpdate = () => {
