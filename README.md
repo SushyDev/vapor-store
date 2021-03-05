@@ -22,7 +22,6 @@
 
 ### Download
 
-- [Releases Page](https://github.com/SushyDev/vapor-store/releases)
 - [Vapor Store](https://get-vapor.vercel.app/downloads.html)
 
 ### Requirements
