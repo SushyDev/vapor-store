@@ -101,16 +101,18 @@ exports.fetchUpdate = () => {
         const updateAvailable = (beta) => (!vapor.config.get().optBeta && beta) || vapor.ui.snackbar.create(snackbarData);
 
         // ! When alpha update is available
-        current.includes('alpha') && latest.includes('alpha') && latestAN > currentAN && updateAvailable();
+        if (current.includes('alpha')) {
+            latest.includes('alpha') && latestAN > currentAN && updateAvailable();
+            // ! Check for updates
+        } else if (current.includes('beta')) {
+            latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
+        }
 
         // ! Check if there is update
         const noneIsBeta = () => (latest > current ? updateAvailable() : undefined);
         const bothAreBeta = () => (latestVN > currentVN ? updateAvailable(true) : parseInt(latestBN) > parseInt(currentBN) ? updateAvailable(true) : undefined);
         const currentIsBeta = () => (latest == currentVN ? updateAvailable() : latest > currentVN ? updateAvailable() : undefined);
         const latestIsBeta = () => (latestVN > current ? updateAvailable(true) : undefined);
-
-        // ! Check for updates
-        current.includes('beta') && latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
     });
 };
 

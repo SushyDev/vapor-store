@@ -1,3 +1,3 @@
 module.exports = {
-    game: require('./management/collection'),
+    game: require('./management/game/modules'),
 };

@@ -1,43 +1,40 @@
 // ! Build installed card
-exports.Installed = async (fetchName, type, gameDir = undefined, gameFolder = undefined) => {
-    //If no cover is found use not found logo
-    let gameInfo = await vapor.cards.query.fetch(fetchName);
-    //Create the card
-    gameInfo = {...gameInfo, gameDir: gameDir, gameFolder: gameFolder};
+exports.Installed = async (game) => {
+    // ? Fetch game info from api
 
-    const bgImage = gameInfo.background_image ? gameInfo.background_image : '../img/not_found.svg';
+    const metadata = game.metadata[0];
 
+    // ? Get background image from api, if not found use not found svg
     const cardContent = `
-        <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple"  onclick="vapor.cards.grid.openInstalled('${fetchName}', '${specialToASCII(gameInfo.name)}', '${gameDir}')">
-        <div class="game-card__primary">
-        <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
-        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
-        </div>
-        </div>`;
+      <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.openInstalled('${game.id}', '${game.directory}')">
+    <div class="game-card__primary">
+        <h2 class="game-card__title mdc-typography mdc-typography--headline6">${metadata.name}</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${game.id.replace(/-/g, ' ')}</h3>
+    </div>
+</div>`;
 
     const card = document.createElement('div');
     card.className = 'mdc-card';
-    card.id = gameInfo.id;
-    card.setAttribute('cover', `${fetchName}-cover`);
+    card.id = game.id;
+    card.setAttribute('cover', `${game.id}-cover`);
     card.innerHTML = cardContent;
-    card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${bgImage}')`;
+    card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${metadata.background_image}')`;
     addCard(card, 'Installed');
 };
 
 // ! Build library card
-exports.Library = async (fetchName, type, gameDir = undefined, gameFolder = undefined) => {
+exports.Library = async (fetchName) => {
     //If no cover is found use not found logo
     let gameInfo = await vapor.cards.query.fetch(fetchName);
     //Create the card
-    gameInfo = {...gameInfo, gameDir: gameDir, gameFolder: gameFolder};
 
-    const bgImage = gameInfo.background_image ? gameInfo.background_image : '../img/not_found.svg';
+    const backgroundIMG = gameInfo.background_image ? gameInfo.background_image : '../img/not_found.svg';
 
     const cardContent = `
     <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')">
     <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
-        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName}</h3>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${fetchName.replace(/-/g, ' ')}</h3>
     </div>
 </div>
 <div class="mdc-card__action-buttons">
@@ -50,14 +47,14 @@ exports.Library = async (fetchName, type, gameDir = undefined, gameFolder = unde
     card.id = gameInfo.id;
     card.innerHTML = cardContent;
     card.setAttribute('cover', `${fetchName}-cover`);
-    card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${bgImage}')`;
+    card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${backgroundIMG}')`;
     addCard(card, 'Library');
 };
 
 // ! Add metadata to page when opening game
-exports.addMetadata = async (name, type) => {
+exports.addMetadata = async (name, type, game) => {
     // # Fetch data
-    const gameInfo = await vapor.cards.query.fetch(name);
+    const gameInfo = game?.metadata[0] || (await vapor.cards.query.fetch(name));
     const gameInfoExtra = await vapor.cards.query.fetchExtra(gameInfo.id);
     // # Set titles
     const titles = document.querySelectorAll('#selected-game-title');

@@ -1,6 +1,6 @@
 exports.create = (dialogData, autoshow = true) => {
     const main = dialogData.main[0];
-    const content = dialogData.content;
+    const content = dialogData.content || '';
     const name = main.name;
 
     const dialog = document.createElement('div');
@@ -10,10 +10,10 @@ exports.create = (dialogData, autoshow = true) => {
     <div class="mdc-dialog__container">
         <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-content">
             <h2 class="mdc-dialog__title" id="${main.id}">${name}</h2>
-            <div class="mdc-dialog__content" id="${name}-dialog-content">
+            <div class="mdc-dialog__content" id="${main.id}-dialog-content">
             ${content}
             </div>
-            <div class="mdc-dialog__actions" id="${name}-dialog__actions">                
+            <div class="mdc-dialog__actions" id="${main.id}-dialog__actions">                
             </div>
         </div>
     </div>
@@ -41,11 +41,11 @@ exports.create = (dialogData, autoshow = true) => {
             actionButton.appendChild(ripple);
             actionButton.appendChild(label);
 
-            document.getElementById(`${name}-dialog__actions`).appendChild(actionButton);
+            document.getElementById(`${main.id}-dialog__actions`).appendChild(actionButton);
         });
     } else {
         //if doesnt have actions remove action bar
-        document.getElementById(`${name}-dialog__actions`).remove();
+        document.getElementById(`${main.id}-dialog__actions`).remove();
     }
 
     //Make dialog content
@@ -55,7 +55,7 @@ exports.create = (dialogData, autoshow = true) => {
             contentItem.id = `${content.id}`;
             contentItem.className = `${content.class}`;
             contentItem.innerHTML = `${content.innerHTML}`;
-            document.getElementById(`${name}-dialog-content`).appendChild(contentItem);
+            document.getElementById(`${main.id}-dialog-content`).appendChild(contentItem);
         });
     }
 

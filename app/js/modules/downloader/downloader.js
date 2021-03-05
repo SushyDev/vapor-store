@@ -1,7 +1,8 @@
-exports.startDownload = (url, downloadDir, gameTitle) => {
+exports.startDownload = (url, gameID) => {
     const {download} = require('electron').remote.require('electron-dl');
+    const itemDownloadDir = vapor.config.get().downloadDir;
     download(win, url, {
-        directory: downloadDir,
+        directory: itemDownloadDir,
         allowOverwrite: true,
         onStarted: (item) => {
             if (item.getFilename().endsWith('.html')) {
@@ -10,18 +11,16 @@ exports.startDownload = (url, downloadDir, gameTitle) => {
                 return;
             }
             if (currentDownloadData.find((game) => game.zipFile == item.getFilename())) return;
-            if (currentDownloadData.find((game) => game.gameTitle == gameTitle)) return;
+            if (currentDownloadData.find((game) => game.gameID == gameID)) return;
 
             const itemFilename = item.getFilename();
             const itemSavePath = item.getSavePath();
-            const itemDownloadDir = downloadDir;
             const itemFileType = itemFilename.substr(-3);
             const folderName = itemFilename.slice(0, -4);
             const startTime = Date.now();
-            let other = 'bruh';
 
             const downloadData = {
-                gameTitle: gameTitle,
+                gameID: gameID,
                 zipFile: itemFilename,
                 fullPath: itemSavePath,
                 url: url,
@@ -29,44 +28,33 @@ exports.startDownload = (url, downloadDir, gameTitle) => {
 
             currentDownloadData.push(downloadData);
 
-            const snackbarData = {
+            // ? Create snackbar data
+            const downloadingSnackbar = {
                 ['main']: [
                     {
-                        name: `${gameTitle}-download`,
-                    },
-                ],
-                ['progress']: [
-                    {
-                        id: `${gameTitle}-download-progress`,
+                        name: `${gameID}-downloading`,
                     },
                 ],
                 ['label']: [
                     {
-                        id: `${gameTitle}-snackbar-title`,
-                        innerHTML: `Downloading ${itemFilename} 0%`,
-                    },
-                ],
-                ['close']: [
-                    {
-                        onclick: `vapor.ui.snackbar.hide('${gameTitle}-download')`,
-                        title: 'Hide',
-                        icon: 'keyboard_arrow_down',
-                        id: `${gameTitle}-hide`,
+                        id: `started-snackbar-title`,
+                        innerHTML: `Downloading ${itemFilename}`,
                     },
                 ],
             };
 
-            //Create snackbar
-            vapor.ui.snackbar.create(snackbarData);
+            // ? Create snackbar
+            vapor.ui.snackbar.create(downloadingSnackbar);
 
-            ipcRenderer.on(`${gameTitle}-pause`, () => item.pause());
-            ipcRenderer.on(`${gameTitle}-resume`, () => item.resume());
-            ipcRenderer.on(`${gameTitle}-cancel`, () => item.cancel());
+            // ? Remove snackbar after 4 seconds
+            setTimeout(() => vapor.ui.snackbar.close(downloadingSnackbar.main[0].name), 4000);
+
+            ipcRenderer.on(`${gameID}-pause`, () => item.pause());
+            ipcRenderer.on(`${gameID}-resume`, () => item.resume());
+            ipcRenderer.on(`${gameID}-cancel`, () => item.cancel());
 
             //On incoming data
             item.on('updated', (event, state) => {
-                // console.log({event, state, item});
-
                 try {
                     const received_bytes = item.getReceivedBytes();
                     const total_bytes = item.getTotalBytes();
@@ -80,87 +68,46 @@ exports.startDownload = (url, downloadDir, gameTitle) => {
                     const MBps = MB / seconds;
                     const totalGB = total_bytes / (1024 * 1024 * 1024);
 
-                    document.getElementById(`${gameTitle}-download-progress`).style.transform = `scaleX(${scalePercent})`;
-                    document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Downloading ${itemFilename} ${downloadPercent.toFixed(2)}%`;
-
                     checkCurrentDownloads();
 
                     // # Update download page item
                     if (sessionStorage.getItem('page') == 'Downloads') {
-                        const downloadInfo = document.getElementById(`${gameTitle}-download-info`);
+                        const downloadInfo = document.getElementById(`${gameID}-download-info`);
                         downloadInfo.innerHTML = `${downloadPercent.toFixed(2)}% | ${MBps.toFixed(2)}MB/s | ${GB.toFixed(2)}GB/${totalGB.toFixed(2)}GB`;
-                        const progress = document.getElementById(`${gameTitle}-progress`);
+                        const progress = document.getElementById(`${gameID}-progress`);
                         const mlp = new mdc.linearProgress.MDCLinearProgress(progress);
                         mlp.progress = scalePercent;
                     }
                 } catch (e) {
+                    console.log(e);
                     console.log('Item mostlikely cancelled');
                     return;
                 }
             });
 
-            //On download done
+            // ! On download done
             item.once('done', (event, state) => {
                 // # Remove event listener for pause/cancel/resume events
-                ipcRenderer.removeAllListeners(`${gameTitle}-pause`);
-                ipcRenderer.removeAllListeners(`${gameTitle}-resume`);
-                ipcRenderer.removeAllListeners(`${gameTitle}-cancel`);
-
-                // # Remove download snackbar
-                vapor.ui.snackbar.close(`${gameTitle}-download`, false);
+                ipcRenderer.removeAllListeners(`${gameID}-pause`);
+                ipcRenderer.removeAllListeners(`${gameID}-resume`);
+                ipcRenderer.removeAllListeners(`${gameID}-cancel`);
 
                 // # remove item from currently downloading list
-                const indexNum = vapor.fn.getKeyByValue(currentDownloadData, 'gameTitle', gameTitle);
+                const indexNum = vapor.fn.getKeyByValue(currentDownloadData, 'gameID', gameID);
 
                 delete currentDownloadData[indexNum];
 
                 currentDownloadData = currentDownloadData.filter((item) => item);
 
-                //On download complete
+                // # On download complete
                 if (state === 'completed') {
-                    //Send item download completed
-                    downloader.item.removeItem(gameTitle, 'download');
+                    // ? Send item download completed
+                    downloader.item.removeItem(gameID, 'download');
 
-                    //Add downloaded game to library or install update
-                    if (gameTitle == 'vapor-store-update') {
-                        vapor.app.runExe(path.join(vapor.config.get().downloadDir, itemFilename));
-                    } else {
-                        const extractConfirmSnackbar = {
-                            ['main']: [
-                                {
-                                    name: `${gameTitle}-extract-confirm`,
-                                },
-                            ],
-                            ['label']: [
-                                {
-                                    id: `${gameTitle}-snackbar-title`,
-                                    innerHTML: `Do you want to extract ${itemFilename}`,
-                                },
-                            ],
-                            ['actions']: [
-                                {
-                                    type: 'button',
-                                    innerHTML: 'Yes',
-                                    labelid: `${gameTitle}-extract-button__label`,
-                                    class: 'extract-button',
-                                    id: 'extract-button',
-                                    onclick: `downloader.extractDownload('${itemSavePath.replace(/\\/g, '/')}', '${path.join(itemDownloadDir, folderName).replace(/\\/g, '/')}', '${gameTitle}')`,
-                                },
-                                {
-                                    type: 'button',
-                                    innerHTML: 'No',
-                                    labelid: `${gameTitle}-close-button__label`,
-                                    class: 'close-button',
-                                    id: 'close-button',
-                                    onclick: `vaporSnackbar.close('${gameTitle}-extractyn', true, "Are you sure you don't want to extract ${itemFilename}")`,
-                                },
-                            ],
-                        };
-                        vapor.ui.snackbar.create(extractConfirmSnackbar);
-                        downloader.addGameToLibrary(itemSavePath, path.join(itemDownloadDir, folderName), gameTitle);
-                    }
+                    // ? Add downloaded game to library or install update
+                    if (gameID == 'vapor-store-update') vapor.app.runExe(path.join(vapor.config.get().downloadDir, itemFilename));
 
-                    //Create notification
+                    // ? Create notification
                     const notifData = {
                         title: `${itemFilename} download complete!`,
                         body: 'Return to Vapor Store for further actions',
@@ -172,21 +119,40 @@ exports.startDownload = (url, downloadDir, gameTitle) => {
                     if (itemFileType == 'zip') {
                         if (vapor.config.get().autoExtract) {
                             // ? If auto extract is on skip this step and extract automatically
-                            downloader.extractDownload(itemSavePath, path.join(itemDownloadDir, folderName), gameTitle);
+                            downloader.extractDownload(itemSavePath, path.join(itemDownloadDir, folderName), gameID);
                         } else {
                             const extractConfirmData = {
                                 fullPath: itemSavePath,
                                 targetFolder: path.join(itemDownloadDir, folderName),
-                                gameTitle: gameTitle,
+                                gameID: gameID,
                             };
+
+                            const snackbarData = {
+                                ['main']: [
+                                    {
+                                        name: `${gameID}-needs-extraction`,
+                                    },
+                                ],
+                                ['label']: [
+                                    {
+                                        id: `started-snackbar-title`,
+                                        innerHTML: `${itemFilename} needs confirmation to be extracted`,
+                                    },
+                                ],
+                            };
+
+                            //Create snackbar
+                            vapor.ui.snackbar.create(snackbarData);
+
+                            setTimeout(() => vapor.ui.snackbar.close(snackbarData.main[0].name), 4000);
 
                             extractNeedsConfirm.push(extractConfirmData);
 
-                            ipcRenderer.send('item-extraction-confirm');
+                            downloader.item.checkConfirmExtract();
                         }
                     }
                 } else if (state === 'cancelled') {
-                    vapor.ui.dialog.MDCAlert('Download cancelled', `Download for ${gameTitle} is cancelled`);
+                    vapor.ui.dialog.MDCAlert('Download cancelled', `Download for ${gameID} is cancelled`);
                 } else {
                     //Create notification
                     const notifData = {
@@ -205,6 +171,6 @@ exports.startDownload = (url, downloadDir, gameTitle) => {
 
 function checkCurrentDownloads() {
     currentDownloadData.forEach((game) => {
-        if (!document.getElementById(`${game.gameTitle}-download-item`) && sessionStorage.getItem('page') == 'Downloads') downloader.item.createDownloadItem(game);
+        if (!document.getElementById(`${game.gameID}-download-item`) && sessionStorage.getItem('page') == 'Downloads') downloader.item.createDownloadItem(game);
     });
 }

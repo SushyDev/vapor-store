@@ -2,22 +2,22 @@
     <link rel="stylesheet" href="../css/card-grid.css" />
     <link rel="stylesheet" href="../css/installed.css" />
     <script defer>
-        vapor.pages.installed.Initialize();
+        page.installed.Initialize();
         $(document).ready(() => mdc.autoInit());
     </script>
 </head>
 
 <div class="searchbar" id="installed-searchbar">
-    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="vapor.pages.installed.searchInstalledGames()">search</button>
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="page.installed.searchInstalledGames()">search</button>
     <input type="text" id="installed-searchquery" placeholder="Search..." />
-    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="vapor.pages.installed.createCard()">clear</button>
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="page.installed.createCard()">clear</button>
 </div>
 
 <!--Div with cards-->
 <div class="cards" id="cards"></div>
 
 <!--Add games FAB-->
-<button class="mdc-fab" aria-label="Favorite" onclick="vapor.pages.installed.addInstalledGame()" data-mdc-auto-init="MDCRipple">
+<button class="mdc-fab" aria-label="Favorite" onclick="page.installed.addGame()" data-mdc-auto-init="MDCRipple">
     <div class="mdc-fab__ripple"></div>
     <span class="mdc-fab__icon material-icons">add</span>
 </button>

@@ -10,7 +10,7 @@ exports.Initialize = () => {
 
     //Function for searching
     searchBox.addEventListener('keyup', (event) => {
-        if (event.keyCode == 13) vapor.pages.library.searchGames();
+        if (event.keyCode == 13) page.library.searchGames();
     });
 
     //CTRL + L for selecting searchbar
@@ -38,6 +38,9 @@ exports.Initialize = () => {
             const gameAmount = data['list'].length;
             const randomGame = Math.floor(Math.random() * gameAmount);
             const game = data['list'][randomGame];
+
+            // ? If game doesn't exist don't do anyhting
+            if (!game.name) return;
 
             //Cancel is not on page anymore
             if (page != sessionStorage.getItem('page')) return;
@@ -78,18 +81,18 @@ exports.Initialize = () => {
         vapor.ui.hideProgressBar();
     });
 
-    function createGenreCard(fetchData, gameName, genre) {
-        const fetchName = gameName.replace(/ /g, '-').substring(1).slice(0, -1);
+    function createGenreCard(gameInfo, gameName, genre) {
+        const gameID = gameName.replace(/ /g, '-').substring(1).slice(0, -1);
         const cardContent = `
-<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="${fetchName}-cover" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')">
+<div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="${gameID}-cover" onclick="vapor.cards.grid.openLibraryGame('${gameID}')">
     <div class="game-card__primary">
-        <h2 class="game-card__title mdc-typography mdc-typography--headline6">${fetchData.name}</h2>
+        <h2 class="game-card__title mdc-typography mdc-typography--headline6">${gameInfo.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${gameName}</h3>
     </div>
 </div>
 <div class="mdc-card__action-buttons">
-    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="downloader.fetchDownload('${fetchName}')"></span>Download</button>
-    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="vapor.cards.grid.openLibraryGame('${fetchName}')"></span>More</button>
+    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="downloader.fetchDownload('${gameID}')"></span>Download</button>
+    <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple"><span class="mdc-button__ripple" onclick="vapor.cards.grid.openLibraryGame('${gameID}')"></span>More</button>
 </div>
 `;
 
@@ -97,10 +100,10 @@ exports.Initialize = () => {
 
         const card = document.createElement('div');
         card.className = 'mdc-card';
-        card.id = fetchData.id;
+        card.id = gameInfo.id;
         card.innerHTML = cardContent;
-        card.setAttribute('cover', `${fetchName}-cover`);
-        card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${fetchData.background_image}')`;
+        card.setAttribute('cover', `${gameID}-cover`);
+        card.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%), url('${gameInfo.background_image}')`;
         document.getElementById(`genre-${genre}-cards`).appendChild(card);
         window.mdc.autoInit();
     }
@@ -112,7 +115,7 @@ exports.searchGames = () => {
     const search = searchBox.value;
     sessionStorage.setItem('searchquery', search);
     //Hide active game list
-    if (search.length < 1) vapor.pages.library.showGenrePage();
+    if (search.length < 1) page.library.showGenrePage();
     showSearchPage();
 
     //Run the search games function
@@ -151,7 +154,7 @@ function createCard() {
             //Format name for url
             const fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
             //Fetch data from the game by name
-            vapor.cards.build.Library(fetchName, 'library');
+            vapor.cards.build.Library(fetchName);
         });
     });
 }

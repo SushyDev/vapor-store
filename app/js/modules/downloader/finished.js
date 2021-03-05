@@ -1,15 +1,27 @@
-exports.addGameToLibrary = (targetPath, targetFolder, gameTitle) => {
-    const folderName = targetFolder.split('/').pop();
-
-    fs.readFile(vapor.fn.installedGames(), 'utf-8', (err, data) => {
+exports.addGameToLibrary = (gameDir, gameID) => {
+    fs.readFile(vapor.fn.installedGames(), 'utf-8', async (err, data) => {
+        
         const array = JSON.parse(data) ? JSON.parse(data) : {list: []};
-
+        const gameInfo = await vapor.cards.query.fetch(gameID);
+        const exists = vapor.fn.getKeyByValue(array.list, 'id', gameID);
         let updatedArray = array;
-        updatedArray['list'].push({
-            name: gameTitle,
-            directory: targetFolder,
-            folder: folderName,
-        });
+
+
+
+        // ? If game alreadt was installed overwrite data in the list
+        if (exists) {
+            updatedArray['list'][exists] = {
+                id: gameID,
+                directory: gameDir,
+                metadata: [gameInfo],
+            };
+        } else {
+            updatedArray['list'].push({
+                id: gameID,
+                directory: gameDir,
+                metadata: [gameInfo],
+            });
+        }
 
         fs.writeFile(vapor.fn.installedGames(), JSON.stringify(updatedArray), function (err) {
             if (err) throw err;

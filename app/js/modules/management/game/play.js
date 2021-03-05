@@ -1,16 +1,6 @@
-function gamePlay(executable) {
-    if (isDev) console.log(executable);
-    const exec = require('child_process').exec;
-    exec(`start "" "${executable.replace(/"/g, '')}"`, (err, data) => {
-        console.log(err);
-    });
-}
 
-function gamePlayAdmin(executable) {
-    exec(`powershell -command "start-process \\"${executable.replace(/"/g, '')}\\" -verb runas`, (err, data) => {
-        console.log(err);
-    });
-}
+
+
 
 //Select default
 function selectDefault(gameTitle, gameFolder, folderName, launchDefault) {

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="../css/card-grid.css" />
 
     <script defer>
-        vapor.pages.downloads.Initialize();
+        page.downloads.Initialize();
         $(document).ready(() => mdc.autoInit());
     </script>
 </head>
@@ -40,7 +40,7 @@
 </div>
 
 <!--Add download-->
-<button class="mdc-fab" aria-label="Favorite" onclick="addDownload()" data-mdc-auto-init="MDCRipple">
+<button class="mdc-fab" aria-label="Favorite" onclick="downloader.item.addItem()" data-mdc-auto-init="MDCRipple">
     <div class="mdc-fab__ripple"></div>
     <span class="mdc-fab__icon material-icons">add</span>
 </button>

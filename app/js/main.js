@@ -17,20 +17,3 @@ setPageHeight();
 
 //Updates pageheight if user scrolls page
 window.addEventListener('resize', () => setPageHeight());
-
-//Special characters to ascii
-function specialToASCII(str) {
-    try {
-        let res = '';
-        for (let i = 0; i < str.length; i++) {
-            if (+str[i] || str[i].toLowerCase() !== str[i].toUpperCase() || str[i] === ' ') {
-                res += str[i];
-                continue;
-            }
-            res += str[i].charCodeAt(0);
-        }
-        return res;
-    } catch (e) {
-        return str;
-    }
-}

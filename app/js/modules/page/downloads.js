@@ -1,4 +1,6 @@
 exports.Initialize = () => {
+    // ? Check if there is any games that need to be extracted
+    downloader.item.checkConfirmExtract();
     const fetchingDownload = downloader.getFetching();
     fetchingDownload.forEach((game) => downloader.item.createFetchingItem(game));
 };
@@ -16,13 +18,6 @@ exports.itemExtProgress = (gameTitle, zipFile, progress) => {
         mlp.progress = scalePercent;
     } catch (e) {}
 };
-
-// ? On extraction done
-exports.itemExtComplete = (gameTitle) => downloader.item.removeItem(gameTitle, 'extraction');
-
-// ? When requires user confirmation to extract game
-// ? Maybe later add game specific confirm? idk how this works anymore
-exports.itemExtConfirm = () => downloader.item.checkConfirmExtract();
 
 // ? On item fetching progress
 exports.itemFetchProgress = (gameTitle, progress) => {

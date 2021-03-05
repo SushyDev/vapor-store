@@ -17,33 +17,34 @@ exports.openLibraryGame = (name) => {
 };
 
 //When open a game in installed page then fill contents
-exports.openInstalled = async (name, gameInfoName, gameDir) => {
+exports.openInstalled = async (gameID) => {
     vapor.ui.showProgressBar();
 
-    const folderName = gameDir.split('/').pop();
+    const installedGameList = await $.get(vapor.fn.installedGames());
+    const gameKey = vapor.fn.getKeyByValue(installedGameList.list, 'id', gameID);
+    const game = installedGameList.list[gameKey];
 
-    //close drawer
+    // ? Close drawer
     drawer.open = false;
 
-    //remove menu
+    // ? Remove popup menu anchorpoint
     document.getElementById('menu-anchorpoint').innerHTML = '';
 
-    document.getElementById('selected-game-cover').style.background = document.querySelector(`div[cover='${name}-cover']`).style.backgroundImage;
+    document.getElementById('selected-game-cover').style.background = document.querySelector(`div[cover='${game.id}-cover']`).style.backgroundImage;
     document.getElementById('selected-game-cover').style.backgroundSize = 'cover';
     document.getElementById('selected-game-cover').style.backgroundPosition = 'center';
 
-    //Set download button
-    document.getElementById('selected-game-cover').setAttribute('onclick', `management.game.listGameExec('${gameInfoName}', '${gameDir}', '${folderName}', true)`);
-    document.getElementById('selected-game-play').setAttribute('onclick', `management.game.listGameExec('${gameInfoName}', '${gameDir}', '${folderName}', true)`);
-    document.getElementById('selected-game-more').setAttribute('onclick', `management.game.openMore('${gameInfoName}', '${name}', '${gameDir}', '${folderName}')`);
-    document.getElementById('menu-anchorpoint').setAttribute('anchorfor', `${gameInfoName}`);
+    document.getElementById('selected-game-cover').setAttribute('onclick', `manage.game.listGameExec('${game.id}', '${game.directory}', true)`);
+    document.getElementById('selected-game-play').setAttribute('onclick', `manage.game.listGameExec('${game.id}', '${game.directory}', true)`);
+    document.getElementById('selected-game-more').setAttribute('onclick', `manage.game.openMore('${game.id}')`);
+    document.getElementById('menu-anchorpoint').setAttribute('anchorfor', `${game.id}`);
 
-    vapor.cards.build.addMetadata(name, 'installed');
+    vapor.cards.build.addMetadata(undefined, 'installed', game);
 };
 
 exports.clearSearch = () => {
     vapor.cards.grid.searchBox().value = '';
-    if (sessionStorage.getItem('page') == 'Library') vapor.pages.library.showGenrePage();
+    if (sessionStorage.getItem('page') == 'Library') page.library.showGenrePage();
 };
 
 exports.searchBox = () => document.getElementById('searchquery');

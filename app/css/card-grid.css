@@ -35,9 +35,8 @@
 .cards {
   width: auto !important;
   height: 100% !important;
-  overflow-y: auto;
   margin: 0 auto;
-  background: var(--mdc-theme-background);
+  overflow-y: auto;
 }
 
 .mdc-card {

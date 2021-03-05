@@ -1,49 +1,37 @@
 //Extract zip in game file
-exports.extractDownload = async (targetPath, targetFolder, gameTitle) => {
+exports.extractDownload = async (targetPath, targetFolder, gameID) => {
     const folderName = targetFolder.split(path.sep).pop();
     const zipFile = folderName + '.zip';
     const extractDir = targetFolder.replace(folderName, '');
 
-    const indexNum = vapor.fn.getKeyByValue(extractNeedsConfirm, 'gameTitle', gameTitle);
+    const indexNum = vapor.fn.getKeyByValue(extractNeedsConfirm, 'gameID', gameID);
 
     delete extractNeedsConfirm[indexNum];
 
     extractNeedsConfirm = extractNeedsConfirm.filter((n) => n);
 
-    currentExtractions.push(gameTitle);
+    currentExtractions.push(gameID);
 
-    try {
-        vapor.ui.snackbar.close(`${gameTitle}-extract-confirm`);
-    } catch (e) {}
-
-    const snackbarData = {
+    // ? Create snackbar data
+    const extractingSnackbar = {
         ['main']: [
             {
-                name: `${gameTitle}-extract`,
-            },
-        ],
-        ['progress']: [
-            {
-                id: `${gameTitle}-progress`,
+                name: `${gameID}-extracting`,
             },
         ],
         ['label']: [
             {
-                id: `${gameTitle}-snackbar-title`,
-                innerHTML: `Extracting ${zipFile} 0%`,
-            },
-        ],
-        ['close']: [
-            {
-                onclick: `vapor.ui.snackbar.close('${gameTitle}-extract')`,
-                title: 'Hide',
-                icon: 'keyboard_arrow_down',
-                id: `${gameTitle}-extract-hide`,
+                id: `started-snackbar-title`,
+                innerHTML: `Extracting ${zipFile}`,
             },
         ],
     };
 
-    vapor.ui.snackbar.create(snackbarData);
+    // ? Create snackbar
+    vapor.ui.snackbar.create(extractingSnackbar);
+
+    // ? Remove snackbar after 4 seconds
+    setTimeout(() => vapor.ui.snackbar.close(extractingSnackbar.main[0].name), 4000);
 
     let extracted = 0;
     await extract(targetPath, {
@@ -52,14 +40,8 @@ exports.extractDownload = async (targetPath, targetFolder, gameTitle) => {
             extracted++;
 
             const progress = (extracted * 100) / zipfile.entryCount;
-            const scalePercent = progress / 100;
 
-            try {
-                document.getElementById(`${gameTitle}-progress`).style.transform = `scaleX(${scalePercent})`;
-                document.getElementById(`${gameTitle}-snackbar-title`).innerHTML = `Extracting ${zipFile} ${progress.toFixed(2)}%`;
-            } catch (e) {}
-
-            vapor.pages.downloads.itemExtProgress(gameTitle, zipFile, progress);
+            page.downloads.itemExtProgress(gameID, zipFile, progress);
         },
     });
 
@@ -68,12 +50,35 @@ exports.extractDownload = async (targetPath, targetFolder, gameTitle) => {
     });
 
     //Function for getting key from game name
-    const indexNum2 = currentExtractions.findIndex((key) => key === gameTitle);
+    const indexNum2 = currentExtractions.findIndex((key) => key === gameID);
 
     delete currentExtractions[indexNum2];
     currentExtractions = currentExtractions.filter((n) => n);
 
-    vapor.ui.snackbar.close(`${gameTitle}-extract`, false);
+    // ? On complete remove download item from downloads page
+    downloader.item.removeItem(gameID, 'extraction');
 
-    vapor.pages.downloads.itemExtComplete(gameTitle);
+    // ? Add game to installed list
+    downloader.addGameToLibrary(targetFolder, gameID);
+
+    // ? Create snackbar data
+    const installedSnackbar = {
+        ['main']: [
+            {
+                name: `${gameID}-installed`,
+            },
+        ],
+        ['label']: [
+            {
+                id: `started-snackbar-title`,
+                innerHTML: `${gameID} installed`,
+            },
+        ],
+    };
+
+    // ? Create snackbar
+    vapor.ui.snackbar.create(installedSnackbar);
+
+    // ? Remove snackbar after 4 seconds
+    setTimeout(() => vapor.ui.snackbar.close(installedSnackbar.main[0].name), 4000);
 };
