@@ -75,6 +75,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Implement better updater
 - [x] Clean out the snackbar notification service code
 - [x] Display changelog button on updater notification
+- [x] Overwrite installed games instead of adding duplicates
 
 #### Important
 - [ ] **Have option between folder or standalone program in installed list**
