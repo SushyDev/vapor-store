@@ -34,8 +34,8 @@ exports.openInstalled = async (gameID) => {
     document.getElementById('selected-game-cover').style.backgroundSize = 'cover';
     document.getElementById('selected-game-cover').style.backgroundPosition = 'center';
 
-    document.getElementById('selected-game-cover').setAttribute('onclick', `manage.game.listGameExec('${game.id}', '${game.directory}', true)`);
-    document.getElementById('selected-game-play').setAttribute('onclick', `manage.game.listGameExec('${game.id}', '${game.directory}', true)`);
+    document.getElementById('selected-game-cover').setAttribute('onclick', `manage.game.listGameExec('${game.id}', '${encodeURI(game.directory)}', true)`);
+    document.getElementById('selected-game-play').setAttribute('onclick', `manage.game.listGameExec('${game.id}', '${encodeURI(game.directory)}', true)`);
     document.getElementById('selected-game-more').setAttribute('onclick', `manage.game.openMore('${game.id}')`);
     document.getElementById('menu-anchorpoint').setAttribute('anchorfor', `${game.id}`);
 

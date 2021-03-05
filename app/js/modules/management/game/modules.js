@@ -19,21 +19,21 @@ exports.openMore = async (gameID) => {
         <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
 
         <!--
-            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.selectDefault('${game.id}', '${game.directory}')">
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.selectDefault('${game.id}', '${encodeURI(game.directory)}')">
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">Select default exe</span>
             </li>
         -->
 
-            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.listGameExec('${game.id}', '${game.directory}', false)">
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.listGameExec('${game.id}', '${encodeURI(game.directory)}', false)">
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">List executables</span>
             </li>
-            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.gameShortcut('${game.id}', '${game.directory}')">
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.gameShortcut('${game.id}', '${encodeURI(game.directory)}')">
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">Add to desktop</span>
             </li>
-            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.openFolder('${game.directory}')">
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.openFolder('${encodeURI(game.directory)}')">
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">Open folder</span>
             </li>
@@ -41,7 +41,7 @@ exports.openMore = async (gameID) => {
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">Remove</span>
             </li>
-            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.gameDelete('${game.id}', '${game.directory}')">
+            <li class="mdc-list-item" role="menuitem" data-mdc-auto-init="MDCRipple" onclick="manage.game.gameDelete('${game.id}', '${encodeURI(game.directory)}')">
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">Delete</span>
             </li>
@@ -55,7 +55,7 @@ exports.getFiles = async (path = './') => {
     const entries = await fs.readdirSync(path, {withFileTypes: true});
 
     // ? Get files within the current directory and add a path key to the file objects
-    const files = entries.filter((file) => file.name.endsWith('.exe') && !file.isDirectory()).map((file) => ({...file, path: path + file.name}));
+    const files = entries.filter((file) => file.name.endsWith('.exe') && !file.isDirectory()).map((file) => ({...file, path: require('path').join(path, file.name)}));
 
     // ? Get folders within the current directory
     const folders = entries.filter((folder) => folder.isDirectory());
@@ -67,6 +67,8 @@ exports.getFiles = async (path = './') => {
 
     for (const folder of folders) files.push(...(await manage.game.getFiles(require('path').join(path, folder.name))));
 
+    console.log(files)
+
     return files;
 };
 
@@ -74,16 +76,16 @@ exports.getFiles = async (path = './') => {
 // # exports.addInstalledGame = () => manager.addInstalledGame();
 // # exports.selectGameFolder = () => manager.selectGameFolder();
 exports.createCustomGame = (name) => manager.createCustomGame(name);
-exports.gameDelete = (gameID, gameDir) => manager.gameDelete(gameID, gameDir);
-exports.gameRemove = (gameID, gameDir) => manager.gameRemove(gameID, gameDir);
+exports.gameDelete = (gameID, gameDir) => manager.gameDelete(gameID, decodeURI(gameDir));
+exports.gameRemove = (gameID, gameDir) => manager.gameRemove(gameID, decodeURI(gameDir));
 
 // ! Executables
-exports.listGameExec = (gameID, gameDir) => executables.listGameExec(gameID, gameDir);
-exports.gamePlay = (gameDir, admin = false) => executables.gamePlay(gameDir, admin);
+exports.listGameExec = (gameID, gameDir) => executables.listGameExec(gameID, decodeURI(gameDir));
+exports.gamePlay = (gameDir, admin = false) => executables.gamePlay(decodeURI(gameDir), admin);
 
 // ! Shortcuts
-exports.gameShortcut = (gameID, gameDir) => shortcuts.gameShortcut(gameID, gameDir);
+exports.gameShortcut = (gameID, gameDir) => shortcuts.gameShortcut(gameID, decodeURI(gameDir));
 exports.createShortcut = (executable) => createDesktopShortcut({windows: {filePath: `${executable.replace(/"/g, '')}`}});
 
 // ! Open folder containing game files
-exports.openFolder = async (dir) => shell.openPath(dir);
+exports.openFolder = async (gameDir) => shell.openPath(decodeURI(gameDir));

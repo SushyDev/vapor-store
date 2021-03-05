@@ -2,6 +2,8 @@
 exports.listGameExec = async (gameID, gameDir) => {
     vapor.ui.showProgressBar();
 
+;
+
     const name = gameID.replace(/ /g, '-').toLowerCase();
 
     const executablesDialog = {
@@ -60,5 +62,5 @@ exports.gamePlay = (executable, admin) => {
     if (isDev) console.log(executable);
     const exec = require('child_process').exec;
 
-    admin ? exec(`start "" "${executable.replace(/"/g, '')}"`, (err, data) => console.log(err)) : exec(`powershell -command "start-process \\"${executable.replace(/"/g, '')}\\" -verb runas`, (err, data) => console.log(err));
+    admin ? exec(`powershell -command "start-process \\"${executable.replace(/"/g, '')}\\" -verb runas`, (err, data) => console.log(err)) : exec(`start "" "${executable.replace(/"/g, '')}"`, (err, data) => console.log(err));
 };

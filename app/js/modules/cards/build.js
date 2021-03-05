@@ -6,7 +6,7 @@ exports.Installed = async (game) => {
 
     // ? Get background image from api, if not found use not found svg
     const cardContent = `
-      <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.openInstalled('${game.id}', '${game.directory}')">
+      <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.openInstalled('${game.id}')">
     <div class="game-card__primary">
         <h2 class="game-card__title mdc-typography mdc-typography--headline6">${metadata.name}</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">${game.id.replace(/-/g, ' ')}</h3>
