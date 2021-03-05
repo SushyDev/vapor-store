@@ -74,8 +74,9 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Downloader tab
 - [x] Implement better updater
 - [x] Clean out the snackbar notification service code
+- [x] Display changelog button on updater notification
+
 #### Important
-- [ ] **Display changelog button on updater notification**
 - [ ] **Have option between folder or standalone program in installed list**
 - [ ] **Have a button in settings to clear zips in folder**
 - [ ] **Custom generator script, custom fetch download script**
@@ -86,10 +87,8 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] Multiple store pages on large searches
 - [ ] Implement the Backup & Sync feature
 - [ ] Make it so the downloader always over writes zips
-- [ ] If installed game folder can't be found have a fallback where the user manually selects the folder
 - [ ] When adding your own game have a option to select the metadata
 - [ ] Download by link with metadata
-- [ ] Move localStorage to electron-store (Possibly? / Maybe make my own minimal version)
 - [ ] Add warning when closing the app whilst downloading
 - [ ] Minimize to tray on close when downloading
 
@@ -104,6 +103,7 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [ ] a Vapor Store api?
 - [ ] Move all popups to MDC Dialogs
 - [ ] Replace most IPC calls with modules
+- [x] Move localStorage to electron-store (Possibly? / Maybe make my own minimal version)
 - [ ] Replace fetching/downloading/extracting snackbars with a simple starting/finished download snackbar
 
 ## Modules moved
@@ -119,9 +119,9 @@ Building Vapor Store is very simple because its a Electron app, you simply need 
 - [x] Installed games
 - [ ] Launching games
 - [ ] Listing exe's
-- [ ] Removing/Deleting installed game
+- [x] Removing/Deleting installed game
 - [ ] Create shortcuts
-- [ ] Open containing folder
+- [x] Open containing folder
 - [ ] Add custom game
 
 ### Issues 
