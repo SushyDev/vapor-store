@@ -81,7 +81,7 @@ exports.fetchUpdate = () => {
 
         // ! When alpha update is available
         if (current.includes('alpha')) {
-            latest.includes('alpha') && latestAN == currentAN && updateAvailable();
+            latest.includes('alpha') && latestAN > currentAN && updateAvailable();
             // ! Check for updates
         } else if (current.includes('beta')) {
             latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
