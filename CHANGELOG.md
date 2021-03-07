@@ -1,3 +1,8 @@
+### 2.0.0 Alpha 14
+1. Changed snackbar behavior
+2. Updated updates behavior
+3. Improved stability
+
 ### 2.0.0 Alpha 13
 1. Fixed windows filesystem issues
 

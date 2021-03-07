@@ -25,7 +25,7 @@ exports.Initialize = () => {
     $(document).ready(() => {
         vapor.nav.goto();
         // ? If isn't in dev envroinmnet then check o
-        if (!isDev) undefined
+        if (!isDev) undefined;
         vapor.app.fetchUpdate();
     });
 };
@@ -47,6 +47,7 @@ exports.fetchUpdate = () => {
                 {
                     id: `${name}`,
                     name: `Version ${latest} is available`,
+                    time: 10,
                 },
             ],
             ['actions']: [
@@ -97,7 +98,7 @@ exports.fetchUpdate = () => {
 
 exports.getUpdate = (name, downloadUrl) => {
     vapor.ui.snackbar.close(name);
-    downloader.startDownload(downloadUrl, vapor.fn.vaporGames(), 'vapor-store-update');
+    downloader.startDownload(downloadUrl, 'vapor-store-update');
 };
 
 // ? Run exe

@@ -89,7 +89,7 @@ exports.startDownload = (url, gameID) => {
                 // # On download complete
                 if (state === 'completed') {
                     // ? Add downloaded game to library or install update
-                    if (gameID == 'vapor-store-update') vapor.app.runExe(path.join(vapor.config.get().downloadDir, itemFilename));
+                    if (gameID == 'vapor-store-update') manage.game.gamePlay(path.join(vapor.config.get().downloadDir, itemFilename));
 
                     // ? Extract downloaded zip file
                     if (itemFileType == 'zip') {

@@ -1,10 +1,9 @@
 exports.create = (snackbarData) => {
     const main = snackbarData.main[0];
     const hasprogress = snackbarData.progress ? true : false;
+    const time = main.time ? main.time * 1000 : 4000;
 
-    console.log(hasprogress);
-
-    //Create snackbar
+    // ? Create snackbar
     const snackbar = document.createElement('div');
     snackbar.id = `${main.id}-snackbar`;
     snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
@@ -53,8 +52,8 @@ exports.create = (snackbarData) => {
     // ? Show snackbar
     document.getElementById(`${main.id}-snackbar`).classList.remove('snackbar--invis');
 
-    // ? Hide it after 5 seconds
-    setTimeout(() => vapor.ui.snackbar.close(name), 5000);
+    // ? Hide it after x seconds
+    setTimeout(() => vapor.ui.snackbar.close(main.id), time);
 };
 
 //Close snackbar / cancel download
@@ -62,7 +61,11 @@ exports.close = (name, alert = false, message) => {
     //Ask for confirm if confirm = true
     if (alert) if (!confirm(message)) return confirmed;
     //Remove snackbar
-    if (document.getElementById(`${name}-snackbar`)) document.getElementById(`${name}-snackbar`).remove();
+    if (document.getElementById(`${name}-snackbar`)) {
+        document.getElementById(`${name}-snackbar`).remove();
+    } else {
+        console.log(`Snackbar: ${name}-snackbar doesn't exist`);
+    }
 
     return true;
 };
