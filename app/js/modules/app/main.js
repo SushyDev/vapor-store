@@ -25,8 +25,7 @@ exports.Initialize = () => {
     $(document).ready(() => {
         vapor.nav.goto();
         // ? If isn't in dev envroinmnet then check o
-        if (!isDev) undefined;
-        vapor.app.fetchUpdate();
+        if (!isDev) vapor.app.fetchUpdate();
     });
 };
 
