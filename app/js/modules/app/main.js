@@ -25,7 +25,8 @@ exports.Initialize = () => {
     $(document).ready(() => {
         vapor.nav.goto();
         // ? If isn't in dev envroinmnet then check o
-        if (isDev) vapor.app.fetchUpdate();
+        if (!isDev) undefined
+        vapor.app.fetchUpdate();
     });
 };
 
@@ -44,38 +45,15 @@ exports.fetchUpdate = () => {
         const snackbarData = {
             ['main']: [
                 {
-                    name: `${name}`,
-                },
-            ],
-            ['progress']: [
-                {
-                    enabled: false,
-                    id: `${name}-completed-progress`,
-                },
-            ],
-            ['label']: [
-                {
-                    id: `${name}-snackbar-title`,
-                    innerHTML: `Version ${latest} is available`,
+                    id: `${name}`,
+                    name: `Version ${latest} is available`,
                 },
             ],
             ['actions']: [
                 {
-                    type: 'button',
-                    innerHTML: 'Download',
-                    labelid: `${name}-download-button__label`,
-                    class: 'download-button',
-                    id: 'download-button',
-                    onclick: `vapor.app.getUpdate('${name}', '${downloadUrl}')`,
-                },
-            ],
-            ['close']: [
-                {
-                    enabled: true,
-                    onclick: `vapor.ui.snackbar.close('${name}', false)`,
-                    title: 'Dismiss',
-                    icon: 'close',
-                    id: `${name}-close`,
+                    name: 'Download',
+                    id: `${name}-download`,
+                    action: `vapor.app.getUpdate('${name}', '${downloadUrl}')`,
                 },
             ],
         };
@@ -103,7 +81,7 @@ exports.fetchUpdate = () => {
 
         // ! When alpha update is available
         if (current.includes('alpha')) {
-            latest.includes('alpha') && latestAN > currentAN && updateAvailable();
+            latest.includes('alpha') && latestAN == currentAN && updateAvailable();
             // ! Check for updates
         } else if (current.includes('beta')) {
             latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
@@ -118,7 +96,7 @@ exports.fetchUpdate = () => {
 };
 
 exports.getUpdate = (name, downloadUrl) => {
-    vapor.ui.snackbar.close(name, false);
+    vapor.ui.snackbar.close(name);
     downloader.startDownload(downloadUrl, vapor.fn.vaporGames(), 'vapor-store-update');
 };
 

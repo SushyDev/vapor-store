@@ -201,24 +201,25 @@ exports.selectItem = (elem) => {
     document.getElementById('download-item-info').style.display = 'initial';
 };
 
-exports.pauseItem = (name) => {
-    if (document.getElementById(`${name}-downloader-pause-button__label`).innerHTML == 'Pause') {
-        ipcRenderer.sendTo(mainWindow.id, `${name}-pause`);
-        document.getElementById(`${name}-downloader-pause-button__label`).innerHTML = 'Resume';
+exports.pauseItem = (gameID) => {
+    if (document.getElementById(`${gameID}-downloader-pause-button__label`).innerHTML == 'Pause') {
+        ipcRenderer.sendTo(browserWindow.id, `${gameID}-pause`);
+        document.getElementById(`${gameID}-downloader-pause-button__label`).innerHTML = 'Resume';
     } else {
-        ipcRenderer.sendTo(mainWindow.id, `${name}-resume`);
-        document.getElementById(`${name}-downloader-pause-button__label`).innerHTML = 'Pause';
+        ipcRenderer.sendTo(browserWindow.id, `${gameID}-resume`);
+        document.getElementById(`${gameID}-downloader-pause-button__label`).innerHTML = 'Pause';
     }
 };
 
-exports.cancelItem = async (name, alert, message) => {
+exports.cancelItem = async (gameID, alert, message) => {
     //if pressed cancel dont continue
-    if (!vapor.ui.snackbar.close(`${name}-download`, alert, message)) return;
-    //set canceled in localstorage
+    if (!vapor.ui.snackbar.close(`${gameID}-download`, alert, message)) return;
 
-    ipcRenderer.sendTo(mainWindow.id, `${name}-cancel`);
-
-    downloader.item.removeItem(name, 'download');
+    // ? Cancel downloader
+    ipcRenderer.sendTo(browserWindow.id, `${gameID}-cancel`);
+    
+    // ? Remove item fron downloads page
+    downloader.item.removeItem(gameID, 'download');
 };
 
 exports.addItem = () => {

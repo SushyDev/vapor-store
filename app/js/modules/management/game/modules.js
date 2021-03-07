@@ -67,8 +67,6 @@ exports.getFiles = async (path = './') => {
 
     for (const folder of folders) files.push(...(await manage.game.getFiles(require('path').join(path, folder.name))));
 
-    console.log(files)
-
     return files;
 };
 

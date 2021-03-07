@@ -1,42 +1,16 @@
-//List of currently downloading games
-
+// # List of currently downloading games
 exports.getFetching = () => fetchingDownload;
 
-//Download game
+// #Download game
 exports.fetchDownload = async (gameID) => {
-    //If already downloading
+    // ? If already downloading
     if (fetchingDownload.includes(gameID) || currentDownloadData.find((game) => game.gameTitle == gameID)) {
         vapor.ui.dialog.MDCAlert('Already downloading this game');
         return;
     }
 
-    const gameInfo = await vapor.cards.query.fetch(gameID);
-
-    // ? Create snackbar data 
-    const fetchingSnackbar = {
-        ['main']: [
-            {
-                name: `${gameID}-started`,
-            },
-        ],
-        ['label']: [
-            {
-                id: `started-snackbar-title`,
-                innerHTML: `Starting download for ${gameInfo.name}`,
-            },
-        ],
-    };
-
-    // ? Create snackbar
-    vapor.ui.snackbar.create(fetchingSnackbar);
-
-    // ? Remove snackbar after 4 seconds
-    setTimeout(() => vapor.ui.snackbar.close(fetchingSnackbar.main[0].name), 4000);
-
-    //Add downloading game to array
+    // ? Add to current fetching list
     fetchingDownload.push(gameID);
-
-    ipcRenderer.send('item-fetch-data', gameID);
 
     $.getJSON(vapor.config.get().listFile, (data) => {
         data['list'].forEach((game) => {
@@ -46,8 +20,8 @@ exports.fetchDownload = async (gameID) => {
     });
 };
 
-//Get url
-async function getDownloadURL(url, gameID) {
+// # Get url
+const getDownloadURL = async (url, gameID) => {
     const browser = await puppeteer.launch({
         headless: true,
         executablePath: vapor.fn.getChromiumExecPath(),
@@ -58,17 +32,17 @@ async function getDownloadURL(url, gameID) {
 
     const page = await browser.newPage();
 
-    //Go to steamunlocked page
+    // ? Go to page
     await page.goto(url);
 
     setFetchProgress(gameID, '.2');
 
-    //Wait for download button visible
+    // ? Wait for download button visible
     await page.waitForSelector('.btn-download', {visible: true});
 
     setFetchProgress(gameID, '.3');
 
-    //Change button to redirect, then click
+    // ? Change button to redirect, then click
     await page.evaluate(() => {
         document.querySelector('.btn-download').target = '_self';
         document.querySelector('.btn-download').click();
@@ -77,27 +51,27 @@ async function getDownloadURL(url, gameID) {
 
     setFetchProgress(gameID, '.4');
 
-    //Wait until upload heaven loaded
+    // ? Wait until upload heaven loaded
     await page.waitForNavigation({waitUntil: 'networkidle0'});
 
     setFetchProgress(gameID, '.5');
 
-    //Wait for 5 second cooldown
+    // ? Wait for 5 second cooldown
     await page.waitForSelector('#downloadNowBtn', {visible: true});
 
     setFetchProgress(gameID, '.6');
 
-    //Click download button
+    // ? Click download button
     await page.evaluate(() => document.querySelector('#downloadNowBtn').click());
 
     setFetchProgress(gameID, '.7');
 
-    //Wait for redirect
+    // ? Wait for redirect
     await page.waitForNavigation({waitUntil: 'networkidle0'});
 
     setFetchProgress(gameID, '.9');
 
-    //Get href of 'Here' anchor
+    // ? Get download URL from 'here' button
     const downloadURL = await page.evaluate(() => {
         try {
             return document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href;
@@ -106,8 +80,11 @@ async function getDownloadURL(url, gameID) {
         }
     });
 
+    // ? If no download url
     if (!downloadURL) {
+        // ? Show popup
         vapor.ui.dialog.MDCAlert('Download failed', `Please retry<br>Fetched url is ${downloadURL}`);
+
         // ? Remove item from currently fetching list
         fetchingDownload = fetchingDownload.filter((item) => item !== gameID);
 
@@ -124,7 +101,7 @@ async function getDownloadURL(url, gameID) {
     fetchingDownload = fetchingDownload.filter((item) => item !== gameID);
 
     return downloadURL;
-}
+};
 
 // ? Unless progress is full update it
 const setFetchProgress = (gameTitle, progress) => (progress == '1' ? page.downloads.itemFetchingComplete(gameTitle) : page.downloads.itemFetchProgress(gameTitle, progress));

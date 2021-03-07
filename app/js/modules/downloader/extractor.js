@@ -12,26 +12,6 @@ exports.extractDownload = async (targetPath, targetFolder, gameID) => {
 
     currentExtractions.push(gameID);
 
-    // ? Create snackbar data
-    const extractingSnackbar = {
-        ['main']: [
-            {
-                name: `${gameID}-extracting`,
-            },
-        ],
-        ['label']: [
-            {
-                id: `started-snackbar-title`,
-                innerHTML: `Extracting ${zipFile}`,
-            },
-        ],
-    };
-
-    // ? Create snackbar
-    vapor.ui.snackbar.create(extractingSnackbar);
-
-    // ? Remove snackbar after 4 seconds
-    setTimeout(() => vapor.ui.snackbar.close(extractingSnackbar.main[0].name), 4000);
 
     let extracted = 0;
     await extract(targetPath, {
@@ -60,25 +40,4 @@ exports.extractDownload = async (targetPath, targetFolder, gameID) => {
 
     // ? Add game to installed list
     downloader.addGameToLibrary(targetFolder, gameID);
-
-    // ? Create snackbar data
-    const installedSnackbar = {
-        ['main']: [
-            {
-                name: `${gameID}-installed`,
-            },
-        ],
-        ['label']: [
-            {
-                id: `started-snackbar-title`,
-                innerHTML: `${gameID} installed`,
-            },
-        ],
-    };
-
-    // ? Create snackbar
-    vapor.ui.snackbar.create(installedSnackbar);
-
-    // ? Remove snackbar after 4 seconds
-    setTimeout(() => vapor.ui.snackbar.close(installedSnackbar.main[0].name), 4000);
 };

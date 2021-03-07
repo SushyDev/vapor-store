@@ -8,7 +8,7 @@ exports.gameDelete = (gameID, gameDir) => {
 
 // ? Remove the game from the installed games list
 exports.gameRemove = (gameID, ask = true) => {
-    if (ask) if (!confirm(`Are you sure you want to remove ${gameID}`)) return;
+    if (ask == true)  if(!confirm(`Are you sure you want to remove ${gameID}`)) return;
 
     // ? Remove deleted game from list
     $.getJSON(vapor.fn.installedGames(), (data) => {
@@ -19,6 +19,8 @@ exports.gameRemove = (gameID, ask = true) => {
         delete list[key];
         const newlist = {list: [...list]};
         newlist['list'] = newlist['list'].filter((n) => n);
+
+        const hi = 'hi'
 
         // ? Save to library json file
         fs.writeFile(vapor.fn.installedGames(), JSON.stringify(newlist), (err) => (err ? console.log(err) : vapor.nav.goto('Installed')));

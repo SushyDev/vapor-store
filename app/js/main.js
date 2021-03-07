@@ -1,6 +1,6 @@
-//Main is for essential components that make stuff work
-//Main window
-const mainWindow = BrowserWindow.getAllWindows()[0];
+// ? Get App window
+const browserWindows = BrowserWindow.getAllWindows();
+const browserWindow = browserWindows.find((window) => !window.title.includes('loading'));
 
 //Adjust page height for mobile devices running a chromium webbrowser
 function setPageHeight() {

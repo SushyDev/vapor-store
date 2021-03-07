@@ -1,25 +1,25 @@
 exports.create = (snackbarData) => {
     const main = snackbarData.main[0];
-    const label = snackbarData.label[0];
-    const name = main.name;
     const hasprogress = snackbarData.progress ? true : false;
+
+    console.log(hasprogress);
 
     //Create snackbar
     const snackbar = document.createElement('div');
-    snackbar.id = `${name}-snackbar`;
+    snackbar.id = `${main.id}-snackbar`;
     snackbar.className = 'mdc-snackbar mdc-snackbar--leading mdc-snackbar--open snackbar--invis';
     snackbar.innerHTML = `
-                        <div class="mdc-snackbar__surface snack-flex" id="${name}-surface" progress="${hasprogress}">
+                        <div class="mdc-snackbar__surface snack-flex" id="${main.id}-surface" progress="${hasprogress}">
                             <div class="snack-content">
-                                <div class="mdc-snackbar__label" role="status" aria-live="polite" id="${label.id}">${label.innerHTML}</div>
-                                <div class="mdc-snackbar__actions" id="${name}-snack-actions"></div>
+                                <div class="mdc-snackbar__label" role="status" aria-live="polite" id="${main.id}-snackbar-title">${main.name}</div>
+                                <div class="mdc-snackbar__actions" id="${main.id}-snack-actions"></div>
                             </div>
                         </div>
                         `;
     document.getElementById('snackbar-container').appendChild(snackbar);
 
     //Add progress
-    if (!!snackbarData.progress) {
+    if (hasprogress) {
         const progress = snackbarData.progress[0];
         const progressbar = document.createElement('div');
         progressbar.setAttribute('role', 'progressbar');
@@ -30,42 +30,31 @@ exports.create = (snackbarData) => {
                             <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar" id="${progress.id}"><span class="mdc-linear-progress__bar-inner"></span></div>
                             <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar"><span class="mdc-linear-progress__bar-inner"></span></div>
                             `;
-        document.getElementById(`${name}-surface`).prepend(progressbar);
+        document.getElementById(`${main.id}-surface`).prepend(progressbar);
     }
 
     //Make buttons in action menu
     if (!!snackbarData.actions) {
         snackbarData.actions.forEach((action) => {
-            const actionButton = document.createElement(action.type);
+            const actionButton = document.createElement('button');
             actionButton.className = 'mdc-button mdc-snackbar__action';
-            actionButton.setAttribute('onclick', `${action.onclick}`);
+            actionButton.setAttribute('onclick', `${action.action}`);
             actionButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
             actionButton.innerHTML = `
                         <div class="mdc-button__ripple"></div>
-                        <div class="mdc-button__label" id="${action.labelid}">${action.innerHTML}</div>
+                        <div class="mdc-button__label" id="${action.id}">${action.name}</div>
                         `;
-            document.getElementById(`${name}-snack-actions`).appendChild(actionButton);
+            document.getElementById(`${main.id}-snack-actions`).appendChild(actionButton);
         });
-    }
-
-    //Add close button
-    if (!!snackbarData.close) {
-        const close = snackbarData.close[0];
-        const closeButton = document.createElement('button');
-        closeButton.id = close.id;
-        closeButton.className = 'mdc-icon-button mdc-snackbar__dismiss material-icons';
-        closeButton.setAttribute('title', close.title);
-        closeButton.setAttribute('onclick', close.onclick);
-        closeButton.setAttribute('data-mdc-auto-init', 'MDCRipple');
-        closeButton.setAttribute('data-mdc-ripple-is-unbounded', 'true');
-        closeButton.innerHTML = close.icon;
-        document.getElementById(`${name}-snack-actions`).appendChild(closeButton);
     }
 
     window.mdc.autoInit();
 
-    //Show snackbar
-    document.getElementById(`${name}-snackbar`).classList.remove('snackbar--invis');
+    // ? Show snackbar
+    document.getElementById(`${main.id}-snackbar`).classList.remove('snackbar--invis');
+
+    // ? Hide it after 5 seconds
+    setTimeout(() => vapor.ui.snackbar.close(name), 5000);
 };
 
 //Close snackbar / cancel download
@@ -77,7 +66,3 @@ exports.close = (name, alert = false, message) => {
 
     return true;
 };
-
-exports.hide = (name) => (document.getElementById(`${name}-snackbar`).style.display = 'none');
-
-exports.show = (name) => (document.getElementById(`${name}-snackbar`).style.display = 'block');
