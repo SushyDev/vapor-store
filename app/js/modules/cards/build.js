@@ -24,6 +24,7 @@ exports.Installed = async (game) => {
 
 // ! Build library card
 exports.Library = async (fetchName) => {
+    console.log(fetchName)
     //If no cover is found use not found logo
     let gameInfo = await vapor.cards.query.fetch(fetchName);
     //Create the card

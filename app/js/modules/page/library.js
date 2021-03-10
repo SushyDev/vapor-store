@@ -42,12 +42,10 @@ exports.Initialize = () => {
             // ? If game doesn't exist don't do anyhting
             if (!game.name) return;
 
-            //Cancel is not on page anymore
+            // ? Cancel is not on page anymore
             if (page != sessionStorage.getItem('page')) return;
 
             const fetchData = await vapor.cards.query.fetch(game.name);
-
-            if (!fetchData) return;
 
             fetchData.genres.forEach(async (genre) => {
                 if (genre.name == 'Action') {
@@ -82,7 +80,7 @@ exports.Initialize = () => {
     });
 
     function createGenreCard(gameInfo, gameName, genre) {
-        const gameID = gameName.replace(/ /g, '-').substring(1).slice(0, -1);
+        const gameID = gameName.replace(/ /g, '-')
         const cardContent = `
 <div class="mdc-card__primary-action" tabindex="0" data-mdc-auto-init="MDCRipple" id="${gameID}-cover" onclick="vapor.cards.grid.openLibraryGame('${gameID}')">
     <div class="game-card__primary">
@@ -152,7 +150,7 @@ function createCard() {
             //Cancel is not on page anymore
             if (page != sessionStorage.getItem('page')) return;
             //Format name for url
-            const fetchName = game.name.replace(/ /g, '-').substring(1).slice(0, -1);
+            const fetchName = game.name.replace(/ /g, '-')
             //Fetch data from the game by name
             vapor.cards.build.Library(fetchName);
         });
