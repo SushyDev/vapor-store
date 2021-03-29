@@ -34,22 +34,24 @@ exports.fetchUpdate = () => {
         const release = data[0];
         const isExe = release.assets.find((asset) => asset.name.endsWith('exe'));
 
-        const downloadUrl = isExe ? isExe.browser_download_url : undefined;
-        const fileName = isExe ? isExe.name : undefined;
+        const downloadUrl = isExe && isExe.browser_download_url;
+        const fileName = isExe && isExe.name;
+
+        if (!downloadUrl || !fileName) return;
 
         const name = fileName.slice(0, -4);
         const latest = release.tag_name.slice(1);
         const current = app.getVersion();
 
         const snackbarData = {
-            ['main']: [
+            main: [
                 {
                     id: `${name}`,
                     name: `Version ${latest} is available`,
                     time: 10,
                 },
             ],
-            ['actions']: [
+            actions: [
                 {
                     name: 'Download',
                     id: `${name}-download`,
@@ -79,19 +81,24 @@ exports.fetchUpdate = () => {
         // ! When update is available
         const updateAvailable = (beta) => (!vapor.config.get().optBeta && beta) || vapor.ui.snackbar.create(snackbarData);
 
-        // ! When alpha update is available
-        if (current.includes('alpha')) {
-            latest.includes('alpha') && latestAN > currentAN && updateAvailable();
-            // ! Check for updates
-        } else if (current.includes('beta')) {
-            latest.includes('beta') ? bothAreBeta() : current.includes('beta') ? currentIsBeta() : latest.includes('beta') ? latestIsBeta() : noneIsBeta();
-        }
-
         // ! Check if there is update
         const noneIsBeta = () => (latest > current ? updateAvailable() : undefined);
         const bothAreBeta = () => (latestVN > currentVN ? updateAvailable(true) : parseInt(latestBN) > parseInt(currentBN) ? updateAvailable(true) : undefined);
         const currentIsBeta = () => (latest == currentVN ? updateAvailable() : latest > currentVN ? updateAvailable() : undefined);
         const latestIsBeta = () => (latestVN > current ? updateAvailable(true) : undefined);
+
+        // ! When alpha update is available
+        if (current.includes('alpha')) {
+            latest.includes('alpha') && latestAN > currentAN && updateAvailable();
+        }
+
+        if (!current.includes('beta')) return noneIsBeta();
+
+        if (latest.includes('beta'))
+            return bothAreBeta();
+        if (latest.includes('beta'))
+            return latestIsBeta();
+        return currentIsBeta();
     });
 };
 
