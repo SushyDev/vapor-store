@@ -1,7 +1,3 @@
-
-
-
-
 //Select default
 function selectDefault(gameTitle, gameFolder, folderName, launchDefault) {
     const subFolder = path.join(gameFolder, folderName);
