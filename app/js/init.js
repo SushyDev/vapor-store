@@ -32,7 +32,6 @@ const isAlpha = app.getVersion().includes('alpha');
 const isDev = require('electron-is-dev');
 
 // ! Import vapor store modules
-
 const vapor = require('../js/modules/vapor-modules');
 const manage = require('../js/modules/management-modules');
 const downloader = require('../js/modules/downloader/modules');
