@@ -28,18 +28,21 @@ exports.Initialize = () => {
         vapor.ui.showProgressBar();
 
         //set page
-        const page = sessionStorage.getItem('page');
-        let Action = 0;
-        let Strategy = 0;
-        let Adventure = 0;
-        let Simulation = 0;
-        let Indie = 0;
-        while (!(Action + Adventure + Indie + Simulation + Strategy >= 50)) {
+        const
+        page = sessionStorage.getItem('page'),
+        GameData = {},
+        genres = ['Action', 'Strategy', 'Adventure', 'Simulation', 'Indie'];
+
+        genres.forEach((genre) => {
+            GameData[genre] = 0;
+        });
+        
+        while (!(Object.values(GameData).reduce((a, b) => a + b) >= 50)) {
             const gameAmount = data['list'].length;
             const randomGame = Math.floor(Math.random() * gameAmount);
             const game = data['list'][randomGame];
 
-            // ? If game doesn't exist don't do anyhting
+            // ? If game doesn't exist don't do anything
             if (!game.name) return;
 
             //Cancel is not on page anymore
@@ -49,33 +52,12 @@ exports.Initialize = () => {
 
             if (!fetchData) return;
 
-            fetchData.genres.forEach(async (genre) => {
-                if (genre.name == 'Action') {
-                    if (Action >= 10) return;
-                    createGenreCard(fetchData, game.name, genre.name);
-                    Action++;
-                    return;
-                } else if (genre.name == 'Adventure') {
-                    if (Adventure >= 10) return;
-                    createGenreCard(fetchData, game.name, genre.name);
-                    Adventure++;
-                    return;
-                } else if (genre.name == 'Indie') {
-                    if (Indie >= 10) return;
-                    createGenreCard(fetchData, game.name, genre.name);
-                    Indie++;
-                    return;
-                } else if (genre.name == 'Simulation') {
-                    if (Simulation >= 10) return;
-                    createGenreCard(fetchData, game.name, genre.name);
-                    Simulation++;
-                    return;
-                } else if (genre.name == 'Strategy') {
-                    if (Strategy >= 10) return;
-                    createGenreCard(fetchData, game.name, genre.name);
-                    Strategy++;
-                    return;
-                }
+            fetchData.genres.forEach((genre) => {
+                // ? Game genre is invalid
+                if (!GameData[genre] || typeof GameData[genre] !== 'number') return;
+                if (GameData[genre] > 10) return;
+                createGenreCard(fetchData, game.name, genre.name);
+                GameData[genre]++;
             });
         }
         vapor.ui.hideProgressBar();
