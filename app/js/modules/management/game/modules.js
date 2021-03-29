@@ -61,9 +61,9 @@ exports.getFiles = async (path = './') => {
     const folders = entries.filter((folder) => folder.isDirectory());
 
     /*
-          Add the found files within the subdirectory to the files array by calling the
-          current function itself
-        */
+        Add the found files within the subdirectory to the files array by calling the
+        current function itself
+    */
 
     for (const folder of folders) files.push(...(await manage.game.getFiles(require('path').join(path, folder.name))));
 
