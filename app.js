@@ -68,7 +68,6 @@ function checkForSingleInstance(window) {
         app.quit();
     } else {
         app.on('second-instance', () => {
-            console.log('single');
             if (!window) return;
             if (window.isMinimized()) window.restore();
             window.focus();

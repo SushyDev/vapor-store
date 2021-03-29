@@ -1,6 +1,6 @@
 // ? Get App window
 const browserWindows = BrowserWindow.getAllWindows();
-const browserWindow = browserWindows.find((window) => !window.title.includes('loading'));
+const browserWindow = browserWindows.find((window) => window && window.title && !window.title.includes('loading'));
 
 //Adjust page height for mobile devices running a chromium webbrowser
 function setPageHeight() {
