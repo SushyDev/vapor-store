@@ -5,13 +5,13 @@ exports.gameShortcut = async (gameID, gameDir) => {
     const name = gameID.replace(/ /g, '-').toLowerCase();
 
     const shortcutDialog = {
-        ['main']: [
+        main: [
             {
                 name: `Create a shortcut`,
                 id: `${name}-shortcut`,
             },
         ],
-        ['actions']: [
+        actions: [
             {
                 name: `Close`,
                 action: `vapor.ui.dialog.close('${name}-shortcut')`,

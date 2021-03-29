@@ -16,14 +16,14 @@ exports.Initialize = () => {
 
 exports.showChangelog = () => {
     const dialogData = {
-        ['main']: [
+        main: [
             {
                 name: `Changelog`,
                 id: 'changelog',
             },
         ],
-        ['content']: '<zero-md src="https://raw.githubusercontent.com/SushyDev/vapor-store/master/CHANGELOG.md"><template data-merge="append"><link rel="stylesheet" href="../css/overlays.css"></template></zero-md>',
-        ['actions']: [
+        content: '<zero-md src="https://raw.githubusercontent.com/SushyDev/vapor-store/master/CHANGELOG.md"><template data-merge="append"><link rel="stylesheet" href="../css/overlays.css"></template></zero-md>',
+        actions: [
             {
                 name: 'close',
                 action: `vapor.ui.dialog.close('changelog')`,
