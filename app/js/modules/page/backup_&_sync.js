@@ -76,6 +76,6 @@ exports.Initialize = () => {
             hideProgressBar();
             title.innerHTML = game.name;
             image.src = game.url;
-        });
+        }).catch(() => {});
     }
 };
