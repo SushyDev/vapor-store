@@ -16,7 +16,7 @@ exports.Initialize = () => {
 
 exports.showChangelog = () => {
     const dialogData = {
-        'main': [
+        main: [
             {
                 name: `Changelog`,
                 id: 'changelog',
