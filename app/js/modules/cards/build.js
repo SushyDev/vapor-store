@@ -54,7 +54,8 @@ exports.Library = async (fetchName) => {
 // ! Add metadata to page when opening game
 exports.addMetadata = async (name, type, game) => {
     // # Fetch data
-    const gameInfo = game?.metadata[0] || (await vapor.cards.query.fetch(name));
+    const gameInfo = game.metadata?.[0] ?? (await vapor.cards.query.fetch(name));
+    if (!gameinfo) return;
     const gameInfoExtra = await vapor.cards.query.fetchExtra(gameInfo.id);
     // # Set titles
     const titles = document.querySelectorAll('#selected-game-title');
