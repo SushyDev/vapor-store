@@ -1,5 +1,6 @@
 node_modules
 app/json/library.json
 .vscode
+.github
 dist
 SteamEmu
