@@ -1,14 +1,31 @@
 function gamePlay(executable) {
-    console.log(executable)
+    const executable_without_quotes = executable.replace(/"/g, '')
+    const executable_dirname = executable_without_quotes.split('\\').slice(0, -1).join('\\')
+
+    console.log("executable=" + executable)
+    console.log("executable_without_quotes=" + executable_without_quotes)
+    console.log("executable_dirname=" + executable_dirname)
+
     var exec = require('child_process').exec;
-    exec(`start "" "${executable.replace(/"/g, '')}"`, (err, data) => {
-        console.log(err);
+    exec(`start "" /D "${executable_dirname}" "${executable_without_quotes}"`, (err, data) => {
+        if(err){
+            console.log(err);
+        }
     });
 }
 
 function gamePlayAdmin(executable) {
-    exec(`powershell -command "start-process \\"${executable.replace(/"/g, '')}\\" -verb runas`, (err, data) => {
-        console.log(err);
+    const executable_without_quotes = executable.replace(/"/g, '')
+    const executable_dirname = executable_without_quotes.split('\\').slice(0, -1).join('\\')
+
+    console.log("executable=" + executable)
+    console.log("executable_without_quotes=" + executable_without_quotes)
+    console.log("executable_dirname=" + executable_dirname)
+
+    exec(`powershell -command "start-process \\"${executable_without_quotes}\\" -WorkingDirectory \\"${executable_dirname}\\" -verb runas`, (err, data) => {
+        if(err){
+            console.log(err);
+        }
     });
 }
 
