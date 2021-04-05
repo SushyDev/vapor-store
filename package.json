@@ -1,7 +1,7 @@
 {
   "name": "vapor-store-vue",
   "version": "0.1.0",
-  "private": true,
+  "main": "background.js",
   "scripts": {
     "start": "npm run electron:serve",
     "serve": "vue-cli-service serve",
@@ -11,7 +11,6 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
     "fs": "^0.0.1-security",
