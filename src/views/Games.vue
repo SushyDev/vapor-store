@@ -1,26 +1,88 @@
 <template>
-    <v-container fluid>
-        <v-row no-gutters>
-            <v-col v-for="n in 30" :key="n" class="d-flex justify-center">
-                <GameCard></GameCard>
-            </v-col>
-        </v-row>
-    </v-container>
+    <div class="games">
+        <GameOverview @closeGame="overview = !overview" :show.sync="overview" :game.sync="selectedGame"></GameOverview>
+
+        <template>
+            <v-row justify="center">
+                <v-dialog v-model="dialog" persistent max-width="350">
+                    <v-card>
+                        <v-card-title class="headline">
+                            Error loading games list
+                        </v-card-title>
+                        <v-card-text>You might need to select/reselect the JSON file in the settings</v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text to="/settings">
+                                Settings
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-row>
+        </template>
+
+        <v-container fluid>
+            <v-row no-gutters>
+                <v-col v-for="(game, i) in games" :key="game.name" class="d-flex justify-center">
+                    <GameCard @openGame="openGame" :game.sync="games[i]"></GameCard>
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
+import fs from 'fs';
 import GameCard from '@/components/GameCard.vue';
+import GameOverview from '@/components/GameOverview.vue';
+
+// @ts-ignore
+import {get} from '@/modules/config.ts';
+// @ts-ignore
+//import {fetch, fetchExtra} from '@/modules/config.ts';
 
 export default Vue.extend({
-    name: 'Library' as string,
-    data: () => ({}),
+    name: 'Library',
+    data: () => ({
+        games: [] as object[],
+        dialog: false as boolean,
+        selectedGame: null as object | null,
+        overview: false,
+    }),
+    methods: {
+        openGame(game: object) {
+            this.overview = true;
+            this.selectedGame = game;
+        },
+    },
     components: {
         GameCard,
+        GameOverview,
     },
     created() {
         this.$emit('navType', 1);
+
+        const config: {gamesList: File} = get();
+
+        fs.readFile(config.gamesList.path, 'UTF-8', async (err, data) => {
+            if (err) {
+                console.error('Something went wrong loading the games list');
+                console.error(err);
+                this.dialog = true;
+                return;
+            }
+
+            const games: object = JSON.parse(data)['list'].slice(0, 10);
+
+            for (let [i, game] of Object.entries(games)) {
+                const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
+                const returned = await request.json();
+                game = {...game, metadata: returned.results[0]};
+                this.games.push(game);
+            }
+        });
     },
 });
 </script>

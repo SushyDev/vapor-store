@@ -1,13 +1,13 @@
 <template>
     <v-app>
-        <v-app-bar color="primary" class="white--text" app>
-            <v-app-bar-nav-icon @click="drawer = !drawer" color="white"></v-app-bar-nav-icon>
+        <v-app-bar color="primary" class="white--text draggable" app>
+            <v-app-bar-nav-icon @click="drawer = !drawer" color="white" class="nondraggable"></v-app-bar-nav-icon>
 
-            <v-toolbar-title class="title mr-6 hidden-sm-and-down">
+            <v-toolbar-title class="title mr-6 hidden-sm-and-down select-none">
                 {{ $appName }}
             </v-toolbar-title>
 
-            <component :slot="NavTypes[NavType].slot" :is="NavTypes[NavType].component"></component>
+            <component class="nondraggable" :slot="NavTypes[NavType].slot" :is="NavTypes[NavType].component"></component>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" app>
@@ -19,7 +19,7 @@
                 </div>
             </template>
             <v-list dense nav>
-                <v-list-item v-for="item in items" :key="item.title" :to="item.page" @click="drawer = !drawer" link>
+                <v-list-item v-for="item in items" :key="item.title" :to="item.page" link>
                     <v-list-item-icon>
                         <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
@@ -40,7 +40,9 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import '@/modules/config.ts';
+// @ts-ignore
+import {initialize} from '@/modules/config.ts';
+initialize();
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 import TabBar from '@/components/AppBar/TabBar.vue';
@@ -72,6 +74,11 @@ export default Vue.extend({
             this.NavType = type;
         },
     },
+    watch: {
+        $route(to, from) {
+            if (!(this.$vuetify.breakpoint.xl || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.md)) this.drawer = false;
+        },
+    },
     created() {
         Vue.prototype.$appName = 'Vapor Store';
     },
@@ -83,8 +90,20 @@ export default Vue.extend({
     box-shadow: 0 0 0 3px #ff80ab !important;
 }
 
+.hover-highlight:hover {
+    box-shadow: 0 0 0 3px #ff80ab !important;
+}
+
 .select-none {
     user-select: none;
+}
+
+.draggable {
+    -webkit-app-region: drag;
+}
+
+.nondraggable {
+    -webkit-app-region: no-drag;
 }
 
 * {

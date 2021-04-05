@@ -1,15 +1,15 @@
 <template>
-    <v-card class="ma-8 rounded-lg focus-highlight" max-width="375">
-        <v-img class="white--text align-end" height="250" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+    <v-card class="ma-8 rounded-lg hover-highlight focus-highlight" max-width="375">
+        <v-img class="white--text align-end" height="250" :src="$attrs.game.metadata.background_image" gradient="0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,.55) 25%, rgba(0,0,0,0) 50%">
             <v-tooltip top>
                 <template v-slot:activator="{on, attrs}">
-                    <span v-bind="attrs" v-on="on" class="title ml-4 select-none">Game</span>
+                    <span v-bind="attrs" v-on="on" class="title ml-4 select-none">{{ $attrs.game.metadata.name }}</span>
                 </template>
-                <span>fetch-name</span>
+                <span>{{ $attrs.game.name }}</span>
             </v-tooltip>
 
             <v-card-actions class="mt-n2">
-                <v-btn color="secondary" text>
+                <v-btn color="secondary" @click="$emit('openGame', $attrs.game)" text>
                     Download
                 </v-btn>
 
@@ -25,10 +25,8 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-    name: 'GameCard',
     data: () => ({
-        selected: false,
-        src: 'https://www.awakenthegreatnesswithin.com/wp-content/uploads/2018/08/Nature-Quotes-1.jpg' as string,
+        selected: false as boolean,
     }),
 });
 </script>
