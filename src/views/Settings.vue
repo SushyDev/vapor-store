@@ -28,8 +28,6 @@ export default Vue.extend({
         },
     },
     created() {
-        this.$emit('navType', 0);
-
         const gamesList = get().gamesList;
         !gamesList?.name || (this.gamesList = gamesList);
     },

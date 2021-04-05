@@ -1,13 +1,18 @@
 <template>
     <v-app>
-        <v-app-bar color="primary" class="white--text draggable" app>
-            <v-app-bar-nav-icon @click="drawer = !drawer" color="white" class="nondraggable"></v-app-bar-nav-icon>
+        <v-app-bar color="primary" class="draggable" app>
+            <v-app-bar-nav-icon @click="drawer = !drawer" class="nondraggable"></v-app-bar-nav-icon>
 
             <v-toolbar-title class="title mr-6 hidden-sm-and-down select-none">
                 {{ $appName }}
             </v-toolbar-title>
 
-            <component class="nondraggable" :slot="NavTypes[NavType].slot" :is="NavTypes[NavType].component"></component>
+            <component class="nondraggable mx-auto" :slot="NavTypes[NavType].slot" :is="NavTypes[NavType].component"></component>
+
+            <v-app-bar-nav-icon style="visibility: hidden"></v-app-bar-nav-icon>
+            <v-toolbar-title class="title mr-6 hidden-sm-and-down" style="visibility: hidden">
+                {{ $appName }}
+            </v-toolbar-title>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" app>
@@ -32,6 +37,7 @@
         </v-navigation-drawer>
 
         <v-main>
+            <v-progress-linear v-show="globalLoading" indeterminate query color="secondary"></v-progress-linear>
             <router-view @navType="setNav"></router-view>
         </v-main>
     </v-app>
@@ -47,8 +53,11 @@ initialize();
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 import TabBar from '@/components/AppBar/TabBar.vue';
 
+import {LoadingBus} from '@/event-bus';
+
 export default Vue.extend({
     data: () => ({
+        globalLoading: true as boolean,
         drawer: false as boolean,
         displaySearch: false as boolean,
         NavType: 0,
@@ -73,6 +82,9 @@ export default Vue.extend({
         setNav(type: number) {
             this.NavType = type;
         },
+        toggleLoading(show: boolean) {
+            this.globalLoading = show;
+        },
     },
     watch: {
         $route(to, from) {
@@ -80,12 +92,18 @@ export default Vue.extend({
         },
     },
     created() {
-        Vue.prototype.$appName = 'Vapor Store';
+        LoadingBus.$on('loading', this.toggleLoading);
+
+        Vue.prototype.$appName = 'App';
     },
 });
 </script>
 
 <style lang="scss">
+html {
+    overflow-y: auto;
+}
+
 .focus-highlight:focus-within {
     box-shadow: 0 0 0 3px #ff80ab !important;
 }
@@ -101,9 +119,18 @@ export default Vue.extend({
 .draggable {
     -webkit-app-region: drag;
 }
+.cursor-pointer {
+    cursor: pointer;
+}
 
 .nondraggable {
     -webkit-app-region: no-drag;
+}
+
+.scroll-hidden {
+    ::-webkit-scrollbar {
+        display: none !important;
+    }
 }
 
 * {

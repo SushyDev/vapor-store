@@ -1,6 +1,6 @@
 <template>
     <div class="games">
-        <GameOverview @closeGame="overview = !overview" :show.sync="overview" :game.sync="selectedGame"></GameOverview>
+        <GameOverview @closeGame="selectedGame = null" :game.sync="selectedGame"></GameOverview>
 
         <template>
             <v-row justify="center">
@@ -24,7 +24,7 @@
         <v-container fluid>
             <v-row no-gutters>
                 <v-col v-for="(game, i) in games" :key="game.name" class="d-flex justify-center">
-                    <GameCard @openGame="openGame" :game.sync="games[i]"></GameCard>
+                    <GameCard @openGame="openGame" :loading.sync="loading" :game.sync="games[i]"></GameCard>
                 </v-col>
             </v-row>
         </v-container>
@@ -40,6 +40,8 @@ import GameOverview from '@/components/GameOverview.vue';
 
 // @ts-ignore
 import {get} from '@/modules/config.ts';
+
+import {GameBus, LoadingBus, setLoading} from '@/event-bus';
 // @ts-ignore
 //import {fetch, fetchExtra} from '@/modules/config.ts';
 
@@ -49,12 +51,26 @@ export default Vue.extend({
         games: [] as object[],
         dialog: false as boolean,
         selectedGame: null as object | null,
-        overview: false,
+        globalLoading: false as boolean,
+        loading: false as boolean,
     }),
     methods: {
-        openGame(game: object) {
-            this.overview = true;
+        async openGame(game: object | any) {
+            setLoading(true);
+            this.loading = true;
+
+            const request = await fetch(`https://api.rawg.io/api/games/${game.metadata.id}`);
+            game.metadata = await request.json();
+
+            const screenshots = await fetch(`https://api.rawg.io/api/games/${game.metadata.id}/screenshots`);
+            const ssList = await screenshots.json();
+            game.metadata.screenshots = ssList.results;
             this.selectedGame = game;
+            this.loading = false;
+            setLoading(false);
+        },
+        toggleLoading(show: boolean) {
+            this.globalLoading = show;
         },
     },
     components: {
@@ -62,6 +78,11 @@ export default Vue.extend({
         GameOverview,
     },
     created() {
+        setLoading(true);
+
+        LoadingBus.$on('loading', this.toggleLoading);
+        GameBus.$on('openGame', this.openGame);
+
         this.$emit('navType', 1);
 
         const config: {gamesList: File} = get();
@@ -80,9 +101,16 @@ export default Vue.extend({
                 const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
                 const returned = await request.json();
                 game = {...game, metadata: returned.results[0]};
+
                 this.games.push(game);
             }
+            setLoading(false);
         });
+    },
+    beforeRouteLeave(to, from, next) {
+        // # Switch back to default app bar
+        this.$emit('navType', 0);
+        next();
     },
 });
 </script>

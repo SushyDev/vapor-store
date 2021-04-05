@@ -1,5 +1,5 @@
 <template>
-    <v-card class="ma-8 rounded-lg hover-highlight focus-highlight" max-width="375">
+    <v-card class="ma-8 rounded-lg hover-highlight focus-highlight" max-width="375" :disabled="$attrs.loading" @click="$emit('openGame', $attrs.game)">
         <v-img class="white--text align-end" height="250" :src="$attrs.game.metadata.background_image" gradient="0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,.55) 25%, rgba(0,0,0,0) 50%">
             <v-tooltip top>
                 <template v-slot:activator="{on, attrs}">
@@ -9,7 +9,7 @@
             </v-tooltip>
 
             <v-card-actions class="mt-n2">
-                <v-btn color="secondary" @click="$emit('openGame', $attrs.game)" text>
+                <v-btn color="secondary" @click="download" text>
                     Download
                 </v-btn>
 
@@ -28,5 +28,11 @@ export default Vue.extend({
     data: () => ({
         selected: false as boolean,
     }),
+    methods: {
+        download(e: Event) {
+            console.log('Download');
+            e.stopPropagation();
+        },
+    },
 });
 </script>

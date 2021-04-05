@@ -14,7 +14,7 @@ async function spawnMain() {
         frame: false,
         minWidth: 990,
         minHeight: 670,
-        show: true,
+        show: false,
         webPreferences: {
             enableRemoteModule: true,
             nodeIntegration: (process.env.ELECTRON_NODE_INTEGRATION as unknown) as boolean,
