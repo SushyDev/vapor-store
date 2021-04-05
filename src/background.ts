@@ -14,7 +14,7 @@ async function spawnMain() {
         frame: false,
         minWidth: 990,
         minHeight: 670,
-        show: false,
+        show: true,
         webPreferences: {
             enableRemoteModule: true,
             nodeIntegration: (process.env.ELECTRON_NODE_INTEGRATION as unknown) as boolean,
@@ -65,10 +65,7 @@ const startApp = async () => {
 
     checkForSingleInstance(main);
 
-    console.log('Started');
-
     ipcMain.once('loaded', () => {
-        console.log('Loaded');
         main.show();
         loading.close();
     });
