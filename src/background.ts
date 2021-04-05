@@ -36,7 +36,7 @@ async function spawnMain() {
     return win;
 }
 
-const spawnLoading = async () => {
+async function spawnLoading() {
     const win = new BrowserWindow({
         frame: false,
         transparent: true,
@@ -55,7 +55,7 @@ const spawnLoading = async () => {
     }
 
     return win;
-};
+}
 
 app.on('window-all-closed', () => app.quit());
 

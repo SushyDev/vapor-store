@@ -2,8 +2,8 @@
     <v-responsive class="search" max-width="50vw">
         <v-autocomplete v-model="model" :items="items" :loading="isLoading" :search-input.sync="search" prepend-inner-icon="mdi-magnify" class="rounded-lg" item-text="name" item-value="symbol" color="secondary" label="Search..." clearable hide-details hide-selected flat hide-no-data solo-inverted dark cache-items>
             <template v-slot:item="{item}">
-                <v-responsive max-width="fit-content">
-                    <v-list-item @click="selectGame(item)">
+                <v-responsive max-width="fit-content" @click="selectGame(item)">
+                    <v-list-item>
                         <v-list-item-avatar color="secondary" class="headline font-weight-light text-uppercase white--text">
                             {{ item.name.charAt(0) }}
                         </v-list-item-avatar>

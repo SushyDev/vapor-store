@@ -12,8 +12,8 @@
                         <v-card-text>You might need to select/reselect the JSON file in the settings</v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="green darken-1" text to="/settings">
-                                Settings
+                            <v-btn color="red darken-1" text @click="fix">
+                                Fix
                             </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -72,6 +72,9 @@ export default Vue.extend({
         toggleLoading(show: boolean) {
             this.globalLoading = show;
         },
+        fix() {
+            this.$router.push('/settings');
+        },
     },
     components: {
         GameCard,
@@ -87,7 +90,7 @@ export default Vue.extend({
 
         const config: {gamesList: File} = get();
 
-        fs.readFile(config.gamesList.path, 'UTF-8', async (err, data) => {
+        fs.readFile(config?.gamesList?.path || '', 'UTF-8', async (err, data) => {
             if (err) {
                 console.error('Something went wrong loading the games list');
                 console.error(err);
@@ -110,6 +113,7 @@ export default Vue.extend({
     beforeRouteLeave(to, from, next) {
         // # Switch back to default app bar
         this.$emit('navType', 0);
+        setLoading(false);
         next();
     },
 });

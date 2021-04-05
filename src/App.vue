@@ -13,6 +13,18 @@
             <v-toolbar-title class="title mr-6 hidden-sm-and-down" style="visibility: hidden">
                 {{ $appName }}
             </v-toolbar-title>
+
+            <div class="nondraggable window-buttons">
+                <button class="minimize" @click="Minimize">
+                    <svg x="0px" y="0px" viewBox="0 0 10.2 1"><rect x="0" y="50%" width="10.2" height="1" /></svg>
+                </button>
+                <button class="maximize" @click="Maximize">
+                    <svg viewBox="0 0 10 10"><path d="M0,0v10h10V0H0z M9,9H1V1h8V9z" /></svg>
+                </button>
+                <button class="close" @click="Close">
+                    <svg viewBox="0 0 10 10"><polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1" /></svg>
+                </button>
+            </div>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" app>
@@ -50,6 +62,8 @@ import Vue from 'vue';
 import {initialize} from '@/modules/config.ts';
 initialize();
 
+const {BrowserWindow} = require('electron').remote;
+
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 import TabBar from '@/components/AppBar/TabBar.vue';
 
@@ -57,7 +71,7 @@ import {LoadingBus} from '@/event-bus';
 
 export default Vue.extend({
     data: () => ({
-        globalLoading: true as boolean,
+        globalLoading: false as boolean,
         drawer: false as boolean,
         displaySearch: false as boolean,
         NavType: 0,
@@ -84,6 +98,25 @@ export default Vue.extend({
         },
         toggleLoading(show: boolean) {
             this.globalLoading = show;
+        },
+        getWindow() {
+            return BrowserWindow.getFocusedWindow();
+        },
+
+        Window() {
+            this.getWindow();
+        },
+
+        Minimize() {
+            this.getWindow().minimize();
+        },
+
+        Maximize() {
+            this.getWindow().isMaximized() ? this.getWindow().unmaximize() : this.getWindow().maximize();
+        },
+
+        Close() {
+            this.getWindow().close();
         },
     },
     watch: {
@@ -130,6 +163,30 @@ html {
 .scroll-hidden {
     ::-webkit-scrollbar {
         display: none !important;
+    }
+}
+
+.window-buttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    button {
+        width: 46px;
+        height: 30px;
+        outline: 0;
+
+        svg {
+            width: 10px;
+            height: 10px;
+            stroke: white;
+            stroke-width: 0.75;
+            fill: #fff;
+        }
+    }
+
+    button:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
 }
 

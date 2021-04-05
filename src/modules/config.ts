@@ -42,20 +42,39 @@ exports.initialize = function(): void {
         checkConfigFile();
     }
 
+    async function writeConfigFile() {
+        try {
+            fs.writeFileSync(vaporConfig(), JSON.stringify(defaults));
+        } catch (err) {
+            console.error('Something went wrong creating the config file');
+            console.error(err);
+            return;
+        }
+        console.warn('Successfully written config file');
+        validateConfigFile();
+    }
+
     function checkConfigFile() {
         if (!fs.existsSync(vaporConfig())) {
             console.warn('Config file does not exist!, creating config file...');
-            fs.writeFile(vaporConfig(), JSON.stringify(defaults), (err: Error) => {
-                if (err) {
-                    console.error('Something went wrong creating the config file');
-                    console.error(err);
-                } else {
-                    setTimeout(() => ipcRenderer.send('loaded', true), 350);
-                }
-            });
+            writeConfigFile();
         } else {
-            setTimeout(() => ipcRenderer.send('loaded', true), 350);
+            validateConfigFile();
         }
+    }
+
+    async function validateConfigFile() {
+        const data = await fs.readFileSync(vaporConfig(), 'UTF-8');
+
+        try {
+            JSON.parse(data);
+        } catch (err) {
+            console.warn('Error reading config file, resetting...');
+            writeConfigFile();
+            return;
+        }
+
+        setTimeout(() => ipcRenderer.send('loaded', true), 350);
     }
 };
 

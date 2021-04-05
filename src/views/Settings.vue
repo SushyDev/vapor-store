@@ -21,8 +21,8 @@ export default Vue.extend({
         changes() {
             setItem({
                 gamesList: {
-                    name: (this.gamesList?.name as string) ?? ('' as string),
-                    path: (this.gamesList?.path as string) ?? ('' as string),
+                    name: this.gamesList?.name || '',
+                    path: this.gamesList?.path || '',
                 } as object,
             });
         },
