@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar color="primary" class="draggable" app>
+        <v-app-bar color="primary" class="draggable" dark app>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="nondraggable"></v-app-bar-nav-icon>
 
             <v-toolbar-title class="title mr-6 hidden-sm-and-down select-none">
@@ -49,7 +49,9 @@
         </v-navigation-drawer>
 
         <v-main>
-            <v-progress-linear v-show="globalLoading" indeterminate query color="secondary"></v-progress-linear>
+            <v-expand-transition>
+                <v-progress-linear v-show="globalLoading" indeterminate query color="secondary"></v-progress-linear>
+            </v-expand-transition>
             <router-view @navType="setNav"></router-view>
         </v-main>
     </v-app>
@@ -66,6 +68,8 @@ const {BrowserWindow} = require('electron').remote;
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 import TabBar from '@/components/AppBar/TabBar.vue';
+
+import {get} from '@/modules/config';
 
 import {LoadingBus} from '@/event-bus';
 
@@ -84,7 +88,7 @@ export default Vue.extend({
             {title: 'Home', icon: 'mdi-home', page: '/'},
             {title: 'Games', icon: 'mdi-gamepad', page: '/games'},
             {title: 'Installed', icon: 'mdi-library-shelves', page: '/a'},
-            {title: 'Downloads', icon: 'mdi-download', page: '/b'},
+            {title: 'Downloads', icon: 'mdi-download', page: '/downloads'},
             {title: 'Settings', icon: 'mdi-cog', page: '/settings/'},
         ],
     }),
@@ -126,6 +130,9 @@ export default Vue.extend({
     },
     created() {
         LoadingBus.$on('loading', this.toggleLoading);
+        const config: object | any = get();
+
+        this.$vuetify.theme.dark = config.darkMode;
 
         Vue.prototype.$appName = 'App';
     },

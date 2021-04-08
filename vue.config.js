@@ -4,6 +4,7 @@ module.exports = {
         electronBuilder: {
             nodeIntegration: true,
             enableRemoteModule: true,
+            externals: ['puppeteer', 'electron-dl'],
 
             builderOptions: {
                 appId: 'vapor.store.vue',

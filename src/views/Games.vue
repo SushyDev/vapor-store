@@ -42,8 +42,6 @@ import GameOverview from '@/components/GameOverview.vue';
 import {get} from '@/modules/config.ts';
 
 import {GameBus, LoadingBus, setLoading} from '@/event-bus';
-// @ts-ignore
-//import {fetch, fetchExtra} from '@/modules/config.ts';
 
 export default Vue.extend({
     name: 'Library',

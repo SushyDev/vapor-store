@@ -9,7 +9,7 @@
             </v-tooltip>
 
             <v-card-actions class="mt-n2">
-                <v-btn color="secondary" @click="download" text>
+                <v-btn color="secondary" @click="[prevent($event), download($attrs.game)]" text>
                     Download
                 </v-btn>
 
@@ -24,14 +24,18 @@
 <script lang="ts">
 import Vue from 'vue';
 
+import {DownloaderBus} from '@/downloader/event-bus';
+
 export default Vue.extend({
     data: () => ({
         selected: false as boolean,
     }),
     methods: {
-        download(e: Event) {
-            console.log('Download');
+        prevent(e: Event) {
             e.stopPropagation();
+        },
+        download(game: object | any) {
+            DownloaderBus.$emit('download', game);
         },
     },
 });

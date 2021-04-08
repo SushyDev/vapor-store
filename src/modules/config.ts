@@ -3,29 +3,18 @@ const {app} = require('electron').remote;
 const {ipcRenderer} = require('electron');
 const path = require('path');
 
-// function to check if json exists, if not create it
-
 // ! Vapor Store files directory's
-const vaporData = (): string => path.resolve(app.getPath('userData'));
-const vaporFiles = (): string => path.join(vaporData(), 'Files');
-const vaporGames = (): string => path.join(vaporData(), 'Games');
-const configFolder = (): string => path.join(vaporFiles(), 'json');
+export const vaporData = (): string => path.resolve(app.getPath('userData'));
+export const vaporFiles = (): string => path.join(vaporData(), 'Files');
+export const vaporGames = (): string => path.join(vaporData(), 'Games');
+export const configFolder = (): string => path.join(vaporFiles(), 'json');
 
 // ! Files
-const vaporConfig = (): string => path.join(configFolder(), 'config.json');
-
-// ! Main paths
-exports.vaporData = (): string => vaporData();
-exports.vaporFiles = (): string => vaporFiles();
-exports.vaporConfigs = (): string => configFolder();
-
-// ! Sub paths
-exports.vaporGames = (): string => path.join(vaporFiles(), 'games');
-exports.vaporConfig = (): string => vaporConfig();
+export const vaporConfig = (): string => path.join(configFolder(), 'config.json');
 
 // ! If config dir doesn't exist
-exports.initialize = function(): void {
-    const defaults: object = {downloadDir: {name: '' as string, path: '' as string} as object, darkMode: true as boolean, optBeta: false as boolean, autoExtract: true as boolean};
+export const initialize = function(): void {
+    const defaults: object = {downloadDir: '/home/sushy/' as string, darkMode: true as boolean, optBeta: false as boolean, autoExtract: true as boolean};
 
     if (!fs.existsSync(configFolder())) {
         // !  Create folder (and subfolders if necessary)
@@ -78,10 +67,10 @@ exports.initialize = function(): void {
     }
 };
 
-exports.get = (): object => JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
+export const get = (): object => JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
 
 // ! Add item to array
-exports.setItem = (newItem: object): object => {
+export const setItem = (newItem: object): object => {
     const config: object = JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
     const newConfig: object = {...config, ...newItem};
 

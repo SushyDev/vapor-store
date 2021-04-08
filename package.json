@@ -3,26 +3,32 @@
   "version": "0.1.2",
   "main": "background.js",
   "scripts": {
-    "start": "npm run electron:serve",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "electron:build": "vue-cli-service electron:build --win nsis",
-    "electron:serve": "vue-cli-service electron:serve",
+    "start": "npm run serve",
+    "serve": "vue-cli-service electron:serve",
+    "build": "vue-cli-service electron:build --win nsis",
+    "web:serve": "vue-cli-service serve",
+    "web:build": "vue-cli-service build",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "electron-dl": "^3.2.1",
     "fs": "^0.0.1-security",
+    "puppeteer": "^8.0.0",
+    "puppeteer-core": "^8.0.0",
+    "puppeteer-in-electron": "^3.0.3",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "ws": "^6.2.1"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
+    "@types/puppeteer": "^5.4.3",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",

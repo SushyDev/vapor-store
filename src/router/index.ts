@@ -16,6 +16,11 @@ const routes: Array<RouteConfig> = [
         component: () => import('../views/Games.vue'),
     },
     {
+        path: '/downloads',
+        name: 'Downloads',
+        component: () => import('../views/Downloads.vue'),
+    },
+    {
         path: '/settings',
         name: 'Settings',
         component: () => import('../views/Settings.vue'),
