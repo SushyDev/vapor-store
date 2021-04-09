@@ -30,12 +30,13 @@ export async function download(game: object | any) {
         return;
     }
 
+    // ? Start download
     downloadProcess(downloadURL, index);
 }
 
 /*
 !
-! Implement Pauze/Cancel feature
+! Implement Pause/Cancel feature
 ! Later maybe implement resume after restart?
 !
 ! See:
@@ -52,8 +53,14 @@ async function downloadProcess(url: string, index: number) {
 
     const {DownloaderHelper} = require('node-downloader-helper');
 
+    const downloaderOptions = {
+        method: 'GET',
+        override: true,
+        progressThrottle: 250, // interval time of the 'progress.throttled' event will be emitted
+    };
+
     // ? Instanciate downloader
-    const dl = new DownloaderHelper(url, itemDownloadDir, {method: 'GET', override: true});
+    const dl = new DownloaderHelper(url, itemDownloadDir, downloaderOptions);
 
     // ? On download, create values array
     // ! Remove ANY

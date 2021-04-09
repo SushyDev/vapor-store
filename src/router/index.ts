@@ -24,16 +24,6 @@ const routes: Array<RouteConfig> = [
         path: '/settings',
         name: 'Settings',
         component: () => import('../views/Settings.vue'),
-        children: [
-            {
-                path: '/vapor',
-                component: () => import('../views/Settings/Vapor.vue'),
-            },
-            {
-                path: '/games',
-                component: () => import('../views/Settings/Games.vue'),
-            },
-        ],
     },
 ];
 

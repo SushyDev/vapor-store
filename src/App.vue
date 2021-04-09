@@ -65,7 +65,6 @@ import {initialize} from '@/modules/config';
 initialize();
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
-import TabBar from '@/components/AppBar/TabBar.vue';
 
 export default Vue.extend({
     data: () => ({
@@ -76,7 +75,6 @@ export default Vue.extend({
         NavTypes: [
             {component: null, slot: null},
             {component: 'SearchBar', slot: null},
-            {component: 'TabBar', slot: 'extension'},
         ] as object[],
         items: [
             {title: 'Home', icon: 'mdi-home', page: '/'},
@@ -89,7 +87,6 @@ export default Vue.extend({
     }),
     components: {
         SearchBar,
-        TabBar,
     },
     methods: {
         setNav(type: number) {
@@ -133,7 +130,8 @@ export default Vue.extend({
         const config: object | any = get();
 
         this.$vuetify.theme.dark = config.darkMode;
-
+    },
+    beforeCreate() {
         Vue.prototype.$appName = 'App';
     },
 });
