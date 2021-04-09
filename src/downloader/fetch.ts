@@ -1,9 +1,16 @@
-// #Download game
+/*
+!
+! TSC giving errors about HTML Elements in the compiler
+!
+*/
+
+// # Fetch download URL from page with Puppeteer
 export const fetchDownload = async (url: string) => {
-    // # Dynamically import puppeteer to prevent unecessarily loading it
+
+    console.log('Fetching...', url)
+
     const puppeteer = require('puppeteer');
 
-    //@ts-ignore
     const getPath = () => (process.platform == 'linux' ? puppeteer.executablePath().replace('/electron/', '/puppeteer/') : puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked'));
 
     const browser = await puppeteer.launch({
@@ -12,7 +19,6 @@ export const fetchDownload = async (url: string) => {
 
     const page = await browser.newPage();
 
-    // ? Go to page
     await page.goto(url);
 
     // ? Wait for download button visible
@@ -20,10 +26,9 @@ export const fetchDownload = async (url: string) => {
 
     // ? Change button to redirect, then click
     await page.evaluate(() => {
-        //@ts-ignore
-        document.querySelector('.btn-download').target = '_self';
-        //@ts-ignore
-        document.querySelector('.btn-download').click();
+        const button: HTMLAnchorElement = document.querySelector('.btn-download')!;
+        button.target = '_self';
+        button.click();
         return;
     });
 
@@ -34,8 +39,10 @@ export const fetchDownload = async (url: string) => {
     await page.waitForSelector('#downloadNowBtn', {visible: true});
 
     // ? Click download button
-    //@ts-ignore
-    await page.evaluate(() => document.querySelector('#downloadNowBtn').click());
+    await page.evaluate(() => {
+        const button: HTMLButtonElement = document.querySelector('#downloadNowBtn')!;
+        button.click();
+    });
 
     // ? Wait for redirect
     await page.waitForNavigation({waitUntil: 'networkidle0'});
@@ -44,11 +51,13 @@ export const fetchDownload = async (url: string) => {
     const downloadURL = await page.evaluate(() => {
         try {
             return document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href;
-        } catch (e) {
+        } catch (err) {
+            console.error(err);
             return;
         }
     });
 
+    // ? Close chromium instance
     await browser.close();
 
     return downloadURL;

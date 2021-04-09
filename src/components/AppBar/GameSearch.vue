@@ -23,11 +23,6 @@ import Vue from 'vue';
 
 import fs from 'fs';
 
-// @ts-ignore
-import {get} from '@/modules/config.ts';
-
-import {GameBus} from '@/event-bus';
-
 export default Vue.extend({
     name: 'GameSearchBar',
     data: () => ({
@@ -39,6 +34,8 @@ export default Vue.extend({
     }),
     methods: {
         async selectGame(game: object | any) {
+            const {GameBus} = await import('@/event-bus');
+
             const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
             const returned = await request.json();
 
@@ -57,6 +54,7 @@ export default Vue.extend({
             if (this.items.length > 0) return;
             this.isLoading = true;
 
+            const {get} = await import('@/modules/config');
             const config: {gamesList: File} | any = get();
 
             const path = await import('path');

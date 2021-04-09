@@ -14,8 +14,8 @@
             </v-icon>
             <span v-if="$attrs.game.progress && $attrs.game.values" class="caption font-weight-light select-none">{{ $attrs.game.progress.toFixed(2) }}% - {{ $attrs.game.values[0].toFixed(2) }}MB/s </span>
             <v-spacer></v-spacer>
-            <v-btn color="primary">Cancel</v-btn>
-            <v-btn color="primary" class="mr-2">Pause</v-btn>
+            <v-btn color="primary" @click="cancel($attrs.game)">Cancel</v-btn>
+            <v-btn color="primary" class="mr-2" @click="pause($attrs.game)">Pause</v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -25,6 +25,18 @@ import Vue from 'vue';
 
 export default Vue.extend({
     name: 'DownloadItemCard',
+    methods: {
+        // ! Remove ANY
+        async cancel(game: object | any) {
+            const {cancel} = await import('@/downloader');
+            // ! Remove ANY
+            cancel(game);
+        },
+        async pause(game: object | any) {
+            const {pause} = await import('@/downloader');
+            pause(game);
+        },
+    },
 });
 </script>
 

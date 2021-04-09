@@ -33,8 +33,8 @@ export default Vue.extend({
             e.stopPropagation();
         },
         async download(game: object | any) {
-            const downloader: any = await import('@/downloader/event-bus');
-            downloader.addToDownloads(game);
+            const {download} = await import('@/downloader');
+            download(game);
         },
     },
 });

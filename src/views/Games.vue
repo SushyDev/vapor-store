@@ -35,11 +35,8 @@
 import Vue from 'vue';
 
 import fs from 'fs';
-import GameCard from '@/components/GameCard.vue';
-import GameOverview from '@/components/GameOverview.vue';
-
-// @ts-ignore
-import {get} from '@/modules/config.ts';
+import GameCard from '@/components/Games/GameCard.vue';
+import GameOverview from '@/components/Games/GameOverview.vue';
 
 import {GameBus, LoadingBus, setLoading} from '@/event-bus';
 
@@ -86,6 +83,7 @@ export default Vue.extend({
         LoadingBus.$on('loading', this.toggleLoading);
         GameBus.$on('openGame', this.openGame);
 
+        const {get} = await import('@/modules/config');
         const config: {gamesList: File} | any = get();
         const path = await import('path');
 
