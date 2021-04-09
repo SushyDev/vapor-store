@@ -22,7 +22,6 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  
   "dependencies": {
     "core-js": "^3.6.5",
     "fs": "^0.0.1-security",

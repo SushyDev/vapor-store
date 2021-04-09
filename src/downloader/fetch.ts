@@ -6,8 +6,7 @@
 
 // # Fetch download URL from page with Puppeteer
 export const fetchDownload = async (url: string) => {
-
-    console.log('Fetching...', url)
+    console.log('Fetching...', url);
 
     const puppeteer = require('puppeteer');
 
@@ -26,6 +25,7 @@ export const fetchDownload = async (url: string) => {
 
     // ? Change button to redirect, then click
     await page.evaluate(() => {
+        // @ts-ignore
         const button: HTMLAnchorElement = document.querySelector('.btn-download')!;
         button.target = '_self';
         button.click();
@@ -40,6 +40,7 @@ export const fetchDownload = async (url: string) => {
 
     // ? Click download button
     await page.evaluate(() => {
+        // @ts-ignore
         const button: HTMLButtonElement = document.querySelector('#downloadNowBtn')!;
         button.click();
     });
