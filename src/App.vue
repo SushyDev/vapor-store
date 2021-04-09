@@ -61,8 +61,6 @@
 import Vue from 'vue';
 
 const {BrowserWindow} = require('electron').remote;
-import {initialize} from '@/modules/config';
-initialize();
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 
@@ -131,8 +129,10 @@ export default Vue.extend({
 
         this.$vuetify.theme.dark = config.darkMode;
     },
-    beforeCreate() {
-        Vue.prototype.$appName = 'App';
+    async beforeCreate() {
+        Vue.prototype.$appName = 'Vapor Store';
+        const {initialize} = await import('@/modules/config');
+        initialize();
     },
 });
 </script>
