@@ -60,6 +60,7 @@ export default Vue.extend({
             const screenshots = await fetch(`https://api.rawg.io/api/games/${game.metadata.id}/screenshots`);
             const ssList = await screenshots.json();
             game.metadata.screenshots = ssList.results;
+
             this.selectedGame = game;
             this.loading = false;
             setLoading(false);

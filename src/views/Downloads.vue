@@ -26,11 +26,10 @@ export default Vue.extend({
 
     async created() {
         const {getDownloads} = await import('@/downloader');
-        const newDownloads = getDownloads();
-        newDownloads.forEach((item, i) => {
+
+        getDownloads().forEach((item, i) => {
             Vue.set(this.downloads, i, item);
         });
-        console.log(this.downloads);
     },
 });
 </script>

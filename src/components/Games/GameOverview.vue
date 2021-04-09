@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-dialog v-model="$attrs.game" persistent fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-dialog :value="$attrs.game" persistent fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card>
                 <v-toolbar dark color="primary" class="draggable">
                     <v-btn icon dark class="nondraggable" @click="$emit('closeGame')">
@@ -13,6 +13,11 @@
                         <v-col cols="12" class="d-flex flex-column flex-md-row">
                             <v-card light height="600" width="360" class="rounded-lg">
                                 <v-img height="100%" width="100%" v-if="$attrs.game" :src="$attrs.game.metadata.background_image"></v-img>
+                                <v-card-actions class="mt-n13">
+                                    <v-btn color="secondary" @click="[prevent($event), download($attrs.game)]" text>
+                                        Download
+                                    </v-btn>
+                                </v-card-actions>
                             </v-card>
 
                             <v-card class="mx-4 my-2 d-flex flex-column" flat>
@@ -97,5 +102,16 @@ import Vue from 'vue';
 
 export default Vue.extend({
     name: 'GameOverview',
+    methods: {
+        // # Prevent opening game overview when clicking the download button
+        prevent(e: Event) {
+            e.stopPropagation();
+        },
+        // # Start download of game
+        async download(game: object | any) {
+            const {download} = await import('@/downloader');
+            download(game);
+        },
+    },
 });
 </script>

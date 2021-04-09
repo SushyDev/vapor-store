@@ -1,4 +1,3 @@
-// ! Remove ANY
 const downloads: object[] | any[] = [];
 const ids: string[] = [];
 
@@ -6,27 +5,45 @@ export const getDownloads = (): object[] => downloads;
 
 // # Gets called on 'Download' click in store
 export async function download(game: object | any) {
+    const {SnackBus} = await import('@/event-bus');
+
+    SnackBus.$emit('new', {
+        text: `Download for ${game.name} started`,
+        duration: 4000,
+    });
+
     // ? If game id in ids's list don't continue
     if (ids.includes(game.metadata.id)) {
-        console.log('Already downloading');
+        SnackBus.$emit('new', {
+            text: `${game.name} already downloading`,
+            duration: 4000,
+        });
         return;
     }
 
     // ? Add game to downloads array
     addToDownloads(game);
-
     const index: number = await downloads.findIndex((download) => download.metadata.id === game.metadata.id);
 
-    // ! Remove ANY
-    const {fetchDownload} = await import('./fetch');
-
     // ? Fetch download url
+    const {fetchDownload} = await import('./fetch');
     const downloadURL = await fetchDownload(game.url);
 
-    // ? If no download url
+    // # If no download url
     if (!downloadURL) {
-        console.log('Error occured fetching URL');
         removeFromDownloads(index);
+
+        SnackBus.$emit('new', {
+            text: `Error occured fetching URL for ${game.name}`,
+            duration: 4000,
+            actions: [
+                {
+                    text: 'Retry',
+                    click: () => require('@/downloader').download(game),
+                },
+            ],
+        });
+
         return;
     }
 
@@ -47,14 +64,12 @@ export async function download(game: object | any) {
 // # Downloader process
 async function downloadProcess(url: string, index: number) {
     const {get} = await import('@/modules/config');
+    const {DownloaderHelper} = await import('node-downloader-helper');
 
     // @ts-ignore // ! FIX?
     const itemDownloadDir = get().downloadDir;
 
-    const {DownloaderHelper} = require('node-downloader-helper');
-
     const downloaderOptions = {
-        method: 'GET',
         override: true,
         progressThrottle: 100,
     };
@@ -62,36 +77,52 @@ async function downloadProcess(url: string, index: number) {
     // ? Instanciate downloader
     const dl = new DownloaderHelper(url, itemDownloadDir, downloaderOptions);
 
-    // ? On download, create values array
-    // ! Remove ANY
-    dl.on('download', (downloadInfo: any) => {
-        console.log(downloadInfo);
-        downloads[index]['values'] = [];
-    });
-    // ! Remove ANY
-    dl.on('stateChanged', (state: any) => console.warn('State: ', state));
-    // ! Remove ANY
-    dl.on('progress.throttled', (stats: object | any) => {
+    // ? Download events
+    dl.on('download', (downloadInfo: object | any) => onDownload(downloadInfo));
+    dl.on('stateChanged', (state: object | any) => onChange(state));
+    dl.on('progress.throttled', (stats: object | any) => onProgress(stats));
+    dl.on('end', (downloadInfo: object | any) => onEnd(downloadInfo));
+
+    function onDownload(downloadInfo: object | any) {
+        downloads[index] = {...downloads[index], stop: false, pause: false};
+    }
+
+    function onProgress(stats: object | any) {
+        if (downloads[index].stop) dl.stop();
+
         const mbs: number = stats.speed / (1024 * 1024);
-        const values: number[] = downloads[index]['values'];
+        const progress: number[] = downloads[index].progress;
+        const values: number[] = downloads[index].values;
 
         values.push(mbs);
         if (values.length >= 51) values.shift();
-        downloads[index]['values'] = values;
 
-        downloads[index] = {...downloads[index], values, progress: stats.progress};
-    });
-    // ! Remove ANY
-    dl.on('end', (downloadInfo: any) => console.log('Download Completed', downloadInfo));
-    
+        // ! Strange hack to make progress reactive state
+        progress.shift();
+        progress.push(stats.progress);
+
+        // ? Push changes
+        downloads[index] = {...downloads[index], values, progress};
+    }
+
+    function onEnd(downloadInfo: object | any) {
+        console.log('Download Completed', downloadInfo);
+    }
+
+    function onChange(state: object | any) {
+        console.warn(downloads[index].name, ' State: ', state);
+    }
+
     // ? Start download
     dl.start().catch((err: any) => console.error(err));
 }
 
 // # Add game to download arrays
-// ! Remove ANY
 function addToDownloads(game: object | any) {
     ids.push(game.metadata.id);
+
+    game = {...game, values: [0], progress: [0]};
+
     downloads.push(game);
 }
 
@@ -102,13 +133,17 @@ function removeFromDownloads(index: number) {
 }
 
 // # Cancel download
-// ! Remove ANY
 export function cancel(game: object | any) {
+    const index: number = downloads.findIndex((download) => download.metadata.id === game.metadata.id);
+
+    downloads[index].stop = true;
+
     console.log('cancel', game);
 }
 
 // # Pause/Continue download
-// ! Remove ANY
 export function pause(game: object | any) {
+    const index: number = downloads.findIndex((download) => download.metadata.id === game.metadata.id);
+
     console.log('pause', game);
 }

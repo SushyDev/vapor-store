@@ -52,6 +52,9 @@
             <v-expand-transition>
                 <v-progress-linear v-show="globalLoading" indeterminate query color="secondary"></v-progress-linear>
             </v-expand-transition>
+
+            <SnackBar style="position: fixed"></SnackBar>
+
             <router-view @navType="setNav"></router-view>
         </v-main>
     </v-app>
@@ -63,6 +66,8 @@ import Vue from 'vue';
 const {BrowserWindow} = require('electron').remote;
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
+
+import SnackBar from '@/components/services/Snackbar.vue';
 
 export default Vue.extend({
     data: () => ({
@@ -85,6 +90,7 @@ export default Vue.extend({
     }),
     components: {
         SearchBar,
+        SnackBar,
     },
     methods: {
         setNav(type: number) {
