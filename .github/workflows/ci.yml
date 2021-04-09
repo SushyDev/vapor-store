@@ -27,8 +27,9 @@ jobs:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
-          skip_build: true,
-          use_vue_cli: true, 
+          skip_build: true
+          use_vue_cli: true
+          dist: 'dist_electron'
           args: "-p always"
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
