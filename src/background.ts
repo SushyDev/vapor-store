@@ -15,25 +15,26 @@ async function spawnMain() {
         minWidth: 990,
         minHeight: 670,
         show: false,
+        icon: 'public/favicon.png',
         webPreferences: {
             enableRemoteModule: true,
             nodeIntegration: (process.env.ELECTRON_NODE_INTEGRATION as unknown) as boolean,
         },
     });
-
+    
     win.setMenuBarVisibility(false);
-
+    
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
-
+        
         // if (!process.env.IS_TEST) win.webContents.openDevTools();
     } else {
         createProtocol('app');
         // Load the index.html when not in development
-        win.loadURL('app://./index.html');
+        win.loadURL('app://./index.html/');
     }
-
+    
     return win;
 }
 
@@ -43,6 +44,7 @@ async function spawnLoading() {
         transparent: true,
         width: 500,
         height: 500,
+        icon: 'public/favicon.png',
     });
 
     win.setMenuBarVisibility(false);

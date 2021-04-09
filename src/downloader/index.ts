@@ -68,7 +68,9 @@ async function downloadProcess(url: string, index: number) {
         console.log(downloadInfo);
         downloads[index]['values'] = [];
     });
+    // ! Remove ANY
     dl.on('stateChanged', (state: any) => console.warn('State: ', state));
+    // ! Remove ANY
     dl.on('progress.throttled', (stats: object | any) => {
         const mbs: number = stats.speed / (1024 * 1024);
         const values: number[] = downloads[index]['values'];
@@ -79,12 +81,15 @@ async function downloadProcess(url: string, index: number) {
 
         downloads[index] = {...downloads[index], values, progress: stats.progress};
     });
-
+    // ! Remove ANY
+    dl.on('end', (downloadInfo: any) => console.log('Download Completed', downloadInfo));
+    
     // ? Start download
     dl.start().catch((err: any) => console.error(err));
 }
 
 // # Add game to download arrays
+// ! Remove ANY
 function addToDownloads(game: object | any) {
     ids.push(game.metadata.id);
     downloads.push(game);
@@ -97,11 +102,13 @@ function removeFromDownloads(index: number) {
 }
 
 // # Cancel download
+// ! Remove ANY
 export function cancel(game: object | any) {
     console.log('cancel', game);
 }
 
 // # Pause/Continue download
+// ! Remove ANY
 export function pause(game: object | any) {
     console.log('pause', game);
 }

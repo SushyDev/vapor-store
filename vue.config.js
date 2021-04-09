@@ -25,6 +25,10 @@ module.exports = {
                 },
                 win: {
                     target: 'nsis',
+                    icon: 'src/public/favicon.png',
+                },
+                linux: {
+                    icon: 'src/public/favicon.png',
                 },
             },
         },
