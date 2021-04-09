@@ -18,8 +18,10 @@
 .library .genres .genre-container .genre-cards {
   height: 100%;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
 }
 .library .genres .genre-container .genre-cards .mdc-card:first-of-type {
   margin-left: 5vw;
@@ -28,17 +30,14 @@
   content: "";
   border-right: 20px solid transparent;
 }
-.library .genres .genre-container .genre-cards:hover::-webkit-scrollbar {
-  display: initial;
-}
-.library .genres .genre-container .genre-cards::-webkit-scrollbar {
-  display: none;
-  height: 12px;
+.library .genres .genre-container .genre-cards:hover::-webkit-scrollbar-thumb {
+  background-color: var(--mdc-theme-secondary);
 }
 .library .genres .genre-container .genre-cards::-webkit-scrollbar-track {
   background-color: var(--mdc-theme-background);
 }
 .library .genres .genre-container .genre-cards::-webkit-scrollbar-thumb {
+  background-color: var(--mdc-theme-background);
   border-left: 5vw solid var(--mdc-theme-background);
   border-right: 40px solid var(--mdc-theme-background);
   border-radius: 0;

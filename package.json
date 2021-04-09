@@ -1,6 +1,6 @@
 {
   "name": "vapor-store",
-  "version": "2.0.0-beta-38",
+  "version": "2.0.0-alpha-13",
   "description": "Vapor Store",
   "author": "SushyDev",
   "main": "app.js",
@@ -25,7 +25,7 @@
       {
         "provider": "github",
         "owner": "SushyDev",
-        "repo": "vapor-store", 
+        "repo": "vapor-store",
         "releaseType": "prerelease"
       }
     ],
@@ -59,17 +59,17 @@
     "@material/ripple": "^8.0.0",
     "@material/switch": "^8.0.0",
     "@material/theme": "^8.0.0",
-    "electron-dl": "^3.0.2",
+    "electron-dl": "^3.1.0",
     "electron-is-dev": "^1.2.0",
     "extract-zip": "^2.0.1",
-    "fs": "0.0.1-security",
     "jquery": "^3.5.1",
     "material-components-web": "^7.0.0",
     "material-design-icons-webfont": "^1.0.0",
-    "puppeteer": "3.3.0"
+    "puppeteer": "3.3.0",
+    "zero-md": "^2.1.1"
   },
   "devDependencies": {
-    "electron": "^9.4.0",
+    "electron": "^11.3.0",
     "electron-builder": "^22.9.1",
     "electron-reload": "^1.5.0"
   }

@@ -15,6 +15,7 @@
     --drawer-bg: #eeeeee;
     --btn-color: #cccccc;
     --color: #404040;
+    --color2: #cccccc
     --light-color: #ffffff;
     --dark-color: #ffffff;
 }
@@ -29,6 +30,7 @@
     --drawer-bg: #212121;
     --btn-color: #ffffff;
     --color: #ffffff;
+    --color2: #cccccc;
     --light-color: #ffffff;
     --dark-color: #000000;
 }
@@ -151,19 +153,9 @@ body {
     .mdc-drawer-app-content {
         transition: all 0.2s ease-in-out;
         background: var(--mdc-theme-background);
-        overflow: hidden;
-        color: #757575;
         min-width: 0px !important;
 
         .main-content {
-            .intro {
-                padding-top: 22.78px;
-                margin: 0 20px;
-                .mdc-typography--headline4 {
-                    margin-block-start: 0 !important;
-                }
-            }
-
             .mdc-menu,
             .mdc-list,
             .mdc-list > * {

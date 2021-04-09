@@ -1,27 +1,23 @@
 <head>
     <link rel="stylesheet" href="../css/card-grid.css" />
     <link rel="stylesheet" href="../css/installed.css" />
-    <script src="../js/components/card-grid/card-builder.js"></script>
-    <script src="../js/components/card-grid/card-grid.js"></script>
-    <script src="../js/components/game-management/add-own.js"></script>
-    <script src="../js/components/game-management/executables.js"></script>
-    <script src="../js/components/game-management/play.js"></script>
-    <script src="../js/components/game-management/remove.js"></script>
-    <script src="../js/components/game-management/shortcuts.js"></script>
-    <script src="../js/installed.js"></script>
+    <script defer>
+        page.installed.Initialize();
+        $(document).ready(() => mdc.autoInit());
+    </script>
 </head>
 
 <div class="searchbar" id="installed-searchbar">
-    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="searchInstalledGames()">search</button>
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="page.installed.searchInstalledGames()">search</button>
     <input type="text" id="installed-searchquery" placeholder="Search..." />
-    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="createCard()">clear</button>
+    <button class="mdc-icon-button material-icons" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="page.installed.createCard()">clear</button>
 </div>
 
 <!--Div with cards-->
 <div class="cards" id="cards"></div>
 
 <!--Add games FAB-->
-<button class="mdc-fab" aria-label="Favorite" onclick="addInstalledGame()" data-mdc-auto-init="MDCRipple">
+<button class="mdc-fab" aria-label="Favorite" onclick="page.installed.addGame()" data-mdc-auto-init="MDCRipple">
     <div class="mdc-fab__ripple"></div>
     <span class="mdc-fab__icon material-icons">add</span>
 </button>
@@ -49,22 +45,21 @@
             <h1 class="mdc-typography--body2" id="selected-game-description"></h1>
         </div>
     </div>
-    <!--game info-->
-
+    <!-- game info-->
     <div class="bottom-row installed">
         <div class="game-screenshots" id="game-screenshots"></div>
         <div class="details">
-            <div class="" id="age-rating"></div>
-            <div class="" id="release-date"></div>
-            <div class="" id="publisher"></div>
-            <div class="" id="developer"></div>
-            <div class="" id="platforms"></div>
-            <div class="" id="genre"></div>
+            <div id="age-rating"></div>
+            <div id="release-date"></div>
+            <div id="publisher"></div>
+            <div id="developer"></div>
+            <div id="platforms"></div>
+            <div id="genre"></div>
         </div>
     </div>
 
     <!--Back button-->
     <div class="back-button-container">
-        <button class="mdc-icon-button back-icon material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="closeGameTab()">first_page</button>
+        <button class="mdc-icon-button back-icon material-icons mdc-card__action mdc-card__action--icon--unbounded" data-mdc-ripple-is-unbounded="true" data-mdc-auto-init="MDCRipple" onclick="vapor.cards.grid.closeGameTab()">first_page</button>
     </div>
 </div>

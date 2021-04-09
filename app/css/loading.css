@@ -1,0 +1,92 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+body .loading {
+  width: 100vw;
+  height: 100vh;
+  background: #40c4ff;
+  border-radius: 25px;
+  z-index: 0;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+body .overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+body .overlay p {
+  color: white;
+  font-size: 8.5vw;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+body .ripple {
+  z-index: 1;
+  border: 1px solid transparent;
+}
+body .ripple .circle:nth-child(5) {
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  bottom: -500px;
+  opacity: 0.2;
+}
+body .ripple .circle:nth-child(4) {
+  width: 800px;
+  height: 800px;
+  left: -400px;
+  bottom: -400px;
+  opacity: 0.5;
+}
+body .ripple .circle:nth-child(3) {
+  width: 600px;
+  height: 600px;
+  left: -300px;
+  bottom: -300px;
+  opacity: 0.7;
+}
+body .ripple .circle:nth-child(2) {
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  bottom: -200px;
+  opacity: 0.8;
+}
+body .ripple .circle:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  left: -100px;
+  bottom: -100px;
+  opacity: 1;
+}
+body .ripple .circle {
+  position: absolute;
+  border-radius: 50%;
+  background: #f57ba4;
+  animation: ripple 3s infinite;
+  box-shadow: 0px 0px 1px 0px #40c4ff;
+}
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+* {
+  user-select: none;
+  cursor: default;
+}

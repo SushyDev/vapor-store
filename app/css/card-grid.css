@@ -10,6 +10,8 @@
   right: 0;
   margin: 0 auto;
   height: 48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   color: #406575;
 }
@@ -33,9 +35,8 @@
 .cards {
   width: auto !important;
   height: 100% !important;
-  overflow-y: auto;
   margin: 0 auto;
-  background: var(--mdc-theme-background);
+  overflow-y: auto;
 }
 
 .mdc-card {
@@ -46,12 +47,16 @@
   min-width: 375px;
   max-width: 375px;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+.mdc-card:focus-within {
+  -webkit-box-shadow: 0 0 0 3px var(--mdc-theme-secondary);
+          box-shadow: 0 0 0 3px var(--mdc-theme-secondary);
 }
 .mdc-card .mdc-card__primary-action {
   padding: 0 16px 8px 16px;
   min-height: 250px;
-  background-size: cover;
-  background-position: center;
 }
 .mdc-card .mdc-card__primary-action .game-card__primary {
   margin-top: auto;
@@ -91,8 +96,12 @@
 }
 
 .game-info .top-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 32px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .game-info .top-row.installed .mdc-typography--headline6 {
@@ -109,8 +118,13 @@
   border-radius: 8px;
 }
 .game-info .top-row .title-desc-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   color: var(--color);
 }
 .game-info .top-row .title-desc-container .mdc-typography--body2 {
@@ -123,19 +137,25 @@
 }
 .game-info .bottom-row {
   display: grid;
-  flex-direction: column;
-  margin: 32px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 32px 20px;
   max-width: 100%;
 }
 .game-info .bottom-row .game-screenshots {
   width: 100%;
   height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   overflow-x: auto;
   border-radius: 10px;
 }
 .game-info .bottom-row .game-screenshots img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 500px;
   border-radius: 10px;
   margin-bottom: 12px;
@@ -145,14 +165,22 @@
 }
 .game-info .bottom-row .details {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   color: var(--color);
   margin-top: 16px;
 }
 .game-info .bottom-row .details div {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .game-info .bottom-row .details div p {
   margin: 2px 0;
@@ -160,9 +188,15 @@
 .game-info .back-button-container {
   width: 64px;
   height: 64px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: var(--mdc-theme-primary);
   position: fixed;
   top: 0;
@@ -180,14 +214,17 @@
   opacity: 0.08;
 }
 .game-info .back-button-container button.mdc-ripple-upgraded--background-focused::before, .game-info .back-button-container button:not(.mdc-ripple-upgraded):focus::before {
-  transition-duration: 75ms;
+  -webkit-transition-duration: 75ms;
+          transition-duration: 75ms;
   opacity: 0.24;
 }
 .game-info .back-button-container button:not(.mdc-ripple-upgraded)::after {
+  -webkit-transition: opacity 150ms linear;
   transition: opacity 150ms linear;
 }
 .game-info .back-button-container button:not(.mdc-ripple-upgraded):active::after {
-  transition-duration: 75ms;
+  -webkit-transition-duration: 75ms;
+          transition-duration: 75ms;
   opacity: 0.24;
 }
 .game-info .back-button-container button.mdc-ripple-upgraded {

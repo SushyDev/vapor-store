@@ -1,6 +1,9 @@
 <header>
     <link rel="stylesheet" href="../css/settings.css" />
-    <script src="../js/settings.js"></script>
+    <script defer>
+        page.settings.Initialize();
+        $(document).ready(() => mdc.autoInit());
+    </script>
 </header>
 
 <div class="intro">
@@ -11,7 +14,7 @@
 <div class="settings">
     <h1 class="mdc-typography--subtitle2">Toggle the theme (Light/Dark)</h1>
 
-    <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" onclick="switchTheme()" id="theme">
+    <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" onclick="vapor.settings.theme.switchTheme()" id="theme">
         <div class="mdc-button__ripple"></div>
         <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
         <span class="mdc-button__label"></span>
@@ -20,7 +23,7 @@
     <h1 class="mdc-typography--subtitle2">Select the games.json file</h1>
 
     <div class="output">
-        <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" onclick="selectListFile()">
+        <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" onclick="vapor.settings.selectListFile()">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">attach_file</i>
             <span class="mdc-button__label">Select File</span>
@@ -32,7 +35,7 @@
     <h1 class="mdc-typography--subtitle2">Select a directory where the games will get installed</h1>
 
     <div class="output">
-        <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" onclick="selectDownloadDir()">
+        <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" onclick="vapor.settings.selectDownloadDir()">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">folder</i>
             <span class="mdc-button__label">Select Folder</span>
@@ -47,7 +50,7 @@
         <div class="mdc-switch__track"></div>
         <div class="mdc-switch__thumb-underlay">
             <div class="mdc-switch__thumb"></div>
-            <input type="checkbox" id="extract-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" onclick="autoExtract()" />
+            <input type="checkbox" id="extract-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" onclick="vapor.settings.toggleAutoExtract()" />
         </div>
     </div>
 
@@ -57,13 +60,7 @@
         <div class="mdc-switch__track"></div>
         <div class="mdc-switch__thumb-underlay">
             <div class="mdc-switch__thumb"></div>
-            <input type="checkbox" id="beta-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" onclick="betaOpt()" />
+            <input type="checkbox" id="beta-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" onclick="vapor.settings.toggleBetaOpt()" />
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        mdc.autoInit();
-    });
-</script>

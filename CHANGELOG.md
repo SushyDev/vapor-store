@@ -1,8 +1,3 @@
-### 2.0.0 Alpha 14
-1. Changed snackbar behavior
-2. Updated updates behavior
-3. Improved stability
-
 ### 2.0.0 Alpha 13
 1. Fixed windows filesystem issues
 
@@ -29,6 +24,7 @@
 3. Small bug fixes and adjustments
 
 ### 2.0.0 Alpha 8
+
 1. Small highlight changes to the cards UI
 2. Stats on the homepage
 3. Improved downloader stability 

@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vapor Store</title>
 
+        <!--Initializer-->
+        <script src="../js/init.js"></script>
+
         <!--Mansonry layout script-->
         <script src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
 
@@ -13,40 +16,29 @@
         <script src="../libraries/material-components-web.min.js"></script>
         <link rel="stylesheet" href="../libraries/material-compontents-icons.css" />
 
-        <!--JQuery-->
-        <script src="../libraries/jquery.min.js"></script>
+        <!--Reading MD Files-->
+        <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"></script>
 
         <!--Vapor Store Scripts-->
 
-        <!--Initializer-->
-        <script src="../js/components/initialize/init.js"></script>
-        <!--Downloader-->
-        <script src="../js/components/downloader/downloader.js"></script>
-        <script src="../js/components/downloader/fetch.js"></script>
-        <script src="../js/components/downloader/extractor.js"></script>
-        <script src="../js/components/downloader/finished.js"></script>
-        <!--Updater-->
-        <script src="../js/components/updater/updater.js" defer></script>
-        <!--Notifications-->
-        <script src="../js/components/notifications/snackbar-service.js" defer></script>
-        <script src="../js/components/notifications/dialog-service.js" defer></script>
-        <!--Add installed steam games to list-->
-        <script src="../js/components/game-management/steam-installed.js"></script>
-        <!--Window Controls-->
-        <script src="../js/components/window-management/window-controls.js" defer></script>
+        <!--Material IO-->
+        <script src="../js/dist/material.dev.js" defer></script>
+
         <!--App Functions-->
         <script src="../js/main.js" defer></script>
-        <!--Material IO-->
-        <script src="../js/dist/material.dev.js" async></script>
 
         <!--Root style-->
         <link rel="stylesheet" href="../css/root.css" />
         <link rel="stylesheet" href="../css/overlays.css" />
+
+        <script defer>
+            $(document).ready(() => mdc.autoInit());
+        </script>
     </head>
 
     <body>
         <!--Top bar-->
-        <header class="mdc-top-app-bar app-bar" id="app-bar" data-mdc-auto-init="MDCTopAppBar">
+        <header class="mdc-top-app-bar app-bar mdc-top-app-bar--fixed" id="app-bar" data-mdc-auto-init="MDCTopAppBar">
             <div class="mdc-top-app-bar__row">
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" data-mdc-auto-init="MDCRipple">menu</button>
@@ -55,11 +47,11 @@
                 <div class="window-buttons">
                     <!--Windows 10 Buttons-->
                     <div class="ui-titlecontrols">
-                        <button class="ui-btn minimize" onclick="winMinimize()">
+                        <button class="ui-btn minimize" onclick="vapor.app.Minimize()">
                             <svg x="0px" y="0px" viewBox="0 0 10.2 1"><rect x="0" y="50%" width="10.2" height="1" /></svg></button
-                        ><button class="ui-btn maximize" onclick="winMaximize()">
+                        ><button class="ui-btn maximize" onclick="vapor.app.Maximize()">
                             <svg viewBox="0 0 10 10"><path d="M0,0v10h10V0H0z M9,9H1V1h8V9z" /></svg></button
-                        ><button class="ui-btn close" onclick="winClose()">
+                        ><button class="ui-btn close" onclick="vapor.app.Close()">
                             <svg viewBox="0 0 10 10"><polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1" /></svg>
                         </button>
                     </div>
@@ -84,39 +76,39 @@
             <div class="mdc-drawer__content">
                 <div class="mdc-list">
                     <!--List items-->
-                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
+                    <a class="mdc-list-item mdc-list-item--activated" aria-current="page" onclick="vapor.nav.goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>
                         <span class="mdc-list-item__text">Home</span>
                     </a>
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
+                    <a class="mdc-list-item" onclick="vapor.nav.goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">shop</i>
                         <span class="mdc-list-item__text">Library</span>
                     </a>
-                    
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
-                        <span class="mdc-list-item__ripple"></span>
-                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">videogame_asset</i>
-                        <span class="mdc-list-item__text">Installed</span>
-                    </a>
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
+                    <a class="mdc-list-item" onclick="vapor.nav.goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">get_app</i>
                         <span class="mdc-list-item__text">Downloads</span>
                     </a>
 
+                    <a class="mdc-list-item" onclick="vapor.nav.goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
+                        <span class="mdc-list-item__ripple"></span>
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">videogame_asset</i>
+                        <span class="mdc-list-item__text">Installed</span>
+                    </a>
+
                     <!--
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
+                    <a class="mdc-list-item" onclick="vapor.nav.goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">backup</i>
                         <span class="mdc-list-item__text">Backup & Sync</span>
                     </a>
                     -->
 
-                    <a class="mdc-list-item" onclick="goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
+                    <a class="mdc-list-item" onclick="vapor.nav.goto(this.children[2].textContent)" data-mdc-auto-init="MDCRipple">
                         <span class="mdc-list-item__ripple"></span>
                         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">settings</i>
                         <span class="mdc-list-item__text">Settings</span>
@@ -136,10 +128,4 @@
             <main class="main-content" id="main-content"></main>
         </div>
     </body>
-
-    <script type="text/javascript" defer>
-        $(document).ready(function () {
-            mdc.autoInit();
-        });
-    </script>
 </html>

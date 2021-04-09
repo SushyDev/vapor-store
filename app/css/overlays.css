@@ -2,39 +2,76 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .overlays .snackbar-container .mdc-snackbar {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding-right: 0;
   position: relative;
   border-radius: 8px;
+  background-color: var(--el2);
   overflow: hidden;
 }
 .overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface[progress=true] .snack-content {
   margin-top: -4px;
 }
+.overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface .mdc-snackbar__label {
+  color: var(--color) !important;
+}
 .overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface .snack-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
 }
 .overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface .snack-content .mdc-snackbar__actions {
   margin-left: auto;
+  margin-right: 6px;
 }
 .overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface .snack-content .mdc-snackbar__actions .mdc-button:not(:disabled) {
   color: var(--mdc-theme-secondary);
 }
-.overlays .snackbar-container .mdc-snackbar .mdc-snackbar__surface .snack-content .mdc-snackbar__actions .mdc-icon-button {
-  margin-right: 6px;
-}
 .overlays .mdc-dialog {
   z-index: 999;
+}
+.overlays .mdc-dialog .mdc-dialog__surface {
+  background-color: var(--el2);
+}
+.overlays .mdc-dialog .mdc-dialog__surface .mdc-dialog__title,
+.overlays .mdc-dialog .mdc-dialog__surface .mdc-dialog__content {
+  color: var(--color) !important;
+}
+
+.markdown-body {
+  color: var(--color);
+}
+.markdown-body a {
+  color: var(--mdc-theme-secondary);
+}
+.markdown-body .token {
+  color: red;
 }

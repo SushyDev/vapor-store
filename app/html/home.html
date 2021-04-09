@@ -1,12 +1,117 @@
 <head>
     <link rel="stylesheet" href="../css/home.css" />
-    <script src="../js/home.js"></script>
+    <script defer>
+        page.home.Initialize();
+        $(document).ready(() => mdc.autoInit());
+    </script>
 </head>
 
 <div class="intro">
-    <h1 class="mdc-typography--headline4">Welcome to Vapor Store</h1>
-    <h1 class="mdc-typography--subtitle1">Be sure to check out our Discord!</h1>
+    <h1 class="mdc-typography--headline2">Welcome to Vapor Store</h1>
+    <h1 class="mdc-typography--headline5">Be sure to check out our Discord!</h1>
 </div>
 
 <!--Div with cards-->
-<div class="cards" id="cards"></div>
+<div class="cards" id="cards">
+    <div class="mdc-card">
+        <div class="mdc-card__primary-action demo-card__primary-action" data-mdc-auto-init="MDCRipple" tabindex="0">
+            <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Welcome to Vapor Store</h2>
+                <span class="demo-card__secondary mdc-typography mdc-typography--body2" id="version"></span>
+            </div>
+        </div>
+
+        <div class="mdc-card__actions">
+            <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple" onclick="page.home.showChangelog()">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Changelog</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="mdc-card">
+        <div class="mdc-card__primary-action demo-card__primary-action" data-mdc-auto-init="MDCRipple" tabindex="0">
+            <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Donate</h2>
+                <span class="demo-card__secondary mdc-typography mdc-typography--body2">Support my work on Ko-Fi!</span>
+            </div>
+        </div>
+        <div class="mdc-card__actions">
+            <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple" onclick="vapor.nav.visit('https://ko-fi.com/sushy')">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Donate</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="mdc-card">
+        <div class="mdc-card__primary-action demo-card__primary-action" data-mdc-auto-init="MDCRipple" tabindex="0">
+            <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Need help?</h2>
+                <span class="demo-card__secondary mdc-typography mdc-typography--body2">Join the discord!</span>
+            </div>
+        </div>
+        <div class="mdc-card__actions">
+            <button class="mdc-button mdc-card__action mdc-card__action--button" data-mdc-auto-init="MDCRipple" onclick="vapor.nav.visit('https://discord.gg/ZjDTpmf')">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Join</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="stats">
+    <div class="intro">
+        <h1 class="mdc-typography--headline4">Stats</h1>
+    </div>
+
+    <div class="cards">
+        <!--Installed-->
+        <div class="mdc-card">
+            <div class="mdc-card__primary-action mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" tabindex="0">
+                <div class="card__primary">
+                    <div class="stat" id="installed-games">
+                        <h2 class="card__title mdc-typography mdc-typography--headline6 stat">1</h2>
+                    </div>
+                    <div class="title">
+                        <h2 class="card__title mdc-typography mdc-typography--headline6">Games</h2>
+                        <h2 class="card__title mdc-typography mdc-typography--headline6">Installed</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Installed -->
+
+        <!-- Loaded -->
+        <div class="mdc-card">
+            <div class="mdc-card__primary-action mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" tabindex="0">
+                <div class="card__primary">
+                    <div class="stat" id="loaded-games">
+                        <h2 class="card__title mdc-typography mdc-typography--headline6 stat">1</h2>
+                    </div>
+                    <div class="title">
+                        <h2 class="card__title mdc-typography mdc-typography--headline6">Games</h2>
+                        <h2 class="card__title mdc-typography mdc-typography--headline6">Loaded</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loaded -->
+
+        <!-- repos -->
+        <div class="mdc-card">
+            <div class="mdc-card__primary-action mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" tabindex="0">
+                <div class="card__primary">
+                    <div class="stat" id="loaded-repositories">
+                        <h2 class="card__title mdc-typography mdc-typography--headline6 stat">1</h2>
+                    </div>
+                    <div class="title">
+                        <h2 class="card__title mdc-typography mdc-typography--headline6">Repositories</h2>
+                        <h2 class="card__title mdc-typography mdc-typography--headline6">Loaded</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- repos -->
+    </div>
+</div>
