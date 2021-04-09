@@ -89,10 +89,12 @@ function removeFromDownloads(index: number) {
     ids.splice(index, 1);
 }
 
+// # Cancel download
 export function cancel(game: object | any) {
     console.log('cancel', game);
 }
 
+// # Pause/Continue download
 export function pause(game: object | any) {
     console.log('pause', game);
 }

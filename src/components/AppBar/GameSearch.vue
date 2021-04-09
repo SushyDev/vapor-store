@@ -33,6 +33,7 @@ export default Vue.extend({
         tab: null as any,
     }),
     methods: {
+        // # Open game overview page
         async selectGame(game: object | any) {
             const {GameBus} = await import('@/event-bus');
 
@@ -49,8 +50,10 @@ export default Vue.extend({
             if (val != null) this.tab = 0;
             else this.tab = 0;
         },
+
+        // # On search load games list
         async search(): Promise<void> {
-            // Items have already been loaded
+            // ? games already loaded
             if (this.items.length > 0) return;
             this.isLoading = true;
 

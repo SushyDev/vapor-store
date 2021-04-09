@@ -29,9 +29,11 @@ export default Vue.extend({
         selected: false as boolean,
     }),
     methods: {
+        // # Prevent opening game overview when clicking the download button
         prevent(e: Event) {
             e.stopPropagation();
         },
+        // # Start download of game
         async download(game: object | any) {
             const {download} = await import('@/downloader');
             download(game);

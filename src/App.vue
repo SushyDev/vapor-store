@@ -60,18 +60,12 @@
 <script lang="ts">
 import Vue from 'vue';
 
-// @ts-ignore
-import {initialize} from '@/modules/config.ts';
-initialize();
-
 const {BrowserWindow} = require('electron').remote;
+import {initialize} from '@/modules/config';
+initialize();
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 import TabBar from '@/components/AppBar/TabBar.vue';
-
-import {get} from '@/modules/config';
-
-import {LoadingBus} from '@/event-bus';
 
 export default Vue.extend({
     data: () => ({
@@ -91,7 +85,7 @@ export default Vue.extend({
             {title: 'Downloads', icon: 'mdi-download', page: '/downloads'},
             {title: 'Settings', icon: 'mdi-cog', page: '/settings/'},
         ],
-        downloads: [] as object | any 
+        downloads: [] as object | any,
     }),
     components: {
         SearchBar,
@@ -129,8 +123,13 @@ export default Vue.extend({
             if (!(this.$vuetify.breakpoint.xl || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.md)) this.drawer = false;
         },
     },
-    created() {
+    async created() {
+        const {LoadingBus} = await import('@/event-bus');
+
         LoadingBus.$on('loading', this.toggleLoading);
+
+        const {get} = await import('@/modules/config');
+
         const config: object | any = get();
 
         this.$vuetify.theme.dark = config.darkMode;

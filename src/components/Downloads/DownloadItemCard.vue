@@ -26,12 +26,15 @@ import Vue from 'vue';
 export default Vue.extend({
     name: 'DownloadItemCard',
     methods: {
+        // # Cancel download
         // ! Remove ANY
         async cancel(game: object | any) {
             const {cancel} = await import('@/downloader');
-            // ! Remove ANY
             cancel(game);
         },
+
+        // # Pause/Continue download
+        // ! Remove ANY
         async pause(game: object | any) {
             const {pause} = await import('@/downloader');
             pause(game);

@@ -3,19 +3,20 @@ const {app} = require('electron').remote;
 const {ipcRenderer} = require('electron');
 const path = require('path');
 
-// ! Vapor Store files directory's
+// ? Vapor Store files directory's
 export const vaporData = (): string => path.resolve(app.getPath('userData'));
 export const vaporFiles = (): string => path.join(vaporData(), 'Files');
 export const vaporGames = (): string => path.join(vaporData(), 'Games');
 export const configFolder = (): string => path.join(vaporFiles(), 'json');
 
-// ! Files
+// ? Files
 export const vaporConfig = (): string => path.join(configFolder(), 'config.json');
 
-// ! If config dir doesn't exist
+// # Startup checks
 export const initialize = function(): void {
     const defaults: object = {downloadDir: '/home/sushy/' as string, darkMode: true as boolean, optBeta: false as boolean, autoExtract: true as boolean};
 
+    // # Check if config folder exists
     if (!fs.existsSync(configFolder())) {
         // !  Create folder (and subfolders if necessary)
         console.warn('Config folder does not exist!, creating folder tree...');
@@ -31,6 +32,7 @@ export const initialize = function(): void {
         checkConfigFile();
     }
 
+    // # Overwrite config file with defaults
     async function writeConfigFile() {
         try {
             fs.writeFileSync(vaporConfig(), JSON.stringify(defaults));
@@ -43,6 +45,7 @@ export const initialize = function(): void {
         validateConfigFile();
     }
 
+    // # Check if config file exists
     function checkConfigFile() {
         if (!fs.existsSync(vaporConfig())) {
             console.warn('Config file does not exist!, creating config file...');
@@ -52,6 +55,7 @@ export const initialize = function(): void {
         }
     }
 
+    // # Check if config file is valid json
     async function validateConfigFile() {
         const data = await fs.readFileSync(vaporConfig(), 'UTF-8');
 
@@ -63,13 +67,15 @@ export const initialize = function(): void {
             return;
         }
 
+        // # Tell IPCMain app is done loading
         setTimeout(() => ipcRenderer.send('loaded', true), 350);
     }
 };
 
+// # Get current config contents
 export const get = (): object => JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
 
-// ! Add item to array
+// # Add item to config
 export const setItem = (newItem: object): object => {
     const config: object = JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
     const newConfig: object = {...config, ...newItem};
@@ -78,7 +84,7 @@ export const setItem = (newItem: object): object => {
     return newConfig;
 };
 
-// ! Overwrite entire config with content
+// # Overwrite entire config with content
 function updateConfig(content: object) {
     fs.writeFile(vaporConfig(), JSON.stringify(content), 'UTF-8', (err: Error) => {
         if (err) {
