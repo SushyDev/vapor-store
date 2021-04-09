@@ -78,23 +78,19 @@ export default Vue.extend({
         GameCard,
         GameOverview,
     },
-    created() {
+    async created() {
         setLoading(true);
+
+        this.$emit('navType', 1);
 
         LoadingBus.$on('loading', this.toggleLoading);
         GameBus.$on('openGame', this.openGame);
 
-        this.$emit('navType', 1);
+        const config: {gamesList: File} | any = get();
+        const path = await import('path');
 
-        const config: {gamesList: File} = get();
-
-        fs.readFile(config?.gamesList?.path || '', 'UTF-8', async (err, data) => {
-            if (err) {
-                console.error('Something went wrong loading the games list');
-                console.error(err);
-                this.dialog = true;
-                return;
-            }
+        try {
+            const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
 
             const games: object = JSON.parse(data)['list'].slice(0, 10);
 
@@ -106,7 +102,12 @@ export default Vue.extend({
                 this.games.push(game);
             }
             setLoading(false);
-        });
+        } catch (err) {
+            console.error('Something went wrong loading the games list');
+            console.error(err);
+            this.dialog = true;
+            return;
+        }
     },
     beforeRouteLeave(to, from, next) {
         // # Switch back to default app bar

@@ -1,10 +1,11 @@
-import puppeteer from 'puppeteer';
-
-//@ts-ignore
-const getPath = () => (process.platform == 'linux' ? puppeteer.executablePath().replace('/electron/', '/puppeteer/') : puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked'));
-
 // #Download game
 export const fetchDownload = async (url: string) => {
+    // # Dynamically import puppeteer to prevent unecessarily loading it
+    const puppeteer = require('puppeteer');
+
+    //@ts-ignore
+    const getPath = () => (process.platform == 'linux' ? puppeteer.executablePath().replace('/electron/', '/puppeteer/') : puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked'));
+
     const browser = await puppeteer.launch({
         executablePath: getPath(),
     });
@@ -34,7 +35,6 @@ export const fetchDownload = async (url: string) => {
 
     // ? Click download button
     //@ts-ignore
-
     await page.evaluate(() => document.querySelector('#downloadNowBtn').click());
 
     // ? Wait for redirect
@@ -49,21 +49,7 @@ export const fetchDownload = async (url: string) => {
         }
     });
 
-    // ? If no download url
-    if (!downloadURL) {
-        // ? Show popup
-        //   vapor.ui.dialog.MDCAlert('Download failed', `Please retry<br>Fetched url is ${downloadURL}`);
-
-        // ? Remove item from currently fetching list
-        //  fetchingDownload = fetchingDownload.filter((item) => item !== gameID);
-
-        // ? Remove item in downloader page
-        //   downloader.item.removeItem(gameID, 'fetch');
-        return;
-    }
-
     await browser.close();
 
     return downloadURL;
-    //downloader.startDownload(downloadURL, gameID)
 };

@@ -24,8 +24,6 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import {DownloaderBus} from '@/downloader/event-bus';
-
 export default Vue.extend({
     data: () => ({
         selected: false as boolean,
@@ -34,8 +32,9 @@ export default Vue.extend({
         prevent(e: Event) {
             e.stopPropagation();
         },
-        download(game: object | any) {
-            DownloaderBus.$emit('download', game);
+        async download(game: object | any) {
+            const downloader: any = await import('@/downloader/event-bus');
+            downloader.addToDownloads(game);
         },
     },
 });

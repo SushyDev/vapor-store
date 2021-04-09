@@ -37,7 +37,7 @@ export default Vue.extend({
         },
     },
     created() {
-        const config = get();
+        const config: object | any = get();
 
         console.log(config);
 

@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click="drawer = !drawer" class="nondraggable"></v-app-bar-nav-icon>
 
             <v-toolbar-title class="title mr-6 hidden-sm-and-down select-none">
-                {{ $appName }}
+                {{ $appName || 'Vapor Store' }}
             </v-toolbar-title>
 
             <component class="nondraggable mx-auto" :slot="NavTypes[NavType].slot" :is="NavTypes[NavType].component"></component>
@@ -91,6 +91,7 @@ export default Vue.extend({
             {title: 'Downloads', icon: 'mdi-download', page: '/downloads'},
             {title: 'Settings', icon: 'mdi-cog', page: '/settings/'},
         ],
+        downloads: [] as object | any 
     }),
     components: {
         SearchBar,

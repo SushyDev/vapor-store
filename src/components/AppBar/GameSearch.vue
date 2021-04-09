@@ -24,7 +24,7 @@ import Vue from 'vue';
 import fs from 'fs';
 
 // @ts-ignore
-import {get} from '@/modules/config';
+import {get} from '@/modules/config.ts';
 
 import {GameBus} from '@/event-bus';
 
@@ -52,19 +52,19 @@ export default Vue.extend({
             if (val != null) this.tab = 0;
             else this.tab = 0;
         },
-        search(): void {
+        async search(): Promise<void> {
             // Items have already been loaded
             if (this.items.length > 0) return;
-
             this.isLoading = true;
 
-            fs.readFile(get().gamesList.path, 'UTF-8', (err, data) => {
-                const games: object = JSON.parse(data)['list'];
+            const config: {gamesList: File} | any = get();
 
-                this.items = games;
+            const path = await import('path');
 
-                this.isLoading = false;
-            });
+            const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
+            const games: object = JSON.parse(data)['list'];
+            this.items = games;
+            this.isLoading = false;
         },
     },
 });

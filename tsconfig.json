@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/downloader/helper.js"  ],
   "exclude": [
     "node_modules"
   ]

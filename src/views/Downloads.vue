@@ -14,7 +14,6 @@ import Vue from 'vue';
 
 import DownloadItemCard from '@/components/DownloadItemCard.vue';
 import GameOverview from '@/components/GameOverview.vue';
-
 import {getDownloads} from '@/downloader/event-bus';
 
 export default Vue.extend({
@@ -25,8 +24,13 @@ export default Vue.extend({
         GameOverview,
         DownloadItemCard,
     },
+
     created() {
-        this.downloads = getDownloads();
+        const newDownloads = getDownloads();
+        newDownloads.forEach((item, i) => {
+            Vue.set(this.downloads, i, item);
+        });
+        console.log(this.downloads);
     },
 });
 </script>
