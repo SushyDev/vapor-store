@@ -1,6 +1,17 @@
 {
   "name": "vapor-store-vue",
-  "version": "0.1.2",
+  "version": "2.1.0-alpha-1",
+  "description": "Vapor Store",
+  "author": "SushyDev",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/SushyDev/vapor-store",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SushyDev/vapor-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SushyDev/vapor-store"
+  },
   "main": "background.js",
   "scripts": {
     "start": "npm run serve",

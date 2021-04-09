@@ -56,7 +56,7 @@ async function downloadProcess(url: string, index: number) {
     const downloaderOptions = {
         method: 'GET',
         override: true,
-        progressThrottle: 250, // interval time of the 'progress.throttled' event will be emitted
+        progressThrottle: 100,
     };
 
     // ? Instanciate downloader
@@ -74,7 +74,7 @@ async function downloadProcess(url: string, index: number) {
         const values: number[] = downloads[index]['values'];
 
         values.push(mbs);
-        if (values.length >= 11) values.shift();
+        if (values.length >= 51) values.shift();
         downloads[index]['values'] = values;
 
         downloads[index] = {...downloads[index], values, progress: stats.progress};
