@@ -14,7 +14,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "fs": "^0.0.1-security",
-    "node-downloader-helper": "^1.0.17",
+    "node-downloader-helper": "^1.0.18",
     "puppeteer": "^8.0.0",
     "puppeteer-core": "^8.0.0",
     "puppeteer-in-electron": "^3.0.3",
