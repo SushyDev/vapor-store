@@ -27,7 +27,12 @@ export async function download(game: object | any) {
 
     // ? Fetch download url
     const {fetchDownload} = await import('./fetch');
-    const downloadURL = await fetchDownload(game.url);
+
+    const downloadURL = await fetchDownload(game.url).catch((err) => {
+        console.error(`Error fetching ${game.url}`);
+        console.error(err);
+        return null;
+    });
 
     // # If no download url
     if (!downloadURL) {
@@ -77,19 +82,18 @@ async function downloadProcess(url: string, index: number) {
     // ? Instanciate downloader
     const dl = new DownloaderHelper(url, itemDownloadDir, downloaderOptions);
 
+    // ? Append downloader process to the game object
+    downloads[index] = {...downloads[index], dl};
+
     // ? Download events
     dl.on('download', (downloadInfo: object | any) => onDownload(downloadInfo));
     dl.on('stateChanged', (state: object | any) => onChange(state));
     dl.on('progress.throttled', (stats: object | any) => onProgress(stats));
     dl.on('end', (downloadInfo: object | any) => onEnd(downloadInfo));
 
-    function onDownload(downloadInfo: object | any) {
-        downloads[index] = {...downloads[index], stop: false, pause: false};
-    }
+    function onDownload(downloadInfo: object | any) {}
 
     function onProgress(stats: object | any) {
-        if (downloads[index].stop) dl.stop();
-
         const mbs: number = stats.speed / (1024 * 1024);
         const progress: number[] = downloads[index].progress;
         const values: number[] = downloads[index].values;
@@ -121,12 +125,15 @@ async function downloadProcess(url: string, index: number) {
     }
 
     function onFinished() {
-        downloads[index] = {...downloads[index], removed: true}
+        downloads[index] = {...downloads[index], removed: true};
         removeFromDownloads(index);
     }
 
     // ? Start download
-    dl.start().catch((err: any) => console.error(err));
+    dl.start().catch((err: any) => {
+        console.error(`Something went wrong downloading ${downloads[index].name}`);
+        console.error(err);
+    });
 }
 
 // # Add game to download arrays
@@ -148,7 +155,7 @@ function removeFromDownloads(index: number) {
 export function cancel(game: object | any) {
     const index: number = downloads.findIndex((download) => download.metadata.id === game.metadata.id);
 
-    downloads[index].stop = true;
+    downloads[index].dl.stop();
 
     console.log('cancel', game);
 }

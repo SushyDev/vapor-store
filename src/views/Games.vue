@@ -54,6 +54,9 @@ export default Vue.extend({
         globalLoading: false as boolean,
         loading: false as boolean,
         categories: [] as string[],
+        errorTitle: '' as string,
+        error: '' as string,
+        worker: null as Worker | null,
     }),
     methods: {
         async openGame(game: object | any) {
@@ -87,21 +90,27 @@ export default Vue.extend({
             const config: {gamesList: File} | any = get();
             const path = await import('path');
 
+            if (config.downloadDir === '') {
+                this.errorTitle = "You haven't selected a download folder yet";
+                this.error = 'Please select one in the settings';
+                this.dialog = true;
+            }
+
             try {
-                const worker = new Worker('@/modules/categories.worker.ts', {type: 'module'});
                 const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
                 const games: object = JSON.parse(data)['list'];
 
-                worker.onmessage = (event) => {
+                this.worker!.onmessage = (event) => {
                     const game = JSON.parse(event.data);
                     const inList = categories.find((category: any) => category.name == game.metadata.genres[0].name);
                     inList.games.push(game);
                 };
 
-                worker.postMessage({games, categories});
+                this.worker!.postMessage({games, categories});
             } catch (err) {
-                console.error('Something went wrong loading the games list');
                 console.error(err);
+                this.errorTitle = 'Error loading games list';
+                this.error = 'You might need to select/reselect the JSON file in the settings';
                 this.dialog = true;
                 return;
             }
@@ -123,10 +132,15 @@ export default Vue.extend({
         const response: any = await request.json();
 
         this.loadCategories(response.results);
+
+        // ? Setup new worker
+        this.worker = new Worker('@/modules/categories.worker', {type: 'module'});
     },
     beforeRouteLeave(to, from, next) {
-        // # Switch back to default app bar
+        // ? Switch back to default app bar
         this.$emit('navType', 0);
+        // ? Terminate webworker
+        this.worker!.terminate();
         setLoading(false);
         next();
     },

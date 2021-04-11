@@ -75,20 +75,25 @@ export const initialize = function(): void {
 export const get = (): object => JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
 
 // # Add item to config
-export const setItem = (newItem: object): object => {
-    const config: object = JSON.parse(fs.readFileSync(vaporConfig(), 'UTF-8'));
-    const newConfig: object = {...config, ...newItem};
+export const setItem = (newItem: object) => {
+    try {
+        const data = fs.readFileSync(vaporConfig(), 'UTF-8');
+        const config: object = JSON.parse(data);
+        const newConfig: object = {...config, ...newItem};
 
-    updateConfig(newConfig);
-    return newConfig;
+        updateConfig(newConfig);
+    } catch (err) {
+        console.error('Something went wrong updating the config');
+        console.error(err);
+    }
 };
 
 // # Overwrite entire config with content
-function updateConfig(content: object) {
-    fs.writeFile(vaporConfig(), JSON.stringify(content), 'UTF-8', (err: Error) => {
-        if (err) {
-            console.error('Something went wrong updating the config');
-            console.error(err);
-        }
-    });
+async function updateConfig(content: object) {
+    try {
+        await fs.writeFileSync(vaporConfig(), JSON.stringify(content), 'UTF-8');
+    } catch (err) {
+        console.error('Something went wrong updating the config');
+        console.error(err);
+    }
 }
