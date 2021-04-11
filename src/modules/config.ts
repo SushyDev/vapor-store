@@ -67,8 +67,7 @@ export const initialize = function(): void {
             return;
         }
 
-        // # Tell IPCMain app is done loading
-        setTimeout(() => ipcRenderer.send('loaded', true), 350);
+        setTimeout(() => ipcRenderer.send('loaded'), 50);
     }
 };
 
