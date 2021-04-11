@@ -14,7 +14,7 @@ export const vaporConfig = (): string => path.join(configFolder(), 'config.json'
 
 // # Startup checks
 export const initialize = function(): void {
-    const defaults: object = {downloadDir: '/home/sushy/' as string, darkMode: true as boolean, optBeta: false as boolean, autoExtract: true as boolean};
+    const defaults: object = {downloadDir: '' as string, darkMode: true as boolean, optBeta: false as boolean, autoExtract: true as boolean};
 
     // # Check if config folder exists
     if (!fs.existsSync(configFolder())) {

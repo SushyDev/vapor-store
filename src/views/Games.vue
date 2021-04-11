@@ -6,10 +6,8 @@
             <v-row justify="center">
                 <v-dialog v-model="dialog" persistent max-width="350">
                     <v-card>
-                        <v-card-title class="headline">
-                            Error loading games list
-                        </v-card-title>
-                        <v-card-text>You might need to select/reselect the JSON file in the settings</v-card-text>
+                        <v-card-title class="headline" v-text="errorTitle"> </v-card-title>
+                        <v-card-text v-text="error"></v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="red darken-1" text @click="fix">
@@ -48,6 +46,8 @@ export default Vue.extend({
         selectedGame: null as object | null,
         globalLoading: false as boolean,
         loading: false as boolean,
+        errorTitle: '' as string,
+        error: '' as string,
     }),
     methods: {
         async openGame(game: object | any) {
@@ -88,9 +88,14 @@ export default Vue.extend({
         const config: {gamesList: File} | any = get();
         const path = await import('path');
 
+        // ! Implement check to see if folder still exists
+        if (config?.downloadDir === '') {
+            this.errorTitle = "You haven't selected a download folder yet";
+            this.error = 'Please select one in the settings';
+            this.dialog = true;
+        }
         try {
             const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
-
             const games: object = JSON.parse(data)['list'].slice(0, 10);
 
             for (let [i, game] of Object.entries(games)) {
@@ -104,6 +109,8 @@ export default Vue.extend({
         } catch (err) {
             console.error('Something went wrong loading the games list');
             console.error(err);
+            this.errorTitle = 'Error loading games list';
+            this.error = 'You might need to select/reselect the JSON file in the settings';
             this.dialog = true;
             return;
         }
