@@ -82,30 +82,25 @@ export default Vue.extend({
         async loadCategories(categories: any) {
             this.categories = categories;
 
-            categories.forEach((category: any) => {
-                category.games = [];
-            });
+            // ? Empty listed games to fill with own list
+            categories.forEach((category: any) => (category.games = []));
 
             const {get} = await import('@/modules/config');
             const config: {gamesList: File} | any = get();
             const path = await import('path');
 
             try {
+                const worker = new Worker('@/modules/categories.worker.ts', {type: 'module'});
                 const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
                 const games: object = JSON.parse(data)['list'];
 
-                for (let [i, game] of Object.entries(games)) {
-                    try {
-                        const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
-                        const returned = await request.json();
-                        game = {...game, metadata: returned.results[0]};
+                worker.onmessage = (event) => {
+                    const game = JSON.parse(event.data);
+                    const inList = categories.find((category: any) => category.name == game.metadata.genres[0].name);
+                    inList.games.push(game);
+                };
 
-                        const inList = categories.find((category: any) => category.name == game.metadata.genres[0].name);
-                        inList.games.push(game);
-                    } catch (err) {
-                        // ! It is normal for some errors to happen here
-                    }
-                }
+                worker.postMessage({games, categories});
             } catch (err) {
                 console.error('Something went wrong loading the games list');
                 console.error(err);
