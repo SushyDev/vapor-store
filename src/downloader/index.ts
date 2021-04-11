@@ -111,6 +111,18 @@ async function downloadProcess(url: string, index: number) {
 
     function onChange(state: object | any) {
         console.warn(downloads[index].name, ' State: ', state);
+
+        switch (state) {
+            case 'FINISHED':
+                onFinished();
+            case 'STOPPED':
+                onFinished();
+        }
+    }
+
+    function onFinished() {
+        downloads[index] = {...downloads[index], removed: true}
+        removeFromDownloads(index);
     }
 
     // ? Start download
@@ -121,7 +133,7 @@ async function downloadProcess(url: string, index: number) {
 function addToDownloads(game: object | any) {
     ids.push(game.metadata.id);
 
-    game = {...game, values: [0], progress: [0]};
+    game = {...game, values: [0], progress: [0], removed: [false]};
 
     downloads.push(game);
 }

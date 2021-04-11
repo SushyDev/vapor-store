@@ -1,8 +1,8 @@
 <template>
     <v-responsive class="search" max-width="50vw">
-        <v-autocomplete v-model="model" :items="items" :loading="isLoading" :search-input.sync="search" prepend-inner-icon="mdi-magnify" class="rounded-lg" item-text="name" item-value="symbol" color="secondary" label="Search..." clearable hide-details hide-selected flat hide-no-data solo-inverted dark cache-items>
+        <v-autocomplete v-model="model" :items="items" :loading="isLoading" :search-input.sync="search" prepend-inner-icon="mdi-magnify" class="rounded-lg" item-text="name" item-value="symbol" color="secondary" label="Search..." clearable hide-details hide-selected flat hide-no-data solo-inverted dark auto-select-first cache-items>
             <template v-slot:item="{item}">
-                <v-responsive max-width="fit-content" @click="selectGame(item)">
+                <v-responsive max-width="fit-content">
                     <v-list-item>
                         <v-list-item-avatar color="secondary" class="headline font-weight-light text-uppercase white--text">
                             {{ item.name.charAt(0) }}
@@ -46,9 +46,11 @@ export default Vue.extend({
         },
     },
     watch: {
-        model(val: string): void {
+        model(val: any, a: any): void {
             if (val != null) this.tab = 0;
             else this.tab = 0;
+            const game = this.items.find((item: any) => item.name === val);
+            this.selectGame(game);
         },
 
         // # On search load games list

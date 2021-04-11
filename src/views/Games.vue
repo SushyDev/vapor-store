@@ -22,10 +22,17 @@
         </template>
 
         <v-container fluid>
-            <v-row no-gutters>
-                <v-col v-for="(game, i) in games" :key="game.name" class="d-flex justify-center">
-                    <GameCard @openGame="openGame" :loading.sync="loading" :game.sync="games[i]"></GameCard>
-                </v-col>
+            <v-row no-gutters v-for="category in categories" :key="category.id">
+                <v-expand-transition>
+                    <v-container v-if="category.games.length !== 0" class="mt-8" fluid>
+                        <h1 v-text="category.name"></h1>
+                        <v-slide-group show-arrows>
+                            <v-slide-item v-for="(game, i) in category.games" :key="game.name">
+                                <GameCard @openGame="openGame" :loading.sync="loading" :game.sync="category.games[i]"></GameCard>
+                            </v-slide-item>
+                        </v-slide-group>
+                    </v-container>
+                </v-expand-transition>
             </v-row>
         </v-container>
     </div>
@@ -48,6 +55,7 @@ export default Vue.extend({
         selectedGame: null as object | null,
         globalLoading: false as boolean,
         loading: false as boolean,
+        categories: [] as string[],
     }),
     methods: {
         async openGame(game: object | any) {
@@ -71,42 +79,57 @@ export default Vue.extend({
         fix() {
             this.$router.push('/settings');
         },
+        async loadCategories(categories: any) {
+            this.categories = categories;
+
+            categories.forEach((category: any) => {
+                category.games = [];
+            });
+
+            const {get} = await import('@/modules/config');
+            const config: {gamesList: File} | any = get();
+            const path = await import('path');
+
+            try {
+                const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
+                const games: object = JSON.parse(data)['list'];
+
+                for (let [i, game] of Object.entries(games)) {
+                    try {
+                        const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
+                        const returned = await request.json();
+                        game = {...game, metadata: returned.results[0]};
+
+                        const inList = categories.find((category: any) => category.name == game.metadata.genres[0].name);
+                        inList.games.push(game);
+                    } catch (err) {
+                        // ! It is normal for some errors to happen here
+                    }
+                }
+            } catch (err) {
+                console.error('Something went wrong loading the games list');
+                console.error(err);
+                this.dialog = true;
+                return;
+            }
+
+            setLoading(false);
+        },
     },
     components: {
         GameCard,
         GameOverview,
     },
     async created() {
-        setLoading(true);
-
         this.$emit('navType', 1);
 
         LoadingBus.$on('loading', this.toggleLoading);
         GameBus.$on('openGame', this.openGame);
 
-        const {get} = await import('@/modules/config');
-        const config: {gamesList: File} | any = get();
-        const path = await import('path');
+        const request: Response = await fetch('https://api.rawg.io/api/genres');
+        const response: any = await request.json();
 
-        try {
-            const data = await fs.readFileSync(path.resolve(config?.gamesList?.path), {encoding: 'utf8'});
-
-            const games: object = JSON.parse(data)['list'].slice(0, 10);
-
-            for (let [i, game] of Object.entries(games)) {
-                const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
-                const returned = await request.json();
-                game = {...game, metadata: returned.results[0]};
-
-                this.games.push(game);
-            }
-            setLoading(false);
-        } catch (err) {
-            console.error('Something went wrong loading the games list');
-            console.error(err);
-            this.dialog = true;
-            return;
-        }
+        this.loadCategories(response.results);
     },
     beforeRouteLeave(to, from, next) {
         // # Switch back to default app bar
