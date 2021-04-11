@@ -20,18 +20,17 @@ async function spawnMain() {
             nodeIntegration: (process.env.ELECTRON_NODE_INTEGRATION as unknown) as boolean,
         },
     });
-    
+
     win.setMenuBarVisibility(false);
-    
+
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
-        
+
         // if (!process.env.IS_TEST) win.webContents.openDevTools();
     } else {
-        createProtocol('app');
-        win.loadURL('app://./index.html/');
+        win.loadURL('app://./index.html');
     }
-    
+
     return win;
 }
 
@@ -51,6 +50,7 @@ async function spawnLoading() {
         // Load the url of the dev server if in development mode
         await win.loadURL('http://localhost:1234/loading.html');
     } else {
+        createProtocol('app');
         win.loadURL('app://./loading.html');
     }
 
