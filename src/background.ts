@@ -13,7 +13,7 @@ async function spawnMain() {
         frame: false,
         minWidth: 990,
         minHeight: 670,
-        show: true,
+        show: false,
         icon: 'public/favicon.png',
         webPreferences: {
             enableRemoteModule: true,
