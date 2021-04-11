@@ -17,6 +17,7 @@
     "start": "npm run serve",
     "serve": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build --win nsis",
+    "getdeps": "npm i",
     "web:serve": "vue-cli-service serve",
     "web:build": "vue-cli-service build",
     "postinstall": "electron-builder install-app-deps",
