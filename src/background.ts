@@ -9,12 +9,11 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true, standard: true}}]);
 
 async function spawnMain() {
-    // Create the browser window.
     const win = new BrowserWindow({
         frame: false,
         minWidth: 990,
         minHeight: 670,
-        show: false,
+        show: true,
         icon: 'public/favicon.png',
         webPreferences: {
             enableRemoteModule: true,
@@ -25,14 +24,12 @@ async function spawnMain() {
     win.setMenuBarVisibility(false);
     
     if (process.env.WEBPACK_DEV_SERVER_URL) {
-        // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
         
         // if (!process.env.IS_TEST) win.webContents.openDevTools();
     } else {
         createProtocol('app');
-        // Load the index.html when not in development
-        win.loadURL('app://./index.html');
+        win.loadURL('app://./index.html/');
     }
     
     return win;
@@ -63,20 +60,17 @@ async function spawnLoading() {
 app.on('window-all-closed', () => app.quit());
 
 const startApp = async () => {
-    const main = await spawnMain();
     const loading = await spawnLoading();
+    const main = await spawnMain();
 
     checkForSingleInstance(main);
 
     ipcMain.once('loaded', () => {
-        main.show();
         loading.close();
+        main.show();
     });
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
     if (isDevelopment && !process.env.IS_TEST) {
         // Install Vue Devtools
@@ -87,10 +81,9 @@ app.on('ready', async () => {
         }
     }
 
-    setTimeout(() => startApp(), process.platform == 'linux' ? 1000 : 0);
+    setTimeout(() => startApp(), process.platform === 'linux' ? 1000 : 0);
 });
 
-// Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
     process.on('SIGTERM', () => {
         app.quit();
