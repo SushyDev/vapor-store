@@ -1,6 +1,6 @@
 {
   "name": "vapor-store-vue",
-  "version": "2.1.0-alpha-1",
+  "version": "2.1.0-alpha-2",
   "description": "Vapor Store",
   "author": "SushyDev",
   "license": "GPL-3.0",
@@ -17,6 +17,7 @@
     "start": "npm run serve",
     "serve": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build --win nsis",
+    "getdeps": "npm i",
     "web:serve": "vue-cli-service serve",
     "web:build": "vue-cli-service build",
     "postinstall": "electron-builder install-app-deps",
@@ -53,6 +54,7 @@
     "vue-cli-plugin-electron-builder": "~2.0.0-rc.6",
     "vue-cli-plugin-vuetify": "~2.3.1",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vuetify-loader": "^1.7.0",
+    "worker-plugin": "^5.0.0"
   }
 }

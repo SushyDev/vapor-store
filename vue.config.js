@@ -1,3 +1,4 @@
+const WorkerPlugin = require('worker-plugin');
 module.exports = {
     transpileDependencies: ['vuetify'],
     pluginOptions: {
@@ -36,5 +37,8 @@ module.exports = {
     devServer: {
         disableHostCheck: true,
         port: '1234',
+    },
+    configureWebpack: {
+        plugins: [new WorkerPlugin()],
     },
 };

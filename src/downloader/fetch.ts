@@ -10,61 +10,58 @@ export const fetchDownload = async (url: string) => {
 
     const getPath = () => (process.platform == 'linux' ? puppeteer.executablePath().replace('/electron/', '/puppeteer/') : puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked'));
 
-    const browser = await puppeteer.launch({executablePath: getPath()});
+    const browser = await puppeteer.launch({executablePath: getPath()}).catch((err: Error) => onError(err, url));
 
-    const page = await browser.newPage();
+    const page = await browser.newPage().catch((err: Error) => onError(err, url));
 
-    try {
-        await page.goto(url);
+    await page.goto(url).catch((err: Error) => onError(err, url));
 
-        // ? Wait for download button visible
-        await page.waitForSelector('.btn-download', {visible: true});
-    } catch (timeout) {}
+    // ? Wait for download button visible
+    await page.waitForSelector('.btn-download', {visible: true}).catch((err: Error) => onError(err, url));
 
     // ? Change button to redirect, then click
-    await page.evaluate(() => {
-        try {
+    await page
+        .evaluate(() => {
             // @ts-ignore
             const button: HTMLAnchorElement = document.querySelector('.btn-download')!;
             button.target = '_self';
             button.click();
-        } catch (err) {}
-        return;
-    });
+            return;
+        })
+        .catch((err: Error) => onError(err, url));
 
-    try {
-        // ? Wait until upload heaven loaded
-        await page.waitForNavigation({waitUntil: 'networkidle0'});
-        // ? Wait for 5 second cooldown
-        await page.waitForSelector('#downloadNowBtn', {visible: true});
-    } catch (timeout) {}
+    // ? Wait until upload heaven loaded
+    await page.waitForNavigation({waitUntil: 'networkidle0'}).catch((err: Error) => onError(err, url));
+    // ? Wait for 5 second cooldown
+    await page.waitForSelector('#downloadNowBtn', {visible: true}).catch((err: Error) => onError(err, url));
 
     // ? Click download button
-    await page.evaluate(() => {
-        try {
+    await page
+        .evaluate(() => {
             // @ts-ignore
             const button: HTMLButtonElement = document.querySelector('#downloadNowBtn')!;
             button.click();
             return;
-        } catch (e) {}
-    });
+        })
+        .catch((err: Error) => onError(err, url));
 
-    try {
-        // ? Wait for redirect
-        await page.waitForNavigation({waitUntil: 'networkidle0'});
-    } catch (timeout) {}
+    // ? Wait for redirect
+    await page.waitForNavigation({waitUntil: 'networkidle0'}).catch((err: Error) => onError(err, url));
 
     // ? Get download URL from 'here' button
-    const downloadURL = await page.evaluate(() => {
-        try {
-            return document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href;
-        } catch (err) {}
-    });
+    const downloadURL: string | null = await page
+        .evaluate(() => {
+            return document.getElementsByClassName('alert-success')[0].getElementsByTagName('a')[0].href || null;
+        })
+        .catch((err: Error) => onError(err, url));
 
-    await browser.close();
-
-    console.log(downloadURL);
+    await browser.close().catch((err: Error) => onError(err, url));
 
     // ? Close chromium instance
     return downloadURL;
 };
+
+function onError(err: Error, url: string) {
+    console.error(`Error fetching ${url}`);
+    console.error(err);
+}
