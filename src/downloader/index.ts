@@ -53,7 +53,10 @@ export async function download(game: object | any) {
     }
 
     // ? Start download
-    downloadProcess(downloadURL, index);
+    downloadProcess(downloadURL, index).catch((err) => {
+        console.error(`Something went wrong downloading ${game.name}`);
+        console.error(err);
+    });
 }
 
 /*
@@ -94,19 +97,24 @@ async function downloadProcess(url: string, index: number) {
     function onDownload(downloadInfo: object | any) {}
 
     function onProgress(stats: object | any) {
-        const mbs: number = stats.speed / (1024 * 1024);
-        const progress: number[] = downloads[index].progress;
-        const values: number[] = downloads[index].values;
+        try {
+            const mbs: number = stats.speed / (1024 * 1024);
+            const progress: number[] = downloads[index].progress;
+            const values: number[] = downloads[index].values;
 
-        values.push(mbs);
-        if (values.length >= 51) values.shift();
+            values.push(mbs);
+            if (values.length >= 51) values.shift();
 
-        // ! Strange hack to make progress reactive state
-        progress.shift();
-        progress.push(stats.progress);
+            // ! Strange hack to make progress reactive state
+            progress.shift();
+            progress.push(stats.progress);
 
-        // ? Push changes
-        downloads[index] = {...downloads[index], values, progress};
+            // ? Push changes
+            downloads[index] = {...downloads[index], values, progress};
+        } catch (err) {
+            console.error(`Something went wrong updating download progress for ${downloads[index].name}`);
+            console.error(err);
+        }
     }
 
     function onEnd(downloadInfo: object | any) {
@@ -117,8 +125,6 @@ async function downloadProcess(url: string, index: number) {
         console.warn(downloads[index].name, ' State: ', state);
 
         switch (state) {
-            case 'FINISHED':
-                onFinished();
             case 'STOPPED':
                 onFinished();
         }
@@ -163,6 +169,10 @@ export function cancel(game: object | any) {
 // # Pause/Continue download
 export function pause(game: object | any) {
     const index: number = downloads.findIndex((download) => download.metadata.id === game.metadata.id);
+
+    downloads[index].dl.pause();
+
+    setTimeout(() => downloads[index].dl.resume(), 1000);
 
     console.log('pause', game);
 }
