@@ -30,7 +30,7 @@
         <v-navigation-drawer v-model="drawer" app>
             <template v-slot:prepend>
                 <div class="px-2 py-3">
-                    <v-btn color="secondary" block>
+                    <v-btn color="secondary" @click="require('electron').shell.openExternal('https://discord.gg/ZjDTpmf')" block>
                         Join the Discord
                     </v-btn>
                 </div>
@@ -67,7 +67,7 @@ const {BrowserWindow} = require('electron').remote;
 
 import SearchBar from '@/components/AppBar/GameSearch.vue';
 
-import SnackBar from '@/components/services/Snackbar.vue';
+import SnackBar from '@/components/Services/Snackbar.vue';
 
 export default Vue.extend({
     data: () => ({

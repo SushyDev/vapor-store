@@ -25,7 +25,7 @@
                     <v-container v-if="category.games.length !== 0" class="mt-8" fluid>
                         <h1 v-text="category.name"></h1>
                         <v-slide-group show-arrows>
-                            <v-slide-item v-for="(game, i) in category.games" :key="game.name">
+                            <v-slide-item v-for="(game, i) in category.games" :key="game.metadata.id">
                                 <GameCard @openGame="openGame" :loading.sync="loading" :game.sync="category.games[i]"></GameCard>
                             </v-slide-item>
                         </v-slide-group>
@@ -43,15 +43,13 @@ import fs from 'fs';
 import GameCard from '@/components/Games/GameCard.vue';
 import GameOverview from '@/components/Games/GameOverview.vue';
 
-import {GameBus, LoadingBus, setLoading} from '@/event-bus';
+import {GameBus, setLoading} from '@/event-bus';
 
 export default Vue.extend({
     name: 'Library',
     data: () => ({
-        games: [] as object[],
         dialog: false as boolean,
         selectedGame: null as object | null,
-        globalLoading: false as boolean,
         loading: false as boolean,
         categories: [] as string[],
         errorTitle: '' as string,
@@ -73,9 +71,6 @@ export default Vue.extend({
             this.selectedGame = game;
             this.loading = false;
             setLoading(false);
-        },
-        toggleLoading(show: boolean) {
-            this.globalLoading = show;
         },
         fix() {
             this.$router.push('/settings');
@@ -101,9 +96,11 @@ export default Vue.extend({
                 const games: object = JSON.parse(data)['list'];
 
                 this.worker!.onmessage = (event) => {
-                    const game = JSON.parse(event.data);
-                    const inList = categories.find((category: any) => category.name == game.metadata.genres[0].name);
-                    inList.games.push(game);
+                    try {
+                        const game = JSON.parse(event.data);
+                        const list = categories.find((category: any) => category.name == game.metadata.genres[0].name);
+                        list.games.push(game);
+                    } catch (e) {}
                 };
 
                 this.worker!.postMessage({games, categories});
@@ -125,7 +122,6 @@ export default Vue.extend({
     async created() {
         this.$emit('navType', 1);
 
-        LoadingBus.$on('loading', this.toggleLoading);
         GameBus.$on('openGame', this.openGame);
 
         const request: Response = await fetch('https://api.rawg.io/api/genres');
@@ -134,7 +130,7 @@ export default Vue.extend({
         this.loadCategories(response.results);
 
         // ? Setup new worker
-        this.worker = new Worker('@/modules/categories.worker', {type: 'module'});
+        this.worker = new Worker('@/workers/categories.worker', {type: 'module'});
     },
     beforeRouteLeave(to, from, next) {
         // ? Switch back to default app bar

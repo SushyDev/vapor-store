@@ -4,12 +4,14 @@ ctx.addEventListener('message', async (event) => {
 
     for (let [i, game] of Object.entries(games)) {
         try {
+            if (!game.name) return;
             const request = await fetch(`https://api.rawg.io/api/games?search=${game.name}`);
             const returned = await request.json();
             game = {...game, metadata: returned.results[0]};
             ctx.postMessage(JSON.stringify(game));
         } catch (err) {
             // ! It is normal for some errors to happen here
+            return;
         }
     }
 });
