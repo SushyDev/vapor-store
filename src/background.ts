@@ -3,7 +3,7 @@
 import {app, protocol, BrowserWindow, ipcMain} from 'electron';
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer';
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== 'production';
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true, standard: true}}]);
@@ -14,6 +14,7 @@ async function spawnMain() {
         minWidth: 990,
         minHeight: 670,
         show: false,
+        paintWhenInitiallyHidden: true,
         icon: 'public/favicon.png',
         webPreferences: {
             enableRemoteModule: true,
@@ -43,8 +44,10 @@ async function spawnLoading() {
         icon: 'public/favicon.png',
     });
 
+    win.setIgnoreMouseEvents(true);
     win.setMenuBarVisibility(false);
     win.setResizable(false);
+    win.focus();
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
@@ -63,16 +66,15 @@ const startApp = async () => {
     const loading = await spawnLoading();
     const main = await spawnMain();
 
-    checkForSingleInstance(main);
-
     ipcMain.once('loaded', () => {
         loading.close();
         main.show();
     });
+    checkForSingleInstance(main);
 };
 
 app.on('ready', async () => {
-    if (isDevelopment && !process.env.IS_TEST) {
+    if (isDev && !process.env.IS_TEST) {
         // Install Vue Devtools
         try {
             await installExtension(VUEJS_DEVTOOLS);
@@ -84,14 +86,14 @@ app.on('ready', async () => {
     setTimeout(() => startApp(), process.platform === 'linux' ? 1000 : 0);
 });
 
-if (isDevelopment) {
+if (isDev) {
     process.on('SIGTERM', () => {
         app.quit();
     });
 }
 
+// # Make app single instance
 function checkForSingleInstance(window: any) {
-    // # Make app single instance
     const SingleInstance = app.requestSingleInstanceLock();
     if (!SingleInstance) {
         app.quit();

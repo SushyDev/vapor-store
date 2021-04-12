@@ -67,7 +67,8 @@ export const initialize = function(): void {
             return;
         }
 
-        setTimeout(() => ipcRenderer.send('loaded'),  process.platform === 'linux' ? 350 : 50);
+        // ? Wait 50ms for IPCMain to start listening
+        setTimeout(() => ipcRenderer.send('loaded'), 50);
     }
 };
 
