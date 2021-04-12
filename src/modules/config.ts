@@ -67,6 +67,7 @@ export const initialize = function(): void {
             return;
         }
 
+        // ? Wait 50ms for IPCMain to start listening
         setTimeout(() => ipcRenderer.send('loaded'), 50);
     }
 };
