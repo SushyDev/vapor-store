@@ -96,11 +96,13 @@ export default Vue.extend({
                 const games: object = JSON.parse(data)['list'];
 
                 this.worker!.onmessage = (event) => {
-                    try {
-                        const game = JSON.parse(event.data);
-                        const list = categories.find((category: any) => category.name == game.metadata.genres[0].name);
-                        list.games.push(game);
-                    } catch (e) {}
+                    if (event.data === 'done') {
+                        console.log('Done');
+                        this.worker!.terminate();
+                        return;
+                    }
+
+                    this.categories = event.data;
                 };
 
                 this.worker!.postMessage({games, categories});

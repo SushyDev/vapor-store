@@ -5,7 +5,7 @@ import {createProtocol} from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer';
 const isDev = process.env.NODE_ENV !== 'production';
 
-// Scheme must be registered before the app is ready
+// ? Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true, standard: true}}]);
 
 async function spawnMain() {
@@ -18,6 +18,7 @@ async function spawnMain() {
         icon: 'public/favicon.png',
         webPreferences: {
             enableRemoteModule: true,
+            backgroundThrottling: false,
             nodeIntegration: (process.env.ELECTRON_NODE_INTEGRATION as unknown) as boolean,
         },
     });
@@ -27,7 +28,7 @@ async function spawnMain() {
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
 
-        // if (!process.env.IS_TEST) win.webContents.openDevTools();
+        // ? if (!process.env.IS_TEST) win.webContents.openDevTools();
     } else {
         win.loadURL('app://./index.html');
     }
@@ -50,7 +51,7 @@ async function spawnLoading() {
     win.focus();
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
-        // Load the url of the dev server if in development mode
+        // ? Load the url of the dev server if in development mode
         await win.loadURL('http://localhost:1234/loading.html');
     } else {
         createProtocol('app');
@@ -70,12 +71,13 @@ const startApp = async () => {
         loading.close();
         main.show();
     });
+
     checkForSingleInstance(main);
 };
 
 app.on('ready', async () => {
     if (isDev && !process.env.IS_TEST) {
-        // Install Vue Devtools
+        // ? Install Vue Devtools
         try {
             await installExtension(VUEJS_DEVTOOLS);
         } catch (e) {
