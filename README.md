@@ -1,5 +1,7 @@
 # Vapor Store 2
 
+**NOTE: VAPOR STORE IS NOT WORKING RIGHT NOW DUE TO AN ISSUE THAT AFFECTS ALL VERSIONS OF THE APP. For more updates, watch this respository, or join the Discord below.**
+
 ```diff
 - WARNING: Vapor Store 2 is made to simplify downloading and installing games in a preinstalled format from the internet via a repository/source
 - I'm not responsible for the content of the sources our users may use
